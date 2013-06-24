@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.opengl.GLES20;
 
 public class BglObject {
@@ -20,6 +21,7 @@ public class BglObject {
 	private int w;
 	private int h;
 	private final Bitmap bitmap;
+	public Rect rectangle;
 
 	private final int [] textureHandle = new int [2];
 	
@@ -45,16 +47,18 @@ public class BglObject {
     
 	public BglObject( int x, int y, int w, int h, Context context, int texture_id ){
 
-		this.pos = new Point(x,y);
-		this.anchor = new Point (w/2, h/2);
-		this.speed = new Point(2,2);
-		this.z =0;
+		pos = new Point(x,y);
+		anchor = new Point (w/2, h/2);
+		speed = new Point(2,2);
+		z = 0;
 		
-		this.angle[0] = 0;
-		this.angle[1] = 0;
-		this.angle[2] = 0;
+		angle[0] = 0;
+		angle[1] = 0;
+		angle[2] = 0;
 		this.w = w;
 		this.h = h;
+		
+		rectangle = new Rect( x, y, x + w, y + h );
 		
 		// obj coord for gl TODO TODO TODO
 		ByteBuffer bb = ByteBuffer.allocateDirect( objCoords.length * 4);
@@ -95,6 +99,11 @@ public class BglObject {
 		//TODO  check if parameters are correct?
 		this.w = w;
 		this.h = h;
+		
+		rectangle.left = pos.x;
+		rectangle.top = pos.y;
+		rectangle.right = pos.x + this.w;
+		rectangle.bottom = pos.y + this.h;
 	}
 	
 	public int widthGet() {
@@ -124,6 +133,10 @@ public class BglObject {
 	public void posSet ( Point pos ) {
 		this.pos.x = pos.x;
 		this.pos.y = pos.y;
+		rectangle.left = pos.x;
+		rectangle.top = pos.y;
+		rectangle.right = pos.x + this.w;
+		rectangle.bottom = pos.y + this.h;
 	}
 	
 	public Point speedGet() {

@@ -11,7 +11,9 @@ import com.example.BGL.BglObject;
 
 public class World {
 	private List<BglObject> habitants;
-
+    static private volatile Point touch = new Point(3000,3000);
+    static private Point touchPrev = new Point(3000,300);
+    
 	
 	public World() {
 		this.habitants = new ArrayList<BglObject>();
@@ -29,20 +31,46 @@ public class World {
 		habitants.remove(obj);
 	}
 	
+	public static Point getTouch() {
+		return touch;
+	}
+
+	public static void setTouch( int x, int y ) {
+		touchPrev.y = touch.x;
+		touchPrev.y = touch.y;
+	
+		touch.x = x;
+		touch.y = y;
+	}	
+	
 	public void update() {
 
 		Enumeration<BglObject> e = Collections.enumeration( habitants );
 		
 		while( e.hasMoreElements() ) {
 			BglObject obj = e.nextElement();
-			//update position
 			
 			Point pos = obj.posGet();
 			Point speed = obj.speedGet();
-			
-			int angle_x = obj.angleGet(0);
 			int angle_y = obj.angleGet(1);
 			
+			// Is this fellow object finger touched ?
+			if ( obj.rectangle.contains( touch.x, touch.y ) ) {
+				
+				//System.out.println( "=================>touched!!!!!" );
+				speed.x = speed.x + 10;
+			}
+			
+				
+			// Friction yo
+			if (speed.x > 0) {
+				speed.x -= 1;
+				if (speed.x<0) {
+					speed.x = 0;
+				}
+			}
+			
+			// Update position			
 			if (pos.x > 1200 || pos.x < 0 )
 				speed.x = - speed.x;
 			if (pos.y > 638 || pos.y < 0 )
@@ -52,12 +80,16 @@ public class World {
 			pos.y = pos.y + speed.y;
 			//obj.zSet();
 			
-//			obj.angleSet( 0, angle_x%360 + 1 );
 			obj.angleSet( 1, angle_y%360 + 2 );
 
 			obj.posSet( pos );
 			//update speed
 			// do your shit here
 		}
+		
+		touch.x = 3000;
+		touch.y = 3000;
 	}
+
+
 }

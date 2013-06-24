@@ -1,6 +1,5 @@
 package com.example.helloben;
 
-import java.security.PublicKey;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -58,16 +57,14 @@ class MyGLSurfaceView extends GLSurfaceView {
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
         
         Timer myTimer = new Timer ();
-        TimerTask task= new TimerTask() {
+        TimerTask renderTask= new TimerTask() {
         	public void run() {
+        		
         		requestRender();
         	}
         };
-
         
-        myTimer.scheduleAtFixedRate( task ,100, 10 );
-
-        
+        myTimer.scheduleAtFixedRate( renderTask ,100, 10 );
     }
 
 
@@ -78,8 +75,9 @@ class MyGLSurfaceView extends GLSurfaceView {
         float y = e.getY();
 
         switch (e.getAction()) {
-            case MotionEvent.ACTION_MOVE:
-            	requestRender();
+            case MotionEvent.ACTION_DOWN:
+            	World.setTouch( (int) x, (int) y );
+            	System.out.println( " TOUCHED");
         }
 
         return true;

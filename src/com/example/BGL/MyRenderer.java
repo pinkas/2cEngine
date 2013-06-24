@@ -18,23 +18,26 @@ import android.util.Log;
 
 public class MyRenderer implements GLSurfaceView.Renderer {
 	private Context context;
-	
-	public MyRenderer ( Context context, World mWorld) {
-		super();
-		this.context = context;
-		this.mWorld = mWorld;
-	}
-	
     private static final String TAG = "MyGLRenderer";
     private World mWorld;
     
     private int screen_width;
     private int screen_height;
+    
+    private volatile Point touch;
     	
     private final float[] mProjMatrix = new float[16];
     private final float[] modelMatrix = new float[16];
     private final float[] invM = new float[16];
     private float[] mvp = new float[16];
+
+	public MyRenderer ( Context context, World mWorld) {
+		super();
+		this.context = context;
+		this.mWorld = mWorld;
+		touch = new Point();
+	}
+	
     
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
@@ -45,7 +48,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         BglObject benObj = new BglObject( 0, 0, 200, 200, context, R.drawable.wild );
         BglObject benObj2 = new BglObject( 600, 100, 300, 230, context, R.drawable.pangolin );
         mWorld.addHabitant(benObj);
-        benObj.anchorPointSet( 1, 1 );
+        //benObj.anchorPointSet( 1, 1 );
         mWorld.addHabitant(benObj2);
     }
     
@@ -57,8 +60,6 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     	float x = ( (float) (pos.x + anchor.x) / screen_width )*2 - 1;
         float y = -( ( (float) (pos.y + anchor.y) / screen_height )*2 - 1);
         float z = obj.zGet();
-
-        int angle_y = obj.angleGet(1);
         
         Matrix.invertM(invM, 0, mProjMatrix, 0);
         final float[] farPointNdc = { x, y, z, 1};
@@ -83,7 +84,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         farSizeWorld[2] /= farSizeWorld[3];       
         
         Matrix.translateM(modelMatrix, 0, farPointWorld[0], farPointWorld[1], farPointWorld[2]);     
-        Matrix.rotateM(modelMatrix, 0, angle_y, 0, 1, 1);
+        Matrix.rotateM(modelMatrix, 0, obj.angleGet(1), 0, 0, 1);
         Matrix.scaleM(modelMatrix, 0,  farSizeWorld[0], farSizeWorld[1], farSizeWorld[2] );
         
         Matrix.setIdentityM(mvp, 0);
@@ -132,5 +133,9 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         }
     }
 
+    public void setTouch( int x, int y ) {
+    	touch.x = x;
+    	touch.y = y;
+    }
 
 }
