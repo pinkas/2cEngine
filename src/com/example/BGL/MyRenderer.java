@@ -45,7 +45,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         BglObject benObj = new BglObject( 0, 0, 200, 200, context, R.drawable.wild );
         BglObject benObj2 = new BglObject( 600, 100, 300, 230, context, R.drawable.pangolin );
         mWorld.addHabitant(benObj);
- //       benObj.anchorPointSet( 1, 1 );
+        benObj.anchorPointSet( 1, 1 );
         mWorld.addHabitant(benObj2);
     }
     
@@ -85,7 +85,6 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         Matrix.translateM(modelMatrix, 0, farPointWorld[0], farPointWorld[1], farPointWorld[2]);     
         Matrix.rotateM(modelMatrix, 0, angle_y, 0, 1, 1);
         Matrix.scaleM(modelMatrix, 0,  farSizeWorld[0], farSizeWorld[1], farSizeWorld[2] );
-        //Matrix.rotateM(modelMatrix, 0, angle_y, 0, 1, 1);
         
         Matrix.setIdentityM(mvp, 0);
         Matrix.multiplyMM(mvp, 0, mProjMatrix, 0, modelMatrix, 0);
