@@ -3,6 +3,7 @@ package com.example.helloben;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.example.BGL.InputStatus;
 import com.example.BGL.World;
 import com.example.BGL.MyRenderer;
 
@@ -73,13 +74,17 @@ class MyGLSurfaceView extends GLSurfaceView {
 
         float x = e.getX();
         float y = e.getY();
-
-        switch (e.getAction()) {
+        switch (e.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
-            	World.setTouch( (int) x, (int) y );
-            	System.out.println( " TOUCHED");
+            	InputStatus.setTouchDown((int) x, (int) y);
+            	break;
+            case MotionEvent.ACTION_MOVE:
+            	InputStatus.setTouchMove((int) x, (int) y);
+            	break;
+            case MotionEvent.ACTION_UP:
+            	InputStatus.setTouchUp((int) x, (int) y);
+            	break;
         }
-
         return true;
     }
 }

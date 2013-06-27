@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.opengl.GLES20;
+import android.util.Log;
 
 public class BglObject {
 	
@@ -104,6 +105,20 @@ public class BglObject {
 		rectangle.top = pos.y;
 		rectangle.right = pos.x + this.w;
 		rectangle.bottom = pos.y + this.h;
+	}
+	
+	public void touchDown() {
+		//Log.w( "blah", "blah");
+		System.out.println( "OBJ TOUCH DOWN" );
+	}
+	
+	public void touchUp() {
+		System.out.println("OBJ TOUCH UP");
+	}
+	
+	public void touchMove() {
+		System.out.println("OBJ TOUCH MOVED");
+		z = z + 0.01f;
 	}
 	
 	public int widthGet() {

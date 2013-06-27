@@ -35,13 +35,26 @@ public class World {
 		return touch;
 	}
 
-	public static void setTouch( int x, int y ) {
+	public static void setTouchDown( int x, int y ) {
 		touchPrev.y = touch.x;
 		touchPrev.y = touch.y;
-	
 		touch.x = x;
 		touch.y = y;
-	}	
+	}
+	
+	public static void setTouchUp( int x, int y ) {
+		touchPrev.y = touch.x;
+		touchPrev.y = touch.y;
+		touch.x = x;
+		touch.y = y;
+	}
+	
+	public static void setTouchMove( int x, int y ) {
+		touchPrev.y = touch.x;
+		touchPrev.y = touch.y;
+		touch.x = x;
+		touch.y = y;
+	}
 	
 	public void update() {
 
@@ -54,13 +67,23 @@ public class World {
 			Point speed = obj.speedGet();
 			int angle_y = obj.angleGet(1);
 			
-			// Is this fellow object finger touched ?
-			if ( obj.rectangle.contains( touch.x, touch.y ) ) {
-				
-				//System.out.println( "=================>touched!!!!!" );
-				speed.x = speed.x + 10;
-			}
 			
+			// TODO have different list of objects, some are purely static
+			// some are input sensitive, some are physics ...
+			switch ( InputStatus.getTouchState() ) {
+				case UP:
+					if (obj.rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY()))
+						obj.touchUp();
+						break;
+				case DOWN:
+					if ( obj.rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY()))
+						obj.touchDown();
+						break;
+				case MOVE:
+					if ( obj.rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY()))
+						obj.touchMove();
+						break;
+			}
 				
 			// Friction yo
 			if (speed.x > 0) {
@@ -83,12 +106,13 @@ public class World {
 			obj.angleSet( 1, angle_y%360 + 2 );
 
 			obj.posSet( pos );
-			//update speed
+			// update speed
 			// do your shit here
 		}
 		
-		touch.x = 3000;
-		touch.y = 3000;
+	//	if( InputStatus.getTouchState() == InputStatus.TouchState.UP ) {
+			InputStatus.resetTouch();
+	//	}
 	}
 
 
