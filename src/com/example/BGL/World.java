@@ -30,44 +30,41 @@ public class World {
 	public void removeHabitant( BglObject obj) {
 		habitants.remove(obj);
 	}
-	
+	/*
 	public static Point getTouch() {
 		return touch;
 	}
 
 	public static void setTouchDown( int x, int y ) {
-		touchPrev.y = touch.x;
+		touchPrev.x = touch.x;
 		touchPrev.y = touch.y;
 		touch.x = x;
 		touch.y = y;
 	}
 	
 	public static void setTouchUp( int x, int y ) {
-		touchPrev.y = touch.x;
+		touchPrev.x = touch.x;
 		touchPrev.y = touch.y;
 		touch.x = x;
 		touch.y = y;
 	}
 	
 	public static void setTouchMove( int x, int y ) {
-		touchPrev.y = touch.x;
+		touchPrev.x = touch.x;
 		touchPrev.y = touch.y;
 		touch.x = x;
 		touch.y = y;
 	}
-	
+	*/
 	public void update() {
 
 		Enumeration<BglObject> e = Collections.enumeration( habitants );
 		
 		while( e.hasMoreElements() ) {
 			BglObject obj = e.nextElement();
-			
-			Point pos = obj.posGet();
-			Point speed = obj.speedGet();
-			int angle_y = obj.angleGet(1);
-			
-			
+
+            obj.update();
+
 			// TODO have different list of objects, some are purely static
 			// some are input sensitive, some are physics ...
 			switch ( InputStatus.getTouchState() ) {
@@ -84,35 +81,11 @@ public class World {
 						obj.touchMove();
 						break;
 			}
-				
-			// Friction yo
-			if (speed.x > 0) {
-				speed.x -= 1;
-				if (speed.x<0) {
-					speed.x = 0;
-				}
-			}
-			
-			// Update position			
-			if (pos.x > 1200 || pos.x < 0 )
-				speed.x = - speed.x;
-			if (pos.y > 638 || pos.y < 0 )
-				speed.y = - speed.y;
-			
-			pos.x = pos.x + speed.x;
-			pos.y = pos.y + speed.y;
-			//obj.zSet();
-			
-			obj.angleSet( 1, angle_y%360 + 2 );
 
-			obj.posSet( pos );
-			// update speed
-			// do your shit here
 		}
-		
-	//	if( InputStatus.getTouchState() == InputStatus.TouchState.UP ) {
+
 			InputStatus.resetTouch();
-	//	}
+
 	}
 
 

@@ -45,8 +45,8 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         // Set the background frame color
         glClearColor(0.0f, 0.2f, 0.6f, 0.2f);
 
-        BglObject benObj = new BglObject( 0, 0, 200, 200, context, R.drawable.wild );
-        BglObject benObj2 = new BglObject( 600, 100, 300, 230, context, R.drawable.pangolin );
+        BglObject benObj = new Marble( 0, 0, 200, 200, context, R.drawable.wild );
+        BglObject benObj2 = new Marble( 600, 100, 300, 230, context, R.drawable.pangolin );
         mWorld.addHabitant(benObj);
         //benObj.anchorPointSet( 1, 1 );
         mWorld.addHabitant(benObj2);

@@ -14,13 +14,13 @@ import android.util.Log;
 
 public class BglObject {
 	
-	private Point pos;
+	protected Point pos;
 	private float z;
 	private Point anchor;
 	private int [] angle = new int [3];
-	private Point speed;
-	private int w;
-	private int h;
+	protected Point speed;
+	protected int w;
+	protected int h;
 	private final Bitmap bitmap;
 	public Rect rectangle;
 
@@ -118,7 +118,6 @@ public class BglObject {
 	
 	public void touchMove() {
 		System.out.println("OBJ TOUCH MOVED");
-		z = z + 0.01f;
 	}
 	
 	public int widthGet() {
@@ -153,6 +152,13 @@ public class BglObject {
 		rectangle.right = pos.x + this.w;
 		rectangle.bottom = pos.y + this.h;
 	}
+
+    public void update(){
+        rectangle.left = pos.x;
+        rectangle.top = pos.y;
+        rectangle.right = pos.x + this.w;
+        rectangle.bottom = pos.y + this.h;
+    }
 	
 	public Point speedGet() {
 		return speed;
