@@ -16,13 +16,14 @@ public class BglObject {
 	
 	protected Point pos;
 	private float z;
-	private Point anchor;
+	protected Point anchor;
 	private int [] angle = new int [3];
 	protected Point speed;
 	protected int w;
 	protected int h;
 	private final Bitmap bitmap;
 	public Rect rectangle;
+    protected boolean pressed = false;
 
 	private final int [] textureHandle = new int [2];
 	
@@ -108,18 +109,21 @@ public class BglObject {
 	}
 	
 	public void touchDown() {
-		//Log.w( "blah", "blah");
-		System.out.println( "OBJ TOUCH DOWN" );
 	}
 	
 	public void touchUp() {
-		System.out.println("OBJ TOUCH UP");
 	}
 	
 	public void touchMove() {
-		System.out.println("OBJ TOUCH MOVED");
 	}
-	
+
+    public void touchDownMove(int x, int y){
+    }
+
+    public boolean isPressed(){
+        return pressed;
+    }
+
 	public int widthGet() {
 		return  w;
 	}

@@ -68,13 +68,19 @@ public class World {
 			// TODO have different list of objects, some are purely static
 			// some are input sensitive, some are physics ...
 			switch ( InputStatus.getTouchState() ) {
+                case DOWN:
+                    if ( obj.rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY()))
+                        obj.touchDown();
+                    break;
 				case UP:
-					if (obj.rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY()))
+                    System.out.println("UP UP UP UP ");
+                    if(obj.isPressed()){
+                        System.out.println( InputStatus.getTouchX()  );
+                        obj.touchDownMove(InputStatus.getTouchX(), InputStatus.getTouchY());
+                        break;
+                    }
+					else if (obj.rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY()))
 						obj.touchUp();
-						break;
-				case DOWN:
-					if ( obj.rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY()))
-						obj.touchDown();
 						break;
 				case MOVE:
 					if ( obj.rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY()))

@@ -1,6 +1,7 @@
 package com.example.BGL;
 
 import android.content.Context;
+import android.graphics.Point;
 
 /**
  * Created by Ben on 7/11/13.
@@ -11,6 +12,7 @@ public class Marble extends BglObject {
 
     Marble( int x, int y, int w, int h, Context context, int texture_id  ){
         super( x, y, w, h, context, texture_id );
+        this.anchorPointSet(0.5f,0.5f);
     }
 
     @Override
@@ -26,16 +28,24 @@ public class Marble extends BglObject {
 
     @Override
     public void touchDown() {
-        cpt = 0;
+        pressed = true;
     }
 
     @Override
     public void touchMove() {
-        cpt ++;
+    }
+
+    @Override
+    public void touchDownMove(int px, int py){
+        speed.x = (pos.x - px)/10;
+        speed.y = (pos.y - py)/10;
+
     }
 
     public void touchUp(){
-        speed.x = cpt;
+        System.out.println( "PRESSED FALSE" );
+        pressed = false;
+
     }
 
 }
