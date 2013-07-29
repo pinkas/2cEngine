@@ -37,10 +37,10 @@ public class Marble extends BglObject {
     }
 
     @Override
-    public void touchDownMove(int px, int py){
-        speed.x = (pos.x - px)/10;
-        speed.y = (pos.y - py)/10;
-
+    public void touchUpMove(int px, int py){
+        speed.x = (pos.x - px)/6;
+        speed.y = (pos.y - py)/6;
+        pressed = false;
     }
 
     public void touchUp(){

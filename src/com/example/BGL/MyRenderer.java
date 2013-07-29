@@ -9,6 +9,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import com.example.helloben.Marble;
 import com.example.helloben.R;
+import com.example.helloben.Table;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -46,7 +47,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         // Set the background frame color
         glClearColor(0.0f, 0.2f, 0.6f, 0.2f);
 
-        BglObject benObj = new Marble( 300, 300, 90, 90, context, R.drawable.wild );
+        BglObject benObj = new Marble( 300, 300, 200, 200, context, R.drawable.wild );
   //      BglObject benObj2 = new Marble( 600, 100, 300, 230, context, R.drawable.pangolin );
         mWorld.addHabitant(benObj);
         //benObj.anchorPointSet( 1, 1 );

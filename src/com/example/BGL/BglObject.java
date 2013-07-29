@@ -60,7 +60,7 @@ public class BglObject {
 		this.w = w;
 		this.h = h;
 		
-		rectangle = new Rect( x, y, x + w, y + h );
+		rectangle = new Rect( pos.x-w/2, pos.y-h/2, pos.x + w/2, pos.y + h/2 );
 		
 		// obj coord for gl TODO TODO TODO
 		ByteBuffer bb = ByteBuffer.allocateDirect( objCoords.length * 4);
@@ -101,11 +101,8 @@ public class BglObject {
 		//TODO  check if parameters are correct?
 		this.w = w;
 		this.h = h;
-		
-		rectangle.left = pos.x;
-		rectangle.top = pos.y;
-		rectangle.right = pos.x + this.w;
-		rectangle.bottom = pos.y + this.h;
+
+        rectangle.set(pos.x, pos.y, pos.x + this.w, pos.y + this.h);
 	}
 	
 	public void touchDown() {
@@ -117,7 +114,7 @@ public class BglObject {
 	public void touchMove() {
 	}
 
-    public void touchDownMove(int x, int y){
+    public void touchUpMove(int x, int y){
     }
 
     public boolean isPressed(){
@@ -151,17 +148,11 @@ public class BglObject {
 	public void posSet ( Point pos ) {
 		this.pos.x = pos.x;
 		this.pos.y = pos.y;
-		rectangle.left = pos.x;
-		rectangle.top = pos.y;
-		rectangle.right = pos.x + this.w;
-		rectangle.bottom = pos.y + this.h;
+        rectangle.set(pos.x-w/2, pos.y-h/2, pos.x + w/2, pos.y + h/2);
 	}
 
     public void update(){
-        rectangle.left = pos.x;
-        rectangle.top = pos.y;
-        rectangle.right = pos.x + this.w;
-        rectangle.bottom = pos.y + this.h;
+        rectangle.set(pos.x-w/2, pos.y-h/2, pos.x + w/2, pos.y + h/2);
     }
 	
 	public Point speedGet() {
