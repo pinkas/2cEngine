@@ -19,11 +19,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d37636f-f9b0-43eb-9b51-88ed554d17b8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/example/helloben/Table.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/BGL/BglObject.java" afterPath="$PROJECT_DIR$/src/com/example/BGL/BglObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/helloben/Marble.java" afterPath="$PROJECT_DIR$/src/com/example/helloben/Marble.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/BGL/MyRenderer.java" afterPath="$PROJECT_DIR$/src/com/example/BGL/MyRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/BGL/World.java" afterPath="$PROJECT_DIR$/src/com/example/BGL/World.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Helloben.iws" />
@@ -119,7 +114,11 @@
         <entry file="file://$PROJECT_DIR$/src/com/example/helloben/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="46" column="6" selection-start="1024" selection-end="1024" vertical-scroll-proportion="0.0" vertical-offset="615" max-vertical-offset="1577">
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#1496#1601#0" expanded="false" />
+                <element signature="e#1590#1591#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -470,7 +469,11 @@
       <created>1375097304844</created>
       <updated>1375097304844</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="more shit">
+      <created>1375104319300</created>
+      <updated>1375104319300</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -497,7 +500,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24812594" sideWeight="0.84859157" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15140845" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15140845" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -576,7 +579,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="move marble from BGL to helloben package" />
+    <option name="LAST_COMMIT_MESSAGE" value="more shit" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -593,6 +596,7 @@
     <MESSAGE value="blah" />
     <MESSAGE value="can play marble" />
     <MESSAGE value="move marble from BGL to helloben package" />
+    <MESSAGE value="more shit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -671,7 +675,11 @@
     <entry file="file://$PROJECT_DIR$/src/com/example/helloben/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="46" column="6" selection-start="1024" selection-end="1024" vertical-scroll-proportion="0.0" vertical-offset="819" max-vertical-offset="1577">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1496#1601#0" expanded="false" />
+            <element signature="e#1590#1591#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
