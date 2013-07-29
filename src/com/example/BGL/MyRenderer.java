@@ -7,6 +7,7 @@ import java.util.List;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import com.example.helloben.Marble;
 import com.example.helloben.R;
 
 import android.content.Context;

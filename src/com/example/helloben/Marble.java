@@ -1,7 +1,8 @@
-package com.example.BGL;
+package com.example.helloben;
 
 import android.content.Context;
-import android.graphics.Point;
+
+import com.example.BGL.BglObject;
 
 /**
  * Created by Ben on 7/11/13.
@@ -10,7 +11,7 @@ public class Marble extends BglObject {
 
     private int cpt = 0;
 
-    Marble( int x, int y, int w, int h, Context context, int texture_id  ){
+    public Marble(int x, int y, int w, int h, Context context, int texture_id){
         super( x, y, w, h, context, texture_id );
         this.anchorPointSet(0.5f,0.5f);
     }
