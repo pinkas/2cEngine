@@ -6,8 +6,7 @@ import com.example.helloben.R;
 import android.content.Context;
 
 public class BasicShader extends Shader {
-	
-//	private static final BasicShader INSTANCE = new BasicShader();
+
 	
 	private final int mPositionHandle;
 	private final int mTextureCoordinateHandle;
@@ -26,18 +25,20 @@ public class BasicShader extends Shader {
         mMVPMatrixHandle = glGetUniformLocation(mProgram, "uMVPMatrix");
         mTextureUniformHandle = glGetUniformLocation(mProgram, "u_texture");
 	}
-	
-//	public static BasicShader getBasicShader() {
-//		return INSTANCE;
-//	}
-		
+/*
+   	private static final BasicShader INSTANCE = new BasicShader();
+
+	public static BasicShader getBasicShader() {
+		return INSTANCE;
+	}
+*/
 	
 	public  void setuniform( BglObject obj, float[] mat) {
 	
         glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, VERTEXSTRIDE, obj.vertexBufferGet() );   
         glEnableVertexAttribArray(mPositionHandle);
         
-        glVertexAttribPointer(mTextureCoordinateHandle, 2, GL_FLOAT, false,  VERTEXSTRIDE, obj.textBufferGet() );        
+        glVertexAttribPointer(mTextureCoordinateHandle, 2, GL_FLOAT, false,  VERTEXSTRIDE, obj.textCoordBufferGet() );
         glEnableVertexAttribArray(mTextureCoordinateHandle); 
         
         glActiveTexture(GL_TEXTURE0 );

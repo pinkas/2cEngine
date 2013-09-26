@@ -11,16 +11,16 @@ public class Shader {
 	protected final int mProgram;
 	
 	public Shader( Context context, int vertexCodeId, int fragmentCodeId ) {
-		Context myContext = context;
-		String vertexShaderCode = TextResourceReader.readTextFileFromResource(myContext, vertexCodeId );
-		String fragmentShaderCode = TextResourceReader.readTextFileFromResource(myContext, fragmentCodeId );
+		String vertexShaderCode = TextResourceReader.readTextFileFromResource(context, vertexCodeId );
+		String fragmentShaderCode = TextResourceReader.readTextFileFromResource(context, fragmentCodeId );
         int vertexShader = loadShader(GL_VERTEX_SHADER, vertexShaderCode);
         int fragmentShader = loadShader(GL_FRAGMENT_SHADER, fragmentShaderCode);
         // create a GL program, add the shaders to it, and link.
         mProgram = glCreateProgram();             
         glAttachShader(mProgram, vertexShader);   
         glAttachShader(mProgram, fragmentShader); 
-        glLinkProgram(mProgram);  
+        glLinkProgram(mProgram);
+
 	}
 	
     public static int loadShader(int type, String shaderCode){

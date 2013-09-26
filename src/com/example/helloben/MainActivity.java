@@ -3,7 +3,11 @@ package com.example.helloben;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.example.BGL.AnimatedObject;
+import com.example.BGL.BasicShader;
+import com.example.BGL.BglObject;
 import com.example.BGL.InputStatus;
+import com.example.BGL.Shader;
 import com.example.BGL.World;
 import com.example.BGL.MyRenderer;
 
@@ -56,15 +60,20 @@ class MyGLSurfaceView extends GLSurfaceView {
         mRenderer = new MyRenderer( context, mWorld );
         setRenderer(mRenderer);
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
-        
+
+  //      BglObject benObj = new Marble( 100, 100, 610, 400, R.drawable.wild );
+  //      mWorld.addHabitant(benObj);
+  //      benObj.anchorPointSet(0,0);
+
+        AnimatedObject metal = new AnimatedObject(200,200,180,400,R.drawable.sprite, 15,0,12);
+        mWorld.addHabitant(metal);
+
         Timer myTimer = new Timer ();
-        TimerTask renderTask= new TimerTask() {
+        TimerTask renderTask = new TimerTask() {
         	public void run() {
-        		
-        		requestRender();
+            requestRender();
         	}
         };
-        
         myTimer.scheduleAtFixedRate( renderTask ,100, 10 );
     }
 

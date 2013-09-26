@@ -2,6 +2,7 @@ package com.example.BGL;
 
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -18,6 +19,8 @@ import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.util.Log;
 
+import org.apache.http.conn.params.ConnPerRoute;
+
 public class MyRenderer implements GLSurfaceView.Renderer {
 	private Context context;
     private static final String TAG = "MyGLRenderer";
@@ -26,8 +29,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     private int screen_width;
     private int screen_height;
     
-    private volatile Point touch;
-    	
+
     private final float[] mProjMatrix = new float[16];
     private final float[] modelMatrix = new float[16];
     private final float[] invM = new float[16];
@@ -37,21 +39,27 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 		super();
 		this.context = context;
 		this.mWorld = mWorld;
-		touch = new Point();
 	}
 	
     
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
-
         // Set the background frame color
         glClearColor(0.0f, 0.2f, 0.6f, 0.2f);
+        // load all the texture whenever the context is created (first time or
+        // when resuming the app). OnSurfaceCreated is the only place i know where i can load
+        // Textures/Ressources
 
-        BglObject benObj = new Marble( 300, 300, 200, 200, context, R.drawable.wild );
-  //      BglObject benObj2 = new Marble( 600, 100, 300, 230, context, R.drawable.pangolin );
-        mWorld.addHabitant(benObj);
-        //benObj.anchorPointSet( 1, 1 );
-   //     mWorld.addHabitant(benObj2);
+        // Load all the shaders
+        // TODO have a list that we go through
+        BasicShader basicShader = new BasicShader(context);
+        WobblyShader prouteShader2 = new WobblyShader(context);
+
+        Enumeration<BglObject> e = Collections.enumeration( mWorld.getHabitants() );
+		BglObject obj = e.nextElement();
+        // load all the texture and init the existing object of the world with a shader
+        mWorld.loadResources(context, basicShader);
+
     }
     
     public float[] calculateMVP( BglObject obj ) {
@@ -133,11 +141,6 @@ public class MyRenderer implements GLSurfaceView.Renderer {
             Log.e(TAG, glOperation + ": glError " + error);
             throw new RuntimeException(glOperation + ": glError " + error);
         }
-    }
-
-    public void setTouch( int x, int y ) {
-    	touch.x = x;
-    	touch.y = y;
     }
 
 }

@@ -5,16 +5,17 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
+import android.content.Context;
 import android.graphics.Point;
 
 import com.example.BGL.BglObject;
 import com.example.helloben.Table;
 
-public class World {
+public  class World {
 	private List<BglObject> habitants;
-    static private volatile Point touch = new Point(3000,3000);
-    static private Point touchPrev = new Point(3000,300);
 
+    // TODO  dont forget to remove me
+    private Shader shasha;
 
     Table myTable = new Table();
 
@@ -34,14 +35,29 @@ public class World {
 		habitants.remove(obj);
 	}
 
+
+    //TODO i'm adding this method just as test, don't forget to remove me, dog.
+    public void getShader( Shader shader){
+        this.shasha = shader;
+    }
+
+    // Load textures and Shaders
+    public void loadResources(Context context, Shader shader){
+        Enumeration<BglObject> e = Collections.enumeration( habitants );
+
+		while( e.hasMoreElements() ) {
+			BglObject obj = e.nextElement();
+            obj.initShader(shader);
+            obj.loadTexture(context);
+        }
+    }
+
 	public void update() {
 
 		Enumeration<BglObject> e = Collections.enumeration( habitants );
-		
 		while( e.hasMoreElements() ) {
+
 			BglObject obj = e.nextElement();
-
-
 			// TODO have different list of objects, some are purely static
 			// some are input sensitive, some are physics ...
 			switch ( InputStatus.getTouchState() ) {
@@ -58,36 +74,19 @@ public class World {
                         obj.touchUpMove(InputStatus.getTouchX(), InputStatus.getTouchY());
                         break;
                     }
-
 				case MOVE:
 					if ( obj.rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY()))
 						obj.touchMove();
 						break;
 			}
 
-
             if (!obj.rectangle.intersect(myTable.perim)){
-//                Point blah = new Point(0,0);
                 obj.speed.x = - obj.speed.x;
                 obj.speed.y = - obj.speed.y;
-  //              obj.speedSet( blah );
-
             }
 
-
-
-/*
-            if (obj.isPressed())
-                System.out.println("PRESSED");
-            else
-                System.out.println("NOT PRESSED!");
-*/
             obj.update();
-
 		}
-
 			InputStatus.resetTouch();
 	}
-
-
 }

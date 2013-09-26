@@ -11,8 +11,8 @@ public class Marble extends BglObject {
 
     private int cpt = 0;
 
-    public Marble(int x, int y, int w, int h, Context context, int texture_id){
-        super( x, y, w, h, context, texture_id );
+    public Marble(int x, int y, int w, int h, int texture_id){
+        super( x, y, w, h, texture_id );
         this.anchorPointSet(0.5f,0.5f);
     }
 
@@ -44,9 +44,7 @@ public class Marble extends BglObject {
     }
 
     public void touchUp(){
-        System.out.println( "PRESSED FALSE" );
-        pressed = false;
-
+      //  pressed = false;
     }
 
 }
