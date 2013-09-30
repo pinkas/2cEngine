@@ -61,20 +61,24 @@ class MyGLSurfaceView extends GLSurfaceView {
         setRenderer(mRenderer);
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
 
-  //      BglObject benObj = new Marble( 100, 100, 610, 400, R.drawable.wild );
-  //      mWorld.addHabitant(benObj);
-  //      benObj.anchorPointSet(0,0);
+   //     BglObject benObj = new Marble( 0, 0, 1200, 690, R.drawable.robin );
+   //     mWorld.addHabitant(benObj);
+   //     benObj.anchorPointSet(0,0);
 
-        AnimatedObject metal = new AnimatedObject(200,200,180,400,R.drawable.sprite, 15,0,12);
+       AnimatedObject metal = new AnimatedObject(200,200,250,250,R.drawable.robin, 5, 5, 22);
         mWorld.addHabitant(metal);
+
+        AnimatedObject metal2 = new AnimatedObject(480,200,250,250,R.drawable.sprite, 12, 1, 12);
+        mWorld.addHabitant(metal2);
+
 
         Timer myTimer = new Timer ();
         TimerTask renderTask = new TimerTask() {
         	public void run() {
-            requestRender();
+                requestRender();
         	}
         };
-        myTimer.scheduleAtFixedRate( renderTask ,100, 10 );
+        myTimer.scheduleAtFixedRate( renderTask ,100, 30);
     }
 
 

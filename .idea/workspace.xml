@@ -19,17 +19,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d37636f-f9b0-43eb-9b51-88ed554d17b8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/example/BGL/AnimatedObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable-hdpi/wild.jpg" afterPath="$PROJECT_DIR$/res/drawable-hdpi/wild.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/BGL/BasicShader.java" afterPath="$PROJECT_DIR$/src/com/example/BGL/BasicShader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/BGL/AnimatedObject.java" afterPath="$PROJECT_DIR$/src/com/example/BGL/AnimatedObject.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/BGL/BglObject.java" afterPath="$PROJECT_DIR$/src/com/example/BGL/BglObject.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/helloben/MainActivity.java" afterPath="$PROJECT_DIR$/src/com/example/helloben/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/helloben/Marble.java" afterPath="$PROJECT_DIR$/src/com/example/helloben/Marble.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/BGL/MyRenderer.java" afterPath="$PROJECT_DIR$/src/com/example/BGL/MyRenderer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/BGL/Shader.java" afterPath="$PROJECT_DIR$/src/com/example/BGL/Shader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/BGL/ShaderList.java" afterPath="$PROJECT_DIR$/src/com/example/BGL/ShaderList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/BGL/WobblyShader.java" afterPath="$PROJECT_DIR$/src/com/example/BGL/WobblyShader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/BGL/World.java" afterPath="$PROJECT_DIR$/src/com/example/BGL/World.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Helloben.iws" />
@@ -51,7 +44,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -88,6 +80,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -100,7 +93,7 @@
       <file leaf-file-name="MyRenderer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/example/BGL/MyRenderer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="0" selection-start="1932" selection-end="1932" vertical-scroll-proportion="0.0" vertical-offset="1121" max-vertical-offset="2888">
+            <state line="96" column="48" selection-start="3377" selection-end="3380" vertical-scroll-proportion="0.0" vertical-offset="1045" max-vertical-offset="2527">
               <folding />
             </state>
           </provider>
@@ -124,19 +117,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/example/helloben/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="87" selection-start="1804" selection-end="1804" vertical-scroll-proportion="0.0" vertical-offset="1254" max-vertical-offset="1995">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Marble.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/example/helloben/Marble.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="45" selection-start="249" selection-end="249" vertical-scroll-proportion="0.0" vertical-offset="228" max-vertical-offset="1064">
+            <state line="70" column="53" selection-start="1898" selection-end="1898" vertical-scroll-proportion="0.67291665" vertical-offset="722" max-vertical-offset="1710">
               <folding />
             </state>
           </provider>
@@ -145,7 +129,7 @@
       <file leaf-file-name="BglObject.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/example/BGL/BglObject.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="164" column="16" selection-start="4240" selection-end="4240" vertical-scroll-proportion="0.0" vertical-offset="3097" max-vertical-offset="3990">
+            <state line="37" column="17" selection-start="1044" selection-end="1044" vertical-scroll-proportion="0.0" vertical-offset="247" max-vertical-offset="3819">
               <folding />
             </state>
           </provider>
@@ -154,7 +138,7 @@
       <file leaf-file-name="WobblyShader.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/example/BGL/WobblyShader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="8" selection-start="1934" selection-end="1934" vertical-scroll-proportion="0.0" vertical-offset="1026" max-vertical-offset="1292">
+            <state line="55" column="8" selection-start="1934" selection-end="1934" vertical-scroll-proportion="0.0" vertical-offset="514" max-vertical-offset="1216">
               <folding />
             </state>
           </provider>
@@ -163,17 +147,28 @@
       <file leaf-file-name="Shader.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/example/BGL/Shader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="42" selection-start="1145" selection-end="1145" vertical-scroll-proportion="0.0" vertical-offset="513" max-vertical-offset="1311">
+            <state line="45" column="58" selection-start="1786" selection-end="1786" vertical-scroll-proportion="0.0" vertical-offset="609" max-vertical-offset="1311">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AnimatedObject.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="BasicShader.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/example/BGL/BasicShader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="48" column="5" selection-start="1741" selection-end="1741" vertical-scroll-proportion="0.0" vertical-offset="343" max-vertical-offset="1045">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AnimatedObject.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/example/BGL/AnimatedObject.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="82" column="7" selection-start="2079" selection-end="2079" vertical-scroll-proportion="0.8306636" vertical-offset="813" max-vertical-offset="1710">
-              <folding />
+            <state line="69" column="41" selection-start="2041" selection-end="2041" vertical-scroll-proportion="0.0" vertical-offset="1059" max-vertical-offset="1767">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -201,14 +196,14 @@
         <option value="$PROJECT_DIR$/src/com/example/BGL/MatrixHelper.java" />
         <option value="$PROJECT_DIR$/src/com/example/BGL/ShaderList.java" />
         <option value="$PROJECT_DIR$/src/com/example/helloben/Marble.java" />
-        <option value="$PROJECT_DIR$/src/com/example/BGL/Shader.java" />
         <option value="$PROJECT_DIR$/src/com/example/BGL/MyRenderer.java" />
         <option value="$PROJECT_DIR$/src/com/example/BGL/BasicShader.java" />
-        <option value="$PROJECT_DIR$/src/com/example/BGL/BglObject.java" />
         <option value="$PROJECT_DIR$/src/com/example/BGL/WobblyShader.java" />
         <option value="$PROJECT_DIR$/src/com/example/BGL/World.java" />
-        <option value="$PROJECT_DIR$/src/com/example/helloben/MainActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/example/BGL/Shader.java" />
+        <option value="$PROJECT_DIR$/src/com/example/BGL/BglObject.java" />
         <option value="$PROJECT_DIR$/src/com/example/BGL/AnimatedObject.java" />
+        <option value="$PROJECT_DIR$/src/com/example/helloben/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -277,140 +272,6 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="example" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="helloben" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Helloben" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="2cEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="example" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BGL" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Helloben" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="2cEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Helloben" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="2cEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="raw" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Helloben" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="2cEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drawable-xxhdpi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Helloben" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="2cEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drawable-xhdpi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Helloben" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="2cEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drawable-mdpi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Helloben" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="2cEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drawable-hdpi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -429,8 +290,8 @@
     <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -623,7 +484,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1928" height="1044" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -634,13 +495,14 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37750557" sideWeight="0.6030585" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18930958" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4365256" sideWeight="0.6030585" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24922119" sideWeight="0.84855235" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14941302" sideWeight="0.7895323" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21046771" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14941302" sideWeight="0.5634744" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18930958" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="-44" y="101" width="1358" height="1082" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -648,22 +510,21 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.11915368" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.07349666" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" x="-44" y="101" width="1358" height="1082" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" x="-44" y="101" width="1358" height="1082" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16461268" sideWeight="0.3962766" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34375" sideWeight="0.83538735" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15144767" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -753,9 +614,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/example/BGL/InputStatus.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="28" selection-start="273" selection-end="273" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1178">
-          <folding />
-        </state>
+        <state line="13" column="28" selection-start="273" selection-end="273" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1178" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/example/BGL/MatrixHelper.java">
@@ -773,35 +632,14 @@
         <state line="10" column="13" selection-start="232" selection-end="232" vertical-scroll-proportion="0.09934641" vertical-offset="0" max-vertical-offset="765" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/example/BGL/BasicShader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="5" selection-start="1741" selection-end="1741" vertical-scroll-proportion="0.7654321" vertical-offset="316" max-vertical-offset="1045">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/raw/basic_vertex.glsl">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="13" selection-start="180" selection-end="180" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="266" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/example/BGL/MyRenderer.java">
+    <entry file="file://$PROJECT_DIR$/src/com/example/helloben/Marble.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="0" selection-start="1932" selection-end="1932" vertical-scroll-proportion="0.0" vertical-offset="532" max-vertical-offset="2527">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/example/helloben/Table.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="14" selection-start="160" selection-end="160" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="456">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/example/BGL/WobblyShader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="8" selection-start="1934" selection-end="1934" vertical-scroll-proportion="0.0" vertical-offset="514" max-vertical-offset="1216">
+        <state line="13" column="45" selection-start="249" selection-end="249" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1026">
           <folding />
         </state>
       </provider>
@@ -813,37 +651,60 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/helloben/Table.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="14" selection-start="160" selection-end="160" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="456">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/BGL/BasicShader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="5" selection-start="1741" selection-end="1741" vertical-scroll-proportion="0.0" vertical-offset="145" max-vertical-offset="1045">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/BGL/WobblyShader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="8" selection-start="1934" selection-end="1934" vertical-scroll-proportion="0.0" vertical-offset="514" max-vertical-offset="1216">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/example/BGL/Shader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="42" selection-start="1145" selection-end="1145" vertical-scroll-proportion="0.0" vertical-offset="152" max-vertical-offset="1235">
+        <state line="45" column="58" selection-start="1786" selection-end="1786" vertical-scroll-proportion="0.0" vertical-offset="380" max-vertical-offset="1387">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/example/BGL/BglObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="164" column="16" selection-start="4240" selection-end="4240" vertical-scroll-proportion="0.0" vertical-offset="2774" max-vertical-offset="3819">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/example/helloben/Marble.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="45" selection-start="249" selection-end="249" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1026">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/example/helloben/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="87" selection-start="1804" selection-end="1804" vertical-scroll-proportion="0.0" vertical-offset="855" max-vertical-offset="1710">
+        <state line="37" column="17" selection-start="1044" selection-end="1044" vertical-scroll-proportion="0.0" vertical-offset="247" max-vertical-offset="3819">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/example/BGL/AnimatedObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="7" selection-start="2079" selection-end="2079" vertical-scroll-proportion="0.8306636" vertical-offset="813" max-vertical-offset="1710">
+        <state line="69" column="41" selection-start="2041" selection-end="2041" vertical-scroll-proportion="0.0" vertical-offset="1059" max-vertical-offset="1767">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/BGL/MyRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="96" column="48" selection-start="3377" selection-end="3380" vertical-scroll-proportion="0.0" vertical-offset="1805" max-vertical-offset="2888">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/helloben/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="53" selection-start="1898" selection-end="1898" vertical-scroll-proportion="0.67291665" vertical-offset="722" max-vertical-offset="1710">
           <folding />
         </state>
       </provider>
