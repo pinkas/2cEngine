@@ -8,6 +8,7 @@ import com.example.BGL.BasicShader;
 import com.example.BGL.BglObject;
 import com.example.BGL.InputStatus;
 import com.example.BGL.Shader;
+import com.example.BGL.SpriteSheet;
 import com.example.BGL.World;
 import com.example.BGL.MyRenderer;
 
@@ -65,11 +66,18 @@ class MyGLSurfaceView extends GLSurfaceView {
    //     mWorld.addHabitant(benObj);
    //     benObj.anchorPointSet(0,0);
 
-       AnimatedObject metal = new AnimatedObject(200,200,250,250,R.drawable.robin, 5, 5, 22);
+        SpriteSheet slug0 = new SpriteSheet(R.drawable.sprite, 12, 1, 12);
+        SpriteSheet slug = new SpriteSheet(R.drawable.sprite2, 16, 1, 16);
+
+        SpriteSheet [] spriteSheetTab = new SpriteSheet[2];
+        spriteSheetTab[0] = slug0;
+        spriteSheetTab[1] = slug;
+
+       AnimatedObject metal = new AnimatedObject(200,200,250,250, spriteSheetTab);
         mWorld.addHabitant(metal);
 
-        AnimatedObject metal2 = new AnimatedObject(480,200,250,250,R.drawable.sprite, 12, 1, 12);
-        mWorld.addHabitant(metal2);
+     //   AnimatedObject metal2 = new AnimatedObject(480,200,250,250,R.drawable.sprite2, 16, 1, 16);
+     //   mWorld.addHabitant(metal2);
 
 
         Timer myTimer = new Timer ();

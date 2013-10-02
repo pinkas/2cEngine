@@ -20,12 +20,12 @@ public class BglObject {
 	protected Point speed;
 	protected int w;
 	protected int h;
-	private Bitmap bitmap;
+	protected Bitmap bitmap;
 	public Rect rectangle;
     protected boolean pressed = false;
     int texture_id;
 
-	private final int [] textureHandle = new int [2];
+	protected final int [] textureHandle = new int [2];
 
 	
     // define the shape, a square.
@@ -44,10 +44,10 @@ public class BglObject {
     // tableaux qui contiennent les donnes de nos vertex?
     private final FloatBuffer vertexBuffer;
     // TODO should be final, cf AnimatedObject, je devrais pas overwriter en gros. Une implementation
-    // differente pour les objects animes de ceux pas animes
-    protected  FloatBuffer textCoordBuffer;
+    // TODO differente pour les objects animes de ceux pas animes
+    protected FloatBuffer[] textCoordBuffer;
     
-    private  Shader mShader;
+    protected  Shader mShader;
     
 	public BglObject( int x, int y, int w, int h, int texture_id ){
 
@@ -75,9 +75,10 @@ public class BglObject {
         // texture coord
     	ByteBuffer bb2 = ByteBuffer.allocateDirect(textcoords.length * 4);
         bb2.order(ByteOrder.nativeOrder());
-        textCoordBuffer = bb2.asFloatBuffer();
-        textCoordBuffer.put(textcoords);
-        textCoordBuffer.position(0);
+        textCoordBuffer = new FloatBuffer[1];
+        textCoordBuffer[0] = bb2.asFloatBuffer();
+        textCoordBuffer[0].put(textcoords);
+        textCoordBuffer[0].position(0);
 
         //default shader an object is drawn with
         //mShader = ShaderList.effects[0];
@@ -188,7 +189,7 @@ public class BglObject {
 	}
 	
 	public FloatBuffer textCoordBufferGet() {
-		return textCoordBuffer;
+		return textCoordBuffer[0];
 	}
 	
 	public int  textureHandleGet() {
