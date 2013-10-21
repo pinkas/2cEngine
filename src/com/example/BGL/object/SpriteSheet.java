@@ -1,7 +1,7 @@
-package com.example.BGL;
+package com.example.BGL.object;
 
 /**
- * Created by Ben on 10/2/13.
+ * Created by Ben on 10/12/13.
  */
 public class SpriteSheet {
 
@@ -33,5 +33,3 @@ public class SpriteSheet {
         return number_of_frame_real;
     }
 }
-
-

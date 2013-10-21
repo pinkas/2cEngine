@@ -1,4 +1,4 @@
-package com.example.BGL;
+package com.example.BGL.object;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -7,10 +7,12 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
+import static android.opengl.GLES20.glGenTextures;
+
 /**
  * Created by Ben on 9/26/13.
  */
-public class AnimatedObject  extends BglObject {
+public class BglAnimatedSprite  extends BglSprite {
 
     private final int [] number_of_frame;
     private final int [] number_of_frame_real;
@@ -20,11 +22,7 @@ public class AnimatedObject  extends BglObject {
     private int inner_state = 0;
     private boolean blah=false;
 
-    //TODO are you serious ??????
-    private final int [] textureHandle2 = new int [2];
-
-
-    public AnimatedObject(int x, int y, int w, int h, SpriteSheet[] spritesheet) {
+    public BglAnimatedSprite(int x, int y, int w, int h, SpriteSheet[] spritesheet) {
 
         super(x, y, w, h, spritesheet[0].getTexture_id());
 
@@ -36,6 +34,9 @@ public class AnimatedObject  extends BglObject {
         number_of_frame_real = new int[spritesheet.length];
 
         float[][] textcoords = new float [ spritesheet.length ][ ];
+
+        /* to increase the size of texturehandle[] when more than one texture */
+        textureHandle = new int[spritesheet.length];
 
         for (int i=0; i<spritesheet.length; i++){
 
@@ -109,17 +110,27 @@ public class AnimatedObject  extends BglObject {
 
     // Finger touches the object
     public void touchDown() {
+        super.touchDown();
         inner_state = 1;
+        state = 0;
     }
     // Finger realeases when over the object
     public void touchUp() {
+        super.touchUp();
         inner_state = 0;
+        state = 0;
+
     }    //When moving your finger over the object
-    public void touchMove() {
+    public void touchMove(int x, int y) {
+        super.touchMove(x, y);
+
     }
     // Triggered when releasing the finger and it's not over the object anymore
     public void touchUpMove(int x, int y){
+        super.touchUpMove(x,y);
+
         inner_state = 0;
+        state = 0;
     }
 
     public FloatBuffer textCoordBufferGet() {
@@ -127,26 +138,25 @@ public class AnimatedObject  extends BglObject {
     }
 
     public int  textureHandleGet() {
-        if (inner_state == 0)
-            return textureHandle[0];
-        else
-            return textureHandle2[0];
+        return textureHandle[inner_state];
     }
 
     public void loadTexture(Context context){
-        //create a bitmap, from image to pixel data, has to be done whenever we reload the
-        //texture since we "recycle" the bitmap at the end
+
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
+
+        glGenTextures( textureHandle.length, textureHandle, 0);
+
         for ( int i=0; i< spriteSheet.length; i++ ){
             bitmap = BitmapFactory.decodeResource(context.getResources(), spriteSheet[i].getTexture_id(), options);
-            if (i==0)
-                mShader.loadTexture(bitmap, textureHandle);
-            else
-                mShader.loadTexture(bitmap, textureHandle2);
+            System.out.println(mShader);
+            mShader.loadTexture(bitmap, textureHandle[i]);
         }
         bitmap.recycle();
     }
 
-
 }
+
+
+

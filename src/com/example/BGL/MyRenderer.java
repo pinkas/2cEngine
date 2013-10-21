@@ -2,15 +2,14 @@ package com.example.BGL;
 
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import com.example.helloben.Marble;
-import com.example.helloben.R;
-import com.example.helloben.Table;
+import com.example.BGL.object.BglObject;
+import com.example.BGL.shader.ShaderList;
+import com.example.BGL.utils.MatrixHelper;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -18,8 +17,6 @@ import static android.opengl.GLES20.*;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.util.Log;
-
-import org.apache.http.conn.params.ConnPerRoute;
 
 public class MyRenderer implements GLSurfaceView.Renderer {
 	private Context context;
@@ -46,19 +43,26 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
         // Set the background frame color
         glClearColor(0.0f, 0.2f, 0.6f, 0.2f);
-        // load all the texture whenever the context is created (first time or
-        // when resuming the app). OnSurfaceCreated is the only place i know where i can load
-        // Textures/Ressources
+
+        /* IMPORTANT COMMENT
+         Shaders have to be compiled here, Texture have to be loaded here!!!!!!
+
+         load all the texture whenever the context is created (first time or
+         when resuming the app). OnSurfaceCreated is the only place i know where i can load
+        Textures/Resources */
 
         // Load all the shaders
         // TODO have a list that we go through
-        BasicShader basicShader = new BasicShader(context);
-        WobblyShader prouteShader2 = new WobblyShader(context);
+        ShaderList shaderlist = new ShaderList(context);
 
-        Enumeration<BglObject> e = Collections.enumeration( mWorld.getHabitants() );
-		BglObject obj = e.nextElement();
         // load all the texture and init the existing object of the world with a shader
-        mWorld.loadResources(context, basicShader);
+
+        /* TODO
+         The shader list a member of the world ?
+         The world decides what shader to render what object depending on what's happening
+         "Oh this object should be rendered by this shader, Oh no that one actually..."
+        */
+        mWorld.loadObjectTexture(context, shaderlist);
 
     }
     
@@ -94,7 +98,9 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         farSizeWorld[2] /= farSizeWorld[3];       
         
         Matrix.translateM(modelMatrix, 0, farPointWorld[0], farPointWorld[1], farPointWorld[2]);     
-        Matrix.rotateM(modelMatrix, 0, obj.angleGet(1), 0, 0, 1);
+        Matrix.rotateM(modelMatrix, 0, obj.getAngleX(), 1, 0, 0);
+        Matrix.rotateM(modelMatrix, 0, obj.getAngleY(), 0, 1, 0);
+        Matrix.rotateM(modelMatrix, 0, obj.getAngleZ(), 0, 0, 1);
         Matrix.scaleM(modelMatrix, 0,  farSizeWorld[0], farSizeWorld[1], farSizeWorld[2] );
         
         Matrix.setIdentityM(mvp, 0);
@@ -111,7 +117,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         glClear(GL_COLOR_BUFFER_BIT);
 
         mWorld.update();
-        
+
         List<BglObject> habitants = mWorld.getHabitants();
 		Enumeration<BglObject> e = Collections.enumeration( habitants );
 		// Draw the habitants \o/
@@ -133,7 +139,6 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         
         MatrixHelper.perspectiveM(mProjMatrix, 45, (float) width / (float) height, 1f, 200f);
     }
-
 
     public static void checkGlError(String glOperation) {
         int error;

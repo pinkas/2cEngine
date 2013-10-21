@@ -1,9 +1,10 @@
-package com.example.BGL;
+package com.example.BGL.shader;
 
 import static android.opengl.GLES20.*;
 
 import android.content.Context;
 
+import com.example.BGL.object.BglSprite;
 import com.example.helloben.R;
 
 
@@ -40,7 +41,7 @@ public class WobblyShader extends Shader {
         test = 0;
 	}
 	
-	public void setuniform( BglObject obj, float[] mat) {
+	public void setuniform( BglSprite obj, float[] mat) {
 		
         glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, VERTEXSTRIDE, obj.vertexBufferGet() );   
         glEnableVertexAttribArray(mPositionHandle);

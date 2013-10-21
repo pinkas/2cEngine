@@ -1,13 +1,11 @@
 package com.example.helloben;
 
-import android.content.Context;
-
-import com.example.BGL.BglObject;
+import com.example.BGL.object.BglSprite;
 
 /**
  * Created by Ben on 7/11/13.
  */
-public class Marble extends BglObject {
+public class Marble extends BglSprite {
 
     private int cpt = 0;
 
@@ -19,28 +17,29 @@ public class Marble extends BglObject {
     @Override
     public void update() {
         //update speed
-        speed.x = (int) (speed.x - speed.x*0.1);
-        speed.y = (int) (speed.y - speed.y*0.1);
+        //speed.x = (int) (speed.x - speed.x*0.1);
+        //speed.y = (int) (speed.y - speed.y*0.1);
         //update pos
-        pos.x = pos.x + speed.x;
-        pos.y = pos.y + speed.y;
+        //pos.x = pos.x + speed.x;
+        //pos.y = pos.y + speed.y;
         super.update();
     }
 
     @Override
     public void touchDown() {
-        pressed = true;
+        super.touchDown();
     }
 
     @Override
-    public void touchMove() {
+    public void touchMove(int x, int y) {
+        super.touchMove(x, y);
     }
 
     @Override
     public void touchUpMove(int px, int py){
-        speed.x = (pos.x - px)/6;
-        speed.y = (pos.y - py)/6;
-        pressed = false;
+        super.touchUpMove(px,py);
+        //speed.x = (pos.x - px)/6;
+        //speed.y = (pos.y - py)/6;
     }
 
     public void touchUp(){

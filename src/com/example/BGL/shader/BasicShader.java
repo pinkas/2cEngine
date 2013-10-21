@@ -1,13 +1,27 @@
-package com.example.BGL;
+package com.example.BGL.shader;
 
 
 import static android.opengl.GLES20.*;
+
+import com.example.BGL.object.BglObject;
 import com.example.helloben.R;
 import android.content.Context;
 
+
+
+/*TODO
+*
+*  this is a shader that uses texture and everything that should deal
+*  with bglobject but at least a bglsprite level.
+*
+*
+*
+* */
+
+
+
 public class BasicShader extends Shader {
 
-	
 	private final int mPositionHandle;
 	private final int mTextureCoordinateHandle;
 	private final int mMVPMatrixHandle;
@@ -24,27 +38,20 @@ public class BasicShader extends Shader {
         mTextureCoordinateHandle = glGetAttribLocation(mProgram, "a_texCoord");
         mMVPMatrixHandle = glGetUniformLocation(mProgram, "uMVPMatrix");
         mTextureUniformHandle = glGetUniformLocation(mProgram, "u_texture");
-	}
-/*
-   	private static final BasicShader INSTANCE = new BasicShader();
-
-	public static BasicShader getBasicShader() {
-		return INSTANCE;
-	}
-*/
+    }
 	
-	public  void setuniform( BglObject obj, float[] mat) {
+	public  void sendParametersToShader( BglObject obj, float[] mat) {
 	
         glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, VERTEXSTRIDE, obj.vertexBufferGet() );   
         glEnableVertexAttribArray(mPositionHandle);
-        
+
         glVertexAttribPointer(mTextureCoordinateHandle, 2, GL_FLOAT, false,  VERTEXSTRIDE, obj.textCoordBufferGet() );
-        glEnableVertexAttribArray(mTextureCoordinateHandle); 
-        
+        glEnableVertexAttribArray(mTextureCoordinateHandle);
+
         glActiveTexture(GL_TEXTURE0 );
-        glBindTexture(GL_TEXTURE_2D, obj.textureHandleGet() );      
+        glBindTexture(GL_TEXTURE_2D, obj.textureHandleGet() );
         glUniform1i(mTextureUniformHandle, 0);
-        
+
 	   glUniformMatrix4fv( mMVPMatrixHandle, 1, false, mat, 0);
 	}
 	

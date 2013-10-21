@@ -1,4 +1,4 @@
-package com.example.BGL;
+package com.example.BGL.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 
 import android.content.Context;
 import android.content.res.Resources;
+
 
 public class TextResourceReader {
 	public static String readTextFileFromResource(Context context, int resourceId) {
