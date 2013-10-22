@@ -1,4 +1,4 @@
-package com.example.BGL.utils;
+package com.example.BGL;
 
 /**
  * Created by Ben on 10/21/13.

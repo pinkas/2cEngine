@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.example.BGL.object.BglObject;
-import com.example.BGL.utils.TextResourceReader;
+import com.example.BGL.TextResourceReader;
 
 import static android.opengl.GLES20.*;
 import static android.opengl.GLUtils.*;

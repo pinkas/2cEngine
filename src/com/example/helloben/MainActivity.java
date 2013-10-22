@@ -6,11 +6,16 @@ import java.util.TimerTask;
 import com.example.BGL.InputStatus;
 import com.example.BGL.World;
 import com.example.BGL.MyRenderer;
+import com.example.BGL.object.BglAnimatedSprite;
+import com.example.BGL.object.Brectangle;
+import com.example.BGL.object.SpriteSheet;
 
+import android.graphics.Point;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.view.Display;
 import android.view.MotionEvent;
 
 public class MainActivity extends Activity {
@@ -22,7 +27,11 @@ public class MainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-        mWorld = new World();
+        Display display = getWindowManager().getDefaultDisplay();
+        Point screenSize = new Point();
+        display.getSize(screenSize);
+
+        mWorld = new World(screenSize);
         mGLView = new MyGLSurfaceView(this, mWorld);
         setContentView(mGLView);
 	}
@@ -59,27 +68,27 @@ class MyGLSurfaceView extends GLSurfaceView {
         mRenderer = new MyRenderer( context, mWorld );
         setRenderer(mRenderer);
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
-/*
+
         SpriteSheet slug0 = new SpriteSheet(R.drawable.sprite, 12, 1, 12);
         SpriteSheet slug = new SpriteSheet(R.drawable.sprite2, 16, 1, 16);
         SpriteSheet [] spriteSheetTab = new SpriteSheet[2];
         spriteSheetTab[0] = slug0;
         spriteSheetTab[1] = slug;
 
-        BglAnimatedSprite metal = new BglAnimatedSprite(200,200,250,250, spriteSheetTab);
+        BglAnimatedSprite metal = new BglAnimatedSprite(0.5f, 0.5f, 0.5f, 0.5f, spriteSheetTab);
         mWorld.addHabitant(metal);
-        metal.anchorPointSet(0.5f,0.5f);
-*/
+        metal.anchorPointSet(0.0f,0.0f);
 
-   //     Brectangle myRect = new RectangleRotate(100,100,500,500,0.6f, 0.7f,1.0f);
-   //     mWorld.addHabitant(myRect);
-   //     myRect.posSet(100,100);
-        RectangleRotateGrid myGrid = new RectangleRotateGrid(10, 10, 10, 14);
+
+      //  Brectangle myRect = new Brectangle(0.5f, 0.5f, 0.1f, 0.1f,0.6f, 0.7f,1.0f);
+      //  mWorld.addHabitant(myRect);
+     /*   myRect.posSet(100,100);
+        RectangleRotateGrid myGrid = new RectangleRotateGrid(1, 1, 10, 14);
         for ( int i =0;i<10*14;i++)
             mWorld.addHabitant( myGrid.getRects(i) );
-     //   AnimatedObject metal2 = new AnimatedObject(480,200,250,250,R.drawable.sprite2, 16, 1, 16);
-     //   mWorld.addHabitant(metal2);
-
+        AnimatedObject metal2 = new AnimatedObject(480,200,250,250,R.drawable.sprite2, 16, 1, 16);
+        mWorld.addHabitant(metal2);
+*/
 
 
         Timer myTimer = new Timer ();

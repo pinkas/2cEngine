@@ -22,7 +22,7 @@ public class BglAnimatedSprite  extends BglSprite {
     private int inner_state = 0;
     private boolean blah=false;
 
-    public BglAnimatedSprite(int x, int y, int w, int h, SpriteSheet[] spritesheet) {
+    public BglAnimatedSprite(float x, float y, float w, float h, SpriteSheet[] spritesheet) {
 
         super(x, y, w, h, spritesheet[0].getTexture_id());
 
@@ -42,8 +42,8 @@ public class BglAnimatedSprite  extends BglSprite {
 
             SpriteSheet obj = spritesheet[i];
 
-            float w_offset = (float) w / obj.getNumber_of_frame_x();
-            float h_offset = (float) h / obj.getNumber_of_frame_y();
+            float w_offset = w / obj.getNumber_of_frame_x();
+            float h_offset = h / obj.getNumber_of_frame_y();
 
             number_of_frame[i] = obj.getNumber_of_frame_x() * obj.getNumber_of_frame_y();
             number_of_frame_real[i] = obj.getNumber_of_frame_real();
@@ -75,7 +75,6 @@ public class BglAnimatedSprite  extends BglSprite {
                     textcoords[i][v+11] = 0.0f;
 
                     v = v + 12;
-
                 }
             }
 

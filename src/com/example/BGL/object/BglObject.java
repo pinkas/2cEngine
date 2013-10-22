@@ -24,7 +24,7 @@ public class BglObject extends Bobject {
 
     private final FloatBuffer vertexBuffer;
 
-    public BglObject( int x, int y, int w, int h){
+    public BglObject( float x, float y, float w, float h){
         super(x,y,w,h);
 
         ByteBuffer bb = ByteBuffer.allocateDirect( objCoords.length * 4);

@@ -9,11 +9,12 @@ import javax.microedition.khronos.opengles.GL10;
 
 import com.example.BGL.object.BglObject;
 import com.example.BGL.shader.ShaderList;
-import com.example.BGL.utils.MatrixHelper;
 
 import android.content.Context;
-import android.graphics.Point;
+
 import static android.opengl.GLES20.*;
+
+import android.graphics.PointF;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.util.Log;
@@ -29,6 +30,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 
     private final float[] mProjMatrix = new float[16];
     private final float[] modelMatrix = new float[16];
+    private final float[] viewMatrix = new float[16];
     private final float[] invM = new float[16];
     private float[] mvp = new float[16];
 
@@ -68,46 +70,61 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     
     public float[] calculateMVP( BglObject obj ) {
     	
-    	Point pos = obj.posGet();
-    	Point anchor = obj.anchorPointGet();
+    	PointF pos = obj.posGet();
+        PointF size= obj.sizeGet();
+    	PointF anchor = obj.anchorPointGet();
+        //convert obj pos to pixel screen coordinate
+        float x = (pos.x + (0.5f - anchor.x) * size.x) * screen_width;
+        float y = (pos.y + (0.5f - anchor.y) * size.y) * screen_height;
     	//convert to GL coordinate
-    	float x = ( (float) (pos.x + anchor.x) / screen_width )*2 - 1;
-        float y = -( ( (float) (pos.y + anchor.y) / screen_height )*2 - 1);
+    	x = ( x / screen_width )*2 - 1;
+        y = -( ( y / screen_height )*2 - 1);
         float z = obj.zGet();
         
         Matrix.invertM(invM, 0, mProjMatrix, 0);
-        final float[] farPointNdc = { x, y, z, 1};
+        final float[] farPointNdc = { x, y, z, 1 };
         final float[] farPointWorld = new float[4];        
         Matrix.multiplyMV(farPointWorld, 0, invM, 0, farPointNdc, 0);
-          
-        Matrix.setIdentityM(modelMatrix, 0);
-        
         farPointWorld[0] /= farPointWorld[3];
         farPointWorld[1] /= farPointWorld[3];
         farPointWorld[2] /= farPointWorld[3];
-        
-    	float w = (float) obj.widthGet() / screen_width ;
-        float h = (float) obj.heightGet() / screen_height;  
-        
-        final float[] farSize = { w, h, 0, 1 };
+
+
+        final float[] farSize = { size.x, size.y, 0, 1 };
         final float[] farSizeWorld = new float[4];
         Matrix.multiplyMV(farSizeWorld, 0, invM, 0, farSize, 0 );
-        
         farSizeWorld[0] /= farSizeWorld[3];
         farSizeWorld[1] /= farSizeWorld[3];
-        farSizeWorld[2] /= farSizeWorld[3];       
-        
-        Matrix.translateM(modelMatrix, 0, farPointWorld[0], farPointWorld[1], farPointWorld[2]);     
+        farSizeWorld[2] /= farSizeWorld[3];
+
+        /* Calculate model matrix */
+        Matrix.setIdentityM(modelMatrix, 0);
+        Matrix.translateM(modelMatrix, 0, farPointWorld[0], farPointWorld[1], farPointWorld[2]);
         Matrix.rotateM(modelMatrix, 0, obj.getAngleX(), 1, 0, 0);
         Matrix.rotateM(modelMatrix, 0, obj.getAngleY(), 0, 1, 0);
         Matrix.rotateM(modelMatrix, 0, obj.getAngleZ(), 0, 0, 1);
         Matrix.scaleM(modelMatrix, 0,  farSizeWorld[0], farSizeWorld[1], farSizeWorld[2] );
-        
+
+        /* Where the cam is */
+        final float camX = 0.0f;
+        final float camY = 0.0f;
+        final float camZ = 0.2f;
+        /* Dir the camera is looking toward */
+        final float lookX = 0.0f;
+        final float lookY = 0.0f;
+        final float lookZ = -1.0f;
+        /* up vector */
+        final float upX = 0.0f;
+        final float upY = 1.0f;
+        final float upZ = 0.0f;
+
+        Matrix.setLookAtM(viewMatrix, 0, camX, camY, camZ, lookX, lookY, lookZ, upX, upY, upZ);
+
         Matrix.setIdentityM(mvp, 0);
-        Matrix.multiplyMM(mvp, 0, mProjMatrix, 0, modelMatrix, 0);
+        Matrix.multiplyMM(mvp, 0, viewMatrix, 0, modelMatrix, 0);
+        Matrix.multiplyMM(mvp, 0, mProjMatrix, 0, mvp, 0);
         
         return mvp;
-    	
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.BGL.utils;
+package com.example.BGL;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -32,7 +32,7 @@ public class BglSprite extends BglObject {
     // TODO differente pour les objects animes de ceux pas animes
     protected FloatBuffer[] textCoordBuffer;
     
-	public BglSprite( int x, int y, int w, int h, int texture_id ){
+	public BglSprite( float x, float y, float w, float h, int texture_id ){
 
         super(x,y,w,h);
 

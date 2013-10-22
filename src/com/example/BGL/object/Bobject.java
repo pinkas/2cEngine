@@ -1,52 +1,49 @@
 package com.example.BGL.object;
 
-import android.graphics.Point;
+import android.graphics.PointF;
 import android.graphics.Rect;
 
-import com.example.BGL.utils.Angle;
+import com.example.BGL.Angle;
 
 /**
  * Created by Ben on 10/9/13.
  */
 public class Bobject {
 
-    protected Point pos;
+    protected PointF pos;
     private float z;
-    protected Point anchor;
+    protected PointF anchor;
     protected Angle angle = new Angle();
-    protected int w;
-    protected int h;
+    protected PointF size;
     public Rect rectangle;
     protected boolean pressed;
 
-    public Bobject(int x, int y, int w, int h){
+    public Bobject( float x, float y, float w, float h){
 
-        pos = new Point(x,y);
-        anchor = new Point (w/2, h/2);
+        pos = new PointF(x,y);
+        size = new PointF(w,h);
+        anchor = new PointF (0.0f, 0.0f);
         z = 0;
 
-        this.w = w;
-        this.h = h;
-
-        rectangle = new Rect( pos.x, pos.y, pos.x + w, pos.y + h );
+      //  rectangle = new Rect( (int) pos.x,  pos.y, pos.x + w, pos.y + h );
     }
 
 
     public void anchorPointSet( float x, float y ) {
-        this.anchor.x =  (int) (w/2 - (x*w));
-        this.anchor.y =  (int) (h/2 - (y*h));
+        anchor.x = x;
+        anchor.y = y;
     }
 
-    public Point anchorPointGet() {
+    public PointF anchorPointGet() {
         return anchor;
     }
 
-    public void resize(int w, int h){
+    public void resize(float w, float h){
         //TODO  check if parameters are correct?
-        this.w = w;
-        this.h = h;
+        size.x = w;
+        size.y = h;
 
-        rectangle.set(pos.x, pos.y, pos.x + this.w, pos.y + this.h);
+      //  rectangle.set(pos.x, pos.y, pos.x + this.w, pos.y + this.h);
     }
 
     // Finger touches the object
@@ -69,15 +66,11 @@ public class Bobject {
         return pressed;
     }
 
-    public int widthGet() {
-        return  w;
+    public PointF sizeGet() {
+        return size;
     }
 
-    public int heightGet() {
-        return  h;
-    }
-
-    public Point posGet () {
+    public PointF posGet () {
         return pos;
     }
 
@@ -89,19 +82,19 @@ public class Bobject {
         return z;
     }
 
-    public void posSet ( Point pos ) {
+    public void posSet ( PointF pos ) {
         this.pos.x = pos.x;
         this.pos.y = pos.y;
-        rectangle.set(pos.x, pos.y, pos.x + w, pos.y + h);
+      //  rectangle.set(pos.x, pos.y, pos.x + w, pos.y + h);
     }
     public void posSet ( int x, int y ) {
         this.pos.x = x;
         this.pos.y = y;
-        rectangle.set(pos.x, pos.y, pos.x + w, pos.y + h);
+     //   rectangle.set(pos.x, pos.y, pos.x + w, pos.y + h);
     }
 
     public void update(){
-        rectangle.set(pos.x, pos.y, pos.x + w, pos.y + h);
+      //  rectangle.set(pos.x, pos.y, pos.x + w, pos.y + h);
     }
 
 

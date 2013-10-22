@@ -15,7 +15,6 @@ public class InputStatus {
 	}
 	
 	public static void setTouchDown(int x, int y) {
-        System.out.println("SYSTEM STATUS DOWN!!!!!");
 		touchState = TouchState.DOWN;
 		touch.x = x;
 		touch.y = y;

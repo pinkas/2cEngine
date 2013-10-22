@@ -6,6 +6,8 @@ import java.util.Enumeration;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Point;
+import android.graphics.Rect;
 
 import com.example.BGL.object.BglObject;
 import com.example.BGL.object.Brectangle;
@@ -15,11 +17,14 @@ import com.example.BGL.shader.ShaderList;
 public  class World {
 
 	private List<BglObject> habitants;
+    private Point screenSize;
+    private Rect rectangle;
 
-
-    public World() {
+    public World( Point screenSize ) {
 		this.habitants = new ArrayList<BglObject>();
-	}
+	    this.screenSize = screenSize;
+        rectangle = new Rect();
+    }
 
 
     public List<BglObject> getHabitants() {
@@ -68,16 +73,27 @@ public  class World {
 		while( e.hasMoreElements() ) {
 
 			BglObject obj = e.nextElement();
+
+            int x = (int) (obj.posGet().x  * screenSize.x);
+            int y = (int) (obj.posGet().y  * screenSize.y);
+            int w = (int) (obj.sizeGet().x * screenSize.x);
+            int h = (int) (obj.sizeGet().y * screenSize.y);
+           // float anchor ;
+            x = x + (int) obj.anchorPointGet().x;
+            y = y + (int) obj.anchorPointGet().y;
+            System.out.println( obj.anchorPointGet().x );
+            rectangle.set( x, y, x + w, y + h);
+
 			// TODO have different list of objects, some are purely static
 			// some are input sensitive, some are physics ...
 			switch ( InputStatus.getTouchState() ) {
                 case DOWN:
-                    if ( obj.rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY())){
+                    if ( rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY())){
                         obj.touchDown();
                         break;
                     }
 				case UP:
-                    if (obj.rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY())){
+                    if ( rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY())){
                         obj.touchUp();
                         break;
                     }
@@ -86,13 +102,12 @@ public  class World {
                         break;
                     }
 				case MOVE:
-					if ( obj.rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY()))
+					if ( rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY()))
 						obj.touchMove( InputStatus.getTouchX(), InputStatus.getTouchY() );
 						break;
 			}
 
-
-            obj.update();
+          ///  obj.update();
 		}
 			InputStatus.resetTouch();
 	}

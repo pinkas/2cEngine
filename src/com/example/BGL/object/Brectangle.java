@@ -9,7 +9,7 @@ public class Brectangle extends BglObject {
 
     private float color[];
 
-    public Brectangle( int x, int y, int w, int h, float r, float g, float b){
+    public Brectangle( float x, float y, float w, float h, float r, float g, float b){
 
         super(x,y,w,h);
 
