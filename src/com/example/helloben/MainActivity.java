@@ -7,6 +7,7 @@ import com.example.BGL.InputStatus;
 import com.example.BGL.World;
 import com.example.BGL.MyRenderer;
 import com.example.BGL.object.BglAnimatedSprite;
+import com.example.BGL.object.BglSprite;
 import com.example.BGL.object.Brectangle;
 import com.example.BGL.object.SpriteSheet;
 
@@ -68,21 +69,31 @@ class MyGLSurfaceView extends GLSurfaceView {
         mRenderer = new MyRenderer( context, mWorld );
         setRenderer(mRenderer);
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
-
+/*
         SpriteSheet slug0 = new SpriteSheet(R.drawable.sprite, 12, 1, 12);
         SpriteSheet slug = new SpriteSheet(R.drawable.sprite2, 16, 1, 16);
         SpriteSheet [] spriteSheetTab = new SpriteSheet[2];
         spriteSheetTab[0] = slug0;
         spriteSheetTab[1] = slug;
 
-        BglAnimatedSprite metal = new BglAnimatedSprite(0.5f, 0.5f, 0.5f, 0.5f, spriteSheetTab);
+        BglAnimatedSprite metal = new BglAnimatedSprite(1.0f, 0.5f, 0.5f, 0.5f, spriteSheetTab);
         mWorld.addHabitant(metal);
-        metal.anchorPointSet(0.0f,0.0f);
+        metal.anchorPointSet(0.5f,0.5f);
+*/
 
 
-      //  Brectangle myRect = new Brectangle(0.5f, 0.5f, 0.1f, 0.1f,0.6f, 0.7f,1.0f);
-      //  mWorld.addHabitant(myRect);
-     /*   myRect.posSet(100,100);
+        BglSprite myRect1 = new BglSprite( 0.0f,0.0f,2.0f,1.0f, R.drawable.bm_2 );
+        mWorld.addHabitant(myRect1);
+        myRect1.anchorPointSet(0.5f,0.5f);
+
+        CubeScroll myRect = new CubeScroll(0.5f, 0.5f, 0.25f, 0.18f,0.0f, 0.7f,1.0f);
+        mWorld.addHabitant(myRect);
+        myRect.anchorPointSet(0.5f,0.5f);
+       myRect.setBoundToCamera(true);
+
+
+/*
+        myRect.posSet(100,100);
         RectangleRotateGrid myGrid = new RectangleRotateGrid(1, 1, 10, 14);
         for ( int i =0;i<10*14;i++)
             mWorld.addHabitant( myGrid.getRects(i) );

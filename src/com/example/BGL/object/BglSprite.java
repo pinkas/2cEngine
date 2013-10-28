@@ -35,7 +35,7 @@ public class BglSprite extends BglObject {
 	public BglSprite( float x, float y, float w, float h, int texture_id ){
 
         super(x,y,w,h);
-
+        this.texture_id = texture_id;
         // texture coord
     	ByteBuffer bb = ByteBuffer.allocateDirect(textcoords.length * 4);
         bb.order(ByteOrder.nativeOrder());

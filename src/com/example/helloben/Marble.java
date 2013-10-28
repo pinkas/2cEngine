@@ -31,12 +31,12 @@ public class Marble extends BglSprite {
     }
 
     @Override
-    public void touchMove(int x, int y) {
+    public void touchMove(float x, float y) {
         super.touchMove(x, y);
     }
 
     @Override
-    public void touchUpMove(int px, int py){
+    public void touchUpMove(float px, float py){
         super.touchUpMove(px,py);
         //speed.x = (pos.x - px)/6;
         //speed.y = (pos.y - py)/6;

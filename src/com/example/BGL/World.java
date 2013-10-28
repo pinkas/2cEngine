@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.graphics.Rect;
 
 import com.example.BGL.object.BglObject;
@@ -19,11 +20,13 @@ public  class World {
 	private List<BglObject> habitants;
     private Point screenSize;
     private Rect rectangle;
+    private PointF camPos;
 
     public World( Point screenSize ) {
 		this.habitants = new ArrayList<BglObject>();
 	    this.screenSize = screenSize;
         rectangle = new Rect();
+        camPos = new PointF( 0,0 );
     }
 
 
@@ -39,6 +42,11 @@ public  class World {
         habitants.remove(obj);
     }
 
+
+    public void MOCHE_camera (float x, float y){
+        camPos.x = x;
+        camPos.y = y;
+    }
 
     // Load textures and Shaders
     public void loadObjectTexture(Context context, ShaderList sl){
@@ -74,21 +82,24 @@ public  class World {
 
 			BglObject obj = e.nextElement();
 
-            int x = (int) (obj.posGet().x  * screenSize.x);
-            int y = (int) (obj.posGet().y  * screenSize.y);
-            int w = (int) (obj.sizeGet().x * screenSize.x);
-            int h = (int) (obj.sizeGet().y * screenSize.y);
-           // float anchor ;
-            x = x + (int) obj.anchorPointGet().x;
-            y = y + (int) obj.anchorPointGet().y;
-            System.out.println( obj.anchorPointGet().x );
+            if (obj.getBoundToCamera()){
+                camPos.x = obj.posGet().x - obj.anchorPointGet().x * obj.sizeGet().x;
+                camPos.y = obj.posGet().y - obj.anchorPointGet().y * obj.sizeGet().y;
+            }
+
+            int x = (int) ( (obj.posGet().x - obj.anchorPointGet().x * obj.sizeGet().x  ) * screenSize.x);
+            int y = (int) ( (obj.posGet().y - obj.anchorPointGet().y * obj.sizeGet().y ) * screenSize.y);
+            int w = (int) ( obj.sizeGet().x * screenSize.x);
+            int h = (int) ( obj.sizeGet().y * screenSize.y);
+
             rectangle.set( x, y, x + w, y + h);
 
 			// TODO have different list of objects, some are purely static
 			// some are input sensitive, some are physics ...
 			switch ( InputStatus.getTouchState() ) {
                 case DOWN:
-                    if ( rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY())){
+
+                    if ( rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY() )){
                         obj.touchDown();
                         break;
                     }
@@ -98,12 +109,12 @@ public  class World {
                         break;
                     }
                     else if(obj.isPressed()){
-                        obj.touchUpMove( InputStatus.getTouchX(), InputStatus.getTouchY());
+                        obj.touchUpMove(  (float) InputStatus.getTouchX() / (float) screenSize.x, (float) InputStatus.getTouchY() / (float) screenSize.y );
                         break;
                     }
 				case MOVE:
 					if ( rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY()))
-						obj.touchMove( InputStatus.getTouchX(), InputStatus.getTouchY() );
+						obj.touchMove( (float) InputStatus.getTouchX() / (float) screenSize.x, (float) InputStatus.getTouchY() / (float) screenSize.y);
 						break;
 			}
 

@@ -15,6 +15,7 @@ import java.nio.FloatBuffer;
 public class BglObject extends Bobject {
 
     protected Shader mShader;
+    protected boolean boundToCamera;
 
     private float objCoords[] = {
             -1, 1, 0,    // top left
@@ -46,6 +47,14 @@ public class BglObject extends Bobject {
         GLES20.glUseProgram(mShader.get_program());
         mShader.sendParametersToShader(this, mat);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN, 0, 4);
+    }
+
+    public boolean getBoundToCamera (){
+        return boundToCamera;
+    }
+
+    public void setBoundToCamera (boolean bound){
+        boundToCamera = bound ;
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.BGL;
 
 import java.util.Collections;
+import java.util.DuplicateFormatFlagsException;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -26,13 +27,28 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     
     private int screen_width;
     private int screen_height;
-    
+
+    private BglObject objFollowed;
 
     private final float[] mProjMatrix = new float[16];
     private final float[] modelMatrix = new float[16];
     private final float[] viewMatrix = new float[16];
     private final float[] invM = new float[16];
     private float[] mvp = new float[16];
+
+
+
+    private float camX = 0.0f;
+    private float camY = 0.0f;
+    private float camZ = 0.0f;
+    private float lookX = camX;
+    private float lookY = camY;
+    private float lookZ = -1.0f;
+
+    private final float upX = 0.0f;
+    private final float upY = 1.0f;
+    private final float upZ = 0.0f;
+
 
 	public MyRenderer ( Context context, World mWorld) {
 		super();
@@ -80,7 +96,9 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     	x = ( x / screen_width )*2 - 1;
         y = -( ( y / screen_height )*2 - 1);
         float z = obj.zGet();
-        
+
+
+
         Matrix.invertM(invM, 0, mProjMatrix, 0);
         final float[] farPointNdc = { x, y, z, 1 };
         final float[] farPointWorld = new float[4];        
@@ -105,18 +123,15 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         Matrix.rotateM(modelMatrix, 0, obj.getAngleZ(), 0, 0, 1);
         Matrix.scaleM(modelMatrix, 0,  farSizeWorld[0], farSizeWorld[1], farSizeWorld[2] );
 
-        /* Where the cam is */
-        final float camX = 0.0f;
-        final float camY = 0.0f;
-        final float camZ = 0.2f;
-        /* Dir the camera is looking toward */
-        final float lookX = 0.0f;
-        final float lookY = 0.0f;
-        final float lookZ = -1.0f;
-        /* up vector */
-        final float upX = 0.0f;
-        final float upY = 1.0f;
-        final float upZ = 0.0f;
+        /*VIEW MATRIX*/
+
+        if ( obj.getBoundToCamera() ) {
+            camX = farPointWorld[0];
+            camY = farPointWorld[1];
+            camZ = 3;
+            lookX = camX;
+            lookY = camY;
+        }
 
         Matrix.setLookAtM(viewMatrix, 0, camX, camY, camZ, lookX, lookY, lookZ, upX, upY, upZ);
 
@@ -155,6 +170,10 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         glViewport(0, 0, width, height);
         
         MatrixHelper.perspectiveM(mProjMatrix, 45, (float) width / (float) height, 1f, 200f);
+    }
+
+    public void lockCamera(BglObject obj){
+        objFollowed = obj;
     }
 
     public static void checkGlError(String glOperation) {
