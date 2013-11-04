@@ -21,8 +21,8 @@ public class CubeScroll extends Brectangle {
     @Override
     public void touchMove(float x, float y) {
         super.touchMove(x, y);
-        pos.x = x;
-        pos.y = y;
+        pos.x = x - anchor.x;
+        pos.y = y - anchor.y;
         System.out.println( x + "    plplplpl   " + y  );
     }
 

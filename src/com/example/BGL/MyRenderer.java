@@ -15,6 +15,7 @@ import android.content.Context;
 
 import static android.opengl.GLES20.*;
 
+import android.database.sqlite.SQLiteBindOrColumnIndexOutOfRangeException;
 import android.graphics.PointF;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
@@ -35,7 +36,6 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     private final float[] viewMatrix = new float[16];
     private final float[] invM = new float[16];
     private float[] mvp = new float[16];
-
 
 
     private float camX = 0.0f;
@@ -85,7 +85,9 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     }
     
     public float[] calculateMVP( BglObject obj ) {
-    	
+
+        boolean perspective_scorll=false;
+
     	PointF pos = obj.posGet();
         PointF size= obj.sizeGet();
     	PointF anchor = obj.anchorPointGet();
@@ -97,7 +99,9 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         y = -( ( y / screen_height )*2 - 1);
         float z = obj.zGet();
 
-
+        if (z != 0){
+            perspective_scorll = true;
+        }
 
         Matrix.invertM(invM, 0, mProjMatrix, 0);
         final float[] farPointNdc = { x, y, z, 1 };
@@ -115,6 +119,19 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         farSizeWorld[1] /= farSizeWorld[3];
         farSizeWorld[2] /= farSizeWorld[3];
 
+        float div = 1 - z;
+        float div2 = farSizeWorld[2] * (-1);
+
+        if (perspective_scorll) {
+         //   farPointWorld[0] = farPointWorld[0]*farPointWorld[3];
+         //   farPointWorld[1] = farPointWorld[1]*farPointWorld[3];
+            farSizeWorld[0] = farSizeWorld[0]/div;
+            farSizeWorld[1] = farSizeWorld[1]/div;
+//            farSizeWorld[2] = farSizeWorld[2]/farSizeWorld[3];
+        }
+        System.out.println( "pos"+ farPointWorld[0] + "       " + farPointWorld[1] +"         " + farPointWorld[3]  );
+        System.out.println( "siz"+ farSizeWorld[0] + "       " + farSizeWorld[1] +"   " + farSizeWorld[2] + "  "   + farSizeWorld[3]  );
+        System.out.println("BLAH");
         /* Calculate model matrix */
         Matrix.setIdentityM(modelMatrix, 0);
         Matrix.translateM(modelMatrix, 0, farPointWorld[0], farPointWorld[1], farPointWorld[2]);
@@ -123,15 +140,17 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         Matrix.rotateM(modelMatrix, 0, obj.getAngleZ(), 0, 0, 1);
         Matrix.scaleM(modelMatrix, 0,  farSizeWorld[0], farSizeWorld[1], farSizeWorld[2] );
 
-        /*VIEW MATRIX*/
 
+
+        /*VIEW MATRIX*/
         if ( obj.getBoundToCamera() ) {
             camX = farPointWorld[0];
             camY = farPointWorld[1];
-            camZ = 3;
+            camZ = 0;
             lookX = camX;
             lookY = camY;
         }
+        camZ = 0;
 
         Matrix.setLookAtM(viewMatrix, 0, camX, camY, camZ, lookX, lookY, lookZ, upX, upY, upZ);
 
@@ -140,6 +159,12 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         Matrix.multiplyMM(mvp, 0, mProjMatrix, 0, mvp, 0);
         
         return mvp;
+    }
+
+    public void move(float x, float y){
+        camX = x;
+        lookX = x;
+        camY = y;
     }
 
     @Override
@@ -155,7 +180,9 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 		// Draw the habitants \o/
 		while( e.hasMoreElements() ) {
 			BglObject obj = e.nextElement();
-			
+			camX = camX + 0.001f;
+
+            move( camX, 0.0f );
 			mvp = calculateMVP( obj );
 			obj.draw(mvp);
 		}    

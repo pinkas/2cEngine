@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.graphics.RectF;
 
 import com.example.BGL.object.BglObject;
 import com.example.BGL.object.Brectangle;
@@ -19,13 +20,13 @@ public  class World {
 
 	private List<BglObject> habitants;
     private Point screenSize;
-    private Rect rectangle;
+    private RectF rectangle;
     private PointF camPos;
 
     public World( Point screenSize ) {
 		this.habitants = new ArrayList<BglObject>();
 	    this.screenSize = screenSize;
-        rectangle = new Rect();
+        rectangle = new RectF();
         camPos = new PointF( 0,0 );
     }
 
@@ -83,39 +84,47 @@ public  class World {
 			BglObject obj = e.nextElement();
 
             if (obj.getBoundToCamera()){
-                camPos.x = obj.posGet().x - obj.anchorPointGet().x * obj.sizeGet().x;
-                camPos.y = obj.posGet().y - obj.anchorPointGet().y * obj.sizeGet().y;
+                camPos.x = obj.posGet().x - obj.anchorPointGet().x;
+                camPos.y = obj.posGet().y - obj.anchorPointGet().y;
             }
 
-            int x = (int) ( (obj.posGet().x - obj.anchorPointGet().x * obj.sizeGet().x  ) * screenSize.x);
-            int y = (int) ( (obj.posGet().y - obj.anchorPointGet().y * obj.sizeGet().y ) * screenSize.y);
-            int w = (int) ( obj.sizeGet().x * screenSize.x);
-            int h = (int) ( obj.sizeGet().y * screenSize.y);
+            float x = obj.posGet().x - obj.anchorPointGet().x * obj.sizeGet().x;
+            float y = obj.posGet().y - obj.anchorPointGet().y * obj.sizeGet().y;
+            float w = obj.sizeGet().x;
+            float h = obj.sizeGet().y;
 
             rectangle.set( x, y, x + w, y + h);
+
+            float touchRelX = InputStatus.getTouchX() / (float) screenSize.x;
+            float touchRelY = InputStatus.getTouchY() / (float) screenSize.y;
+
+            float touchAbsX = touchRelX + camPos.x ;
+            float touchAbsY = touchRelY + camPos.y ;
+
 
 			// TODO have different list of objects, some are purely static
 			// some are input sensitive, some are physics ...
 			switch ( InputStatus.getTouchState() ) {
                 case DOWN:
 
-                    if ( rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY() )){
+                    if ( rectangle.contains( touchAbsX, touchAbsY ) ){
                         obj.touchDown();
                         break;
                     }
 				case UP:
-                    if ( rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY())){
+                    if ( rectangle.contains( touchAbsX, touchAbsY ) ){
                         obj.touchUp();
                         break;
                     }
-                    else if(obj.isPressed()){
+                    else if( obj.isPressed() ){
                         obj.touchUpMove(  (float) InputStatus.getTouchX() / (float) screenSize.x, (float) InputStatus.getTouchY() / (float) screenSize.y );
                         break;
                     }
 				case MOVE:
-					if ( rectangle.contains(InputStatus.getTouchX(), InputStatus.getTouchY()))
+					if ( rectangle.contains( touchAbsX, touchAbsY ) ) {
 						obj.touchMove( (float) InputStatus.getTouchX() / (float) screenSize.x, (float) InputStatus.getTouchY() / (float) screenSize.y);
 						break;
+                    }
 			}
 
           ///  obj.update();

@@ -81,16 +81,64 @@ class MyGLSurfaceView extends GLSurfaceView {
         metal.anchorPointSet(0.5f,0.5f);
 */
 
+        BglSprite clouds = new BglSprite( 0, 0, 1.3f, 0.5f, R.drawable.lastlayer );
+        mWorld.addHabitant(clouds);
+        clouds.anchorPointSet(0.0f,0.0f);
+        clouds.zSet(0.7f);
 
-        BglSprite myRect1 = new BglSprite( 0.0f,0.0f,2.0f,1.0f, R.drawable.bm_2 );
-        mWorld.addHabitant(myRect1);
-        myRect1.anchorPointSet(0.5f,0.5f);
 
-        CubeScroll myRect = new CubeScroll(0.5f, 0.5f, 0.25f, 0.18f,0.0f, 0.7f,1.0f);
+        BglSprite clouds2 = new BglSprite( 1.3f, 0, 1.3f, 0.5f, R.drawable.lastlayer );
+        mWorld.addHabitant(clouds2);
+        clouds2.anchorPointSet(0.0f,0.0f);
+        clouds2.zSet(0.7f);
+/*
+        BglSprite clouds3 = new BglSprite( 0f, 0f, 1.0f, 0.3f, R.drawable.lastlayer );
+        mWorld.addHabitant(clouds3);
+        clouds3.anchorPointSet(0.0f,0.0f);
+        clouds3.zSet(0.5f);
+
+*/
+        float Z1 = 0.4f;
+        BglSprite dune = new BglSprite( 0, 0.75f, 2.5f,0.44f, R.drawable.dune );
+        mWorld.addHabitant(dune);
+        dune.anchorPointSet(0,1);
+        dune.zSet(Z1);
+
+        BglSprite bg1 = new BglSprite( 0, 1, 2.5f, 1f, R.drawable.firstlayer );
+        mWorld.addHabitant(bg1);
+        bg1.anchorPointSet(0,1);
+/*
+float Z2 = 0.9f;
+float pos = 0.5f;
+float dev = 0.01f;
+
+        Brectangle rect3 = new Brectangle( pos, pos, 0.1f, 0.3f, 1.0f, 1.0f, 1.0f );
+        mWorld.addHabitant(rect3);
+        rect3.anchorPointSet(0.0f, 0.0f);
+
+        Brectangle rect4 = new Brectangle( pos, pos, 0.1f, 0.3f, 0.5f, 0.2f, 0.2f );
+        mWorld.addHabitant(rect4);
+        rect4.anchorPointSet(0.0f, 0.0f);
+        rect4.zSet(Z2);
+*/
+
+/*
+
+        Brectangle rectClouds = new Brectangle( 0.5f,0.5f,0.3f, 0.5f, 1.0f, 1.0f, 1.0f );
+        mWorld.addHabitant(rectClouds);
+        rectClouds.anchorPointSet(0.5f, 0.5f);
+
+        Brectangle rect2 = new Brectangle( 0.5f, 0.5f, 0.6f, 1.0f, 0.5f, 0.2f, 0.2f );
+        mWorld.addHabitant(rect2);
+        rect2.anchorPointSet(0.5f, 0.5f);
+        rect2.zSet(0.5f);
+*/
+/*
+        CubeScroll myRect = new CubeScroll(0.0f, 1.0f, 0.12f, 0.2f,0.0f, 0.7f,1.0f);
         mWorld.addHabitant(myRect);
-        myRect.anchorPointSet(0.5f,0.5f);
-       myRect.setBoundToCamera(true);
-
+        myRect.anchorPointSet(0.0f,1.0f);
+   //    myRect.setBoundToCamera(true);
+*/
 
 /*
         myRect.posSet(100,100);

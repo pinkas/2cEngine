@@ -42,8 +42,6 @@ public class Bobject {
         //TODO  check if parameters are correct?
         size.x = w;
         size.y = h;
-
-      //  rectangle.set(pos.x, pos.y, pos.x + this.w, pos.y + this.h);
     }
 
     // Finger touches the object
@@ -74,8 +72,8 @@ public class Bobject {
         return pos;
     }
 
-    public void zSet() {
-        this.z += 0.005;
+    public void zSet(float z) {
+        this.z = z;
     }
 
     public float zGet() {
@@ -85,12 +83,10 @@ public class Bobject {
     public void posSet ( PointF pos ) {
         this.pos.x = pos.x;
         this.pos.y = pos.y;
-      //  rectangle.set(pos.x, pos.y, pos.x + w, pos.y + h);
     }
     public void posSet ( int x, int y ) {
         this.pos.x = x;
         this.pos.y = y;
-     //   rectangle.set(pos.x, pos.y, pos.x + w, pos.y + h);
     }
 
     public void update(){
