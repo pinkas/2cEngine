@@ -1,6 +1,6 @@
 package com.example.helloben;
 
-import com.example.BGL.object.Brectangle;
+import com.example.bEngine.object.Brectangle;
 
 /**
  * Created by Ben on 10/28/13.
@@ -31,8 +31,8 @@ public class CubeScroll extends Brectangle {
         super.touchUpMove(x, y);
     }
 
-    public CubeScroll( float x, float y, float w, float h, float r, float g, float b ){
-        super(  x,  y,  w,  h,  r, g,  b );
+    public CubeScroll( float x, float y, float w, float h, float r, float g, float b, float a ){
+        super(  x,  y,  w,  h,  r, g,  b, a );
 
 
     }

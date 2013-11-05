@@ -1,21 +1,19 @@
-package com.example.BGL;
+package com.example.bEngine;
 
 import java.util.Collections;
-import java.util.DuplicateFormatFlagsException;
 import java.util.Enumeration;
 import java.util.List;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import com.example.BGL.object.BglObject;
-import com.example.BGL.shader.ShaderList;
+import com.example.bEngine.object.BglObject;
+import com.example.bEngine.shader.ShaderList;
 
 import android.content.Context;
 
 import static android.opengl.GLES20.*;
 
-import android.database.sqlite.SQLiteBindOrColumnIndexOutOfRangeException;
 import android.graphics.PointF;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
@@ -31,14 +29,14 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 
     private BglObject objFollowed;
 
-    private final float[] mProjMatrix = new float[16];
+    private final float[] projMatrix = new float[16];
     private final float[] modelMatrix = new float[16];
     private final float[] viewMatrix = new float[16];
     private final float[] invM = new float[16];
     private float[] mvp = new float[16];
 
 
-    private float camX = 0.0f;
+    public float camX = 0.0f;
     private float camY = 0.0f;
     private float camZ = 0.0f;
     private float lookX = camX;
@@ -103,7 +101,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
             perspective_scorll = true;
         }
 
-        Matrix.invertM(invM, 0, mProjMatrix, 0);
+        Matrix.invertM(invM, 0, projMatrix, 0);
         final float[] farPointNdc = { x, y, z, 1 };
         final float[] farPointWorld = new float[4];        
         Matrix.multiplyMV(farPointWorld, 0, invM, 0, farPointNdc, 0);
@@ -119,19 +117,12 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         farSizeWorld[1] /= farSizeWorld[3];
         farSizeWorld[2] /= farSizeWorld[3];
 
+        /* ugly hack for multi layered scrolling background */
         float div = 1 - z;
-        float div2 = farSizeWorld[2] * (-1);
-
         if (perspective_scorll) {
-         //   farPointWorld[0] = farPointWorld[0]*farPointWorld[3];
-         //   farPointWorld[1] = farPointWorld[1]*farPointWorld[3];
             farSizeWorld[0] = farSizeWorld[0]/div;
             farSizeWorld[1] = farSizeWorld[1]/div;
-//            farSizeWorld[2] = farSizeWorld[2]/farSizeWorld[3];
         }
-        System.out.println( "pos"+ farPointWorld[0] + "       " + farPointWorld[1] +"         " + farPointWorld[3]  );
-        System.out.println( "siz"+ farSizeWorld[0] + "       " + farSizeWorld[1] +"   " + farSizeWorld[2] + "  "   + farSizeWorld[3]  );
-        System.out.println("BLAH");
         /* Calculate model matrix */
         Matrix.setIdentityM(modelMatrix, 0);
         Matrix.translateM(modelMatrix, 0, farPointWorld[0], farPointWorld[1], farPointWorld[2]);
@@ -139,8 +130,6 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         Matrix.rotateM(modelMatrix, 0, obj.getAngleY(), 0, 1, 0);
         Matrix.rotateM(modelMatrix, 0, obj.getAngleZ(), 0, 0, 1);
         Matrix.scaleM(modelMatrix, 0,  farSizeWorld[0], farSizeWorld[1], farSizeWorld[2] );
-
-
 
         /*VIEW MATRIX*/
         if ( obj.getBoundToCamera() ) {
@@ -151,20 +140,18 @@ public class MyRenderer implements GLSurfaceView.Renderer {
             lookY = camY;
         }
         camZ = 0;
-
         Matrix.setLookAtM(viewMatrix, 0, camX, camY, camZ, lookX, lookY, lookZ, upX, upY, upZ);
 
         Matrix.setIdentityM(mvp, 0);
         Matrix.multiplyMM(mvp, 0, viewMatrix, 0, modelMatrix, 0);
-        Matrix.multiplyMM(mvp, 0, mProjMatrix, 0, mvp, 0);
+        Matrix.multiplyMM(mvp, 0, projMatrix, 0, mvp, 0);
         
         return mvp;
     }
 
-    public void move(float x, float y){
-        camX = x;
-        lookX = x;
-        camY = y;
+    public void move(){
+        camX += 0.01;
+        lookX = camX;
     }
 
     @Override
@@ -177,12 +164,10 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 
         List<BglObject> habitants = mWorld.getHabitants();
 		Enumeration<BglObject> e = Collections.enumeration( habitants );
-		// Draw the habitants \o/
+		/* Draw the habitants */
 		while( e.hasMoreElements() ) {
 			BglObject obj = e.nextElement();
-			camX = camX + 0.001f;
 
-            move( camX, 0.0f );
 			mvp = calculateMVP( obj );
 			obj.draw(mvp);
 		}    
@@ -196,7 +181,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     	screen_height = height;
         glViewport(0, 0, width, height);
         
-        MatrixHelper.perspectiveM(mProjMatrix, 45, (float) width / (float) height, 1f, 200f);
+        MatrixHelper.perspectiveM( projMatrix, 45, (float) width / (float) height, 1f, 200f );
     }
 
     public void lockCamera(BglObject obj){

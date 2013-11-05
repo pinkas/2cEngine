@@ -1,9 +1,9 @@
-package com.example.BGL.object;
+package com.example.bEngine.object;
 
 import android.content.Context;
 import android.opengl.GLES20;
 
-import com.example.BGL.shader.Shader;
+import com.example.bEngine.shader.Shader;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

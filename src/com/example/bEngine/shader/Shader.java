@@ -1,10 +1,10 @@
-package com.example.BGL.shader;
+package com.example.bEngine.shader;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.example.BGL.object.BglObject;
-import com.example.BGL.TextResourceReader;
+import com.example.bEngine.object.BglObject;
+import com.example.bEngine.TextResourceReader;
 
 import static android.opengl.GLES20.*;
 import static android.opengl.GLUtils.*;

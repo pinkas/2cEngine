@@ -1,6 +1,4 @@
-package com.example.BGL.object;
-
-import com.example.BGL.object.BglObject;
+package com.example.bEngine.object;
 
 /**
  * Created by Ben on 10/9/13.
@@ -9,7 +7,7 @@ public class Brectangle extends BglObject {
 
     private float color[];
 
-    public Brectangle( float x, float y, float w, float h, float r, float g, float b){
+    public Brectangle( float x, float y, float w, float h, float r, float g, float b, float a){
 
         super(x,y,w,h);
 
@@ -17,7 +15,7 @@ public class Brectangle extends BglObject {
         color[0] = r;
         color[1] = g;
         color[2] = b;
-        color[3] = 0.5f;
+        color[3] = a;
 
     }
 

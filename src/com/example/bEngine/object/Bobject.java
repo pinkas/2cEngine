@@ -1,9 +1,9 @@
-package com.example.BGL.object;
+package com.example.bEngine.object;
 
 import android.graphics.PointF;
 import android.graphics.Rect;
 
-import com.example.BGL.Angle;
+import com.example.bEngine.Angle;
 
 /**
  * Created by Ben on 10/9/13.

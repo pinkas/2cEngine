@@ -1,10 +1,10 @@
-package com.example.BGL.shader;
+package com.example.bEngine.shader;
 
 import static android.opengl.GLES20.*;
 
 import android.content.Context;
 
-import com.example.BGL.object.BglSprite;
+import com.example.bEngine.object.BglSprite;
 import com.example.helloben.R;
 
 

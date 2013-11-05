@@ -1,9 +1,9 @@
-package com.example.BGL.shader;
+package com.example.bEngine.shader;
 
 import android.content.Context;
 import static android.opengl.GLES20.*;
 
-import com.example.BGL.object.BglObject;
+import com.example.bEngine.object.BglObject;
 import com.example.helloben.R;
 
 import static android.opengl.GLES20.glVertexAttribPointer;

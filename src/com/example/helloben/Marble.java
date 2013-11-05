@@ -1,6 +1,6 @@
 package com.example.helloben;
 
-import com.example.BGL.object.BglSprite;
+import com.example.bEngine.object.BglSprite;
 
 /**
  * Created by Ben on 7/11/13.

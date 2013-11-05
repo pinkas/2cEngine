@@ -1,4 +1,4 @@
-package com.example.BGL.object;
+package com.example.bEngine.object;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -7,8 +7,6 @@ import java.nio.FloatBuffer;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
-import com.example.BGL.object.BglObject;
 
 import static android.opengl.GLES20.glGenTextures;
 

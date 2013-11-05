@@ -1,4 +1,4 @@
-package com.example.BGL;
+package com.example.bEngine;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,13 +8,12 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.PointF;
-import android.graphics.Rect;
 import android.graphics.RectF;
 
-import com.example.BGL.object.BglObject;
-import com.example.BGL.object.Brectangle;
-import com.example.BGL.shader.Shader;
-import com.example.BGL.shader.ShaderList;
+import com.example.bEngine.object.BglObject;
+import com.example.bEngine.object.Brectangle;
+import com.example.bEngine.shader.Shader;
+import com.example.bEngine.shader.ShaderList;
 
 public  class World {
 

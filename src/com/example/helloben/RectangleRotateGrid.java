@@ -2,7 +2,7 @@ package com.example.helloben;
 
 import android.graphics.Point;
 
-import com.example.BGL.object.Brectangle;
+import com.example.bEngine.object.Brectangle;
 
 /**
  * Created by Ben on 10/14/13.
@@ -18,7 +18,7 @@ public class RectangleRotateGrid {
         for( int i=0 ; i<row; i++){
             for( int j=0; j<col;j++){
 
-                rect[index] = new RectangleRotate( x + 101 * j , y + 101 * i, 100, 100, 0.0f, 0.0f, 0.0f);
+                rect[index] = new RectangleRotate( x + 101 * j , y + 101 * i, 100, 100, 0.0f, 0.0f, 0.0f, 1.0f);
                 index ++;
             }
         }
@@ -39,8 +39,8 @@ class RectangleRotate extends Brectangle {
     private Point prevPos;
 
 
-    public RectangleRotate(int x, int y, int w, int h, float r, float g, float b) {
-        super(x, y, w, h, r, g, b);
+    public RectangleRotate(int x, int y, int w, int h, float r, float g, float b, float a) {
+        super(x, y, w, h, r, g, b, a);
 
         angleVel[0] = 0;
         angleVel[1] = 0;

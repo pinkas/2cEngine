@@ -1,4 +1,4 @@
-package com.example.BGL.shader;
+package com.example.bEngine.shader;
 
 import android.content.Context;
 

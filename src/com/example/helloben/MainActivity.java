@@ -2,14 +2,13 @@ package com.example.helloben;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Callable;
 
-import com.example.BGL.InputStatus;
-import com.example.BGL.World;
-import com.example.BGL.MyRenderer;
-import com.example.BGL.object.BglAnimatedSprite;
-import com.example.BGL.object.BglSprite;
-import com.example.BGL.object.Brectangle;
-import com.example.BGL.object.SpriteSheet;
+import com.example.bEngine.InputStatus;
+import com.example.bEngine.Joypad;
+import com.example.bEngine.World;
+import com.example.bEngine.MyRenderer;
+import com.example.bEngine.object.BglSprite;
 
 import android.graphics.Point;
 import android.opengl.GLSurfaceView;
@@ -21,8 +20,8 @@ import android.view.MotionEvent;
 
 public class MainActivity extends Activity {
 
-    private GLSurfaceView mGLView;
-    private World mWorld;
+    private GLSurfaceView theGLView;
+    private World theWorld;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -32,31 +31,106 @@ public class MainActivity extends Activity {
         Point screenSize = new Point();
         display.getSize(screenSize);
 
-        mWorld = new World(screenSize);
-        mGLView = new MyGLSurfaceView(this, mWorld);
-        setContentView(mGLView);
+        theWorld = new World(screenSize);
+        theGLView = new GLSurfaceView(this);
+
+        theGLView.setEGLContextClientVersion(2);
+        final MyRenderer theRenderer = new MyRenderer( this, theWorld );
+        theGLView.setRenderer(theRenderer);
+        theGLView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+
+
+
+
+
+        BglSprite clouds = new BglSprite( 0, 0, 1.3f, 0.5f, R.drawable.lastlayer );
+        theWorld.addHabitant(clouds);
+        clouds.anchorPointSet(0.0f,0.0f);
+        clouds.zSet(0.7f);
+        BglSprite clouds2 = new BglSprite( 1.3f, 0, 1.3f, 0.5f, R.drawable.lastlayer );
+        theWorld.addHabitant(clouds2);
+        clouds2.anchorPointSet(0.0f,0.0f);
+        clouds2.zSet(0.7f);
+        BglSprite dune = new BglSprite( 0, 0.75f, 2.5f,0.44f, R.drawable.dune );
+        theWorld.addHabitant(dune);
+        dune.anchorPointSet(0,1);
+        dune.zSet(0.4f);
+        BglSprite bg1 = new BglSprite( 0, 1, 2.5f, 1f, R.drawable.firstlayer );
+        theWorld.addHabitant(bg1);
+        bg1.anchorPointSet(0,1);
+
+        Joypad theJoypad = new Joypad();
+        theWorld.addHabitant(theJoypad);
+
+        theJoypad.defineActionDown( new Callable() {
+            @Override
+            public Float call() {
+                theRenderer.move();
+                return 0.1f;
+            }
+        } );
+
+        Timer myTimer = new Timer ();
+        TimerTask renderTask = new TimerTask() {
+            public void run() {
+                theGLView.requestRender();
+            }
+        };
+        myTimer.scheduleAtFixedRate( renderTask ,100, 30);
+
+
+
+        setContentView(theGLView);
+
 	}
+
+    @Override
+    public boolean onTouchEvent(MotionEvent e) {
+
+        float x = e.getX();
+        float y = e.getY();
+        switch (e.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                InputStatus.setTouchDown((int) x, (int) y);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                InputStatus.setTouchMove((int) x, (int) y);
+                break;
+            case MotionEvent.ACTION_UP:
+                InputStatus.setTouchUp((int) x, (int) y);
+                break;
+            default:
+                return false;
+        }
+
+        theWorld.updateTouchStates();
+
+        return true;
+    }
+
+
+
 
     @Override
     protected void onPause() {
         super.onPause();
         // pauses the rendering thread.
         // Desalocate stuff if we get hungry
-        mGLView.onPause();
+        theGLView.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         // Resumes a paused rendering thread.
-        mGLView.onResume();
+        theGLView.onResume();
     }
 
 }
 
 class MyGLSurfaceView extends GLSurfaceView {
 
-    private final Renderer mRenderer;
+    private final Renderer theRenderer;
     private World mWorld;
 
     public MyGLSurfaceView(Context context, World mWorld) {
@@ -66,10 +140,11 @@ class MyGLSurfaceView extends GLSurfaceView {
 
         // Create an OpenGL ES 2.0 context.
         setEGLContextClientVersion(2);
-        mRenderer = new MyRenderer( context, mWorld );
-        setRenderer(mRenderer);
+        theRenderer = new MyRenderer( context, mWorld );
+        setRenderer(theRenderer);
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
-/*
+
+/*      //A sprite made of 2 differents sprite sheet
         SpriteSheet slug0 = new SpriteSheet(R.drawable.sprite, 12, 1, 12);
         SpriteSheet slug = new SpriteSheet(R.drawable.sprite2, 16, 1, 16);
         SpriteSheet [] spriteSheetTab = new SpriteSheet[2];
@@ -85,32 +160,45 @@ class MyGLSurfaceView extends GLSurfaceView {
         mWorld.addHabitant(clouds);
         clouds.anchorPointSet(0.0f,0.0f);
         clouds.zSet(0.7f);
-
-
         BglSprite clouds2 = new BglSprite( 1.3f, 0, 1.3f, 0.5f, R.drawable.lastlayer );
         mWorld.addHabitant(clouds2);
         clouds2.anchorPointSet(0.0f,0.0f);
         clouds2.zSet(0.7f);
-/*
-        BglSprite clouds3 = new BglSprite( 0f, 0f, 1.0f, 0.3f, R.drawable.lastlayer );
-        mWorld.addHabitant(clouds3);
-        clouds3.anchorPointSet(0.0f,0.0f);
-        clouds3.zSet(0.5f);
 
-*/
-        float Z1 = 0.4f;
         BglSprite dune = new BglSprite( 0, 0.75f, 2.5f,0.44f, R.drawable.dune );
         mWorld.addHabitant(dune);
         dune.anchorPointSet(0,1);
-        dune.zSet(Z1);
+        dune.zSet(0.4f);
 
         BglSprite bg1 = new BglSprite( 0, 1, 2.5f, 1f, R.drawable.firstlayer );
         mWorld.addHabitant(bg1);
         bg1.anchorPointSet(0,1);
+
+
+        Joypad theJoypad = new Joypad();
+        mWorld.addHabitant(theJoypad);
+
+        theJoypad.defineActionDown( new Callable() {
+            @Override
+            public Float call() {
+                // do stuff!!!
+                return 0.1f;
+            }
+        } );
 /*
-float Z2 = 0.9f;
-float pos = 0.5f;
-float dev = 0.01f;
+        queueEvent( new Runnable() {
+            public void run(){
+                theRenderer.move(0.1f,0.1f);
+            }
+
+        });
+
+*/
+
+/*      //To test the dirty hack for multi layers bg
+        float Z2 = 0.9f;
+        float pos = 0.5f;
+        float dev = 0.01f;
 
         Brectangle rect3 = new Brectangle( pos, pos, 0.1f, 0.3f, 1.0f, 1.0f, 1.0f );
         mWorld.addHabitant(rect3);
@@ -122,25 +210,7 @@ float dev = 0.01f;
         rect4.zSet(Z2);
 */
 
-/*
-
-        Brectangle rectClouds = new Brectangle( 0.5f,0.5f,0.3f, 0.5f, 1.0f, 1.0f, 1.0f );
-        mWorld.addHabitant(rectClouds);
-        rectClouds.anchorPointSet(0.5f, 0.5f);
-
-        Brectangle rect2 = new Brectangle( 0.5f, 0.5f, 0.6f, 1.0f, 0.5f, 0.2f, 0.2f );
-        mWorld.addHabitant(rect2);
-        rect2.anchorPointSet(0.5f, 0.5f);
-        rect2.zSet(0.5f);
-*/
-/*
-        CubeScroll myRect = new CubeScroll(0.0f, 1.0f, 0.12f, 0.2f,0.0f, 0.7f,1.0f);
-        mWorld.addHabitant(myRect);
-        myRect.anchorPointSet(0.0f,1.0f);
-   //    myRect.setBoundToCamera(true);
-*/
-
-/*
+/*      //Grid of rectangles that rotate
         myRect.posSet(100,100);
         RectangleRotateGrid myGrid = new RectangleRotateGrid(1, 1, 10, 14);
         for ( int i =0;i<10*14;i++)
@@ -157,6 +227,7 @@ float dev = 0.01f;
         	}
         };
         myTimer.scheduleAtFixedRate( renderTask ,100, 30);
+
     }
 
 
@@ -168,7 +239,7 @@ float dev = 0.01f;
         float y = e.getY();
         switch (e.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
-            	InputStatus.setTouchDown((int) x, (int) y);
+                InputStatus.setTouchDown((int) x, (int) y);
                 break;
             case MotionEvent.ACTION_MOVE:
             	InputStatus.setTouchMove((int) x, (int) y);
@@ -185,3 +256,4 @@ float dev = 0.01f;
         return true;
     }
 }
+
