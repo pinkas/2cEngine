@@ -1,6 +1,7 @@
 package com.example.bEngine.object;
 
 import android.content.Context;
+import android.graphics.PointF;
 import android.opengl.GLES20;
 
 import com.example.bEngine.shader.Shader;
@@ -16,6 +17,9 @@ public class BglObject extends Bobject {
 
     protected Shader mShader;
     protected boolean boundToCamera;
+    protected PointF offsetCamera;
+
+    private final FloatBuffer vertexBuffer;
 
     private float objCoords[] = {
             -1, 1, 0,    // top left
@@ -23,7 +27,7 @@ public class BglObject extends Bobject {
              1, -1, 0,   // bottom right
              1,  1, 0 }; // top right
 
-    private final FloatBuffer vertexBuffer;
+
 
     public BglObject( float x, float y, float w, float h){
         super(x,y,w,h);
@@ -53,7 +57,18 @@ public class BglObject extends Bobject {
         return boundToCamera;
     }
 
+    public  void setOffsetCamera( PointF offset ){
+        offsetCamera = offset;
+    }
+
+    public PointF getCameraOffset(){
+        return offsetCamera;
+    }
+
     public void setBoundToCamera (boolean bound){
+        if (!bound){
+            offsetCamera = null;
+        }
         boundToCamera = bound ;
     }
 

@@ -36,7 +36,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     private float[] mvp = new float[16];
 
 
-    public float camX = 0.0f;
+    private float camX = 0.0f;
     private float camY = 0.0f;
     private float camZ = 0.0f;
     private float lookX = camX;
@@ -46,9 +46,13 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     private final float upX = 0.0f;
     private final float upY = 1.0f;
     private final float upZ = 0.0f;
+    private float camXO=0;
+    private float camYO=0;
+    private float camXSC =0;
+    private float camYSC=0;
 
 
-	public MyRenderer ( Context context, World mWorld) {
+    public MyRenderer ( Context context, World mWorld) {
 		super();
 		this.context = context;
 		this.mWorld = mWorld;
@@ -84,17 +88,18 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     
     public float[] calculateMVP( BglObject obj ) {
 
+        /* so that i can "cheat with multi layered bg scrolling*/
         boolean perspective_scorll=false;
 
     	PointF pos = obj.posGet();
         PointF size= obj.sizeGet();
     	PointF anchor = obj.anchorPointGet();
         //convert obj pos to pixel screen coordinate
-        float x = (pos.x + (0.5f - anchor.x) * size.x) * screen_width;
-        float y = (pos.y + (0.5f - anchor.y) * size.y) * screen_height;
+        float x = (pos.x + (0.5f - anchor.x) * size.x);
+        float y = (pos.y + (0.5f - anchor.y) * size.y);
     	//convert to GL coordinate
-    	x = ( x / screen_width )*2 - 1;
-        y = -( ( y / screen_height )*2 - 1);
+    	x = x * 2 - 1;
+        y =  1 -  y * 2;
         float z = obj.zGet();
 
         if (z != 0){
@@ -123,6 +128,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
             farSizeWorld[0] = farSizeWorld[0]/div;
             farSizeWorld[1] = farSizeWorld[1]/div;
         }
+
         /* Calculate model matrix */
         Matrix.setIdentityM(modelMatrix, 0);
         Matrix.translateM(modelMatrix, 0, farPointWorld[0], farPointWorld[1], farPointWorld[2]);
@@ -131,17 +137,31 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         Matrix.rotateM(modelMatrix, 0, obj.getAngleZ(), 0, 0, 1);
         Matrix.scaleM(modelMatrix, 0,  farSizeWorld[0], farSizeWorld[1], farSizeWorld[2] );
 
-        /*VIEW MATRIX*/
+        /*View matrix*/
         if ( obj.getBoundToCamera() ) {
-            camX = farPointWorld[0];
-            camY = farPointWorld[1];
+
+            //TODO why would the object contains that???? the renderer should contain it!!!!
+            if ( obj.getCameraOffset() == null ){
+                PointF offset = new PointF( camX - farPointWorld[0], camY - farPointWorld[1] );
+                obj.setOffsetCamera( offset );
+                camXO = camXO -pos.x;
+                camYO = camYO - pos.y;
+            }
+
+            // Camera position in world coordinate
+            camXSC = pos.x + camXO;
+            camYSC = pos.y + camYO;
+            mWorld.setCamPos(camXSC, camYSC );
+            // Camera position in GL coordinate
+            camX = farPointWorld[0] + obj.getCameraOffset().x;
+            camY = farPointWorld[1] + obj.getCameraOffset().y;
             camZ = 0;
             lookX = camX;
             lookY = camY;
         }
         camZ = 0;
         Matrix.setLookAtM(viewMatrix, 0, camX, camY, camZ, lookX, lookY, lookZ, upX, upY, upZ);
-
+        /* MVP magic */
         Matrix.setIdentityM(mvp, 0);
         Matrix.multiplyMM(mvp, 0, viewMatrix, 0, modelMatrix, 0);
         Matrix.multiplyMM(mvp, 0, projMatrix, 0, mvp, 0);
@@ -149,9 +169,8 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         return mvp;
     }
 
-    public void move(){
-        camX += 0.01;
-        lookX = camX;
+    public void moveCam( float x, float y){
+
     }
 
     @Override

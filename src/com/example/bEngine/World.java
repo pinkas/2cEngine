@@ -43,7 +43,7 @@ public  class World {
     }
 
 
-    public void MOCHE_camera (float x, float y){
+    public void setCamPos (float x, float y){
         camPos.x = x;
         camPos.y = y;
     }
@@ -82,11 +82,6 @@ public  class World {
 
 			BglObject obj = e.nextElement();
 
-            if (obj.getBoundToCamera()){
-                camPos.x = obj.posGet().x - obj.anchorPointGet().x;
-                camPos.y = obj.posGet().y - obj.anchorPointGet().y;
-            }
-
             float x = obj.posGet().x - obj.anchorPointGet().x * obj.sizeGet().x;
             float y = obj.posGet().y - obj.anchorPointGet().y * obj.sizeGet().y;
             float w = obj.sizeGet().x;
@@ -99,13 +94,12 @@ public  class World {
 
             float touchAbsX = touchRelX + camPos.x ;
             float touchAbsY = touchRelY + camPos.y ;
-
+            System.out.println( camPos.x );
 
 			// TODO have different list of objects, some are purely static
 			// some are input sensitive, some are physics ...
 			switch ( InputStatus.getTouchState() ) {
                 case DOWN:
-
                     if ( rectangle.contains( touchAbsX, touchAbsY ) ){
                         obj.touchDown();
                         break;
@@ -116,12 +110,12 @@ public  class World {
                         break;
                     }
                     else if( obj.isPressed() ){
-                        obj.touchUpMove(  (float) InputStatus.getTouchX() / (float) screenSize.x, (float) InputStatus.getTouchY() / (float) screenSize.y );
+                        obj.touchUpMove( touchAbsX, touchAbsY );
                         break;
                     }
 				case MOVE:
 					if ( rectangle.contains( touchAbsX, touchAbsY ) ) {
-						obj.touchMove( (float) InputStatus.getTouchX() / (float) screenSize.x, (float) InputStatus.getTouchY() / (float) screenSize.y);
+						obj.touchMove( touchAbsX, touchAbsY );
 						break;
                     }
 			}

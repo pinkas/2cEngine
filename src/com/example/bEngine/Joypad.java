@@ -18,6 +18,7 @@ public class Joypad extends Brectangle  {
 
     @Override
     public void touchDown()  {
+        super.touchDown();
         try {
             actionDown.call();
         } catch (Exception e) {
