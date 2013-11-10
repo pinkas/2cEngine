@@ -32,7 +32,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     private final float[] projMatrix = new float[16];
     private final float[] modelMatrix = new float[16];
     private final float[] viewMatrix = new float[16];
-    private final float[] invM = new float[16];
+    private final float[] projMatrixInv = new float[16];
     private float[] mvp = new float[16];
 
 
@@ -94,33 +94,23 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     	PointF pos = obj.posGet();
         PointF size= obj.sizeGet();
     	PointF anchor = obj.anchorPointGet();
-        //convert obj pos to pixel screen coordinate
+        //convert obj pos from absolute (but relative to screen size ) to absolute pixel coord
         float x = (pos.x + (0.5f - anchor.x) * size.x);
         float y = (pos.y + (0.5f - anchor.y) * size.y);
     	//convert to GL coordinate
     	x = x * 2 - 1;
-        y =  1 -  y * 2;
+        y = 1 -  y * 2;
         float z = obj.zGet();
 
         if (z != 0){
             perspective_scorll = true;
         }
 
-        Matrix.invertM(invM, 0, projMatrix, 0);
-        final float[] farPointNdc = { x, y, z, 1 };
-        final float[] farPointWorld = new float[4];        
-        Matrix.multiplyMV(farPointWorld, 0, invM, 0, farPointNdc, 0);
-        farPointWorld[0] /= farPointWorld[3];
-        farPointWorld[1] /= farPointWorld[3];
-        farPointWorld[2] /= farPointWorld[3];
+        final float[] farPointWorld;
+        farPointWorld = fromWorldToGlFar(x,y,z);
 
-
-        final float[] farSize = { size.x, size.y, 0, 1 };
-        final float[] farSizeWorld = new float[4];
-        Matrix.multiplyMV(farSizeWorld, 0, invM, 0, farSize, 0 );
-        farSizeWorld[0] /= farSizeWorld[3];
-        farSizeWorld[1] /= farSizeWorld[3];
-        farSizeWorld[2] /= farSizeWorld[3];
+        final float[] farSizeWorld;
+         farSizeWorld = fromWorldToGlFar(size.x,size.y,0);
 
         /* ugly hack for multi layered scrolling background */
         float div = 1 - z;
@@ -173,6 +163,17 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 
     }
 
+    public float[] fromWorldToGlFar( float x, float y, float z){
+
+        final float[] farPointNdc = { x, y, z, 1 };
+        final float[] farPointWorld = new float[4];
+        Matrix.multiplyMV(farPointWorld, 0, projMatrixInv, 0, farPointNdc, 0);
+        farPointWorld[0] /= farPointWorld[3];
+        farPointWorld[1] /= farPointWorld[3];
+        farPointWorld[2] /= farPointWorld[3];
+        return farPointWorld;
+    }
+
     @Override
     public void onDrawFrame(GL10 unused) {
 
@@ -201,6 +202,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         glViewport(0, 0, width, height);
         
         MatrixHelper.perspectiveM( projMatrix, 45, (float) width / (float) height, 1f, 200f );
+        Matrix.invertM(projMatrixInv, 0, projMatrix, 0);
     }
 
     public void lockCamera(BglObject obj){

@@ -75,7 +75,7 @@ public class MainActivity extends Activity {
         Callable joypadAction = new Callable() {
             @Override
             public Float call() {
-                metal.setAngleZ(10f);
+             //   metal.setAngleZ(10f);
              //   theRenderer.move();
                 return 0.1f;
             }
