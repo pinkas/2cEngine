@@ -18,9 +18,11 @@
     </shared>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4d37636f-f9b0-43eb-9b51-88ed554d17b8" name="Default" comment="implements from">
+    <list default="true" id="4d37636f-f9b0-43eb-9b51-88ed554d17b8" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/helloben/Heroe.java" afterPath="$PROJECT_DIR$/src/com/example/helloben/Heroe.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/helloben/MainActivity.java" afterPath="$PROJECT_DIR$/src/com/example/helloben/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/MyRenderer.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/MyRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/World.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/World.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Helloben.iws" />
@@ -94,11 +96,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MyRenderer.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="MyRenderer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/MyRenderer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="110" column="0" selection-start="3345" selection-end="3345" vertical-scroll-proportion="-0.8765101" vertical-offset="2420" max-vertical-offset="3971">
-              <folding />
+            <state line="142" column="50" selection-start="4748" selection-end="4748" vertical-scroll-proportion="0.0" vertical-offset="2067" max-vertical-offset="3230">
+              <folding>
+                <element signature="method#fromWorldToGlFar#0;class#MyRenderer#0" expanded="false" />
+                <element signature="method#onDrawFrame#0;class#MyRenderer#0" expanded="false" />
+                <element signature="method#onSurfaceChanged#0;class#MyRenderer#0" expanded="false" />
+                <element signature="method#checkGlError#0;class#MyRenderer#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -130,12 +137,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/example/helloben/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="15" selection-start="2793" selection-end="2793" vertical-scroll-proportion="0.0" vertical-offset="817" max-vertical-offset="2679">
+            <state line="70" column="2" selection-start="2554" selection-end="2554" vertical-scroll-proportion="0.38255033" vertical-offset="703" max-vertical-offset="2736">
               <folding>
-                <marker date="1384066946550" expanded="true" signature="2030:3823" placeholder="..." />
+                <element signature="e#2707#2921#0" expanded="true" />
+                <element signature="e#2910#2911#0" expanded="true" />
+                <marker date="1384072112542" expanded="true" signature="2030:3836" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -144,7 +153,7 @@
       <file leaf-file-name="World.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/World.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="117" column="60" selection-start="3521" selection-end="3521" vertical-scroll-proportion="0.0" vertical-offset="2204" max-vertical-offset="2850">
+            <state line="95" column="57" selection-start="2676" selection-end="2676" vertical-scroll-proportion="0.0" vertical-offset="1117" max-vertical-offset="2603">
               <folding />
             </state>
           </provider>
@@ -162,10 +171,8 @@
       <file leaf-file-name="Heroe.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/example/helloben/Heroe.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="8" selection-start="672" selection-end="672" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="893">
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+            <state line="10" column="22" selection-start="240" selection-end="240" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="893">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -222,10 +229,10 @@
         <option value="$PROJECT_DIR$/src/com/example/helloben/RectangleRotateGrid.java" />
         <option value="$PROJECT_DIR$/src/com/example/bEngine/Joypad.java" />
         <option value="$PROJECT_DIR$/src/com/example/bEngine/object/BglObject.java" />
+        <option value="$PROJECT_DIR$/src/com/example/bEngine/MyRenderer.java" />
         <option value="$PROJECT_DIR$/src/com/example/bEngine/World.java" />
         <option value="$PROJECT_DIR$/src/com/example/helloben/Heroe.java" />
         <option value="$PROJECT_DIR$/src/com/example/helloben/MainActivity.java" />
-        <option value="$PROJECT_DIR$/src/com/example/bEngine/MyRenderer.java" />
       </list>
     </option>
   </component>
@@ -605,7 +612,11 @@
       <created>1383994138339</created>
       <updated>1383994138339</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="implements fromWorldToGlFar">
+      <created>1384066991541</created>
+      <updated>1384066991541</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -651,7 +662,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.6893096" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27481323" sideWeight="0.8585746" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14142539" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14142539" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="-44" y="101" width="1358" height="1082" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -704,7 +715,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="lock camera on object in a more generic way and other stuff i forgot" />
+    <option name="LAST_COMMIT_MESSAGE" value="implements fromWorldToGlFar" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -730,6 +741,7 @@
     <MESSAGE value="scrolling!" />
     <MESSAGE value="can access renderer from the activity and not the view...&#10;pass functions as arguments" />
     <MESSAGE value="lock camera on object in a more generic way and other stuff i forgot" />
+    <MESSAGE value="implements fromWorldToGlFar" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -761,7 +773,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/example/helloben/RectangleRotateGrid.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="110" selection-start="546" selection-end="546" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2413" />
+        <state line="20" column="110" selection-start="546" selection-end="546" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2413">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/sdk/platforms/android-17/android.jar!/android/opengl/GLSurfaceView.class">
@@ -804,6 +818,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/MyRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="142" column="50" selection-start="4748" selection-end="4748" vertical-scroll-proportion="0.0" vertical-offset="2067" max-vertical-offset="3230">
+          <folding>
+            <element signature="method#fromWorldToGlFar#0;class#MyRenderer#0" expanded="false" />
+            <element signature="method#onDrawFrame#0;class#MyRenderer#0" expanded="false" />
+            <element signature="method#onSurfaceChanged#0;class#MyRenderer#0" expanded="false" />
+            <element signature="method#checkGlError#0;class#MyRenderer#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/World.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="95" column="57" selection-start="2676" selection-end="2676" vertical-scroll-proportion="0.0" vertical-offset="1117" max-vertical-offset="2603">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/InputStatus.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="13" selection-start="75" selection-end="75" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1178">
@@ -811,35 +844,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/World.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="117" column="60" selection-start="3521" selection-end="3521" vertical-scroll-proportion="0.0" vertical-offset="1425" max-vertical-offset="2603">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/example/helloben/Heroe.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="8" selection-start="672" selection-end="672" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="893">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+        <state line="10" column="22" selection-start="240" selection-end="240" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="893">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/example/helloben/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="15" selection-start="2793" selection-end="2793" vertical-scroll-proportion="0.0" vertical-offset="817" max-vertical-offset="2679">
+        <state line="70" column="2" selection-start="2554" selection-end="2554" vertical-scroll-proportion="0.38255033" vertical-offset="703" max-vertical-offset="2736">
           <folding>
-            <marker date="1384066946550" expanded="true" signature="2030:3823" placeholder="..." />
+            <element signature="e#2707#2921#0" expanded="true" />
+            <element signature="e#2910#2911#0" expanded="true" />
+            <marker date="1384072112542" expanded="true" signature="2030:3836" placeholder="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/MyRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="0" selection-start="3345" selection-end="3345" vertical-scroll-proportion="-0.8765101" vertical-offset="2420" max-vertical-offset="3971">
-          <folding />
         </state>
       </provider>
     </entry>

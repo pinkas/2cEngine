@@ -43,13 +43,16 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     private float lookY = camY;
     private float lookZ = -1.0f;
 
+    private float camXworld = 0.5f;
+    private float camYworld = 0.5f;
+
+    private PointF camOffset;
+
     private final float upX = 0.0f;
     private final float upY = 1.0f;
     private final float upZ = 0.0f;
     private float camXO=0;
     private float camYO=0;
-    private float camXSC =0;
-    private float camYSC=0;
 
 
     public MyRenderer ( Context context, World mWorld) {
@@ -94,23 +97,20 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     	PointF pos = obj.posGet();
         PointF size= obj.sizeGet();
     	PointF anchor = obj.anchorPointGet();
-        //convert obj pos from absolute (but relative to screen size ) to absolute pixel coord
+        /* Take into account anchor point */
         float x = (pos.x + (0.5f - anchor.x) * size.x);
         float y = (pos.y + (0.5f - anchor.y) * size.y);
-    	//convert to GL coordinate
-    	x = x * 2 - 1;
-        y = 1 -  y * 2;
+    	/* From "relative size" screen coordinate to GL */
+    	float xGl = x * 2 - 1;
+        float yGl = 1 -  y * 2;
         float z = obj.zGet();
 
         if (z != 0){
             perspective_scorll = true;
         }
 
-        final float[] farPointWorld;
-        farPointWorld = fromWorldToGlFar(x,y,z);
-
-        final float[] farSizeWorld;
-         farSizeWorld = fromWorldToGlFar(size.x,size.y,0);
+        final float[] farPointWorld = fromWorldToGlFar(xGl,yGl,z);
+        final float[] farSizeWorld = fromWorldToGlFar(size.x,size.y,0);
 
         /* ugly hack for multi layered scrolling background */
         float div = 1 - z;
@@ -131,25 +131,18 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         if ( obj.getBoundToCamera() ) {
 
             //TODO why would the object contains that???? the renderer should contain it!!!!
-            if ( obj.getCameraOffset() == null ){
-                PointF offset = new PointF( camX - farPointWorld[0], camY - farPointWorld[1] );
-                obj.setOffsetCamera( offset );
-                camXO = camXO -pos.x;
+            if ( camOffset == null ){
+                // World coordinate wise the camera is initially in (0.5 0.5)
+                camOffset = new PointF( 0.5f - pos.x, 0.5f - pos.y );
+                camXO = camXO - pos.x;
                 camYO = camYO - pos.y;
             }
 
-            // Camera position in world coordinate
-            camXSC = pos.x + camXO;
-            camYSC = pos.y + camYO;
-            mWorld.setCamPos(camXSC, camYSC );
-            // Camera position in GL coordinate
-            camX = farPointWorld[0] + obj.getCameraOffset().x;
-            camY = farPointWorld[1] + obj.getCameraOffset().y;
-            camZ = 0;
-            lookX = camX;
-            lookY = camY;
+            moveCam( pos.x + camOffset.x, pos.y + camOffset.y);
+            /* Camera position in world coordinate */
+            mWorld.setCamPos( camXworld, camYworld );
+
         }
-        camZ = 0;
         Matrix.setLookAtM(viewMatrix, 0, camX, camY, camZ, lookX, lookY, lookZ, upX, upY, upZ);
         /* MVP magic */
         Matrix.setIdentityM(mvp, 0);
@@ -160,7 +153,15 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     }
 
     public void moveCam( float x, float y){
-
+        camXworld = x;
+        camYworld = y;
+        x = x * 2 - 1;
+        y = 1 -  y * 2;
+        final float[] pos = fromWorldToGlFar(x, y, 0);
+        camX = pos[0];
+        camY = pos[1];
+        lookX = camX;
+        lookY = camY;
     }
 
     public float[] fromWorldToGlFar( float x, float y, float z){

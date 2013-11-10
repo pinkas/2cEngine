@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
         theWorld.addHabitant(metal);
         metal.anchorPointSet(0.0f,1.0f);
         metal.setAngleY(180);
-        metal.setBoundToCamera(true);
+//        metal.setBoundToCamera(true);
 
         Joypad theJoypad = new Joypad();
         theWorld.addHabitant(theJoypad);
@@ -76,7 +76,7 @@ public class MainActivity extends Activity {
             @Override
             public Float call() {
              //   metal.setAngleZ(10f);
-             //   theRenderer.move();
+                theRenderer.moveCam(1.0f, 0.5f);
                 return 0.1f;
             }
         };

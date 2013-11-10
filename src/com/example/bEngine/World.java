@@ -92,8 +92,8 @@ public  class World {
             float touchRelX = InputStatus.getTouchX() / (float) screenSize.x;
             float touchRelY = InputStatus.getTouchY() / (float) screenSize.y;
 
-            float touchAbsX = touchRelX + camPos.x ;
-            float touchAbsY = touchRelY + camPos.y ;
+            float touchAbsX = touchRelX + camPos.x - 0.5f ;
+            float touchAbsY = touchRelY + camPos.y - 0.5f ;
             System.out.println( camPos.x );
 
 			// TODO have different list of objects, some are purely static
