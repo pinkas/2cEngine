@@ -12,14 +12,12 @@ import com.example.bEngine.shader.Shader;
 
 import static android.opengl.GLES20.glGenTextures;
 
-// TODO rename this class
 public class BglSprite extends BglObject {
 
 	protected Bitmap bitmap;
     protected int texture_id;
 	protected int [] textureHandle = new int [1];
-
-
+    protected FloatBuffer[] textCoordBuffer;
     // we show the whole texture, nothing less, nothing more
     protected static float textcoords[] = {
     	0.0f, 0.0f, 0.0f,
@@ -27,14 +25,12 @@ public class BglSprite extends BglObject {
     	1.0f, 1.0f, 0.0f,
     	1.0f, 0.0f, 0.0f,
     };
-	
-    // TODO should be final, cf AnimatedObject, je devrais pas overwriter en gros. Une implementation
-    // TODO differente pour les objects animes de ceux pas animes
-    protected FloatBuffer[] textCoordBuffer;
-    
+
 	public BglSprite( float x, float y, float w, float h, int texture_id ){
 
         super(x,y,w,h);
+
+        shaderName = "basic";
         this.texture_id = texture_id;
         // texture coord
     	ByteBuffer bb = ByteBuffer.allocateDirect(textcoords.length * 4);
@@ -59,11 +55,6 @@ public class BglSprite extends BglObject {
         bitmap.recycle();
     }
 
-	
-	public FloatBuffer textCoordBufferGet() {
-		return textCoordBuffer[0];
-	}
-
     @Override
 	public int  textureHandleGet() {
 		return textureHandle[0];
@@ -73,6 +64,10 @@ public class BglSprite extends BglObject {
     public float[] getColor(){
         float color[] = new float[4];
         return color;
+    }
+
+    public FloatBuffer textCoordBufferGet() {
+        return textCoordBuffer[0];
     }
 
 

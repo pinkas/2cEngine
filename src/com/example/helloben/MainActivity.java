@@ -4,10 +4,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Callable;
 
+import com.example.bEngine.Brenderer;
 import com.example.bEngine.InputStatus;
 import com.example.bEngine.Joypad;
 import com.example.bEngine.World;
-import com.example.bEngine.MyRenderer;
+import com.example.bEngine.Brenderer;
 import com.example.bEngine.object.BglAnimatedSprite;
 import com.example.bEngine.object.BglSprite;
 import com.example.bEngine.object.Brectangle;
@@ -43,7 +44,7 @@ public class MainActivity extends Activity {
         theGLView = new GLSurfaceView(this);
 
         theGLView.setEGLContextClientVersion(2);
-        final MyRenderer theRenderer = new MyRenderer( this, theWorld );
+        final Brenderer theRenderer = new Brenderer( this, theWorld );
         theGLView.setRenderer(theRenderer);
         theGLView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
 
@@ -76,8 +77,9 @@ public class MainActivity extends Activity {
         metal.setAngleY(180);
 //        metal.setBoundToCamera(true);
 
-        final  Brectangle rect = new Brectangle(0.5f,0,0.2f,0.2f,0.5f,0.7f, 0.9f, 0.5f);
-        theWorld.addHabitant(rect);
+//        final  Brectangle rect = new Brectangle(0.5f,0,0.2f,0.2f,0.5f,0.7f, 0.9f, 0.5f);
+//        theWorld.addHabitant(rect);
+
 
         Joypad theJoypad = new Joypad();
         theWorld.addHabitant(theJoypad);
@@ -86,11 +88,12 @@ public class MainActivity extends Activity {
             public Float call() {
              //   metal.setAngleZ(10f);
                 theRenderer.moveCam( InputStatus.touch.x / (float) screenSize.x, InputStatus.touch.y / (float) screenSize.y );
-                return 0.1f;
+                return 0f;
             }
         };
 
         theJoypad.defineActionDown(joypadAction);
+
 
 /*      //To test the dirty hack for multi layers bg
         float Z2 = 0.9f;

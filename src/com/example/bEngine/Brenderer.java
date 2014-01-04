@@ -20,7 +20,7 @@ import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.util.Log;
 
-public class MyRenderer implements GLSurfaceView.Renderer {
+public class Brenderer implements GLSurfaceView.Renderer {
 	private Context context;
     private static final String TAG = "MyGLRenderer";
     private World mWorld;
@@ -58,7 +58,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     private float camYO=0;
 
 
-    public MyRenderer ( Context context, World mWorld) {
+    public Brenderer ( Context context, World mWorld) {
 		super();
 		this.context = context;
 		this.mWorld = mWorld;
@@ -133,7 +133,6 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         /*View matrix*/
         if ( obj.getBoundToCamera() ) {
 
-            //TODO why would the object contains that???? the renderer should contain it!!!!
             if ( camOffset == null ){
                 // World coordinate wise the camera is initially in (0.5 0.5)
                 camOffset = new PointF( 0.5f - pos.x, 0.5f - pos.y );
@@ -144,7 +143,6 @@ public class MyRenderer implements GLSurfaceView.Renderer {
             moveCam( pos.x + camOffset.x, pos.y + camOffset.y);
             /* Camera position in world coordinate */
             mWorld.setCamPos( camXworld, camYworld );
-
         }
         Matrix.setLookAtM(viewMatrix, 0, camX, camY, camZ, lookX, lookY, lookZ, upX, upY, upZ);
         /* MVP magic */
@@ -163,8 +161,8 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         final float[] pos = fromWorldToGlFar(x, y, 0);
         camX = pos[0];
         camY = pos[1];
-       // lookX = camX;
-       // lookY = camY;
+        lookX = camX;
+        lookY = camY;
     }
 
     public float[] fromWorldToGlFar( float x, float y, float z){
@@ -181,23 +179,19 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 unused) {
 
-        // Draw background color
+        /* clear with a lovely color */
         glClear(GL_COLOR_BUFFER_BIT);
-
+        /* Update the world */
         mWorld.update();
-
+		/* Draw  it */
         List<BglObject> habitants = mWorld.getHabitants();
 		Enumeration<BglObject> e = Collections.enumeration( habitants );
-		/* Draw the habitants */
 		while( e.hasMoreElements() ) {
 			BglObject obj = e.nextElement();
-
             final Shader s = shaderList.getProg( obj.getShaderName() );
-
 			mvp = calculateMVP( obj );
 			obj.draw(mvp, s);
 		}    
-        
     }
 
     @Override

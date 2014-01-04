@@ -19,7 +19,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d37636f-f9b0-43eb-9b51-88ed554d17b8" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/object/BglAnimatedSprite.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/object/BglAnimatedSprite.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/object/BglObject.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/object/BglObject.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/object/BglSprite.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/object/BglSprite.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/helloben/Heroe.java" afterPath="$PROJECT_DIR$/src/com/example/helloben/Heroe.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/helloben/MainActivity.java" afterPath="$PROJECT_DIR$/src/com/example/helloben/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/shader/Shader.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/shader/Shader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/World.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/World.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="D:\Android workspace\2cEngine\src\com\example\bEngine\MyRenderer.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/Brenderer.java" />
     </list>
     <ignored path="Helloben.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -92,96 +100,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="RectangleShader.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/shader/RectangleShader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="20" selection-start="783" selection-end="783" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="779">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BasicShader.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/shader/BasicShader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="23" selection-start="848" selection-end="848" vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="1159">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BglObject.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/object/BglObject.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="84" column="5" selection-start="1994" selection-end="1994" vertical-scroll-proportion="0.0" vertical-offset="1000" max-vertical-offset="1691">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Brectangle.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/object/Brectangle.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="46" selection-start="767" selection-end="767" vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="988">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ShaderList.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/shader/ShaderList.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="12" selection-start="627" selection-end="627" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="665">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="World.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="World.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/World.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="8" selection-start="1145" selection-end="1145" vertical-scroll-proportion="0.4187328" vertical-offset="399" max-vertical-offset="2318">
+            <state line="45" column="19" selection-start="1066" selection-end="1066" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2375">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BglSprite.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/object/BglSprite.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="66" column="13" selection-start="2075" selection-end="2075" vertical-scroll-proportion="0.0" vertical-offset="562" max-vertical-offset="1425">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/example/helloben/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="74" selection-start="2520" selection-end="2520" vertical-scroll-proportion="0.0" vertical-offset="741" max-vertical-offset="2869">
+            <state line="90" column="25" selection-start="3426" selection-end="3426" vertical-scroll-proportion="0.6231405" vertical-offset="1333" max-vertical-offset="3306">
               <folding>
-                <element signature="e#3121#3413#0" expanded="true" />
-                <element signature="e#3402#3403#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#3161#3451#0" expanded="true" />
+                <element signature="e#3440#3441#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyRenderer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/MyRenderer.java">
+      <file leaf-file-name="Brenderer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/Brenderer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="92" column="5" selection-start="2717" selection-end="2717" vertical-scroll-proportion="0.0" vertical-offset="924" max-vertical-offset="4066">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Shader.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/shader/Shader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="24" selection-start="2276" selection-end="2276" vertical-scroll-proportion="0.0" vertical-offset="494" max-vertical-offset="1273">
+            <state line="142" column="12" selection-start="4571" selection-end="4571" vertical-scroll-proportion="0.0" vertical-offset="2079" max-vertical-offset="3952">
               <folding />
             </state>
           </provider>
@@ -209,22 +153,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/com/example/helloben/RectangleRotateGrid.java" />
-        <option value="$PROJECT_DIR$/src/com/example/bEngine/InputStatus.java" />
-        <option value="$PROJECT_DIR$/src/com/example/bEngine/Joypad.java" />
-        <option value="$PROJECT_DIR$/src/com/example/helloben/Heroe.java" />
         <option value="$PROJECT_DIR$/src/com/example/bEngine/object/Bobject.java" />
         <option value="$PROJECT_DIR$/src/com/example/bEngine/shader/RectangleShader.java" />
         <option value="$PROJECT_DIR$/src/com/example/bEngine/shader/BasicShader.java" />
         <option value="$PROJECT_DIR$/src/com/example/bEngine/shader/WobblyShader.java" />
         <option value="$PROJECT_DIR$/src/com/example/bEngine/shader/ShaderList.java" />
-        <option value="$PROJECT_DIR$/src/com/example/bEngine/MyRenderer.java" />
+        <option value="$PROJECT_DIR$/src/com/example/bEngine/object/Brectangle.java" />
+        <option value="$PROJECT_DIR$/src/com/example/bEngine/object/BglObject.java" />
         <option value="$PROJECT_DIR$/src/com/example/bEngine/shader/Shader.java" />
         <option value="$PROJECT_DIR$/src/com/example/bEngine/object/BglSprite.java" />
-        <option value="$PROJECT_DIR$/src/com/example/bEngine/object/BglObject.java" />
-        <option value="$PROJECT_DIR$/src/com/example/bEngine/object/Brectangle.java" />
-        <option value="$PROJECT_DIR$/src/com/example/helloben/MainActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/example/helloben/Heroe.java" />
+        <option value="$PROJECT_DIR$/src/com/example/bEngine/object/BglAnimatedSprite.java" />
+        <option value="$PROJECT_DIR$/src/com/example/bEngine/MyRenderer.java" />
+        <option value="$PROJECT_DIR$/src/com/example/bEngine/Renderer.java" />
+        <option value="$PROJECT_DIR$/src/com/example/bEngine/Brenderer.java" />
         <option value="$PROJECT_DIR$/src/com/example/bEngine/World.java" />
+        <option value="$PROJECT_DIR$/src/com/example/helloben/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -349,6 +293,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="shader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Helloben" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="2cEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="example" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="object" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -616,7 +586,11 @@
       <created>1388813267322</created>
       <updated>1388813267322</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="do not load shader the same way&#10;">
+      <created>1388813312847</created>
+      <updated>1388813312847</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -650,26 +624,26 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2894144" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18819599" sideWeight="0.39647812" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3288889" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17454955" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19256757" sideWeight="0.60298824" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.12274775" sideWeight="0.60298824" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.007777778" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24922119" sideWeight="0.84855235" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.6893096" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17918456" sideWeight="0.8468468" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15315315" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.119098715" sideWeight="0.7105856" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15315315" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="-44" y="101" width="1358" height="1082" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1554054" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -715,7 +689,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="moveCam works fine with world coordinate!&#10;&#10;Attention a la vitesse du heroe set to 0&#10;cam not bound to him anymore&#10;0.5 dodgy ajouter dans world pour la position de la cam" />
+    <option name="LAST_COMMIT_MESSAGE" value="do not load shader the same way&#10;" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -743,37 +717,12 @@
     <MESSAGE value="lock camera on object in a more generic way and other stuff i forgot" />
     <MESSAGE value="implements fromWorldToGlFar" />
     <MESSAGE value="moveCam works fine with world coordinate!&#10;&#10;Attention a la vitesse du heroe set to 0&#10;cam not bound to him anymore&#10;0.5 dodgy ajouter dans world pour la position de la cam" />
+    <MESSAGE value="do not load shader the same way&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/InputStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="37" selection-start="361" selection-end="361" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1178">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/Joypad.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="12" selection-start="678" selection-end="698" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="1007">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/example/helloben/Heroe.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="23" selection-start="241" selection-end="241" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="893">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/sdk/platforms/android-17/android.jar!/android/opengl/GLES20.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="694" column="23" selection-start="32762" selection-end="32762" vertical-scroll-proportion="0.72149837" vertical-offset="12724" max-vertical-offset="13338" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/object/Bobject.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="99" column="4" selection-start="2127" selection-end="2127" vertical-scroll-proportion="0.0" vertical-offset="31" max-vertical-offset="2261">
@@ -788,13 +737,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/shader/BasicShader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="23" selection-start="848" selection-end="848" vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="1159">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/shader/WobblyShader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="29" column="8" selection-start="802" selection-end="802" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1121">
@@ -802,37 +744,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/shader/Shader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="24" selection-start="2276" selection-end="2276" vertical-scroll-proportion="0.0" vertical-offset="494" max-vertical-offset="1273">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/shader/ShaderList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="12" selection-start="627" selection-end="627" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="665">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/MyRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="5" selection-start="2717" selection-end="2717" vertical-scroll-proportion="0.0" vertical-offset="924" max-vertical-offset="4066">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/object/BglObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="5" selection-start="1994" selection-end="1994" vertical-scroll-proportion="0.0" vertical-offset="1000" max-vertical-offset="1691">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/object/BglSprite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="13" selection-start="2075" selection-end="2075" vertical-scroll-proportion="0.0" vertical-offset="562" max-vertical-offset="1425">
           <folding />
         </state>
       </provider>
@@ -846,20 +760,86 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/example/helloben/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/shader/Shader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="74" selection-start="2520" selection-end="2520" vertical-scroll-proportion="0.0" vertical-offset="741" max-vertical-offset="2869">
+        <state line="2" column="0" selection-start="37" selection-end="37" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1406">
           <folding>
-            <element signature="e#3121#3413#0" expanded="true" />
-            <element signature="e#3402#3403#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/object/SpriteSheet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="13" selection-start="89" selection-end="89" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="779">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/helloben/CubeScroll.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="279" selection-end="279" vertical-scroll-proportion="0.33670887" vertical-offset="0" max-vertical-offset="874">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/object/BglAnimatedSprite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="148" column="0" selection-start="4336" selection-end="4336" vertical-scroll-proportion="0.0" vertical-offset="2406" max-vertical-offset="2964">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/helloben/Heroe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="27" selection-start="510" selection-end="510" vertical-scroll-proportion="0.0" vertical-offset="114" max-vertical-offset="893">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/shader/BasicShader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="23" selection-start="848" selection-end="848" vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="1159">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/object/BglSprite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="0" selection-start="1812" selection-end="1812" vertical-scroll-proportion="0.0" vertical-offset="303" max-vertical-offset="1330">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/object/BglObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="37" selection-start="1131" selection-end="1131" vertical-scroll-proportion="-0.0785124" vertical-offset="741" max-vertical-offset="1672">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/World.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="8" selection-start="1145" selection-end="1145" vertical-scroll-proportion="0.4187328" vertical-offset="399" max-vertical-offset="2318">
+        <state line="45" column="19" selection-start="1066" selection-end="1066" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2375">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/bEngine/Brenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="142" column="12" selection-start="4571" selection-end="4571" vertical-scroll-proportion="0.0" vertical-offset="2079" max-vertical-offset="3952">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/helloben/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="90" column="25" selection-start="3426" selection-end="3426" vertical-scroll-proportion="0.6231405" vertical-offset="1333" max-vertical-offset="3306">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3161#3451#0" expanded="true" />
+            <element signature="e#3440#3441#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

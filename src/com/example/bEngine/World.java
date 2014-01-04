@@ -26,7 +26,7 @@ public  class World {
 		this.habitants = new ArrayList<BglObject>();
 	    this.screenSize = screenSize;
         rectangle = new RectF();
-        camPos = new PointF( 0,0 );
+        camPos = new PointF( 0.5f, 0.5f );
     }
 
 
@@ -72,20 +72,24 @@ public  class World {
             float w = obj.sizeGet().x;
             float h = obj.sizeGet().y;
 
-            rectangle.set( x, y, x + w, y + h);
+            rectangle.set( x, y, x+w, y+h);
+
+            System.out.println( x + "    " + y );
 
             float touchRelX = InputStatus.getTouchX() / (float) screenSize.x;
             float touchRelY = InputStatus.getTouchY() / (float) screenSize.y;
 
             float touchAbsX = touchRelX + camPos.x - 0.5f ;
             float touchAbsY = touchRelY + camPos.y - 0.5f ;
-            System.out.println( camPos.x );
 
-			// TODO have different list of objects, some are purely static
+			// TODO
+			// have different list of objects, some are purely static
 			// some are input sensitive, some are physics ...
 			switch ( InputStatus.getTouchState() ) {
                 case DOWN:
+
                     if ( rectangle.contains( touchAbsX, touchAbsY ) ){
+                        System.out.println( "TEST" );
                         obj.touchDown();
                         break;
                     }
@@ -105,7 +109,6 @@ public  class World {
                     }
 			}
 
-          ///  obj.update();
 		}
 			InputStatus.resetTouch();
 	}

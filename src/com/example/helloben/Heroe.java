@@ -8,7 +8,7 @@ import com.example.bEngine.object.SpriteSheet;
  */
 public class Heroe extends BglAnimatedSprite {
 
-    float speed = 0.002f;
+    float speed = 0.0f;
 
     public Heroe(float x, float y, float w, float h, SpriteSheet[] spritesheet){
         super(x, y, w, h, spritesheet);

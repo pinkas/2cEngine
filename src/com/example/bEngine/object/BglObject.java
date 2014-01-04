@@ -16,7 +16,6 @@ import java.nio.FloatBuffer;
 public abstract class BglObject extends Bobject {
 
     protected String shaderName;
-    protected Shader mShader;
     protected boolean boundToCamera;
     protected PointF offsetCamera;
 
@@ -42,8 +41,8 @@ public abstract class BglObject extends Bobject {
         shaderName = "basic";
     }
 
-    public void setShader(Shader shader){
-        mShader = shader;
+    public void setShader(String shaderName){
+        this.shaderName = shaderName;
     }
 
     public String getShaderName(){
