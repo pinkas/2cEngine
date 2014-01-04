@@ -15,19 +15,21 @@ public class Bobject {
     protected PointF anchor;
     protected Angle angle = new Angle();
     protected PointF size;
-    public Rect rectangle;
     protected boolean pressed;
 
     public Bobject( float x, float y, float w, float h){
-
         pos = new PointF(x,y);
         size = new PointF(w,h);
         anchor = new PointF (0.0f, 0.0f);
         z = 0;
-
-      //  rectangle = new Rect( (int) pos.x,  pos.y, pos.x + w, pos.y + h );
     }
 
+    public Bobject(){
+        pos = new PointF(0,0);
+        size = new PointF(0,0);
+        anchor = new PointF (0.0f, 0.0f);
+        z = 0;
+    }
 
     public void anchorPointSet( float x, float y ) {
         anchor.x = x;
@@ -84,7 +86,7 @@ public class Bobject {
         this.pos.x = pos.x;
         this.pos.y = pos.y;
     }
-    public void posSet ( int x, int y ) {
+    public void posSet ( float x, float y ) {
         this.pos.x = x;
         this.pos.y = y;
     }
@@ -92,7 +94,6 @@ public class Bobject {
     public void update(){
       //  rectangle.set(pos.x, pos.y, pos.x + w, pos.y + h);
     }
-
 
     public void setAngleX(float anglex){
         angle.setX(anglex);
@@ -103,7 +104,6 @@ public class Bobject {
     public void setAngleZ(float anglez){
         angle.setZ(anglez);
     }
-
     public float getAngleX() {
         return angle.getX();
     }
@@ -113,6 +113,4 @@ public class Bobject {
     public float getAngleZ() {
         return angle.getZ();
     }
-
-
 }

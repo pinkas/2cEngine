@@ -4,18 +4,13 @@ import static android.opengl.GLES20.*;
 
 import android.content.Context;
 
+import com.example.bEngine.object.BglObject;
 import com.example.bEngine.object.BglSprite;
 import com.example.helloben.R;
 
 
 public class WobblyShader extends Shader {
-	
-//	private static final WobblyShader INSTANCE = new WobblyShader();
-	
-//	public static WobblyShader getWobblyShader() {
-//		return INSTANCE;
-//	}
-    
+
 	private final int mPositionHandle;
 	private final int mTextureCoordinateHandle;
 	private final int mMVPMatrixHandle;
@@ -31,7 +26,8 @@ public class WobblyShader extends Shader {
 	public WobblyShader( Context context ) {
 		
 		super(context, R.raw.basic_vertex, R.raw.wobbly_fragment);
-        
+
+        name = "wobbly";
         mPositionHandle = glGetAttribLocation(mProgram, "vPosition");
         mTextureCoordinateHandle = glGetAttribLocation(mProgram, "a_texCoord");
         mMVPMatrixHandle = glGetUniformLocation(mProgram, "uMVPMatrix");
@@ -41,9 +37,9 @@ public class WobblyShader extends Shader {
         test = 0;
 	}
 	
-	public void setuniform( BglSprite obj, float[] mat) {
-		
-        glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, VERTEXSTRIDE, obj.vertexBufferGet() );   
+	public void sendParametersToShader ( BglObject obj, float[] mat)
+    {
+        glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, VERTEXSTRIDE, obj.vertexBufferGet());
         glEnableVertexAttribArray(mPositionHandle);
         
         glVertexAttribPointer(mTextureCoordinateHandle, 2, GL_FLOAT, false,  VERTEXSTRIDE, obj.textCoordBufferGet() );

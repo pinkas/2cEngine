@@ -48,29 +48,14 @@ public  class World {
         camPos.y = y;
     }
 
-    // Load textures and Shaders
+    /* Load textures */
     public void loadObjectTexture(Context context, ShaderList sl){
         Enumeration<BglObject> e = Collections.enumeration(habitants);
 
         while( e.hasMoreElements() ) {
             BglObject obj = e.nextElement();
-            /* TODO UGLY FIX ME!!!!!!!! */
-            if ( obj instanceof Brectangle){
-                obj.initShader(sl.rectangleShader);
-                continue;
-            }
-            obj.initShader(sl.basicShader);
-            obj.loadTexture(context);
-        }
-    }
-
-
-    public void loadObjectShader(Shader shader){
-        Enumeration<BglObject> e = Collections.enumeration( habitants );
-
-        while( e.hasMoreElements() ) {
-            BglObject obj = e.nextElement();
-            System.out.println(shader);
+            final Shader shader =  sl.getProg( obj.getShaderName() );
+            obj.loadTexture(context, shader);
         }
     }
 

@@ -15,5 +15,15 @@ public class ShaderList {
         this.rectangleShader = new RectangleShader(context);
 	}
 
-	
+    public Shader getProg( String sName ){
+         if (sName ==  "basic" ){
+            return basicShader;
+         }
+         else if ( sName == "rect" ){
+            return rectangleShader;
+         }
+        else
+            return basicShader;
+    }
+
 }

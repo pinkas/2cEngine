@@ -13,8 +13,9 @@ import java.nio.FloatBuffer;
 /**
  * Created by Ben on 10/10/13.
  */
-public class BglObject extends Bobject {
+public abstract class BglObject extends Bobject {
 
+    protected String shaderName;
     protected Shader mShader;
     protected boolean boundToCamera;
     protected PointF offsetCamera;
@@ -29,7 +30,7 @@ public class BglObject extends Bobject {
 
 
 
-    public BglObject( float x, float y, float w, float h){
+    public BglObject( float x, float y, float w, float h ){
         super(x,y,w,h);
 
         ByteBuffer bb = ByteBuffer.allocateDirect( objCoords.length * 4);
@@ -37,19 +38,25 @@ public class BglObject extends Bobject {
         vertexBuffer = bb.asFloatBuffer();
         vertexBuffer.put(objCoords);
         vertexBuffer.position(0);
+
+        shaderName = "basic";
     }
 
-    public void initShader(Shader shader){
+    public void setShader(Shader shader){
         mShader = shader;
+    }
+
+    public String getShaderName(){
+        return shaderName;
     }
 
     public FloatBuffer vertexBufferGet() {
         return vertexBuffer;
     }
 
-    public void draw( float[] mat ) {
-        GLES20.glUseProgram(mShader.get_program());
-        mShader.sendParametersToShader(this, mat);
+    public void draw( float[] mat, Shader shader ) {
+        GLES20.glUseProgram(shader.get_program());
+        shader.sendParametersToShader(this, mat);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN, 0, 4);
     }
 
@@ -73,20 +80,12 @@ public class BglObject extends Bobject {
     }
 
 
-    public boolean hasTexture(){
-        return false;
-    }
-
-    //TODO I SHOULDNT HAVE TO HAVE THOSE 3 empty methods
-    public void loadTexture(Context context){
-    }
     public FloatBuffer textCoordBufferGet() {
         return vertexBuffer;
     }
-    public int  textureHandleGet() {
-        return 1;
-    }
-    public float[] getColor(){
-        return objCoords;
-    }
+
+    //TODO is it right or wrong?
+    public abstract void loadTexture(Context context, Shader shader);
+    public abstract int  textureHandleGet();
+    public abstract float[] getColor();
 }

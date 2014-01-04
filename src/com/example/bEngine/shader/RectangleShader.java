@@ -24,20 +24,17 @@ public class RectangleShader extends Shader {
 
         super(context, R.raw.rectangle_vertex, R.raw.rectangle_fragment);
 
+        name = "rect";
         mPositionHandle = glGetAttribLocation(mProgram, "vPosition");
         mMVPMatrixHandle = glGetUniformLocation(mProgram, "uMVPMatrix");
         mColorHandle = glGetUniformLocation(mProgram, "vColor");
-
     }
+    public void sendParametersToShader( BglObject obj, float[] mat) {
 
-    public  void sendParametersToShader( BglObject obj, float[] mat) {
-
-        glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, VERTEXSTRIDE, obj.vertexBufferGet() );
+        glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, VERTEXSTRIDE, obj.vertexBufferGet());
         glEnableVertexAttribArray(mPositionHandle);
 
         glUniform4fv(mColorHandle, 1, obj.getColor(), 0);
-
-
         glUniformMatrix4fv( mMVPMatrixHandle, 1, false, mat, 0);
     }
 

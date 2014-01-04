@@ -8,6 +8,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import com.example.bEngine.object.BglObject;
+import com.example.bEngine.shader.Shader;
 import com.example.bEngine.shader.ShaderList;
 
 import android.content.Context;
@@ -23,6 +24,8 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 	private Context context;
     private static final String TAG = "MyGLRenderer";
     private World mWorld;
+
+    private ShaderList shaderList;
     
     private int screen_width;
     private int screen_height;
@@ -74,9 +77,9 @@ public class MyRenderer implements GLSurfaceView.Renderer {
          when resuming the app). OnSurfaceCreated is the only place i know where i can load
         Textures/Resources */
 
-        // Load all the shaders
+        // Load/create all the shaders
         // TODO have a list that we go through
-        ShaderList shaderlist = new ShaderList(context);
+        shaderList = new ShaderList(context);
 
         // load all the texture and init the existing object of the world with a shader
 
@@ -85,7 +88,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
          The world decides what shader to render what object depending on what's happening
          "Oh this object should be rendered by this shader, Oh no that one actually..."
         */
-        mWorld.loadObjectTexture(context, shaderlist);
+        mWorld.loadObjectTexture(context, shaderList);
 
     }
     
@@ -160,8 +163,8 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         final float[] pos = fromWorldToGlFar(x, y, 0);
         camX = pos[0];
         camY = pos[1];
-        lookX = camX;
-        lookY = camY;
+       // lookX = camX;
+       // lookY = camY;
     }
 
     public float[] fromWorldToGlFar( float x, float y, float z){
@@ -189,8 +192,10 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 		while( e.hasMoreElements() ) {
 			BglObject obj = e.nextElement();
 
+            final Shader s = shaderList.getProg( obj.getShaderName() );
+
 			mvp = calculateMVP( obj );
-			obj.draw(mvp);
+			obj.draw(mvp, s);
 		}    
         
     }

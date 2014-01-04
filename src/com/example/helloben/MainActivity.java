@@ -10,7 +10,9 @@ import com.example.bEngine.World;
 import com.example.bEngine.MyRenderer;
 import com.example.bEngine.object.BglAnimatedSprite;
 import com.example.bEngine.object.BglSprite;
+import com.example.bEngine.object.Brectangle;
 import com.example.bEngine.object.SpriteSheet;
+import com.example.bEngine.shader.ShaderList;
 
 import android.graphics.Point;
 import android.opengl.GLSurfaceView;
@@ -30,8 +32,12 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
         Display display = getWindowManager().getDefaultDisplay();
-        Point screenSize = new Point();
+        final Point screenSize = new Point();
         display.getSize(screenSize);
+
+        /* Leave this comment with the line below
+           This can only be done in the onSurfaceCreated of the renderer! */
+        final ShaderList shaderlist = new ShaderList( this );
 
         theWorld = new World(screenSize);
         theGLView = new GLSurfaceView(this);
@@ -70,13 +76,16 @@ public class MainActivity extends Activity {
         metal.setAngleY(180);
 //        metal.setBoundToCamera(true);
 
+        final  Brectangle rect = new Brectangle(0.5f,0,0.2f,0.2f,0.5f,0.7f, 0.9f, 0.5f);
+        theWorld.addHabitant(rect);
+
         Joypad theJoypad = new Joypad();
         theWorld.addHabitant(theJoypad);
         Callable joypadAction = new Callable() {
             @Override
             public Float call() {
              //   metal.setAngleZ(10f);
-                theRenderer.moveCam(1.0f, 0.5f);
+                theRenderer.moveCam( InputStatus.touch.x / (float) screenSize.x, InputStatus.touch.y / (float) screenSize.y );
                 return 0.1f;
             }
         };

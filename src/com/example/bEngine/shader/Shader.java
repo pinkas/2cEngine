@@ -1,5 +1,6 @@
 package com.example.bEngine.shader;
 
+import android.R;
 import android.content.Context;
 import android.graphics.Bitmap;
 
@@ -9,9 +10,10 @@ import com.example.bEngine.TextResourceReader;
 import static android.opengl.GLES20.*;
 import static android.opengl.GLUtils.*;
 
-public class Shader {
+public abstract class Shader {
 	
 	protected final int mProgram;
+    protected String name;
 	
 	public Shader( Context context, int vertexCodeId, int fragmentCodeId ) {
 		String vertexShaderCode = TextResourceReader.readTextFileFromResource(context, vertexCodeId);
@@ -50,7 +52,6 @@ public class Shader {
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
-
         glBindTexture(GL_TEXTURE_2D, textureHandle);
         texImage2D(GL_TEXTURE_2D, 0, bitmap, 0);
 
@@ -63,8 +64,6 @@ public class Shader {
 		return mProgram;
 	}
 
-	public void sendParametersToShader(BglObject obj, float[] mat) {
-		// TODO Auto-generated method stub
-	}
+	public abstract void sendParametersToShader(BglObject obj, float[] mat);
 	
 }

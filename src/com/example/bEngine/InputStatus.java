@@ -9,7 +9,7 @@ public class InputStatus {
 	}
 	
 	private static TouchState touchState = TouchState.NONE;
-	private static Point touch = new Point(); 
+	public static Point touch = new Point();
 	
 	public InputStatus() {	
 	}

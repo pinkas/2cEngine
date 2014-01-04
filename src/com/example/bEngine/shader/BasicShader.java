@@ -33,7 +33,8 @@ public class BasicShader extends Shader {
 	public BasicShader( Context context ){
 		
 		super(context, R.raw.basic_vertex, R.raw.basic_fragment);
-        
+
+        name = "basic";
         mPositionHandle = glGetAttribLocation(mProgram, "vPosition");
         mTextureCoordinateHandle = glGetAttribLocation(mProgram, "a_texCoord");
         mMVPMatrixHandle = glGetUniformLocation(mProgram, "uMVPMatrix");

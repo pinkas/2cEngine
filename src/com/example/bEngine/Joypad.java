@@ -12,13 +12,23 @@ public class Joypad extends Brectangle  {
     Callable actionDown;
 
     public Joypad() {
-        super( 0, 0, 1, 1, 0, 0, 0, 0 );
+        super( -3, -3, 10, 10, 0, 0, 0, 0 );
 
     }
 
     @Override
     public void touchDown()  {
         super.touchDown();
+        try {
+            actionDown.call();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void touchMove(float x, float y)  {
+        super.touchMove(x, y);
         try {
             actionDown.call();
         } catch (Exception e) {
