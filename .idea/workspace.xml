@@ -19,21 +19,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d37636f-f9b0-43eb-9b51-88ed554d17b8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/shader/BasicShader.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/shader/BasicShader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/object/BglObject.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/object/BglObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/object/BglSprite.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/object/BglSprite.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/object/Bobject.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/object/Bobject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/object/Brectangle.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/object/Brectangle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/helloben/Heroe.java" afterPath="$PROJECT_DIR$/src/com/example/helloben/Heroe.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/InputStatus.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/InputStatus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/Joypad.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/Joypad.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/helloben/MainActivity.java" afterPath="$PROJECT_DIR$/src/com/example/helloben/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/MyRenderer.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/MyRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/shader/RectangleShader.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/shader/RectangleShader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/shader/Shader.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/shader/Shader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/shader/ShaderList.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/shader/ShaderList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/shader/WobblyShader.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/shader/WobblyShader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/example/bEngine/World.java" afterPath="$PROJECT_DIR$/src/com/example/bEngine/World.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Helloben.iws" />
@@ -627,7 +612,11 @@
       <created>1384072205361</created>
       <updated>1384072205361</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="moveCam works fine with world coordinate!&#10;&#10;Attention a la vitesse du heroe set to 0&#10;cam not bound to him anymore&#10;0.5 dodgy ajouter dans world pour la position de la cam">
+      <created>1388813267322</created>
+      <updated>1388813267322</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -673,7 +662,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.6893096" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17918456" sideWeight="0.8468468" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15315315" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15315315" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="-44" y="101" width="1358" height="1082" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
