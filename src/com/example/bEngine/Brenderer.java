@@ -3,6 +3,7 @@ package com.example.bEngine;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -24,6 +25,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
 	private Context context;
     private static final String TAG = "MyGLRenderer";
     private World mWorld;
+    private BtextureManager textureManager;
 
     private ShaderList shaderList;
     
@@ -57,13 +59,27 @@ public class Brenderer implements GLSurfaceView.Renderer {
     private float camXO=0;
     private float camYO=0;
 
+    private Callable<Float> cb;
 
-    public Brenderer ( Context context, World mWorld) {
+
+    public Brenderer ( Context context, World mWorld, BtextureManager textureManager, Callable<Float> cb ) {
 		super();
 		this.context = context;
 		this.mWorld = mWorld;
+        this.textureManager = textureManager;
+
+        this.cb = cb;
 	}
-	
+
+
+    public void onSurfaceCreatedCb ( Callable<Float> func ){
+        try {
+            func.call();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
@@ -88,7 +104,14 @@ public class Brenderer implements GLSurfaceView.Renderer {
          The world decides what shader to render what object depending on what's happening
          "Oh this object should be rendered by this shader, Oh no that one actually..."
         */
-        mWorld.loadObjectTexture(context, shaderList);
+
+        textureManager.loadAll( context );
+
+        try {
+            cb.call();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
     
@@ -141,8 +164,6 @@ public class Brenderer implements GLSurfaceView.Renderer {
             }
 
             moveCam( pos.x + camOffset.x, pos.y + camOffset.y);
-            /* Camera position in world coordinate */
-            mWorld.setCamPos( camXworld, camYworld );
         }
         Matrix.setLookAtM(viewMatrix, 0, camX, camY, camZ, lookX, lookY, lookZ, upX, upY, upZ);
         /* MVP magic */
@@ -163,6 +184,8 @@ public class Brenderer implements GLSurfaceView.Renderer {
         camY = pos[1];
         lookX = camX;
         lookY = camY;
+        /* Camera position in world coordinate */
+        mWorld.setCamPos( camXworld, camYworld );
     }
 
     public float[] fromWorldToGlFar( float x, float y, float z){

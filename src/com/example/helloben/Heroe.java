@@ -9,6 +9,7 @@ import com.example.bEngine.object.SpriteSheet;
 public class Heroe extends BglAnimatedSprite {
 
     float speed = 0.0f;
+    float velY = 0.0f;
 
     public Heroe(float x, float y, float w, float h, SpriteSheet[] spritesheet){
         super(x, y, w, h, spritesheet);
@@ -18,6 +19,7 @@ public class Heroe extends BglAnimatedSprite {
     @Override
     public void touchDown() {
         super.touchDown();
+        jump();
         speed = 0;
     }
 
@@ -35,8 +37,20 @@ public class Heroe extends BglAnimatedSprite {
 
     @Override
     public void update() {
+
         super.update();
         pos.x = pos.x + speed;
-      //  setAngleY( getAngleY() + 2f  );
+
+        velY = velY + 0.008f;
+        pos.y = pos.y + velY;
+        if (pos.y > 0.8f ){
+            pos.y = 0.8f;
+            velY = 0.0f;
+        }
     }
+
+    public void jump(){
+        velY = -0.08f;
+    }
+
 }

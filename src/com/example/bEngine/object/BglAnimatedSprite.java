@@ -3,6 +3,7 @@ package com.example.bEngine.object;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 
+import com.example.bEngine.BtextureManager;
 import com.example.bEngine.shader.Shader;
 
 import java.nio.ByteBuffer;
@@ -142,17 +143,13 @@ public class BglAnimatedSprite  extends BglSprite {
         return textureHandle[inner_state];
     }
 
-    public void loadTexture(Context context, Shader shader){
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inScaled = false;
-        glGenTextures( textureHandle.length, textureHandle, 0);
-        for ( int i=0; i< spriteSheet.length; i++ ){
-            bitmap = BitmapFactory.decodeResource(context.getResources(), spriteSheet[i].getTexture_id(), options);
-            shader.loadTexture(bitmap, textureHandle[i]);
-        }
-        bitmap.recycle();
-    }
+    public void setTextureHandle( SpriteSheet[] spriteSheetTab) {
+        final BtextureManager textManager = BtextureManager.getInstance();
 
+        for (int i=0; i < spriteSheet.length; i++){
+            textureHandle[i] = textManager.findHandle( spriteSheetTab[i].getTexture_id() );
+        }
+    }
 }
 
 

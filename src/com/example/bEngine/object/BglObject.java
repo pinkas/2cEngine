@@ -84,7 +84,6 @@ public abstract class BglObject extends Bobject {
     }
 
     //TODO is it right or wrong?
-    public abstract void loadTexture(Context context, Shader shader);
     public abstract int  textureHandleGet();
     public abstract float[] getColor();
 }

@@ -51,6 +51,10 @@ public class BasicShader extends Shader {
 
         glActiveTexture(GL_TEXTURE0 );
         glBindTexture(GL_TEXTURE_2D, obj.textureHandleGet() );
+
+      //  System.out.println( "===========================================>" + obj.textureHandleGet());
+
+
         glUniform1i(mTextureUniformHandle, 0);
 
 	   glUniformMatrix4fv( mMVPMatrixHandle, 1, false, mat, 0);

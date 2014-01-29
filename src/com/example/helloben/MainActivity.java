@@ -5,6 +5,7 @@ import java.util.TimerTask;
 import java.util.concurrent.Callable;
 
 import com.example.bEngine.Brenderer;
+import com.example.bEngine.BtextureManager;
 import com.example.bEngine.InputStatus;
 import com.example.bEngine.Joypad;
 import com.example.bEngine.World;
@@ -40,34 +41,44 @@ public class MainActivity extends Activity {
            This can only be done in the onSurfaceCreated of the renderer! */
         final ShaderList shaderlist = new ShaderList( this );
 
+        final BtextureManager textureManager = BtextureManager.getInstance();
+        textureManager.fillTextureHashTable(R.drawable.lastlayer);
+        textureManager.fillTextureHashTable(R.drawable.dune);
+        textureManager.fillTextureHashTable(R.drawable.firstlayer);
+        textureManager.fillTextureHashTable(R.drawable.sprite);
+        textureManager.fillTextureHashTable(R.drawable.sprite2);
+
+
         theWorld = new World(screenSize);
         theGLView = new GLSurfaceView(this);
 
-        theGLView.setEGLContextClientVersion(2);
-        final Brenderer theRenderer = new Brenderer( this, theWorld );
-        theGLView.setRenderer(theRenderer);
-        theGLView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
-
-        BglSprite clouds = new BglSprite( 0, 0, 1.3f, 0.5f, R.drawable.lastlayer );
+        final BglSprite clouds = new BglSprite( 0, 0, 1.3f, 0.5f, R.drawable.lastlayer );
+        /////////////////////////
         theWorld.addHabitant(clouds);
         clouds.anchorPointSet(0.0f,0.0f);
         clouds.zSet(0.7f);
-        BglSprite clouds2 = new BglSprite( 1.3f, 0, 1.3f, 0.5f, R.drawable.lastlayer );
+
+        final BglSprite clouds2 = new BglSprite( 1.3f, 0, 1.3f, 0.5f, R.drawable.lastlayer );
+        /////////////////////////
         theWorld.addHabitant(clouds2);
         clouds2.anchorPointSet(0.0f,0.0f);
         clouds2.zSet(0.7f);
-        BglSprite dune = new BglSprite( 0, 0.75f, 2.5f,0.44f, R.drawable.dune );
+
+        final BglSprite dune = new BglSprite( 0, 0.75f, 2.5f,0.44f, R.drawable.dune );
+        /////////////////////////
         theWorld.addHabitant(dune);
         dune.anchorPointSet(0,1);
         dune.zSet(0.4f);
-        BglSprite bg1 = new BglSprite( 0, 1, 2.5f, 1f, R.drawable.firstlayer );
+
+        final BglSprite bg1 = new BglSprite( 0, 1, 2.5f, 1f, R.drawable.firstlayer );
+        ////////////////////////
         theWorld.addHabitant(bg1);
         bg1.anchorPointSet(0,1);
 
-        //A sprite made of 2 differents sprite sheet
+
         SpriteSheet slug0 = new SpriteSheet(R.drawable.sprite, 12, 1, 12);
         SpriteSheet slug = new SpriteSheet(R.drawable.sprite2, 16, 1, 16);
-        SpriteSheet [] spriteSheetTab = new SpriteSheet[2];
+        final SpriteSheet [] spriteSheetTab = new SpriteSheet[2];
         spriteSheetTab[0] = slug0;
         spriteSheetTab[1] = slug;
 
@@ -75,25 +86,66 @@ public class MainActivity extends Activity {
         theWorld.addHabitant(metal);
         metal.anchorPointSet(0.0f,1.0f);
         metal.setAngleY(180);
+
+        Callable onSurfaceCreatedCb = new Callable() {
+            @Override
+            public Float call() {
+
+                clouds.setTextureHandle( R.drawable.lastlayer );
+                clouds2.setTextureHandle( R.drawable.lastlayer );
+                bg1.setTextureHandle( R.drawable.firstlayer );
+                dune.setTextureHandle( R.drawable.dune );
+
+                metal.setTextureHandle( spriteSheetTab );
+
+                return 0f;
+            }
+        };
+
+
+        theGLView.setEGLContextClientVersion(2);
+        final Brenderer theRenderer = new Brenderer( this, theWorld, textureManager, onSurfaceCreatedCb );
+        theGLView.setRenderer(theRenderer);
+        theGLView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+
+
 //        metal.setBoundToCamera(true);
 
 //        final  Brectangle rect = new Brectangle(0.5f,0,0.2f,0.2f,0.5f,0.7f, 0.9f, 0.5f);
 //        theWorld.addHabitant(rect);
 
 
-        Joypad theJoypad = new Joypad();
+        final Joypad theJoypad = new Joypad();
         theWorld.addHabitant(theJoypad);
-        Callable joypadAction = new Callable() {
+
+        Callable joypadActionMove = new Callable() {
             @Override
             public Float call() {
-             //   metal.setAngleZ(10f);
-                theRenderer.moveCam( InputStatus.touch.x / (float) screenSize.x, InputStatus.touch.y / (float) screenSize.y );
-                return 0f;
+
+            theRenderer.moveCam( theWorld.getCamPos().x + ( InputStatus.touch.x - theJoypad.prev.x) / (float) screenSize.x,
+                    theWorld.getCamPos().y + (InputStatus.touch.y - theJoypad.prev.y) / (float) screenSize.y );
+
+            theJoypad.prev.x = InputStatus.touch.x;
+            theJoypad.prev.y = InputStatus.touch.y;
+            return 0f;
             }
         };
 
-        theJoypad.defineActionDown(joypadAction);
+        Callable joypadActionDown = new Callable() {
+            @Override
+            public Float call() {
+            theJoypad.prev.x = InputStatus.touch.x;
+            theJoypad.prev.y = InputStatus.touch.y;
+                bg1.setTextureHandle(textureManager.findHandle(R.drawable.firstlayer));
 
+
+            return 0f;
+            }
+        };
+
+
+        theJoypad.defineActionMove( joypadActionMove );
+        theJoypad.defineActionDown( joypadActionDown );
 
 /*      //To test the dirty hack for multi layers bg
         float Z2 = 0.9f;

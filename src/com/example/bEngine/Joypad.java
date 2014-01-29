@@ -1,5 +1,7 @@
 package com.example.bEngine;
 
+import android.graphics.Point;
+
 import com.example.bEngine.object.Brectangle;
 
 import java.util.concurrent.Callable;
@@ -10,11 +12,18 @@ import java.util.concurrent.Callable;
 public class Joypad extends Brectangle  {
 
     Callable actionDown;
+    Callable actionMove;
+    Callable actionUp;
+
+    public Point prev;
 
     public Joypad() {
         super( -3, -3, 10, 10, 0, 0, 0, 0 );
 
+        prev = new Point();
     }
+
+
 
     @Override
     public void touchDown()  {
@@ -30,7 +39,17 @@ public class Joypad extends Brectangle  {
     public void touchMove(float x, float y)  {
         super.touchMove(x, y);
         try {
-            actionDown.call();
+            actionMove.call();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void touchUp()  {
+        super.touchUp();
+        try {
+            actionUp.call();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -40,6 +59,13 @@ public class Joypad extends Brectangle  {
         actionDown = func;
     }
 
+    public void defineActionMove (Callable<Float> func){
+        actionMove = func;
+    }
+
+    public void defineActionUp (Callable<Float> func){
+        actionUp = func;
+    }
     public void rightAction(){
 
     }

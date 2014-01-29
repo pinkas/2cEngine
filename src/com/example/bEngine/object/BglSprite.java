@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.example.bEngine.BtextureManager;
 import com.example.bEngine.shader.Shader;
 
 import static android.opengl.GLES20.glGenTextures;
@@ -42,17 +43,10 @@ public class BglSprite extends BglObject {
 
 	}
 
-    @Override
-    public void loadTexture(Context context, Shader shader){
-        //create a bitmap, from image to pixel data, has to be done whenever we reload the
-        //texture since we "recycle" the bitmap at the end
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inScaled = false;
-        bitmap = BitmapFactory.decodeResource(context.getResources(), texture_id, options);
-        //TODO don't like the gl call here ...
-        glGenTextures( 1, textureHandle, 0);
-        shader.loadTexture(bitmap, textureHandle[0]);
-        bitmap.recycle();
+
+    public void setTextureHandle( int androidResource ){
+        final BtextureManager textManager = BtextureManager.getInstance();
+        textureHandle[0] = textManager.findHandle(androidResource);
     }
 
     @Override

@@ -48,17 +48,9 @@ public  class World {
         camPos.y = y;
     }
 
-    /* Load textures */
-    public void loadObjectTexture(Context context, ShaderList sl){
-        Enumeration<BglObject> e = Collections.enumeration(habitants);
-
-        while( e.hasMoreElements() ) {
-            BglObject obj = e.nextElement();
-            final Shader shader =  sl.getProg( obj.getShaderName() );
-            obj.loadTexture(context, shader);
-        }
+    public PointF getCamPos (){
+        return camPos;
     }
-
 
 	public void updateTouchStates() {
 
