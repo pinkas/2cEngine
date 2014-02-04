@@ -16,7 +16,7 @@ import static android.opengl.GLES20.glGenTextures;
 public class BglSprite extends BglObject {
 
 	protected Bitmap bitmap;
-    protected int texture_id;
+    protected int resource;
 	protected int [] textureHandle = new int [1];
     protected FloatBuffer[] textCoordBuffer;
     // we show the whole texture, nothing less, nothing more
@@ -27,12 +27,12 @@ public class BglSprite extends BglObject {
     	1.0f, 0.0f, 0.0f,
     };
 
-	public BglSprite( float x, float y, float w, float h, int texture_id ){
+	public BglSprite( float x, float y, float w, float h, int resource ){
 
         super(x,y,w,h);
 
-        shaderName = "basic";
-        this.texture_id = texture_id;
+        this.shaderName = "basic";
+        this.resource = resource;
         // texture coord
     	ByteBuffer bb = ByteBuffer.allocateDirect(textcoords.length * 4);
         bb.order(ByteOrder.nativeOrder());
@@ -43,10 +43,11 @@ public class BglSprite extends BglObject {
 
 	}
 
-
-    public void setTextureHandle( int androidResource ){
-        final BtextureManager textManager = BtextureManager.getInstance();
-        textureHandle[0] = textManager.findHandle(androidResource);
+    /* TODO should this method take the handle as a parameter and be like:
+        setTextureHandle( BtextureManager.findHandle( oneAndroidResource )
+     */
+    public void setTextureHandle(){
+        textureHandle[0] = BtextureManager.getInstance().findHandle(resource);
     }
 
     @Override

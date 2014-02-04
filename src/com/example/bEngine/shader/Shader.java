@@ -44,20 +44,6 @@ public abstract class Shader {
         	System.out.println( "compilation success!");
         return shader;
     }
-    
-    //TODO should that really be here ?
-	public void loadTexture( Bitmap bitmap, int textureHandle ) {
-        // TODO should i do the 2 following lines here????
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-
-        glBindTexture(GL_TEXTURE_2D, textureHandle);
-        texImage2D(GL_TEXTURE_2D, 0, bitmap, 0);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        bitmap.recycle();
-	}
 
 	public int get_program () {
 		return mProgram;

@@ -18,6 +18,7 @@ public abstract class BglObject extends Bobject {
     protected String shaderName;
     protected boolean boundToCamera;
     protected PointF offsetCamera;
+    protected boolean visible = true;
 
     private final FloatBuffer vertexBuffer;
 
@@ -26,8 +27,6 @@ public abstract class BglObject extends Bobject {
             -1, -1, 0,   // bottom left
              1, -1, 0,   // bottom right
              1,  1, 0 }; // top right
-
-
 
     public BglObject( float x, float y, float w, float h ){
         super(x,y,w,h);
@@ -51,6 +50,14 @@ public abstract class BglObject extends Bobject {
 
     public FloatBuffer vertexBufferGet() {
         return vertexBuffer;
+    }
+
+    public void setVisible( boolean visible ){
+        this.visible = visible;
+    }
+
+    public boolean isVisible(){
+        return visible;
     }
 
     public void draw( float[] mat, Shader shader ) {
@@ -85,5 +92,6 @@ public abstract class BglObject extends Bobject {
 
     //TODO is it right or wrong?
     public abstract int  textureHandleGet();
+    public abstract void setTextureHandle();
     public abstract float[] getColor();
 }

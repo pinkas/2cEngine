@@ -24,14 +24,11 @@ import android.util.Log;
 public class Brenderer implements GLSurfaceView.Renderer {
 	private Context context;
     private static final String TAG = "MyGLRenderer";
-    private World mWorld;
+    private SceneManager sManager;
     private BtextureManager textureManager;
 
     private ShaderList shaderList;
     
-    private int screen_width;
-    private int screen_height;
-
     private BglObject objFollowed;
 
     private final float[] projMatrix = new float[16];
@@ -62,57 +59,30 @@ public class Brenderer implements GLSurfaceView.Renderer {
     private Callable<Float> cb;
 
 
-    public Brenderer ( Context context, World mWorld, BtextureManager textureManager, Callable<Float> cb ) {
+    public Brenderer ( Context context, SceneManager sManager, BtextureManager textureManager, Callable<Float> cb ) {
 		super();
 		this.context = context;
-		this.mWorld = mWorld;
+		this.sManager = sManager;
         this.textureManager = textureManager;
 
         this.cb = cb;
 	}
 
-
-    public void onSurfaceCreatedCb ( Callable<Float> func ){
-        try {
-            func.call();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
         // Set the background frame color
-        glClearColor(0.0f, 0.2f, 0.6f, 0.2f);
-
-        /* IMPORTANT COMMENT
-         Shaders have to be compiled here, Texture have to be loaded here!!!!!!
-
-         load all the texture whenever the context is created (first time or
-         when resuming the app). OnSurfaceCreated is the only place i know where i can load
-        Textures/Resources */
-
-        // Load/create all the shaders
+        glClearColor(0.0f, 0.3f, 0.6f, 0.2f);
         // TODO have a list that we go through
         shaderList = new ShaderList(context);
-
         // load all the texture and init the existing object of the world with a shader
-
-        /* TODO
-         The shader list a member of the world ?
-         The world decides what shader to render what object depending on what's happening
-         "Oh this object should be rendered by this shader, Oh no that one actually..."
-        */
-
         textureManager.loadAll( context );
-
-        try {
-            cb.call();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        /* TODO consider finding anonther way to do the following?? */
+        sManager.enumarateAllMembers( new Brun<Void>() {
+            public Void exec(BglObject obj) throws Exception {
+                obj.setTextureHandle();
+                return null;
+            }
+        });
     }
     
     public float[] calculateMVP( BglObject obj ) {
@@ -185,7 +155,11 @@ public class Brenderer implements GLSurfaceView.Renderer {
         lookX = camX;
         lookY = camY;
         /* Camera position in world coordinate */
-        mWorld.setCamPos( camXworld, camYworld );
+        sManager.setCamPos( camXworld, camYworld );
+    }
+
+    public void lockCamera(BglObject obj){
+        objFollowed = obj;
     }
 
     public float[] fromWorldToGlFar( float x, float y, float z){
@@ -201,36 +175,32 @@ public class Brenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 unused) {
-
         /* clear with a lovely color */
         glClear(GL_COLOR_BUFFER_BIT);
-        /* Update the world */
-        mWorld.update();
 		/* Draw  it */
-        List<BglObject> habitants = mWorld.getHabitants();
-		Enumeration<BglObject> e = Collections.enumeration( habitants );
-		while( e.hasMoreElements() ) {
-			BglObject obj = e.nextElement();
-            final Shader s = shaderList.getProg( obj.getShaderName() );
-			mvp = calculateMVP( obj );
-			obj.draw(mvp, s);
-		}    
+        List<Scene> scenes = sManager.getScenes();
+        Enumeration <Scene> s = Collections.enumeration(scenes);
+        while ( s.hasMoreElements() ){
+            Scene scene = s.nextElement();
+            Enumeration<BglObject> e = Collections.enumeration( scene.getMembers() );
+            while( e.hasMoreElements() ) {
+                BglObject obj = e.nextElement();
+                if ( obj.isVisible() ){
+                    final Shader shader = shaderList.getProg( obj.getShaderName() );
+                    mvp = calculateMVP( obj );
+                    obj.draw(mvp, shader);
+                }
+            }
+        }
     }
 
     @Override
     public void onSurfaceChanged(GL10 unused, int width, int height) {
-    	
-    	screen_width = width;
-    	screen_height = height;
         glViewport(0, 0, width, height);
-        
         MatrixHelper.perspectiveM( projMatrix, 45, (float) width / (float) height, 1f, 200f );
         Matrix.invertM(projMatrixInv, 0, projMatrix, 0);
     }
 
-    public void lockCamera(BglObject obj){
-        objFollowed = obj;
-    }
 
     public static void checkGlError(String glOperation) {
         int error;

@@ -111,7 +111,7 @@ public class BglAnimatedSprite  extends BglSprite {
     }
 
     // Finger touches the object
-    public void touchDown() {
+    public void touchDown() throws Exception {
         super.touchDown();
         inner_state = 1;
         state = 0;
@@ -143,11 +143,11 @@ public class BglAnimatedSprite  extends BglSprite {
         return textureHandle[inner_state];
     }
 
-    public void setTextureHandle( SpriteSheet[] spriteSheetTab) {
+    public void setTextureHandle() {
         final BtextureManager textManager = BtextureManager.getInstance();
 
         for (int i=0; i < spriteSheet.length; i++){
-            textureHandle[i] = textManager.findHandle( spriteSheetTab[i].getTexture_id() );
+            textureHandle[i] = textManager.findHandle( spriteSheet[i].getTexture_id() );
         }
     }
 }

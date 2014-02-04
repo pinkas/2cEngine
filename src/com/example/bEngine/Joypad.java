@@ -18,7 +18,7 @@ public class Joypad extends Brectangle  {
     public Point prev;
 
     public Joypad() {
-        super( -3, -3, 10, 10, 0, 0, 0, 0 );
+        super( -30, -30, 100, 100, 0, 0, 0, 0 );
 
         prev = new Point();
     }
@@ -26,7 +26,7 @@ public class Joypad extends Brectangle  {
 
 
     @Override
-    public void touchDown()  {
+    public void touchDown() throws Exception {
         super.touchDown();
         try {
             actionDown.call();

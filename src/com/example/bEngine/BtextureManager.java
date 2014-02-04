@@ -53,7 +53,6 @@ public class BtextureManager {
 
         // iterate through the whole hashMap
         for ( int textureId : textureHashMap.keySet() ){
-            System.out.println( "======================> BtextureManager" + textureId );
             load( textureId, context );
         }
 /*
@@ -88,13 +87,12 @@ public class BtextureManager {
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
         glBindTexture(GL_TEXTURE_2D, textureHashMap.get(textureId)[0] );
-        System.out.println( "loadALL!!!!!" + textureHashMap.get(textureId)[0] );
         texImage2D(GL_TEXTURE_2D, 0, bitmap, 0);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-    //    bitmap.recycle();
+        bitmap.recycle();
 
     }
 

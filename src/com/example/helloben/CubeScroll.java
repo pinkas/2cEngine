@@ -7,10 +7,8 @@ import com.example.bEngine.object.Brectangle;
  */
 public class CubeScroll extends Brectangle {
     @Override
-    public void touchDown() {
+    public void touchDown() throws Exception {
         super.touchDown();
-        System.out.println("TOUCHED");
-
     }
 
     @Override

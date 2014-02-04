@@ -10,9 +10,9 @@ public class ShaderList {
 
 	public ShaderList( Context context ){
 
-        this.basicShader = new BasicShader(context);
-		this.wobblyShader = new WobblyShader(context);
-        this.rectangleShader = new RectangleShader(context);
+        basicShader = new BasicShader(context);
+		wobblyShader = new WobblyShader(context);
+        rectangleShader = new RectangleShader(context);
 	}
 
     public Shader getProg( String sName ){

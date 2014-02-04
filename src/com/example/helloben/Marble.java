@@ -26,7 +26,7 @@ public class Marble extends BglSprite {
     }
 
     @Override
-    public void touchDown() {
+    public void touchDown() throws Exception {
         super.touchDown();
     }
 

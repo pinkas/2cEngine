@@ -47,7 +47,7 @@ public class Bobject {
     }
 
     // Finger touches the object
-    public void touchDown() {
+    public void touchDown() throws Exception {
         pressed = true;
     }
     // Finger realeases when over the object

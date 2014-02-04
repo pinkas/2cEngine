@@ -17,7 +17,7 @@ public class Heroe extends BglAnimatedSprite {
     }
 
     @Override
-    public void touchDown() {
+    public void touchDown() throws Exception {
         super.touchDown();
         jump();
         speed = 0;
