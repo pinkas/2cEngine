@@ -177,18 +177,21 @@ public class Brenderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 unused) {
         /* clear with a lovely color */
         glClear(GL_COLOR_BUFFER_BIT);
-		/* Draw  it */
+		/* I - Scene enumeration */
         List<Scene> scenes = sManager.getScenes();
         Enumeration <Scene> s = Collections.enumeration(scenes);
         while ( s.hasMoreElements() ){
             Scene scene = s.nextElement();
-            Enumeration<BglObject> e = Collections.enumeration( scene.getMembers() );
-            while( e.hasMoreElements() ) {
-                BglObject obj = e.nextElement();
-                if ( obj.isVisible() ){
-                    final Shader shader = shaderList.getProg( obj.getShaderName() );
-                    mvp = calculateMVP( obj );
-                    obj.draw(mvp, shader);
+            if ( scene.getVIsible() ){
+                /* II - Objects enumeration */
+                Enumeration<BglObject> e = Collections.enumeration( scene.getMembers() );
+                while( e.hasMoreElements() ) {
+                    BglObject obj = e.nextElement();
+                    if ( obj.isVisible() ){
+                        final Shader shader = shaderList.getProg( obj.getShaderName() );
+                        mvp = calculateMVP( obj );
+                        obj.draw(mvp, shader);
+                    }
                 }
             }
         }

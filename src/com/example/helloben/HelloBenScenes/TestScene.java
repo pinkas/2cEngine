@@ -52,18 +52,24 @@ public class TestScene extends Scene {
         final Brectangle button = new Button( new Callable<Void>() {
             @Override
             public Void call() throws Exception {
-
-                SceneManager.getInstance().startScene("splash");
+                SceneManager.getInstance().stopScene("test");
                 return null;
             }
         });
         add(button);
-
     }
 
     @Override
     public void start() {
         super.start();
+        this.setVisible(true);
+        SceneManager.getInstance().setFocusScene(this);
+    }
 
+    @Override
+    public void stop() {
+        super.stop();
+        this.setVisible(false);
+        SceneManager.getInstance().startScene("splash");
     }
 }

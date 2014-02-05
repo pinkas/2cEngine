@@ -52,15 +52,16 @@ public class SceneManager {
 
     public void addScene( Scene s ){
         sceneHashMap.put( s.getName(), s);
-        System.out.println( " @@@@@@@@@@@@@@@@@@!!!@@@@@@" +  s );
-
         scenes.add(s);
     }
 
     public void setFocusScene( String sceneName ){
         //TODO checker si le nom de la scene est valide!!!!!!
         focusScene = sceneHashMap.get(sceneName);
-        System.out.println( " @@@@@@@@@@@@@@@@@@@@@@@@" +  focusScene );
+    }
+
+    public void setFocusScene(Scene scene){
+        focusScene = scene;
     }
 
     public void startScene(String sceneName){

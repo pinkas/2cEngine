@@ -34,6 +34,7 @@ public  class Scene {
 
     public void setVisible( boolean visible ){
         this.visible = visible;
+
     }
 
     public boolean getVIsible(){
