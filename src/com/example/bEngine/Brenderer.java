@@ -182,7 +182,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
         Enumeration <Scene> s = Collections.enumeration(scenes);
         while ( s.hasMoreElements() ){
             Scene scene = s.nextElement();
-            if ( scene.getVIsible() ){
+            if ( scene.getVisible() ){
                 /* II - Objects enumeration */
                 Enumeration<BglObject> e = Collections.enumeration( scene.getMembers() );
                 while( e.hasMoreElements() ) {

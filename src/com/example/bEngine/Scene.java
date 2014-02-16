@@ -14,7 +14,7 @@ import java.util.concurrent.Callable;
  */
 public  class Scene {
 
-    private List <BglObject> members;
+    private ArrayList <BglObject> members;
     private boolean visible = true;
     private String name;
 
@@ -25,7 +25,12 @@ public  class Scene {
     }
 
     public void add( BglObject obj){
-        members.add(obj);
+        members.add( members.size(), obj);
+    }
+
+    public void setMemberLayer(  BglObject obj, int layer){
+        members.remove(obj);
+        members.add( layer, obj);
     }
 
     public List<BglObject> getMembers(){
@@ -34,10 +39,9 @@ public  class Scene {
 
     public void setVisible( boolean visible ){
         this.visible = visible;
-
     }
 
-    public boolean getVIsible(){
+    public boolean getVisible(){
         return visible;
     }
 

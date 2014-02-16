@@ -19,6 +19,8 @@ public abstract class BglObject extends Bobject {
     protected boolean boundToCamera;
     protected PointF offsetCamera;
     protected boolean visible = true;
+    //TODO Should alpha be delcared here? why the layer or other gl stuff aren't declared here??
+    protected float alpha = 1.0f;
 
     private final FloatBuffer vertexBuffer;
 
@@ -52,12 +54,28 @@ public abstract class BglObject extends Bobject {
         return vertexBuffer;
     }
 
+    public int getLayer() {
+        return layer;
+    }
+
+    public void setLayer(int layer) {
+        this.layer = layer;
+    }
+
     public void setVisible( boolean visible ){
         this.visible = visible;
     }
 
     public boolean isVisible(){
         return visible;
+    }
+
+    public void setAlpha( float alpha ){
+        this.alpha = alpha;
+    }
+
+    public float getAlpha(){
+        return alpha;
     }
 
     public void draw( float[] mat, Shader shader ) {

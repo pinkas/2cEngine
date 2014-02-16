@@ -18,6 +18,7 @@ public class TestScene extends Scene {
 
     public TestScene(){
         super( "test" );
+
         final BglSprite clouds = new BglSprite( 0, 0, 1.3f, 0.5f, R.drawable.lastlayer );
         add(clouds);
         clouds.anchorPointSet(0.0f,0.0f);
@@ -36,7 +37,6 @@ public class TestScene extends Scene {
         final BglSprite bg1 = new BglSprite( 0, 1, 2.5f, 1f, R.drawable.firstlayer );
         add(bg1);
         bg1.anchorPointSet(0,1);
-
 
         SpriteSheet slug0 = new SpriteSheet(R.drawable.sprite, 12, 1, 12);
         SpriteSheet slug = new SpriteSheet(R.drawable.sprite2, 16, 1, 16);

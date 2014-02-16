@@ -31,6 +31,7 @@ public class SplashScreen extends Scene {
         });
         button.posSet(0.5f,0.5f);
         add(button);
+        setMemberLayer( button, 1 );
 
     }
 

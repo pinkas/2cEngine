@@ -11,6 +11,7 @@ import com.example.bEngine.Angle;
 public class Bobject {
 
     protected PointF pos;
+    protected int layer;
     private float z;
     protected PointF anchor;
     protected Angle angle = new Angle();
@@ -22,6 +23,7 @@ public class Bobject {
         size = new PointF(w,h);
         anchor = new PointF (0.0f, 0.0f);
         z = 0;
+        layer = 0;
     }
 
     public Bobject(){
@@ -29,7 +31,10 @@ public class Bobject {
         size = new PointF(0,0);
         anchor = new PointF (0.0f, 0.0f);
         z = 0;
+        layer = 0;
     }
+
+
 
     public void anchorPointSet( float x, float y ) {
         anchor.x = x;

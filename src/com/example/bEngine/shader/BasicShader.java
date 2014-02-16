@@ -26,6 +26,7 @@ public class BasicShader extends Shader {
 	private final int mTextureCoordinateHandle;
 	private final int mMVPMatrixHandle;
 	private final int mTextureUniformHandle;
+    private final int mAlphaHandle;
 	private static final int VERTEX_COUNT = 4;
 	private static final int COORDS_PER_VERTEX = 3;
 	private final int VERTEXSTRIDE = COORDS_PER_VERTEX * VERTEX_COUNT; // 4 bytes per vertex
@@ -37,6 +38,7 @@ public class BasicShader extends Shader {
         name = "basic";
         mPositionHandle = glGetAttribLocation(mProgram, "vPosition");
         mTextureCoordinateHandle = glGetAttribLocation(mProgram, "a_texCoord");
+        mAlphaHandle = glGetUniformLocation(mProgram,"alpha");
         mMVPMatrixHandle = glGetUniformLocation(mProgram, "uMVPMatrix");
         mTextureUniformHandle = glGetUniformLocation(mProgram, "u_texture");
     }
@@ -52,12 +54,10 @@ public class BasicShader extends Shader {
         glActiveTexture(GL_TEXTURE0 );
         glBindTexture(GL_TEXTURE_2D, obj.textureHandleGet() );
 
-      //  System.out.println( "===========================================>" + obj.textureHandleGet());
-
+        glUniform1f( mAlphaHandle, obj.getAlpha() );
 
         glUniform1i(mTextureUniformHandle, 0);
-
-	   glUniformMatrix4fv( mMVPMatrixHandle, 1, false, mat, 0);
+	    glUniformMatrix4fv( mMVPMatrixHandle, 1, false, mat, 0);
 	}
 	
 }

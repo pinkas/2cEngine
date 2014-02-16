@@ -42,9 +42,12 @@ public class Heroe extends BglAnimatedSprite {
         pos.x = pos.x + speed;
 
         velY = velY + 0.008f;
+
         pos.y = pos.y + velY;
+        alpha = alpha + velY;
         if (pos.y > 0.8f ){
             pos.y = 0.8f;
+            alpha = 1.0f;
             velY = 0.0f;
         }
     }
