@@ -9,6 +9,8 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import com.example.bEngine.object.BglObject;
+import com.example.bEngine.scene.Scene;
+import com.example.bEngine.scene.SceneManager;
 import com.example.bEngine.shader.Shader;
 import com.example.bEngine.shader.ShaderList;
 
@@ -90,7 +92,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
         /* so that i can "cheat with multi layered bg scrolling*/
         boolean perspective_scorll=false;
 
-    	PointF pos = obj.posGet();
+    	PointF pos = obj.getPos();
         PointF size= obj.sizeGet();
     	PointF anchor = obj.anchorPointGet();
         /* Take into account anchor point */
@@ -135,7 +137,14 @@ public class Brenderer implements GLSurfaceView.Renderer {
 
             moveCam( pos.x + camOffset.x, pos.y + camOffset.y);
         }
-        Matrix.setLookAtM(viewMatrix, 0, camX, camY, camZ, lookX, lookY, lookZ, upX, upY, upZ);
+
+        if (obj.getDisregardCam()){
+            Matrix.setIdentityM(viewMatrix, 0);
+        }
+        else {
+            Matrix.setLookAtM(viewMatrix, 0, camX, camY, camZ, lookX, lookY, lookZ, upX, upY, upZ);
+        }
+
         /* MVP magic */
         Matrix.setIdentityM(mvp, 0);
         Matrix.multiplyMM(mvp, 0, viewMatrix, 0, modelMatrix, 0);
@@ -178,6 +187,9 @@ public class Brenderer implements GLSurfaceView.Renderer {
         /* clear with a lovely color */
         glClear(GL_COLOR_BUFFER_BIT);
 		/* I - Scene enumeration */
+
+        //TODO le sceneManager etant un singleton pourquoi est-ce un member de cette classe????
+        //a priori ca ne devrait pas l'etre et je devrais juste me servir de getInstance.
         List<Scene> scenes = sManager.getScenes();
         Enumeration <Scene> s = Collections.enumeration(scenes);
         while ( s.hasMoreElements() ){

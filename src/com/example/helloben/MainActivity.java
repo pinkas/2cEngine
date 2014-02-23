@@ -7,9 +7,8 @@ import java.util.concurrent.Callable;
 import com.example.bEngine.Brenderer;
 import com.example.bEngine.BtextureManager;
 import com.example.bEngine.InputStatus;
-import com.example.bEngine.Joypad;
-import com.example.bEngine.Scene;
-import com.example.bEngine.SceneManager;
+import com.example.bEngine.scene.Scene;
+import com.example.bEngine.scene.SceneManager;
 import com.example.helloben.HelloBenScenes.SplashScreen;
 import com.example.helloben.HelloBenScenes.TestScene;
 

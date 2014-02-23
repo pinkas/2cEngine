@@ -1,4 +1,4 @@
-package com.example.bEngine;
+package com.example.bEngine.scene;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,21 +6,22 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
 
-import android.content.Context;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.view.Display;
 
+import com.example.bEngine.Brun;
+import com.example.bEngine.BtextureManager;
+import com.example.bEngine.InputStatus;
 import com.example.bEngine.object.BglObject;
+import com.example.bEngine.object.Bobject;
 
 public class SceneManager {
 
     //TODO just keep the hashmap? I am not doing that for now because I'm guessing it's faster
     //to always iterate the List rather than the hashmap
-    private Map< String,  Scene > sceneHashMap;
+    private Map< String, Scene> sceneHashMap;
     private volatile static SceneManager instance;
     private List<Scene> scenes;
     private Point screenSize;
@@ -100,8 +101,8 @@ public class SceneManager {
 		while( e.hasMoreElements() ) {
 
 			BglObject obj = e.nextElement();
-            float x = obj.posGet().x - obj.anchorPointGet().x * obj.sizeGet().x;
-            float y = obj.posGet().y - obj.anchorPointGet().y * obj.sizeGet().y;
+            float x = obj.getPos().x - obj.anchorPointGet().x * obj.sizeGet().x;
+            float y = obj.getPos().y - obj.anchorPointGet().y * obj.sizeGet().y;
             float w = obj.sizeGet().x;
             float h = obj.sizeGet().y;
 
@@ -143,8 +144,18 @@ public class SceneManager {
             }
         });
 
-    }
+        Enumeration<Scene> s = Collections.enumeration( scenes );
+        while( s.hasMoreElements() ){
+            Scene scene = s.nextElement();
 
+            Enumeration<Bobject> e = Collections.enumeration( scene.getUpdateOnlyMembers() );
+            while( e.hasMoreElements() ) {
+                Bobject obj = e.nextElement();
+                obj.update();
+
+            }
+        }
+    }
 
     public void enumarateAllMembers( Brun<Void> cb ){
         Enumeration<Scene> s = Collections.enumeration( scenes );

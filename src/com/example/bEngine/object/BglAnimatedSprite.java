@@ -105,6 +105,7 @@ public class BglAnimatedSprite  extends BglSprite {
             blah = true;
     }
 
+    @Override
     public void update(){
         //super();
         animate();

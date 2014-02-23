@@ -75,7 +75,7 @@ public class Bobject {
         return size;
     }
 
-    public PointF posGet () {
+    public PointF getPos () {
         return pos;
     }
 
@@ -87,11 +87,11 @@ public class Bobject {
         return z;
     }
 
-    public void posSet ( PointF pos ) {
+    public void setPos ( PointF pos ) {
         this.pos.x = pos.x;
         this.pos.y = pos.y;
     }
-    public void posSet ( float x, float y ) {
+    public void setPos ( float x, float y ) {
         this.pos.x = x;
         this.pos.y = y;
     }

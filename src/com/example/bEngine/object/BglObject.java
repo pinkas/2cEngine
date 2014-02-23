@@ -19,6 +19,7 @@ public abstract class BglObject extends Bobject {
     protected boolean boundToCamera;
     protected PointF offsetCamera;
     protected boolean visible = true;
+    protected boolean disregardCam = false;
     //TODO Should alpha be delcared here? why the layer or other gl stuff aren't declared here??
     protected float alpha = 1.0f;
 
@@ -103,6 +104,13 @@ public abstract class BglObject extends Bobject {
         boundToCamera = bound ;
     }
 
+    public boolean getDisregardCam(){
+        return disregardCam;
+    }
+
+    public void setDisregardCam( boolean cam ){
+        disregardCam = cam;
+    }
 
     public FloatBuffer textCoordBufferGet() {
         return vertexBuffer;

@@ -1,7 +1,7 @@
 package com.example.helloben.HelloBenScenes;
 
-import com.example.bEngine.Scene;
-import com.example.bEngine.SceneManager;
+import com.example.bEngine.scene.Scene;
+import com.example.bEngine.scene.SceneManager;
 import com.example.bEngine.object.BglSprite;
 import com.example.bEngine.object.Brectangle;
 import com.example.helloben.Button;
@@ -29,7 +29,7 @@ public class SplashScreen extends Scene {
                 return null;
             }
         });
-        button.posSet(0.5f,0.5f);
+        button.setPos(0.5f, 0.5f);
         add(button);
         setMemberLayer( button, 1 );
 
