@@ -25,7 +25,7 @@ public class SplashScreen extends Scene {
         final Brectangle button = new Button(new Callable<Void>() {
             @Override
             public Void call() throws Exception {
-                SceneManager.getInstance().stopScene("splash");
+                stop();
                 return null;
             }
         });
@@ -39,7 +39,7 @@ public class SplashScreen extends Scene {
     @Override
     public void stop() {
      //   SceneManager.getInstance().
-        SceneManager.getInstance().startScene("test");
+        SceneManager.getInstance().startScene("gameScene");
         this.setVisible(false);
         // give the focus to another Scene!!
         // That's why i can't get the heroe to jump when taping it at the moment.

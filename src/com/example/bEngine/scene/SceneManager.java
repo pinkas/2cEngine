@@ -67,6 +67,10 @@ public class SceneManager {
 
     public void startScene(String sceneName){
         //TODO checker si le nom de la scene est valide!!!!!!
+        //TODO probleme rencontre une fois, DO IT DO IT DO IT!!!!!
+        //Verifier que la scene existe
+        //Verifier que la methode start existe
+        //Verifier surement autre chose.
         sceneHashMap.get(sceneName).start();
     }
 
@@ -74,7 +78,6 @@ public class SceneManager {
         //TODO checker si le nom de la scene est valide!!!!!!
         sceneHashMap.get(sceneName).stop();
     }
-
 
     public List<Scene> getScenes(){
         return scenes;

@@ -9,6 +9,7 @@ import com.example.bEngine.BtextureManager;
 import com.example.bEngine.InputStatus;
 import com.example.bEngine.scene.Scene;
 import com.example.bEngine.scene.SceneManager;
+import com.example.helloben.HelloBenScenes.GameScene;
 import com.example.helloben.HelloBenScenes.SplashScreen;
 import com.example.helloben.HelloBenScenes.TestScene;
 
@@ -43,11 +44,13 @@ public class MainActivity extends Activity {
         textureManager.fillTextureHashTable(R.drawable.splash);
 
         sceneManager = new SceneManager(screenSize);
-        Scene oneScene = new Scene( "oneScene" );
-        Scene testScene = new TestScene();
+     //   Scene testScene = new TestScene();
    //     sceneManager.setFocusScene(oneScene);
         final Scene splashScreen = new SplashScreen();
         sceneManager.setFocusScene("splash");
+
+
+        final Scene gameScene = new GameScene();
 
         final Brenderer theRenderer = new Brenderer( this, sceneManager, textureManager, new Callable() {
             @Override

@@ -22,6 +22,17 @@ public class Brectangle extends BglObject {
         color[3] = a;
     }
 
+    public Brectangle( float x, float y, float w, float h, float r, float g, float b){
+
+        super(x,y,w,h);
+        shaderName = "rect";
+        color = new float[4];
+        color[0] = r;
+        color[1] = g;
+        color[2] = b;
+        color[3] = 1.0f;
+    }
+
     public Brectangle(){
 
         super(0,0,0.3f,0.3f);
