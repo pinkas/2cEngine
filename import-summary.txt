@@ -1,0 +1,142 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* ic_launcher-web.png
+* out\
+* out\production\
+* out\production\Helloben\
+* out\production\Helloben\Helloben.afp.apk
+* out\production\Helloben\Helloben.apk
+* out\production\Helloben\Helloben.apk.res
+* out\production\Helloben\Helloben.unaligned.apk
+* out\production\Helloben\classes.dex
+* out\production\Helloben\com\
+* out\production\Helloben\com\example\
+* out\production\Helloben\com\example\bEngine\
+* out\production\Helloben\com\example\bEngine\Angle.class
+* out\production\Helloben\com\example\bEngine\Brenderer$1.class
+* out\production\Helloben\com\example\bEngine\Brenderer.class
+* out\production\Helloben\com\example\bEngine\Brun.class
+* out\production\Helloben\com\example\bEngine\BtextureManager.class
+* out\production\Helloben\com\example\bEngine\InputDispatcher.class
+* out\production\Helloben\com\example\bEngine\InputStatus$TouchState.class
+* out\production\Helloben\com\example\bEngine\InputStatus.class
+* out\production\Helloben\com\example\bEngine\Joypad.class
+* out\production\Helloben\com\example\bEngine\MatrixHelper.class
+* out\production\Helloben\com\example\bEngine\TextResourceReader.class
+* out\production\Helloben\com\example\bEngine\object\
+* out\production\Helloben\com\example\bEngine\object\BglAnimatedSprite.class
+* out\production\Helloben\com\example\bEngine\object\BglObject.class
+* out\production\Helloben\com\example\bEngine\object\BglSprite.class
+* out\production\Helloben\com\example\bEngine\object\BinfiniteScrolling.class
+* out\production\Helloben\com\example\bEngine\object\Bobject.class
+* out\production\Helloben\com\example\bEngine\object\Brectangle.class
+* out\production\Helloben\com\example\bEngine\object\SpriteSheet.class
+* out\production\Helloben\com\example\bEngine\scene\
+* out\production\Helloben\com\example\bEngine\scene\Scene.class
+* out\production\Helloben\com\example\bEngine\scene\SceneManager$1.class
+* out\production\Helloben\com\example\bEngine\scene\SceneManager$2.class
+* out\production\Helloben\com\example\bEngine\scene\SceneManager.class
+* out\production\Helloben\com\example\bEngine\shader\
+* out\production\Helloben\com\example\bEngine\shader\BasicShader.class
+* out\production\Helloben\com\example\bEngine\shader\RectangleShader.class
+* out\production\Helloben\com\example\bEngine\shader\Shader.class
+* out\production\Helloben\com\example\bEngine\shader\ShaderList.class
+* out\production\Helloben\com\example\bEngine\shader\WobblyShader.class
+* out\production\Helloben\com\example\helloben\
+* out\production\Helloben\com\example\helloben\BuildConfig.class
+* out\production\Helloben\com\example\helloben\Button.class
+* out\production\Helloben\com\example\helloben\CubeScroll.class
+* out\production\Helloben\com\example\helloben\Gayctivity.class
+* out\production\Helloben\com\example\helloben\Gayctivity2.class
+* out\production\Helloben\com\example\helloben\HelloBenScenes\
+* out\production\Helloben\com\example\helloben\HelloBenScenes\GameScene$1.class
+* out\production\Helloben\com\example\helloben\HelloBenScenes\GameScene$2.class
+* out\production\Helloben\com\example\helloben\HelloBenScenes\GameScene.class
+* out\production\Helloben\com\example\helloben\HelloBenScenes\ScrollinTestScene.class
+* out\production\Helloben\com\example\helloben\HelloBenScenes\SplashScreen$1.class
+* out\production\Helloben\com\example\helloben\HelloBenScenes\SplashScreen.class
+* out\production\Helloben\com\example\helloben\HelloBenScenes\TestScene$1.class
+* out\production\Helloben\com\example\helloben\HelloBenScenes\TestScene.class
+* out\production\Helloben\com\example\helloben\Heroe.class
+* out\production\Helloben\com\example\helloben\MainActivity$1.class
+* out\production\Helloben\com\example\helloben\MainActivity$2.class
+* out\production\Helloben\com\example\helloben\MainActivity.class
+* out\production\Helloben\com\example\helloben\Marble.class
+* out\production\Helloben\com\example\helloben\Projectile.class
+* out\production\Helloben\com\example\helloben\R$attr.class
+* out\production\Helloben\com\example\helloben\R$dimen.class
+* out\production\Helloben\com\example\helloben\R$drawable.class
+* out\production\Helloben\com\example\helloben\R$id.class
+* out\production\Helloben\com\example\helloben\R$layout.class
+* out\production\Helloben\com\example\helloben\R$menu.class
+* out\production\Helloben\com\example\helloben\R$raw.class
+* out\production\Helloben\com\example\helloben\R$string.class
+* out\production\Helloben\com\example\helloben\R$style.class
+* out\production\Helloben\com\example\helloben\R.class
+* out\production\Helloben\com\example\helloben\RectangleRotateGrid.class
+* out\production\Helloben\com\example\helloben\SpaceShip.class
+* out\production\Helloben\com\example\helloben\Table.class
+* out\res-cache\
+* out\res-cache\Helloben\
+* out\res-cache\Helloben\drawable-hdpi\
+* out\res-cache\Helloben\drawable-hdpi\bg1.png
+* out\res-cache\Helloben\drawable-hdpi\dune.png
+* out\res-cache\Helloben\drawable-hdpi\firstlayer.png
+* out\res-cache\Helloben\drawable-hdpi\ic_launcher.png
+* out\res-cache\Helloben\drawable-hdpi\lastlayer.png
+* out\res-cache\Helloben\drawable-hdpi\pause.png
+* out\res-cache\Helloben\drawable-hdpi\robin.png
+* out\res-cache\Helloben\drawable-hdpi\splash.png
+* out\res-cache\Helloben\drawable-hdpi\splash2.png
+* out\res-cache\Helloben\drawable-hdpi\sprite.png
+* out\res-cache\Helloben\drawable-hdpi\sprite2.png
+* out\res-cache\Helloben\drawable-mdpi\
+* out\res-cache\Helloben\drawable-mdpi\ic_launcher.png
+* out\res-cache\Helloben\drawable-xhdpi\
+* out\res-cache\Helloben\drawable-xhdpi\ic_launcher.png
+* out\res-cache\Helloben\drawable-xxhdpi\
+* out\res-cache\Helloben\drawable-xxhdpi\ic_launcher.png
+* proguard-project.txt
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:+
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app\src\main\AndroidManifest.xml
+* res\ => app\src\main\res\
+* src\ => app\src\main\java\
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
