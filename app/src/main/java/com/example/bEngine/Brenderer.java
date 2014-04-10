@@ -198,8 +198,8 @@ public class Brenderer implements GLSurfaceView.Renderer {
                 // copy the content of the list to avoid racing condition and ... crash
                 objListCopy.addAll( scene.getMembers() );
                 for ( BglObject obj : objListCopy ) {
-                    //TODO the list shouldnt contain null element
-                    //maybe it does because whenever I add an object to it, I add it at the very end of
+                    //TODO the list shouldnt contain null element.
+                    //Maybe it does because whenever I add an object to it, I add it at the very end of
                     //the list et je me soucie pas du fais que y'a des trous dedans a boucher de temps en temps
                     if ( obj != null && obj.isVisible() ){
                         final Shader shader = shaderList.getProg( obj.getShaderName() );
