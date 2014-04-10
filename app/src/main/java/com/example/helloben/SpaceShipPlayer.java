@@ -18,7 +18,7 @@ public class SpaceShipPlayer extends SpaceShip {
     @Override
     public void touchDown() {
         super.touchDown();
-        shoot( pos.x + size.x, pos.y + size.y/2, 0.01f, 0);
+        shoot( pos.x + size.x, pos.y + size.y/2, 0.0f, -0.01f);
     }
 
        @Override

@@ -30,8 +30,8 @@ public class GameScene extends Scene {
             @Override
             public Float call() {
             //TODO get size of the screen rather than hardcoded dim!!!!
-            float fingerVelX = (InputStatus.touch.x - theJoypad.prev.x) / 1210f;
-            float fingerVelY = (InputStatus.touch.y - theJoypad.prev.y) / 768f;
+            float fingerVelX = (InputStatus.touch.x - theJoypad.prev.x) / 768f;
+            float fingerVelY = (InputStatus.touch.y - theJoypad.prev.y) / 1200f;
             float x = ship.getPos().x + fingerVelX;
             float y = ship.getPos().y + fingerVelY;
 

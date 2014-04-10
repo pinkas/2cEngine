@@ -15,8 +15,7 @@ import java.util.List;
  */
 public class SpaceShip extends Brectangle {
 
-    private Scene scene;
-
+    protected Scene scene;
 
     public SpaceShip( float x, float y, float w, float h, float r, float g, float b,  Scene scene ){
         super(x, y, w, h, r, g, b);

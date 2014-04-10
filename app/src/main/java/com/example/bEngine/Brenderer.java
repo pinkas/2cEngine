@@ -212,6 +212,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
         }
     }
 
+
     @Override
     public void onSurfaceChanged(GL10 unused, int width, int height) {
         glViewport(0, 0, width, height);

@@ -132,7 +132,6 @@ public class SceneManager {
 			// some are input sensitive, some are physics ...
 			switch ( InputStatus.getTouchState() ) {
                 case DOWN:
-                    System.out.println( "case down!!!!1");
                     if ( rectangle.contains( touchAbsX, touchAbsY ) ){
                         obj.touchDown();
                         //break;
@@ -167,8 +166,10 @@ public class SceneManager {
 
                 // TODO Have a function that should determine if the obj should be removed from the table
                 if (obj.getPos().x < -0.1){
-                    scene.addToRemove(obj);
+       //             scene.addToRemove(obj);
                 }
+
+
             }
         }
 
