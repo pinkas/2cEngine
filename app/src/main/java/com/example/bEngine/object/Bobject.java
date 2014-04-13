@@ -47,7 +47,7 @@ public class Bobject {
         return anchor;
     }
 
-    public void resize(float w, float h){
+    public void setSize(float w, float h){
         //TODO  check if parameters are correct?
         size.x = w;
         size.y = h;

@@ -211,7 +211,7 @@ public class SceneManager {
                     w = size.x;
                     h = size.y;
                     rectangle2.set(x, y, x+w, y+h);
-                    if ( rectangle.intersect(rectangle2) && obj != obj2){
+                    if ( rectangle.intersect(rectangle2) && obj != obj2 && obj.isVisible() ){
                         obj.collision();
                         //System.out.println("====>Collision!" +"   " +  obj + " with " +  obj2 );
                     }
