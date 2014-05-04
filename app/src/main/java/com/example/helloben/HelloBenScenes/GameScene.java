@@ -2,9 +2,12 @@ package com.example.helloben.HelloBenScenes;
 
 import com.example.bEngine.InputStatus;
 import com.example.bEngine.Joypad;
+import com.example.bEngine.object.BglSprite;
+import com.example.bEngine.object.BinfiniteScrolling;
+import com.example.bEngine.object.SpriteSheet;
 import com.example.bEngine.scene.Scene;
 import com.example.bEngine.scene.SceneManager;
-import com.example.helloben.SpaceShip;
+import com.example.helloben.R;
 import com.example.helloben.SpaceShipEnemy;
 import com.example.helloben.SpaceShipPlayer;
 
@@ -17,11 +20,37 @@ public class GameScene extends Scene {
 
     public GameScene(){
 
+
         super("gameScene");
-        final SpaceShipPlayer ship = new SpaceShipPlayer(this);
+
+        /* Road scrolling */
+        final BglSprite road1 = new BglSprite(0 ,0, 1, 1, R.drawable.road);
+        BglSprite road2 = new BglSprite(0 ,0, 1, 1, R.drawable.road);
+
+        road2 = null;
+
+        add(road1);
+        add(road2);
+        final BinfiniteScrolling scrolling = new BinfiniteScrolling( road1, road2, 0, 0, 1, 1 );
+        add(scrolling);
+        /*******************/
+
+        SpriteSheet slug0 = new SpriteSheet(R.drawable.biker, 5, 5, 25);
+        SpriteSheet blank = new SpriteSheet(R.drawable.blank, 1, 1, 1);
+
+        final SpriteSheet [] spriteSheetTab = new SpriteSheet[1];
+        spriteSheetTab[0] = slug0;
+
+        final SpriteSheet [] spriteSheetTab2 = new SpriteSheet[1];
+        spriteSheetTab2[0] = blank;
+
+        final SpaceShipPlayer ship = new SpaceShipPlayer( spriteSheetTab, this);
         add(ship);
-        final SpaceShipEnemy shipEnemy = new SpaceShipEnemy(this);
+
+        final SpaceShipEnemy shipEnemy = new SpaceShipEnemy( spriteSheetTab2, this);
         add(shipEnemy);
+
+        ship.setEnemy(shipEnemy);
 
         final Joypad theJoypad = new Joypad();
         add(theJoypad);
@@ -76,7 +105,6 @@ public class GameScene extends Scene {
 
     @Override
     public void start() {
-        super.start();
         setVisible(true);
         SceneManager.getInstance().setFocusScene( this );
 

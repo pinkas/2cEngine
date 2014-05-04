@@ -20,3 +20,6 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:+'
 }
+dependencies {
+        compile group: 'com.google.guava', name: 'guava', version: '15.0'
+}

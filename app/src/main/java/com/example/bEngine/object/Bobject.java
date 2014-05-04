@@ -5,6 +5,8 @@ import android.graphics.Rect;
 
 import com.example.bEngine.Angle;
 
+import com.google.common.base.Preconditions;
+
 /**
  * Created by Ben on 10/9/13.
  */
@@ -21,22 +23,15 @@ public class Bobject {
     protected boolean toDelete = false;
 
     public Bobject( float x, float y, float w, float h){
+
+        Preconditions.checkArgument( w > 0 && h > 0, "Size of an object should be greater than 0");
+
         pos = new PointF(x,y);
         size = new PointF(w,h);
         anchor = new PointF (0.0f, 0.0f);
         z = 0;
         layer = 0;
     }
-
-    public Bobject(){
-        pos = new PointF(0,0);
-        size = new PointF(0,0);
-        anchor = new PointF (0.0f, 0.0f);
-        z = 0;
-        layer = 0;
-    }
-
-
 
     public void anchorPointSet( float x, float y ) {
         anchor.x = x;
@@ -48,7 +43,8 @@ public class Bobject {
     }
 
     public void setSize(float w, float h){
-        //TODO  check if parameters are correct?
+        Preconditions.checkArgument( w > 0 && h > 0,
+                "Size of an object should be greater than 0");
         size.x = w;
         size.y = h;
     }
@@ -98,9 +94,7 @@ public class Bobject {
         this.pos.y = y;
     }
 
-    public void update(){
-      //  rectangle.set(pos.x, pos.y, pos.x + w, pos.y + h);
-    }
+    public void update(){}
 
     public void setAngleX(float anglex){
         angle.setX(anglex);

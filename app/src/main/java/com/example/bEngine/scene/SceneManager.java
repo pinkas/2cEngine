@@ -18,6 +18,8 @@ import com.example.bEngine.Joypad;
 import com.example.bEngine.object.BglObject;
 import com.example.bEngine.object.Bobject;
 
+import junit.framework.Assert;
+
 //TODO about this class"
 // Main thing to fix:
 // C'est un singleton donc pas possible de passer de parametres d'entrees, hors, j'ai besoin de passer
@@ -43,7 +45,6 @@ public class SceneManager {
         this.sceneHashMap = new HashMap< String, Scene>();
         this.scenes = new ArrayList<Scene>();
 	    this.screenSize = screenSize;
-        System.out.println(screenSize.x+ "  @@@@@@@@@@@@@@@ "  + screenSize.y );
         rectangle = new RectF();
         rectangle2 = new RectF();
         camPos = new PointF( 0.5f, 0.5f );
@@ -63,14 +64,22 @@ public class SceneManager {
         return instance;
     }
 
+    public boolean sceneExist (String sceneName) {
+        return sceneHashMap.containsKey(sceneName);
+    }
+
     public void addScene( Scene s ){
         sceneHashMap.put( s.getName(), s);
         scenes.add(s);
     }
 
-    public void setFocusScene( String sceneName ){
-        //TODO checker si le nom de la scene est valide!!!!!!
-        focusScene = sceneHashMap.get(sceneName);
+    public void setFocusScene( String sceneName ) {
+        if (sceneExist(sceneName) ) {
+            focusScene = sceneHashMap.get(sceneName);
+        }
+        else{
+            System.out.println("Scene does not exist, WARNING");
+        }
     }
 
     public void setFocusScene(Scene scene){
@@ -78,17 +87,21 @@ public class SceneManager {
     }
 
     public void startScene(String sceneName){
-        //TODO checker si le nom de la scene est valide!!!!!!
-        //TODO probleme rencontre une fois, DO IT DO IT DO IT!!!!!
-        //Verifier que la scene existe
-        //Verifier que la methode start existe
-        //Verifier surement autre chose.
-        sceneHashMap.get(sceneName).start();
+        if (sceneExist(sceneName)){
+            sceneHashMap.get(sceneName).start();
+        }
+        else{
+            System.out.println("Scene does not exist, WARNING");
+        }
     }
 
     public void stopScene(String sceneName){
-        //TODO checker si le nom de la scene est valide!!!!!!
-        sceneHashMap.get(sceneName).stop();
+        if ( sceneExist(sceneName) ) {
+            sceneHashMap.get(sceneName).stop();
+        }
+        else{
+            System.out.println("Scene does not exist, WARNING");
+        }
     }
 
     public List<Scene> getScenes(){
@@ -204,6 +217,7 @@ public class SceneManager {
                     if (obj2 instanceof Joypad)
                         continue;
 
+
                     pos = obj2.getPos();
                     size = obj2.getSize();
                     x = pos.x - obj.anchorPointGet().x * size.x;
@@ -211,7 +225,7 @@ public class SceneManager {
                     w = size.x;
                     h = size.y;
                     rectangle2.set(x, y, x+w, y+h);
-                    if ( rectangle.intersect(rectangle2) && obj != obj2 && obj.isVisible() ){
+                    if ( (rectangle.intersect(rectangle2) && obj != obj2) && obj2.isVisible() ){
                         obj.collision();
                         //System.out.println("====>Collision!" +"   " +  obj + " with " +  obj2 );
                     }

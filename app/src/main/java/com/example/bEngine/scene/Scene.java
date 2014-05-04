@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by Ben on 1/30/14.
  */
-public  class Scene {
+public abstract  class Scene {
 
     private ArrayList <BglObject> members;
     private ArrayList <BglObject> membersToRemove;
@@ -90,11 +90,9 @@ public  class Scene {
         return name;
     }
 
-    public void start(){
-    }
+    public abstract void start();
 
-    public void stop(){
-    }
+    public abstract void stop();
 
     // world show scene
     // the objects are render and taken into account in the world

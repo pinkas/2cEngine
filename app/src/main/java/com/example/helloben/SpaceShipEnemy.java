@@ -1,5 +1,6 @@
 package com.example.helloben;
 
+import com.example.bEngine.object.SpriteSheet;
 import com.example.bEngine.scene.Scene;
 
 /**
@@ -7,26 +8,26 @@ import com.example.bEngine.scene.Scene;
  */
 public class SpaceShipEnemy extends SpaceShip {
 
-    private final Attack attack;
+//    private final Attack attack;
     private final Attack attack2;
     private final Attack attack3;
 
     private float stepY = 0.003f;
 
 
-    public SpaceShipEnemy( Scene scene ){
-        super(0.8f, 0, 0.2f, 0.27f, 0.8f, 0.8f, 0.5f, scene);
-
+    public SpaceShipEnemy( SpriteSheet[] sheet, Scene scene ){
+        super(0.8f, 0, 0.2f, 0.27f, sheet, scene);
+/*
         float traj[] = {
             -0.01f, -0.005f,
             -0.01f, 0,
             -0.01f, 0.005f,};
-        /*Create attack and add the projectils to the scene*/
+        //Create attack and add the projectils to the scene
         attack = new Attack( this, traj,-0.1f,0.5f, 160 );
         for (Projectile proj : attack.getProjList() ) {
             scene.addAsync(proj);
         }
-
+*/
         float traj2[] = {
             -0.01f, 0.01f,
             0.01f, 0.01f,
@@ -60,7 +61,7 @@ public class SpaceShipEnemy extends SpaceShip {
           by doing so you wouldnt spend 15 minutes wondering why this new attack you implemented does
           not work!!!1!1!
          */
-        attack.timer();
+        //attack.timer();
         attack2.timer();
         attack3.timer();
     }
@@ -68,11 +69,11 @@ public class SpaceShipEnemy extends SpaceShip {
 
     @Override
     public void collision(){
-        setColor(1.0f,1.00f,1.0f,0f);
+        //setColor(1.0f,1.00f,1.0f,0f);
     }
 
     public void restaureColor(){
-        setColor(0.8f,0.8f,0.5f,1.0f);
+        //setColor(0.8f,0.8f,0.5f,1.0f);
     }
 
 }

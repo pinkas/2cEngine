@@ -47,7 +47,6 @@ public class SplashScreen extends Scene {
 
     @Override
     public void start() {
-        super.start();
         setVisible(true);
         SceneManager.getInstance().setFocusScene( this );
 

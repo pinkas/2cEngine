@@ -9,7 +9,7 @@ import com.example.bEngine.shader.Shader;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-
+import static android.opengl.GLES20.*;
 /**
  * Created by Ben on 10/10/13.
  */
@@ -80,9 +80,9 @@ public abstract class BglObject extends Bobject {
     }
 
     public void draw( float[] mat, Shader shader ) {
-        GLES20.glUseProgram(shader.get_program());
+        glUseProgram(shader.get_program());
         shader.sendParametersToShader(this, mat);
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN, 0, 4);
+        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
     }
 
     public boolean getBoundToCamera (){

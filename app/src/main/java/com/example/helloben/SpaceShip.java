@@ -2,19 +2,21 @@ package com.example.helloben;
 
 import android.graphics.RectF;
 
+import com.example.bEngine.object.BglAnimatedSprite;
 import com.example.bEngine.object.Brectangle;
+import com.example.bEngine.object.SpriteSheet;
 import com.example.bEngine.scene.Scene;
 
 /**
  * Created by Ben on 3/13/14.
  */
-public class SpaceShip extends Brectangle {
+public class SpaceShip extends BglAnimatedSprite {
 
     protected Scene scene;
     protected RectF rect;
 
-    public SpaceShip( float x, float y, float w, float h, float r, float g, float b,  Scene scene ){
-        super(x, y, w, h, r, g, b);
+    public SpaceShip( float x, float y, float w, float h, SpriteSheet[] sheet,  Scene scene ){
+        super(x, y, w, h, sheet);
         this.scene = scene;
         rect = new RectF();
     }
@@ -26,27 +28,10 @@ public class SpaceShip extends Brectangle {
 
     public boolean isReachable (SpaceShip ship, float dirX, float dirY){
 
+        float enemyWidth = ship.getSize().x;
+        float enemyX = ship.getPos().x;
 
-        float blahX = Math.abs( pos.x - ship.getPos().x );
-        float blahY = Math.abs( pos.y - ship.getPos().y );
-
-        float blahblahX = Math.abs(blahX / dirX);
-        float blahblahY = Math.abs(blahY / dirY);
-
-        float finalPosX;
-        float finalPosY;
-
-        if (blahblahX > blahblahY){
-            finalPosX = ship.getPos().x ;
-            finalPosY = pos.y + blahblahX * dirY;
-        }
-        else{
-            finalPosY = ship.getPos().y;
-            finalPosX = pos.x + blahblahY * dirX;
-        }
-
-        rect.set(finalPosX, finalPosY, finalPosX+size.x, finalPosY+size.y);
-        if ( rect.intersect(ship.rect) ) {
+        if ( enemyX < this.pos.x  && enemyX+enemyWidth>this.pos.x ) {
             return true;
         }
         else{

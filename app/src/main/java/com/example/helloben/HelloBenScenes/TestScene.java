@@ -63,14 +63,12 @@ public class TestScene extends Scene {
 
     @Override
     public void start() {
-        super.start();
         this.setVisible(true);
         SceneManager.getInstance().setFocusScene(this);
     }
 
     @Override
     public void stop() {
-        super.stop();
         this.setVisible(false);
         SceneManager.getInstance().startScene("splash");
     }
