@@ -25,13 +25,14 @@ public class GameScene extends Scene {
 
         /* Road scrolling */
         final BglSprite road1 = new BglSprite(0 ,0, 1, 1, R.drawable.road);
-        BglSprite road2 = new BglSprite(0 ,0, 1, 1, R.drawable.road);
+        final BglSprite road2 = new BglSprite(0 ,0, 1, 1, R.drawable.road);
+        final BglSprite road3 = new BglSprite(0 ,0, 1, 1, R.drawable.road);
 
-        road2 = null;
 
         add(road1);
         add(road2);
-        final BinfiniteScrolling scrolling = new BinfiniteScrolling( road1, road2, 0, 0, 1, 1 );
+        add(road3);
+        final BinfiniteScrolling scrolling = new BinfiniteScrolling( road1, road2, road3, 0, 0, 1, 1 );
         add(scrolling);
         /*******************/
 

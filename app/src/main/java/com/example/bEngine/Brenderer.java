@@ -45,7 +45,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
 
     private float camX = 0.0f;
     private float camY = 0.0f;
-    private float camZ = 0.0f;
+    private float camZ = 0f;
     private float lookX = camX;
     private float lookY = camY;
     private float lookZ = -1.0f;

@@ -8,7 +8,6 @@ import com.example.helloben.R;
 import android.content.Context;
 
 
-
 /*TODO
 *
 *  this is a shader that uses texture and everything that should deal
@@ -17,8 +16,6 @@ import android.content.Context;
 *
 *
 * */
-
-
 
 public class BasicShader extends Shader {
 

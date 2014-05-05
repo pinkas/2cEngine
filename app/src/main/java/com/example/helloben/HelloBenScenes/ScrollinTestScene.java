@@ -18,8 +18,8 @@ public class ScrollinTestScene extends Scene {
         add(rect11);
         add(rect22);
 
-        final BinfiniteScrolling scrolling = new BinfiniteScrolling( rect11, rect22, 0, 0, 1, 1 );
-        add(scrolling);
+      //  final BinfiniteScrolling scrolling = new BinfiniteScrolling( rect11, rect22, 0, 0, 1, 1 );
+      //  add(scrolling);
     }
 
     @Override

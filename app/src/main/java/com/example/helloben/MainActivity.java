@@ -46,23 +46,19 @@ public class MainActivity extends Activity {
         textureManager.fillTextureHashTable(R.drawable.blank);
         textureManager.fillTextureHashTable(R.drawable.road);
 
-
-        sceneManager = new SceneManager(screenSize);
      //   Scene testScene = new TestScene();
    //     sceneManager.setFocusScene(oneScene);
 
         // TODO if splashscreen is created before GameScene then it is under my gameScene despite the
         // TODO setFocus. need to have a setLayer for Scenes as well
-        final Scene splashScreen = new SplashScreen();
+        //final Scene splashScreen = new SplashScreen();
         final Scene gameScene = new GameScene();
 
-        sceneManager.setFocusScene("splash");
-
-
+        SceneManager.setFocusScene(gameScene);
 
 
         //TODO Why this Callback passed to the REnderer???
-        final Brenderer theRenderer = new Brenderer( this, sceneManager, textureManager, new Callable() {
+        final Brenderer theRenderer = new Brenderer( this, SceneManager.getInstance(), textureManager, new Callable() {
             @Override
             public Float call() {
                 return 0f;
@@ -131,13 +127,14 @@ public class MainActivity extends Activity {
         Timer myTimer = new Timer ();
         TimerTask renderTask = new TimerTask() {
             public void run() {
-                sceneManager.updateTouchStates();
-                sceneManager.update();
+
+                InputStatus.updateTouchStates( screenSize.x, screenSize.y );
+                SceneManager.update();
                 theGLView.requestRender();
             }
 
         };
-        myTimer.schedule( renderTask ,100, 16);
+        myTimer.schedule( renderTask ,1000, 16);
 	}
 
     @Override

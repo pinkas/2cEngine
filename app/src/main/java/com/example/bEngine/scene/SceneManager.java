@@ -20,51 +20,30 @@ import com.example.bEngine.object.Bobject;
 
 import junit.framework.Assert;
 
-//TODO about this class"
-// Main thing to fix:
-// C'est un singleton donc pas possible de passer de parametres d'entrees, hors, j'ai besoin de passer
-// la taille de l'ecran au sceneManager car le sceneManager contient la methode updateTouchStates
-// ce que est debile, ca devrait etre dans une classe a part. Je devrais creer une classe "Input" ou
-// quelque chose du genre.
-
-
 public class SceneManager {
 
     //TODO just keep the hashmap? I am not doing that for now because I'm guessing it's faster
     //to always iterate the List rather than the hashmap
-    private Map< String, Scene> sceneHashMap;
+    private static Map< String, Scene> sceneHashMap = new HashMap< String, Scene>();;
     private volatile static SceneManager instance;
-    private List<Scene> scenes;
-    private Point screenSize;
-    private final RectF rectangle;
-    private final RectF rectangle2;
-    private PointF camPos;
-    private Scene focusScene;
-
-    public SceneManager( Point screenSize ) {
-        this.sceneHashMap = new HashMap< String, Scene>();
-        this.scenes = new ArrayList<Scene>();
-	    this.screenSize = screenSize;
-        rectangle = new RectF();
-        rectangle2 = new RectF();
-        camPos = new PointF( 0.5f, 0.5f );
-        /* TODO beurk */
-        instance = this;
-    }
+    private static List<Scene> scenes = new ArrayList<Scene>();
+    private final static RectF rectangle = new RectF();
+    private final static RectF rectangle2 = new RectF();
+    private PointF camPos = new PointF( 0.5f, 0.5f ); ;
+    private static Scene focusScene;
 
     public static SceneManager getInstance(){
         if (instance == null){
             synchronized (SceneManager.class){
                 if (instance == null){
-                    System.out.println( "No world created, please create one" );
-                    //instance = new World();
+                    instance = new SceneManager();
                 }
             }
         }
         return instance;
     }
 
-    public boolean sceneExist (String sceneName) {
+    public static boolean sceneExist (String sceneName) {
         return sceneHashMap.containsKey(sceneName);
     }
 
@@ -73,7 +52,7 @@ public class SceneManager {
         scenes.add(s);
     }
 
-    public void setFocusScene( String sceneName ) {
+    public static void setFocusScene( String sceneName ) {
         if (sceneExist(sceneName) ) {
             focusScene = sceneHashMap.get(sceneName);
         }
@@ -82,11 +61,11 @@ public class SceneManager {
         }
     }
 
-    public void setFocusScene(Scene scene){
+    public static  void setFocusScene(Scene scene){
         focusScene = scene;
     }
 
-    public void startScene(String sceneName){
+    public static void startScene(String sceneName){
         if (sceneExist(sceneName)){
             sceneHashMap.get(sceneName).start();
         }
@@ -95,7 +74,11 @@ public class SceneManager {
         }
     }
 
-    public void stopScene(String sceneName){
+    public static Scene getFocusScene(){
+        return focusScene;
+    }
+
+    public static void stopScene(String sceneName){
         if ( sceneExist(sceneName) ) {
             sceneHashMap.get(sceneName).stop();
         }
@@ -104,7 +87,7 @@ public class SceneManager {
         }
     }
 
-    public List<Scene> getScenes(){
+    public static List<Scene> getScenes(){
         return scenes;
     }
 
@@ -117,58 +100,7 @@ public class SceneManager {
         return camPos;
     }
 
-	public synchronized void updateTouchStates() {
-
-        float touchRelX = InputStatus.getTouchX() / (float) screenSize.x;
-        float touchRelY = InputStatus.getTouchY() / (float) screenSize.y;
-
-        float touchAbsX = touchRelX + camPos.x - 0.5f;
-        float touchAbsY = touchRelY + camPos.y - 0.5f;
-
-		Enumeration<BglObject> e = Collections.enumeration( focusScene.getMembers() );
-		while( e.hasMoreElements() ) {
-
-			BglObject obj = e.nextElement();
-
-            PointF pos = obj.getPos();
-            PointF size = obj.getSize();
-
-            float x = pos.x - obj.anchorPointGet().x * size.x;
-            float y = pos.y - obj.anchorPointGet().y * size.y;
-            float w = size.x;
-            float h = size.y;
-
-            rectangle.set( x, y, x+w, y+h);
-
-			// TODO
-			// have different list of objects, some are purely static
-			// some are input sensitive, some are physics ...
-			switch ( InputStatus.getTouchState() ) {
-                case DOWN:
-                    if ( rectangle.contains( touchAbsX, touchAbsY ) ){
-                        obj.touchDown();
-                        //break;
-                    }
-				case UP:
-                    if ( rectangle.contains( touchAbsX, touchAbsY ) ){
-                        obj.touchUp();
-                        //break;
-                    }
-                    else if( obj.isPressed() ){
-                        obj.touchUpMove( touchAbsX, touchAbsY );
-                        //break;
-                    }
-				case MOVE:
-					if ( rectangle.contains( touchAbsX, touchAbsY ) ) {
-						obj.touchMove( touchAbsX, touchAbsY );
-						//break;
-                    }
-			}
-		}
-	    InputStatus.resetTouch();
-	}
-
-    public synchronized void update() {
+    public static synchronized void update() {
 
         /* Update rendered object */
         for (Scene scene : scenes) {
