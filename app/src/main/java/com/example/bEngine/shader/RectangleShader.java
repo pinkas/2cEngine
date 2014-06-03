@@ -31,7 +31,7 @@ public class RectangleShader extends Shader {
     }
     public void sendParametersToShader( BglObject obj, float[] mat) {
 
-        glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, VERTEXSTRIDE, obj.vertexBufferGet());
+        glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, VERTEXSTRIDE, vertexBuffer);
         glEnableVertexAttribArray(mPositionHandle);
 
         glUniform4fv(mColorHandle, 1, obj.getColor(), 0);

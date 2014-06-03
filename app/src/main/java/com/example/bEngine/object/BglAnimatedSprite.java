@@ -25,6 +25,9 @@ public class BglAnimatedSprite  extends BglSprite {
     private int inner_state = 0;
     private boolean blah=false;
 
+    //TODO to delete!
+    protected FloatBuffer[] textCoordBuffer;
+
     public BglAnimatedSprite(float x, float y, float w, float h, SpriteSheet[] spritesheet) {
 
         super(x, y, w, h, spritesheet[0].getTexture_id());

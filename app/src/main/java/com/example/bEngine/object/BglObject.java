@@ -24,22 +24,11 @@ public abstract class BglObject extends Bobject {
     protected float alpha = 1.0f;
     protected boolean collide = true;
 
-    private final FloatBuffer vertexBuffer;
 
-    private float objCoords[] = {
-            -1, 1, 0,    // top left
-            -1, -1, 0,   // bottom left
-             1, -1, 0,   // bottom right
-             1,  1, 0 }; // top right
 
     public BglObject( float x, float y, float w, float h ){
         super(x,y,w,h);
 
-        ByteBuffer bb = ByteBuffer.allocateDirect( objCoords.length * 4);
-        bb.order(ByteOrder.nativeOrder());
-        vertexBuffer = bb.asFloatBuffer();
-        vertexBuffer.put(objCoords);
-        vertexBuffer.position(0);
 
         shaderName = "basic";
     }
@@ -52,9 +41,6 @@ public abstract class BglObject extends Bobject {
         return shaderName;
     }
 
-    public FloatBuffer vertexBufferGet() {
-        return vertexBuffer;
-    }
 
     public int getLayer() {
         return layer;
@@ -108,9 +94,6 @@ public abstract class BglObject extends Bobject {
         disregardCam = cam;
     }
 
-    public FloatBuffer textCoordBufferGet() {
-        return vertexBuffer;
-    }
     //TODO is it bad design to have to set mannually if an object is concerne par les collisions
     public boolean isCollide() {
         return collide;

@@ -6,6 +6,10 @@ import android.graphics.Bitmap;
 import com.example.bEngine.object.BglObject;
 import com.example.bEngine.TextResourceReader;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+
 import static android.opengl.GLES20.*;
 import static android.opengl.GLUtils.*;
 
@@ -13,8 +17,24 @@ public abstract class Shader {
 	
 	protected final int mProgram;
     protected String name;
+
+    protected static FloatBuffer vertexBuffer;
+
+    protected static float objCoords[] = {
+            -1, 1, 0,    // top left
+            -1, -1, 0,   // bottom left
+            1, -1, 0,   // bottom right
+            1,  1, 0 }; // top right
+
 	
 	public Shader( Context context, int vertexCodeId, int fragmentCodeId ) {
+
+        ByteBuffer bb = ByteBuffer.allocateDirect( objCoords.length * 4);
+        bb.order( ByteOrder.nativeOrder());
+        vertexBuffer = bb.asFloatBuffer();
+        vertexBuffer.put(objCoords);
+        vertexBuffer.position(0);
+
 		String vertexShaderCode = TextResourceReader.readTextFileFromResource(context, vertexCodeId);
 		String fragmentShaderCode = TextResourceReader.readTextFileFromResource(context, fragmentCodeId );
         int vertexShader = loadShader(GL_VERTEX_SHADER, vertexShaderCode);

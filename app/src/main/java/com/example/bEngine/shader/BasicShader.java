@@ -7,6 +7,10 @@ import com.example.bEngine.object.BglObject;
 import com.example.helloben.R;
 import android.content.Context;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+
 
 /*TODO
 *
@@ -27,10 +31,27 @@ public class BasicShader extends Shader {
 	private static final int VERTEX_COUNT = 4;
 	private static final int COORDS_PER_VERTEX = 3;
 	private final int VERTEXSTRIDE = COORDS_PER_VERTEX * VERTEX_COUNT; // 4 bytes per vertex
-		
+
+    protected FloatBuffer[] textCoordBuffer;
+
+    private static float textcoords[] = {
+            0.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f,
+            1.0f, 1.0f, 0.0f,
+            1.0f, 0.0f, 0.0f,
+    };
+
+
 	public BasicShader( Context context ){
 		
 		super(context, R.raw.basic_vertex, R.raw.basic_fragment);
+
+    	ByteBuffer bb = ByteBuffer.allocateDirect(textcoords.length * 4);
+        bb.order(ByteOrder.nativeOrder());
+        textCoordBuffer = new FloatBuffer[1];
+        textCoordBuffer[0] = bb.asFloatBuffer();
+        textCoordBuffer[0].put(textcoords);
+        textCoordBuffer[0].position(0);
 
         name = "basic";
         mPositionHandle = glGetAttribLocation(mProgram, "vPosition");
@@ -42,10 +63,10 @@ public class BasicShader extends Shader {
 	
 	public  void sendParametersToShader( BglObject obj, float[] mat) {
 	
-        glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, VERTEXSTRIDE, obj.vertexBufferGet() );   
+        glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, VERTEXSTRIDE, vertexBuffer );
         glEnableVertexAttribArray(mPositionHandle);
 
-        glVertexAttribPointer(mTextureCoordinateHandle, 2, GL_FLOAT, false,  VERTEXSTRIDE, obj.textCoordBufferGet() );
+        glVertexAttribPointer(mTextureCoordinateHandle, 2, GL_FLOAT, false,  VERTEXSTRIDE, textCoordBuffer[0] );
         glEnableVertexAttribArray(mTextureCoordinateHandle);
 
         glActiveTexture(GL_TEXTURE0 );
