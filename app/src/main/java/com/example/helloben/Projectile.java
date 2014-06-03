@@ -14,16 +14,22 @@ public class Projectile extends Brectangle {
     private float X;
     private float Y;
     private int lifeTime = 100;
-    private int life = 0;
+    private int progress = 0;
+
+    protected int totalHp = 10;
+    protected int currentHp = 10;
+    private boolean active = false;
 
 
     public Projectile( float x, float y,  float velx, float vely ){
         super(x, y, 0.02f, 0.03f, 0.9f, 0.1f, 0.5f);
+        setVisible(false);
         vel = new PointF( velx, vely );
     }
 
     public Projectile( float velx, float vely ){
         super(0, 0, 0.02f, 0.03f, 0.9f, 0.1f, 0.5f);
+        setVisible(false);
         X = velx;
         Y = vely;
         vel = new PointF(0, 0);
@@ -34,36 +40,58 @@ public class Projectile extends Brectangle {
     }
 
     public void shoot(){
+        active = true;
+        currentHp = totalHp;
         vel.x = X;
         vel.y = Y;
         setVisible(true);
     }
 
-    public boolean isOn(){
-        if (vel.x == 0f && vel.y == 0f)
-            return false;
-        else
-            return true;
+    public boolean isActive(){
+        return active;
+    }
+
+
+    public void turnOff(){
+        setVisible(false);
+        progress = 0;
+        vel.x = 0;
+        vel.y = 0;
+        active = false;
     }
 
     @Override
-    public void update() {
-        super.update();
+    public void update(float dt) {
+        super.update(dt);
 
-        if (isOn()) {
+        if (isActive()) {
 
-            pos.x = pos.x + vel.x;
-            pos.y = pos.y + vel.y;
+            pos.x = pos.x + vel.x*dt;
+            pos.y = pos.y + vel.y*dt;
 
-            life++;
-            if (life > this.lifeTime) {
+            progress++;
+            if (progress > this.lifeTime) {
                 // FIXME SHould that be in every implementation of projectile???
-                setVisible(false);
-                life = 0;
-                vel.x = 0;
-                vel.y = 0;
+                turnOff();
             }
         }
 
+    }
+
+    @Override
+    public void collision() {
+        currentHp--;
+        if( currentHp <= 0){
+            turnOff();
+        }
+    }
+
+    public int getHp() {
+        return currentHp;
+    }
+
+    public void setHp(int hp) {
+        totalHp = hp;
+        currentHp = totalHp;
     }
 }

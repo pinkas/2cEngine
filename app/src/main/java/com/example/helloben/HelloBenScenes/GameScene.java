@@ -27,8 +27,10 @@ public class GameScene extends Scene {
         final BglSprite road1 = new BglSprite(0 ,0, 1, 1, R.drawable.road);
         final BglSprite road2 = new BglSprite(0 ,0, 1, 1, R.drawable.road);
         final BglSprite road3 = new BglSprite(0 ,0, 1, 1, R.drawable.road);
-
-
+        //TODO this is bad design  to have to set manually if an object est concerne par les collisions?????!
+        road1.setCollide(false);
+        road2.setCollide(false);
+        road3.setCollide(false);
         add(road1);
         add(road2);
         add(road3);
@@ -50,6 +52,8 @@ public class GameScene extends Scene {
 
         final SpaceShipEnemy shipEnemy = new SpaceShipEnemy( spriteSheetTab2, this);
         add(shipEnemy);
+        shipEnemy.setPos(0.5f, shipEnemy.getPos().y);
+
 
         ship.setEnemy(shipEnemy);
 
@@ -66,7 +70,6 @@ public class GameScene extends Scene {
             float y = ship.getPos().y + fingerVelY;
 
             ship.setVel(fingerVelX, fingerVelY);
-            //System.out.println(fingerVelX + "  " + fingerVelY  );
             ship.setPos(x, y);
 
             theJoypad.prev.x = InputStatus.touch.x;
@@ -95,19 +98,14 @@ public class GameScene extends Scene {
         };
 
         theJoypad.defineActionMove( joypadActionMove );
-
-
-
         theJoypad.defineActionDown( joypadActionDown );
         theJoypad.defineActionUp( joypadActionUp );
-
-
     }
 
     @Override
     public void start() {
         setVisible(true);
-        SceneManager.getInstance().setFocusScene( this );
+        SceneManager.setFocusScene( this );
 
         //       SceneManager.getInstance().setFocusScene("splash");
 
@@ -115,8 +113,7 @@ public class GameScene extends Scene {
 
     @Override
     public void stop() {
-        //   SceneManager.getInstance().
-        SceneManager.getInstance().startScene("gameScene");
+        SceneManager.startScene("gameScene");
         this.setVisible(false);
         // give the focus to another Scene!!
         // That's why i can't get the heroe to jump when taping it at the moment.

@@ -22,6 +22,7 @@ public abstract class BglObject extends Bobject {
     protected boolean disregardCam = false;
     //TODO Should alpha be delcared here? why the layer or other gl stuff aren't declared here??
     protected float alpha = 1.0f;
+    protected boolean collide = true;
 
     private final FloatBuffer vertexBuffer;
 
@@ -79,11 +80,6 @@ public abstract class BglObject extends Bobject {
         return alpha;
     }
 
-    public void draw( float[] mat, Shader shader ) {
-        glUseProgram(shader.get_program());
-        shader.sendParametersToShader(this, mat);
-        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-    }
 
     public boolean getBoundToCamera (){
         return boundToCamera;
@@ -114,6 +110,14 @@ public abstract class BglObject extends Bobject {
 
     public FloatBuffer textCoordBufferGet() {
         return vertexBuffer;
+    }
+    //TODO is it bad design to have to set mannually if an object is concerne par les collisions
+    public boolean isCollide() {
+        return collide;
+    }
+
+    public void setCollide(boolean collide) {
+        this.collide = collide;
     }
 
     //TODO is it right or wrong?

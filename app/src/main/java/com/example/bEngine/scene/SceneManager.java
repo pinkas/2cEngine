@@ -29,7 +29,6 @@ public class SceneManager {
     private static List<Scene> scenes = new ArrayList<Scene>();
     private final static RectF rectangle = new RectF();
     private final static RectF rectangle2 = new RectF();
-    private PointF camPos = new PointF( 0.5f, 0.5f ); ;
     private static Scene focusScene;
 
     public static SceneManager getInstance(){
@@ -91,64 +90,57 @@ public class SceneManager {
         return scenes;
     }
 
-    public void setCamPos (float x, float y){
-        camPos.x = x;
-        camPos.y = y;
-    }
 
-    public PointF getCamPos (){
-        return camPos;
-    }
-
-    public static synchronized void update() {
+    public static synchronized void update( float dt ) {
 
         /* Update rendered object */
-        for (Scene scene : scenes) {
-            System.out.println(scene.getMembers().size());
-            for ( BglObject obj : scene.getMembers()  ) {
+        for (Scene scene : scenes)
+        {
+            for ( BglObject obj : scene.getMembers()  )
+            {
+                obj.update( dt );
 
-                obj.update();
-
-                // TODO Have a function that should determine if the obj should be removed from the table
+                /*// TODO Have a function that should determine if the obj should be removed from the table
                 if (obj.getPos().x < -0.1){
-       //             scene.addToRemove(obj);
+                    //scene.addToRemove(obj);
+                }
+                */
+                if ( true ){
+                    continue;
                 }
 
+                if (!obj.isVisible())
+                    continue;
 
-            }
-        }
-
-        /* Remove Objects to remove */
-        for (Scene scene : scenes) {
-            for (BglObject obj : scene.getMembersToRemove()){
-                scene.getMembers().remove(obj);
-                System.out.println( "remve  " + obj );
-            }
-            scene.getMembersToRemove().clear();
-        }
-
-        /* Deal with collisions */
-        for (Scene scene : scenes) {
-            for ( BglObject obj : scene.getMembers()  ) {
+                if (!obj.isCollide())
+                    continue;
 
                 //TODO Remove that
                 if (obj instanceof Joypad)
                     continue;
 
+                //TODO les 7 lignes suivantes peuvent etre factorises
                 PointF pos = obj.getPos();
                 PointF size = obj.getSize();
-                float x = pos.x - obj.anchorPointGet().x * size.x;
-                float y = pos.y - obj.anchorPointGet().y * size.y;
+                PointF anchor = obj.anchorPointGet();
+                float x = pos.x - anchor.x * size.x;
+                float y = pos.y - anchor.y * size.y;
                 float w = size.x;
                 float h = size.y;
 
                 rectangle.set(x, y, x+w, y+h);
-                for(BglObject obj2 : scene.getMembers()){
+                for( BglObject obj2 : scene.getMembers() )
+                {
+
+                    if (!obj2.isCollide())
+                        continue;
+
+                    if (!obj2.isVisible())
+                        continue;
 
                     //TODO Remove that
                     if (obj2 instanceof Joypad)
                         continue;
-
 
                     pos = obj2.getPos();
                     size = obj2.getSize();
@@ -157,21 +149,26 @@ public class SceneManager {
                     w = size.x;
                     h = size.y;
                     rectangle2.set(x, y, x+w, y+h);
-                    if ( (rectangle.intersect(rectangle2) && obj != obj2) && obj2.isVisible() ){
+                    if ( obj != obj2 &&  (rectangle.intersect(rectangle2)  ) ){
                         obj.collision();
-                        //System.out.println("====>Collision!" +"   " +  obj + " with " +  obj2 );
                     }
                 }
             }
-        }
-
-        /* Update non-rendered objects */
-        for (Scene scene : scenes) {
-            for ( Bobject obj : scene.getUpdateOnlyMembers()  ) {
-                obj.update();
+            for ( Bobject obj : scene.getUpdateOnlyMembers()  )
+            {
+                obj.update(dt);
             }
             scene.fromMembersToAddToMembers();
         }
+/*
+        // Remove Objects to remove
+        for (Scene scene : scenes) {
+            for (BglObject obj : scene.getMembersToRemove()){
+                scene.getMembers().remove(obj);
+                System.out.println( "remve  " + obj );
+            }
+            scene.getMembersToRemove().clear();
+        }
+*/
     }
-
 }

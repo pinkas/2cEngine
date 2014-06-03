@@ -94,7 +94,7 @@ public class Bobject {
         this.pos.y = y;
     }
 
-    public void update(){}
+    public void update( float dt ){}
 
     public void setAngleX(float anglex){
         angle.setX(anglex);

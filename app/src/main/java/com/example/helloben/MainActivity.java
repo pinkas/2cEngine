@@ -3,6 +3,8 @@ package com.example.helloben;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import com.example.bEngine.Brenderer;
 import com.example.bEngine.BtextureManager;
@@ -20,6 +22,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Display;
 import android.view.MotionEvent;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -69,7 +72,12 @@ public class MainActivity extends Activity {
         setContentView(theGLView);
         theGLView.setEGLContextClientVersion(2);
         theGLView.setRenderer(theRenderer);
-        theGLView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        theGLView.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+
+        TextView text = new TextView(this);
+        text.setText("blah!!!!!!");
+
+
 //        metal.setBoundToCamera(true);
 
         /*
@@ -124,17 +132,27 @@ public class MainActivity extends Activity {
         AnimatedObject metal2 = new AnimatedObject(480,200,250,250,R.drawable.sprite2, 16, 1, 16);
         mWorld.addHabitant(metal2);
 */
+
+        //GameLoop myLoop = new GameLoop(theGLView, screenSize);
+        //ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
+        //exec.scheduleAtFixedRate( myLoop, 0, 7, TimeUnit.MILLISECONDS);
+/*
         Timer myTimer = new Timer ();
         TimerTask renderTask = new TimerTask() {
+            long mLastTime = 0;
             public void run() {
+
+                long now = System.currentTimeMillis();
+                System.out.println( now - mLastTime );
+                mLastTime = now;
 
                 InputStatus.updateTouchStates( screenSize.x, screenSize.y );
                 SceneManager.update();
                 theGLView.requestRender();
             }
-
         };
-        myTimer.schedule( renderTask ,1000, 16);
+        myTimer.scheduleAtFixedRate( renderTask ,1000, 20);
+*/
 	}
 
     @Override

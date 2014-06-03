@@ -15,14 +15,14 @@ public class Marble extends BglSprite {
     }
 
     @Override
-    public void update() {
+    public void update(float dt) {
         //update speed
         //speed.x = (int) (speed.x - speed.x*0.1);
         //speed.y = (int) (speed.y - speed.y*0.1);
         //update pos
         //pos.x = pos.x + speed.x;
         //pos.y = pos.y + speed.y;
-        super.update();
+        super.update(dt);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.helloben;
 
 import android.graphics.PointF;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 
 import com.example.bEngine.object.SpriteSheet;
 import com.example.bEngine.scene.Scene;
@@ -13,25 +14,33 @@ public class SpaceShipPlayer extends SpaceShip {
     private PointF vel = new PointF(0,0);
     private SpaceShip enemyShip;
     private int reload = 0;
+    private Attack mainAttack;
+
+
     public SpaceShipPlayer( SpriteSheet[] sheet, Scene scene ){
         super(0, 0, 0.16f, 0.2f, sheet, scene );
+
+        float traj3[] = {0.0001f, 0};
+        mainAttack = new AttackLaser( this, traj3, 0.35f, -5f, 130, 0.04f, 1, 2 );
+        for (Projectile proj3 : mainAttack.getProjList()) {
+            scene.addAsync(proj3);
+        }
+
     }
 
     @Override
     public void touchDown() {
         super.touchDown();
-        shoot( pos.x + size.x, pos.y + size.y/2, 0.0f, -0.01f);
+        mainAttack.initProjectiles();
     }
 
        @Override
-    public void update() {
-        super.update();
-        //System.out.println( vel.x + "   " + this + "   " + vel.y );
+    public void update(float dt) {
+        super.update(dt);
         calcYaw();
 
         // it used to inehrit from rectangle setColor(0.1f,0.8f,0.5f,1f);
 
-        System.out.println(reload);
         if ( isReachable(enemyShip , 0,-0.1f) && (reload == 0) ){
             //shoot( pos.x + size.x, pos.y + size.y/2, 0.0f, -0.01f);
             reload = 25;

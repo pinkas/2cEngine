@@ -1,6 +1,5 @@
 package com.example.helloben;
 
-import android.graphics.RectF;
 
 import com.example.bEngine.object.BglAnimatedSprite;
 import com.example.bEngine.object.Brectangle;
@@ -10,21 +9,17 @@ import com.example.bEngine.scene.Scene;
 /**
  * Created by Ben on 3/13/14.
  */
-public class SpaceShip extends BglAnimatedSprite {
+public class SpaceShip extends Brectangle {
 
     protected Scene scene;
-    protected RectF rect;
 
     public SpaceShip( float x, float y, float w, float h, SpriteSheet[] sheet,  Scene scene ){
-        super(x, y, w, h, sheet);
+//        super(x, y, w, h, sheet);
+        super( x, y, w, h,0.1f, 0.01f, 0.5f, 0.7f );
         this.scene = scene;
-        rect = new RectF();
     }
 
-    public void shoot ( float posInitX, float posInitY, float dirX, float dirY ){
-        Projectile proj = new Projectile( posInitX, posInitY, dirX, dirY) ;
-        scene.addAsync(proj);
-    }
+
 
     public boolean isReachable (SpaceShip ship, float dirX, float dirY){
 

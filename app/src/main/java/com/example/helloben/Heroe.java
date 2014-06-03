@@ -36,9 +36,9 @@ public class Heroe extends BglAnimatedSprite {
     }
 
     @Override
-    public void update() {
+    public void update(float dt) {
 
-        super.update();
+        super.update(dt);
         pos.x = pos.x + speed;
 
         velY = velY + 0.008f;

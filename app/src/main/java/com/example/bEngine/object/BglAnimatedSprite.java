@@ -106,7 +106,7 @@ public class BglAnimatedSprite  extends BglSprite {
     }
 
     @Override
-    public void update(){
+    public void update(float dt){
         //super();
         animate();
     }
@@ -114,14 +114,12 @@ public class BglAnimatedSprite  extends BglSprite {
     // Finger touches the object
     public void touchDown() {
         super.touchDown();
-        inner_state = 1;
-        state = 0;
+
     }
     // Finger realeases when over the object
     public void touchUp() {
         super.touchUp();
-        inner_state = 0;
-        state = 0;
+
 
     }    //When moving your finger over the object
     public void touchMove(int x, int y) {
@@ -131,9 +129,6 @@ public class BglAnimatedSprite  extends BglSprite {
     // Triggered when releasing the finger and it's not over the object anymore
     public void touchUpMove(int x, int y){
         super.touchUpMove(x,y);
-
-        inner_state = 0;
-        state = 0;
     }
 
     public FloatBuffer textCoordBufferGet() {
@@ -152,6 +147,3 @@ public class BglAnimatedSprite  extends BglSprite {
         }
     }
 }
-
-
-

@@ -62,15 +62,13 @@ public class InputStatus {
         float touchRelX = getTouchX() / (float) screenW;
         float touchRelY = getTouchY() / (float) screenH;
 
-        //float touchAbsX = touchRelX + camPos.x - 0.5f;
-        //float touchAbsY = touchRelY + camPos.y - 0.5f;
-
-        float touchAbsX = touchRelX ;
-        float touchAbsY = touchRelY ;
+        float touchAbsX = touchRelX + Brenderer.getCamPosX() - 0.5f;
+        float touchAbsY = touchRelY + Brenderer.getCamPosY() - 0.5f;
 
         //TODO avoir un methode qui retourne les membes de la focus scene
         for ( BglObject obj : SceneManager.getInstance().getFocusScene().getMembers() )
         {
+            //TODO les 7 lignes suivantes peuvent etre wrappe dans une fonction
             PointF pos = obj.getPos();
             PointF size = obj.getSize();
             PointF anchor = obj.anchorPointGet();

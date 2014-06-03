@@ -40,7 +40,7 @@ public class BinfiniteScrolling extends Bobject {
     }
 
     @Override
-    public void update(){
+    public void update(float dt){
 
         if ( sprite1.getPos().y >= 1 ){
             sprite1.setPos( leader3.getPos().x, leader3.getPos().y - leader3.getSize().y );
@@ -69,7 +69,4 @@ public class BinfiniteScrolling extends Bobject {
         leader3.setPos( leader2.getPos().x, leader2.getPos().y - leader2.getSize().y );
 
     }
-
-
-
 }

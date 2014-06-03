@@ -14,6 +14,7 @@ import com.example.bEngine.scene.Scene;
 import com.example.bEngine.scene.SceneManager;
 import com.example.bEngine.shader.Shader;
 import com.example.bEngine.shader.ShaderList;
+import com.example.helloben.GameLoop;
 
 import android.content.Context;
 
@@ -22,7 +23,11 @@ import static android.opengl.GLES20.*;
 import android.graphics.PointF;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
+import android.os.SystemClock;
 import android.util.Log;
+import android.view.Choreographer;
+
+
 
 public class Brenderer implements GLSurfaceView.Renderer {
 	private Context context;
@@ -31,6 +36,8 @@ public class Brenderer implements GLSurfaceView.Renderer {
     private BtextureManager textureManager;
 
     private ShaderList shaderList;
+
+    private Shader shader;
     
     private BglObject objFollowed;
 
@@ -42,6 +49,11 @@ public class Brenderer implements GLSurfaceView.Renderer {
     private final float[] projMatrixInv = new float[16];
     private float[] mvp = new float[16];
 
+    private final float[] farPointNdc = new float[4];
+    private final float[] farPointWorld = new float[4];
+    private final float[] farSizeWorld = new float[4];
+    private final float[] camTODOFIXME = new float[4];
+
 
     private float camX = 0.0f;
     private float camY = 0.0f;
@@ -50,8 +62,8 @@ public class Brenderer implements GLSurfaceView.Renderer {
     private float lookY = camY;
     private float lookZ = -1.0f;
 
-    private float camXworld = 0.5f;
-    private float camYworld = 0.5f;
+    private static float camXworld = 0.5f;
+    private static float camYworld = 0.5f;
 
     private PointF camOffset;
 
@@ -61,7 +73,16 @@ public class Brenderer implements GLSurfaceView.Renderer {
     private float camXO=0;
     private float camYO=0;
 
+
+    float smoothedDeltaRealTime_ms=23;
+    float movAverageDeltaTime_ms=smoothedDeltaRealTime_ms;
+    long lastRealTimeMeasurement_ms;
+
+    static final float movAveragePeriod=35;
+    static final float smoothFactor=0.1f;
+
     private Callable<Float> cb;
+    long mLastTime;
 
 
     public Brenderer ( Context context, SceneManager sManager, BtextureManager textureManager, Callable<Float> cb ) {
@@ -89,7 +110,8 @@ public class Brenderer implements GLSurfaceView.Renderer {
         }
     }
     
-    public float[] calculateMVP( BglObject obj ) {
+    public void calculateMVP( BglObject obj )
+    {
 
         /* so that i can "cheat with multi layered bg scrolling*/
         boolean perspective_scorll=false;
@@ -109,8 +131,8 @@ public class Brenderer implements GLSurfaceView.Renderer {
             perspective_scorll = true;
         }
 
-        final float[] farPointWorld = fromWorldToGlFar(xGl,yGl,z);
-        final float[] farSizeWorld = fromWorldToGlFar(size.x,size.y,0);
+        fromWorldToGlFar(xGl ,yGl ,z , farPointWorld);
+        fromWorldToGlFar(size.x, size.y, 0, farSizeWorld);
 
         /* ugly hack for multi layered scrolling background */
         float div = 1 - z;
@@ -151,8 +173,6 @@ public class Brenderer implements GLSurfaceView.Renderer {
         Matrix.setIdentityM(mvp, 0);
         Matrix.multiplyMM(mvp, 0, viewMatrix, 0, modelMatrix, 0);
         Matrix.multiplyMM(mvp, 0, projMatrix, 0, mvp, 0);
-
-        return mvp;
     }
 
     public void moveCam( float x, float y){
@@ -160,38 +180,51 @@ public class Brenderer implements GLSurfaceView.Renderer {
         camYworld = y;
         x = x * 2 - 1;
         y = 1 -  y * 2;
-        final float[] pos = fromWorldToGlFar(x, y, 0);
-        camX = pos[0];
-        camY = pos[1];
+        fromWorldToGlFar(x, y, 0, camTODOFIXME);
+        camX = camTODOFIXME[0];
+        camY = camTODOFIXME[1];
         lookX = camX;
         lookY = camY;
-        /* Camera position in world coordinate */
-        sManager.setCamPos( camXworld, camYworld );
+    }
+
+    public static float getCamPosX(){
+        return camXworld;
+    }
+
+    public static float getCamPosY(){
+        return camYworld;
     }
 
     public void lockCamera(BglObject obj){
         objFollowed = obj;
     }
 
-    public float[] fromWorldToGlFar( float x, float y, float z){
+    void fromWorldToGlFar( float x, float y, float z, float[] pointInput){
 
-        final float[] farPointNdc = { x, y, z, 1 };
-        final float[] farPointWorld = new float[4];
-        Matrix.multiplyMV(farPointWorld, 0, projMatrixInv, 0, farPointNdc, 0);
-        farPointWorld[0] /= farPointWorld[3];
-        farPointWorld[1] /= farPointWorld[3];
-        farPointWorld[2] /= farPointWorld[3];
-        return farPointWorld;
+        farPointNdc[0] = x;
+        farPointNdc[1] = y;
+        farPointNdc[2] = z;
+        farPointNdc[3] = 1;
+
+        pointInput[0] = pointInput[1] = pointInput[2] = pointInput[3] = 0;
+
+        Matrix.multiplyMV(pointInput, 0, projMatrixInv, 0, farPointNdc, 0);
+        pointInput[0] /= farPointWorld[3];
+        pointInput[1] /= farPointWorld[3];
+        pointInput[2] /= farPointWorld[3];
     }
 
     @Override
     public void onDrawFrame(GL10 unused) {
-        /* clear with a lovely color */
+
+        SceneManager.update( smoothedDeltaRealTime_ms );
+        InputStatus.updateTouchStates(700, 1200);
+
         glClear(GL_COLOR_BUFFER_BIT);
 		/* I - Scene enumeration */
 
         //TODO le sceneManager etant un singleton pourquoi est-ce un member de cette classe????
-        //a priori ca ne devrait pas l'etre et je devrais juste me servir de getInstance.
+        //TODO a priori ca ne devrait pas l'etre et je devrais juste me servir de getInstance.
         for ( Scene scene : sManager.getScenes() ){
             if ( scene.getVisible() ){
                 /* II - Objects enumeration */
@@ -202,14 +235,33 @@ public class Brenderer implements GLSurfaceView.Renderer {
                     //Maybe it does because whenever I add an object to it, I add it at the very end of
                     //the list et je me soucie pas du fais que y'a des trous dedans a boucher de temps en temps
                     if ( obj != null && obj.isVisible() ){
-                        final Shader shader = shaderList.getProg( obj.getShaderName() );
-                        mvp = calculateMVP( obj );
-                        obj.draw(mvp, shader);
+                        calculateMVP( obj );
+
+                        //TODO maybe this allocates a bit of memory
+                        shader =  shaderList.getProg( obj.getShaderName() );
+                        //TODO have a draw function
+                        glUseProgram(shader.get_program());
+                        shader.sendParametersToShader(obj, mvp);
+                        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+
+
                     }
                 }
                 objListCopy.clear();
             }
         }
+
+        // Moving average calc
+        long currTimePick_ms= SystemClock.uptimeMillis();
+        float realTimeElapsed_ms;
+        if (lastRealTimeMeasurement_ms>0){
+            realTimeElapsed_ms=(currTimePick_ms - lastRealTimeMeasurement_ms);
+        } else {
+            realTimeElapsed_ms=smoothedDeltaRealTime_ms; // just the first time
+        }
+        movAverageDeltaTime_ms=(realTimeElapsed_ms + movAverageDeltaTime_ms*(movAveragePeriod-1))/movAveragePeriod;
+        smoothedDeltaRealTime_ms=smoothedDeltaRealTime_ms +(movAverageDeltaTime_ms - smoothedDeltaRealTime_ms)* smoothFactor;
+        lastRealTimeMeasurement_ms=currTimePick_ms;
     }
 
 

@@ -85,8 +85,8 @@ class RectangleRotate extends Brectangle {
 
     }
 
-    public void update(){
-        super.update();
+    public void update(float dt){
+        super.update(dt);
         if ( !isPressed() ) {
 
             setAngleX( angle.getX() + angleVel[2] );

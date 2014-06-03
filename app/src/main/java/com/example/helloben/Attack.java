@@ -15,45 +15,36 @@ public class Attack {
     protected List<Projectile> projList;
     protected PointF startPos;
     protected int cpt=0;
-    protected int timer;
 
-    public Attack( SpaceShip ship, float coord[], float padX, float padY, int timer ){
+    public Attack( SpaceShip ship, float coord[], float padX, float padY ){
         this.spaceShip = ship;
-        this.timer = timer;
 
         projList = new ArrayList<Projectile>();
         startPos = new PointF(padX, padY);
 
-        boolean blah = true;
+        boolean doXfield = true;
         float valx=0;
         float valy=0;
 
-        for (int i=0; i <coord.length ;i++){
-
-            if (blah) {
-                blah = false;
-                valx = coord[i];
+        for( float theCoord : coord ){
+            if (doXfield) {
+                doXfield = false;
+                valx = theCoord;
             }
             else{
-                blah = true;
-                valy = coord[i];
+                doXfield = true;
+                valy = theCoord;
                 projList.add(new Projectile( valx, valy) )  ;
                 //projList.  .setVisible(false);
             }
         }
     }
 
+    //TODO could be array?
     public List<Projectile> getProjList() {
         return projList;
     }
 
-    public void timer() {
-        cpt++;
-        if (cpt > timer ) {
-            cpt = 0;
-            initProjectiles();
-        }
-    }
 
     public void initProjectiles(){
         float posx = spaceShip.getPos().x + startPos.x*spaceShip.getSize().x;
