@@ -27,9 +27,6 @@ public class BglSprite extends BglObject {
 
         this.shaderName = "basic";
         this.resource = resource;
-        // texture coord
-
-
 	}
 
     /* TODO should this method take the handle as a parameter and be like:
@@ -40,7 +37,7 @@ public class BglSprite extends BglObject {
     }
 
     @Override
-	public int  textureHandleGet() {
+	public int textureHandleGet() {
 		return textureHandle[0];
 	}
 
@@ -49,8 +46,6 @@ public class BglSprite extends BglObject {
         float color[] = new float[4];
         return color;
     }
-
-
 
     @Override
     public void collision(){}

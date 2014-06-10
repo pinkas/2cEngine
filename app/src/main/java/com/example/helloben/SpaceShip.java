@@ -9,13 +9,13 @@ import com.example.bEngine.scene.Scene;
 /**
  * Created by Ben on 3/13/14.
  */
-public class SpaceShip extends Brectangle {
+public class SpaceShip extends BglAnimatedSprite {
 
     protected Scene scene;
 
     public SpaceShip( float x, float y, float w, float h, SpriteSheet[] sheet,  Scene scene ){
-//        super(x, y, w, h, sheet);
-        super( x, y, w, h,0.1f, 0.01f, 0.5f, 0.7f );
+        super(x, y, w, h, sheet);
+//        super( x, y, w, h,0.1f, 0.01f, 0.5f, 0.7f );
         this.scene = scene;
     }
 

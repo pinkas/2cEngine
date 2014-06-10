@@ -44,7 +44,6 @@ public abstract class Shader {
         glAttachShader(mProgram, vertexShader);   
         glAttachShader(mProgram, fragmentShader); 
         glLinkProgram(mProgram);
-
 	}
 	
     public static int loadShader(int type, String shaderCode){

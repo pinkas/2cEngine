@@ -13,9 +13,9 @@ import com.google.common.base.Preconditions;
 public class Bobject {
 
     protected PointF pos;
-    protected Angle angle = new Angle();
     protected PointF size;
     protected float z;
+    protected Angle angle = new Angle();
 
     protected int layer;
     protected PointF anchor;
@@ -73,16 +73,15 @@ public class Bobject {
         return size;
     }
 
-    public PointF getPos () {
-        return pos;
-    }
-
     public void zSet(float z) {
         this.z = z;
     }
-
     public float zGet() {
         return z;
+    }
+
+    public PointF getPos () {
+        return pos;
     }
 
     public void setPos ( PointF pos ) {
@@ -118,7 +117,6 @@ public class Bobject {
     public boolean isToDelete() {
         return toDelete;
     }
-
     public void setToDelete(boolean toDelete) {
         this.toDelete = toDelete;
     }

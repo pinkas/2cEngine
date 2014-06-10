@@ -217,7 +217,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 unused) {
 
-        SceneManager.update( smoothedDeltaRealTime_ms );
+        SceneManager.update( 17 );
         InputStatus.updateTouchStates(700, 1200);
 
         glClear(GL_COLOR_BUFFER_BIT);
@@ -243,25 +243,13 @@ public class Brenderer implements GLSurfaceView.Renderer {
                         glUseProgram(shader.get_program());
                         shader.sendParametersToShader(obj, mvp);
                         glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-
-
                     }
                 }
                 objListCopy.clear();
             }
         }
 
-        // Moving average calc
-        long currTimePick_ms= SystemClock.uptimeMillis();
-        float realTimeElapsed_ms;
-        if (lastRealTimeMeasurement_ms>0){
-            realTimeElapsed_ms=(currTimePick_ms - lastRealTimeMeasurement_ms);
-        } else {
-            realTimeElapsed_ms=smoothedDeltaRealTime_ms; // just the first time
-        }
-        movAverageDeltaTime_ms=(realTimeElapsed_ms + movAverageDeltaTime_ms*(movAveragePeriod-1))/movAveragePeriod;
-        smoothedDeltaRealTime_ms=smoothedDeltaRealTime_ms +(movAverageDeltaTime_ms - smoothedDeltaRealTime_ms)* smoothFactor;
-        lastRealTimeMeasurement_ms=currTimePick_ms;
+
     }
 
 
