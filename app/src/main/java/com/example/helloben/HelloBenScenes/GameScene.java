@@ -24,9 +24,10 @@ public class GameScene extends Scene {
         super("gameScene");
 
         /* Road scrolling */
-        final BglSprite road1 = new BglSprite(0 ,0, 1, 1, R.drawable.road);
-        final BglSprite road2 = new BglSprite(0 ,0, 1, 1, R.drawable.road);
-        final BglSprite road3 = new BglSprite(0 ,0, 1, 1, R.drawable.road);
+        int[] roadResource = { R.drawable.road };
+        final BglSprite road1 = new BglSprite(0 ,0, 1, 1, roadResource);
+        final BglSprite road2 = new BglSprite(0 ,0, 1, 1, roadResource);
+        final BglSprite road3 = new BglSprite(0 ,0, 1, 1, roadResource);
         //TODO this is bad design  to have to set manually if an object est concerne par les collisions?????!
         road1.setCollide(false);
         road2.setCollide(false);

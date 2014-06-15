@@ -1,17 +1,8 @@
 package com.example.bEngine.object;
 
-import android.content.Context;
-import android.graphics.BitmapFactory;
 
-import com.example.bEngine.BtextureManager;
-import com.example.bEngine.TextureCoordCalculator;
-import com.example.bEngine.shader.Shader;
+import com.example.bEngine.service.GlService;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-
-import static android.opengl.GLES20.glGenTextures;
 
 /**
  * Created by Ben on 9/26/13.
@@ -19,45 +10,44 @@ import static android.opengl.GLES20.glGenTextures;
 public class BglAnimatedSprite  extends BglSprite {
 
     private final int [] number_of_frame_real;
-    private int state;
-    //TODO rename inner_state
-    private SpriteSheet[] spriteSheet;
-    private int inner_state = 0;
-    private boolean blah=false;
 
-    //TODO to delete!
-    protected FloatBuffer[] textCoordBuffer;
+    private int state;
+    private int inner_state = 0; //TODO rename inner_state
+
+    private SpriteSheet[] spriteSheet;
 
     public BglAnimatedSprite(float x, float y, float w, float h, SpriteSheet[] spritesheet) {
+        super(x, y, w, h );
 
-        super(x, y, w, h, spritesheet[0].getTexture_id());
-        this.spriteSheet = spritesheet;
+        //TODO UGLY!!!!
+        int[] theRes = new int[spritesheet.length];
+        for (int i=0; i<spritesheet.length;i++)
+            theRes[i]=spritesheet[i].getTexture_id();
+        setRes(theRes);
+
+        glService = new GlService("basic", false, 1.0f);
         /* to increase the size of texturehandle[] when more than one texture */
-        textureHandle = new int[spritesheet.length];
-        textCoordBuffer = TextureCoordCalculator.calculate(x,y,w,h, spritesheet);
+        glService.resizeTextureHandle(spritesheet.length);
+        glService.recalculateTextCoord(x, y, w, h, spritesheet);
         number_of_frame_real = new int[spritesheet.length];
         for (int i=0; i<spritesheet.length; i++){
             number_of_frame_real[i] = spritesheet[i].getNumber_of_frame_real();
         }
+        this.spriteSheet = spritesheet;
+
     }
 
     public void animate (){
-
+        //TODO have a class that does this kind of counter for me. (eg incrementing a counter)
+        state ++;
         if (state >= number_of_frame_real[inner_state] ){
                 state = 0;
         }
-        textCoordBuffer[inner_state].position(state * 12);
-        if (blah){
-            state ++;
-            blah = false;
-        }
-        else
-            blah = true;
+        glService.setTextCoordIndex(state);
     }
 
     @Override
     public void update(float dt){
-        //super();
         animate();
     }
 
@@ -66,19 +56,18 @@ public class BglAnimatedSprite  extends BglSprite {
         return state;
     }
 
-    public FloatBuffer textCoordBufferGet() {
-        return textCoordBuffer[inner_state];
-    }
+//    public FloatBuffer textCoordBufferGet() {
+//        return textCoordBuffer[inner_state];
+//    }
 
-    public int  textureHandleGet() {
-        return textureHandle[inner_state];
-    }
+//    public int  textureHandleGet() {
+//        return textureHandle[inner_state];
+//    }
 
     public void setTextureHandle() {
-        final BtextureManager textManager = BtextureManager.getInstance();
 
         for (int i=0; i < spriteSheet.length; i++){
-            textureHandle[i] = textManager.findHandle( spriteSheet[i].getTexture_id() );
+  //          textureHandle[i] = textManager.findHandle( spriteSheet[i].getTexture_id() );
         }
     }
 }

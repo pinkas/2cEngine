@@ -17,6 +17,8 @@ public class SpriteSheet {
         this.number_of_frame_real = number_of_frame_real;
     }
 
+
+
     public int getTexture_id() {
         return texture_id;
     }

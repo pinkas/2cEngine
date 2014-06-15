@@ -42,6 +42,11 @@ public class BtextureManager {
     }
 
     public int findHandle( int textureId ){
+        // TODO findHandle seems to get called even for rectangle
+        // So we avoid a crash by returning zero when the textureId is not valid
+        if (textureHashMap.get(textureId) == null ){
+            return 0;
+        }
         return textureHashMap.get(textureId)[0];
     }
 

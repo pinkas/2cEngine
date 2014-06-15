@@ -20,22 +20,25 @@ public class TestScene extends Scene {
     public TestScene(){
         super( "test" );
 
-        final BglSprite clouds = new BglSprite( 0, 0, 1.3f, 0.5f, R.drawable.lastlayer );
+        int[] res = {R.drawable.lastlayer};
+        final BglSprite clouds = new BglSprite( 0, 0, 1.3f, 0.5f, res );
         add(clouds);
         clouds.anchorPointSet(0.0f,0.0f);
         clouds.zSet(0.7f);
 
-        final BglSprite clouds2 = new BglSprite( 1.3f, 0, 1.3f, 0.5f, R.drawable.lastlayer );
+        final BglSprite clouds2 = new BglSprite( 1.3f, 0, 1.3f, 0.5f, res );
         add(clouds2);
         clouds2.anchorPointSet(0.0f,0.0f);
         clouds2.zSet(0.7f);
 
-        final BglSprite dune = new BglSprite( 0, 0.75f, 2.5f,0.44f, R.drawable.dune );
+        int[] res2 = {R.drawable.lastlayer};
+        final BglSprite dune = new BglSprite( 0, 0.75f, 2.5f,0.44f, res2 );
         add(dune);
         dune.anchorPointSet(0,1);
         dune.zSet(0.4f);
 
-        final BglSprite bg1 = new BglSprite( 0, 1, 2.5f, 1f, R.drawable.firstlayer );
+        int[] res3 = {R.drawable.dune};
+        final BglSprite bg1 = new BglSprite( 0, 1, 2.5f, 1f, res3 );
         add(bg1);
         bg1.anchorPointSet(0,1);
 

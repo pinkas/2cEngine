@@ -105,7 +105,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
         /* TODO consider finding anonther way to do the following?? */
         for (Scene scene : sManager.getScenes()) {
             for ( BglObject obj : scene.getMembers() ) {
-                obj.setTextureHandle();
+                obj.glService.setTextureHandle(obj.getRes());
             }
         }
     }
@@ -150,7 +150,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
         Matrix.scaleM(modelMatrix, 0,  farSizeWorld[0], farSizeWorld[1], farSizeWorld[2] );
 
         /*View matrix*/
-        if ( obj.getBoundToCamera() ) {
+        if ( obj.glService.isBoundToCamera() ) {
 
             if ( camOffset == null ){
                 // World coordinate wise the camera is initially in (0.5 0.5)
@@ -238,7 +238,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
                         calculateMVP( obj );
 
                         //TODO maybe this allocates a bit of memory
-                        shader =  shaderList.getProg( obj.getShaderName() );
+                        shader =  shaderList.getProg( obj.glService.getShaderName() );
                         //TODO have a draw function
                         glUseProgram(shader.get_program());
                         shader.sendParametersToShader(obj, mvp);
