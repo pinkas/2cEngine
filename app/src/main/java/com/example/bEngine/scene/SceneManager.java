@@ -31,27 +31,28 @@ public class SceneManager {
     private final static RectF rectangle2 = new RectF();
     private static Scene focusScene;
 
-    public static SceneManager getInstance(){
-        if (instance == null){
-            synchronized (SceneManager.class){
-                if (instance == null){
-                    instance = new SceneManager();
-                }
-            }
-        }
-        return instance;
-    }
-
     public static boolean sceneExist (String sceneName) {
         return sceneHashMap.containsKey(sceneName);
     }
 
-    public void addScene( Scene s ){
+    /**
+     * Add a scene to the hasmap list
+     *
+     * @param s reference to the scene to add
+     */
+    public static void addScene( Scene s ){
         sceneHashMap.put( s.getName(), s);
         scenes.add(s);
     }
 
-    public static void setFocusScene( String sceneName ) {
+    /**
+     * Give input focus to a scene
+     * <p></p>
+     * A scene with the focus will pass touch events to its objects
+     *
+     * @param sceneName name of the scene you want to give the focus to.
+     */
+    public static void setInputFocus( String sceneName ) {
         if (sceneExist(sceneName) ) {
             focusScene = sceneHashMap.get(sceneName);
         }
@@ -60,10 +61,31 @@ public class SceneManager {
         }
     }
 
-    public static  void setFocusScene(Scene scene){
+    /**
+     * Give input focus to a scene
+     * <p></p>
+     * A scene with the focus will pass touch events to its objects
+     *
+     * @param scene reference of the scene you want to give the focus to.
+     */
+    public static void setInputFocus(Scene scene){
         focusScene = scene;
     }
 
+    /**
+     * get reference to the scene that has the input focus
+     *
+     * @return the scene that has the input focus
+     */
+    public static Scene getInputFocus(){
+        return focusScene;
+    }
+
+    /**
+     * Execute the start method of a scene
+     *
+     * @param sceneName name of the scene you want to start.
+     */
     public static void startScene(String sceneName){
         if (sceneExist(sceneName)){
             sceneHashMap.get(sceneName).start();
@@ -73,10 +95,12 @@ public class SceneManager {
         }
     }
 
-    public static Scene getFocusScene(){
-        return focusScene;
-    }
 
+    /**
+     * Execute the stop method of a scene
+     *
+     * @param sceneName name of the scene you want to stop.
+     */
     public static void stopScene(String sceneName){
         if ( sceneExist(sceneName) ) {
             sceneHashMap.get(sceneName).stop();
@@ -86,29 +110,44 @@ public class SceneManager {
         }
     }
 
+    /**
+     * Get the the hashmap scene of all the scenes
+     *
+     * @return hasmap list of scenes
+     */
     public static List<Scene> getScenes(){
         return scenes;
     }
 
-
+    /**
+     * Go through all the scenes and do what has to be done for each frame. eg collision, update for
+     * each objects ...
+     *
+     * @param dt time elapsed since last call
+     */
     public static synchronized void update( float dt ) {
 
         /* Update rendered object */
         for (Scene scene : scenes)
         {
+
+            /*------------Update non graphical stuff------------*/
+            for ( Bobject obj : scene.getUpdateOnlyMembers()  )
+            {
+                obj.update(dt);
+            }
+
             for ( BglObject obj : scene.getMembers()  )
             {
-                obj.update( dt );
+                /*----------UPDATE---------*/
+                obj.update(dt);
 
                 /*// TODO Have a function that should determine if the obj should be removed from the table
                 if (obj.getPos().x < -0.1){
                     //scene.addToRemove(obj);
                 }
                 */
-                if ( true ){
-                    continue;
-                }
-
+                /* --------Collision-------- */
                 if (!obj.isVisible())
                     continue;
 
@@ -154,10 +193,7 @@ public class SceneManager {
                     }
                 }
             }
-            for ( Bobject obj : scene.getUpdateOnlyMembers()  )
-            {
-                obj.update(dt);
-            }
+
             scene.fromMembersToAddToMembers();
         }
 /*

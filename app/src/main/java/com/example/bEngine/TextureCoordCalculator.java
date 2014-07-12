@@ -83,10 +83,9 @@ public class TextureCoordCalculator {
     }
 
     public static FloatBuffer[] calculate(){
-        FloatBuffer[] textCoordBuffer;
         ByteBuffer bb = ByteBuffer.allocateDirect(textcoords.length * 4);
         bb.order(ByteOrder.nativeOrder());
-        textCoordBuffer = new FloatBuffer[1];
+        FloatBuffer[] textCoordBuffer = new FloatBuffer[1];
         textCoordBuffer[0] = bb.asFloatBuffer();
         textCoordBuffer[0].put(textcoords);
         textCoordBuffer[0].position(0);

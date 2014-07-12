@@ -106,10 +106,7 @@ public class GameScene extends Scene {
     @Override
     public void start() {
         setVisible(true);
-        SceneManager.setFocusScene( this );
-
-        //       SceneManager.getInstance().setFocusScene("splash");
-
+        SceneManager.setInputFocus( this );
     }
 
     @Override

@@ -17,7 +17,7 @@ public class BtextureManager {
 
     private volatile static BtextureManager instance;
 
-    private Map<Integer, int[]> textureHashMap;
+    private static Map<Integer, int[]> textureHashMap;
 
     private BtextureManager(){
         this.textureHashMap = new HashMap<Integer, int[]>();
@@ -41,7 +41,7 @@ public class BtextureManager {
         textureHashMap.put( textureId, handle );
     }
 
-    public int findHandle( int textureId ){
+    public static int findHandle( int textureId ){
         // TODO findHandle seems to get called even for rectangle
         // So we avoid a crash by returning zero when the textureId is not valid
         if (textureHashMap.get(textureId) == null ){
@@ -54,7 +54,7 @@ public class BtextureManager {
         //TODO remove from the table when it's loaded
     }
 
-    public void loadAll( Context context ){
+    public static void loadAll( Context context ){
 
         // iterate through the whole hashMap
         for ( int textureId : textureHashMap.keySet() ){
@@ -69,7 +69,7 @@ public class BtextureManager {
 */
     }
 
-    public void load( int textureId, Context context ){
+    public static void load( int textureId, Context context ){
         //create a bitmap, from image to pixel data, has to be done whenever we reload the
         //texture since we "recycle" the bitmap at the end
 /*

@@ -29,9 +29,8 @@ public abstract  class Scene {
         justUpdateMembers = new ArrayList<Bobject>();
         membersToAdd = new ArrayList<BglObject>();
         this.name = name;
-        SceneManager.getInstance().addScene(this);
+        SceneManager.addScene(this);
     }
-
 
 
     public void addAsync(BglObject obj){

@@ -55,7 +55,7 @@ public class BasicShader extends Shader {
         glEnableVertexAttribArray(mTextureCoordinateHandle);
 
         glActiveTexture(GL_TEXTURE0 );
-        glBindTexture(GL_TEXTURE_2D, obj.glService.getTextureHandle()[0] );
+        glBindTexture(GL_TEXTURE_2D, obj.glService.getTextureHandle() );
 
         glUniform1f( mAlphaHandle, obj.glService.getAlpha() );
 

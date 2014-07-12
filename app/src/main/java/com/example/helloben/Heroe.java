@@ -13,7 +13,7 @@ public class Heroe extends BglAnimatedSprite {
 
     public Heroe(float x, float y, float w, float h, SpriteSheet[] spritesheet){
         super(x, y, w, h, spritesheet);
-
+        setTextureState(1);
     }
 
     @Override

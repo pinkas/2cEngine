@@ -25,7 +25,7 @@ public class ScrollinTestScene extends Scene {
     @Override
     public void start() {
         setVisible(true);
-        SceneManager.getInstance().setFocusScene( this );
+        SceneManager.setInputFocus( this );
     }
 
     public void stop(){

@@ -39,7 +39,7 @@ public class SplashScreen extends Scene {
     @Override
     public void stop() {
      //   SceneManager.getInstance().
-        SceneManager.getInstance().startScene("gameScene");
+        SceneManager.startScene("gameScene");
         this.setVisible(false);
         // give the focus to another Scene!!
         // That's why i can't get the heroe to jump when taping it at the moment.
@@ -48,7 +48,7 @@ public class SplashScreen extends Scene {
     @Override
     public void start() {
         setVisible(true);
-        SceneManager.getInstance().setFocusScene( this );
+        SceneManager.setInputFocus( this );
 
  //       SceneManager.getInstance().setFocusScene("splash");
 

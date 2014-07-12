@@ -43,7 +43,7 @@ public class BglAnimatedSprite  extends BglSprite {
         if (state >= number_of_frame_real[inner_state] ){
                 state = 0;
         }
-        glService.setTextCoordIndex(state);
+        glService.setTextCoordPos(state);
     }
 
     @Override
@@ -56,18 +56,10 @@ public class BglAnimatedSprite  extends BglSprite {
         return state;
     }
 
-//    public FloatBuffer textCoordBufferGet() {
-//        return textCoordBuffer[inner_state];
-//    }
-
-//    public int  textureHandleGet() {
-//        return textureHandle[inner_state];
-//    }
-
-    public void setTextureHandle() {
-
-        for (int i=0; i < spriteSheet.length; i++){
-  //          textureHandle[i] = textManager.findHandle( spriteSheet[i].getTexture_id() );
-        }
+    public void setTextureState(int i){
+        glService.setTextureHandleIndex(i);
     }
+
+
+
 }

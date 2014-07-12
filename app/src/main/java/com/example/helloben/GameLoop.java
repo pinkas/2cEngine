@@ -33,7 +33,7 @@ public class GameLoop implements Runnable {
         dt = current - past;
 
 
-        InputStatus.updateTouchStates(screensize.x, screensize.y);
+        InputStatus.updateObjectsTouchStates(screensize.x, screensize.y);
 
 
         long currTimePick_ms= SystemClock.uptimeMillis();

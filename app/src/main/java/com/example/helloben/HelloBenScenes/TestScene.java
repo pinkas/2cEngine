@@ -1,5 +1,8 @@
 package com.example.helloben.HelloBenScenes;
 
+import com.example.bEngine.Brenderer;
+import com.example.bEngine.InputStatus;
+import com.example.bEngine.Joypad;
 import com.example.bEngine.scene.Scene;
 import com.example.bEngine.scene.SceneManager;
 import com.example.bEngine.object.BglSprite;
@@ -31,13 +34,13 @@ public class TestScene extends Scene {
         clouds2.anchorPointSet(0.0f,0.0f);
         clouds2.zSet(0.7f);
 
-        int[] res2 = {R.drawable.lastlayer};
+        int[] res2 = {R.drawable.dune};
         final BglSprite dune = new BglSprite( 0, 0.75f, 2.5f,0.44f, res2 );
-        add(dune);
+         add(dune);
         dune.anchorPointSet(0,1);
         dune.zSet(0.4f);
 
-        int[] res3 = {R.drawable.dune};
+        int[] res3 = {R.drawable.firstlayer};
         final BglSprite bg1 = new BglSprite( 0, 1, 2.5f, 1f, res3 );
         add(bg1);
         bg1.anchorPointSet(0,1);
@@ -53,26 +56,31 @@ public class TestScene extends Scene {
         metal.anchorPointSet(0.0f,1.0f);
         metal.setAngleY(180);
 
-        final Brectangle button = new Button( new Callable<Void>() {
+        final Joypad theJoypad = new Joypad();
+        add(theJoypad);
+
+        Callable joypadActionMove = new Callable() {
             @Override
-            public Void call() throws Exception {
-                SceneManager.getInstance().stopScene("test");
-                return null;
+            public Float call() {
+                float x = Brenderer.getCamXworld() + InputStatus.getTouchDelta().x / (float) Brenderer.getScreenW();
+                float y = Brenderer.getCamYworld() + InputStatus.getTouchDelta().y / (float) Brenderer.getScreenW();
+                Brenderer.moveCam(x, y);
+                return 0f;
             }
-        });
-        add(button);
+        };
+        theJoypad.defineActionMove( joypadActionMove );
 
     }
 
     @Override
     public void start() {
         this.setVisible(true);
-        SceneManager.getInstance().setFocusScene(this);
+        SceneManager.setInputFocus(this);
     }
 
     @Override
     public void stop() {
         this.setVisible(false);
-        SceneManager.getInstance().startScene("splash");
+        SceneManager.startScene("splash");
     }
 }

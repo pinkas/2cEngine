@@ -46,7 +46,7 @@ public class WobblyShader extends Shader {
         glEnableVertexAttribArray(mTextureCoordinateHandle); 
         
   //      glActiveTexture( GLES20.GL_TEXTURE0 );
-        glBindTexture(GL_TEXTURE_2D,  obj.glService.getTextureHandle()[0]);
+        glBindTexture(GL_TEXTURE_2D,  obj.glService.getTextureHandle() );
   //      glUniform1i(mTextureUniformHandle, 0);
         
 	    glUniformMatrix4fv( mMVPMatrixHandle, 1, false, mat, 0);

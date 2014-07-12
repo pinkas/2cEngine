@@ -15,26 +15,36 @@ public class InputStatus {
 	
 	private static TouchState touchState = TouchState.NONE;
 	public static Point touch = new Point();
+    public static Point touchPrev = new Point();
+    public static Point touchDelta = new Point();
     private static RectF rectangle = new RectF();
 	
 	public static void setTouchDown(int x, int y) {
 		touchState = TouchState.DOWN;
-		touch.x = x;
-		touch.y = y;
+        touch.set(x,y);
 	}
 
 	public static void setTouchUp(int x, int y) {
 		touchState = TouchState.UP;
-		touch.x = x;
-		touch.y = y;
+        touch.set(x,y);
 	}
 	
 	public static void setTouchMove(int x, int y) {
 		touchState = TouchState.MOVE;
-		touch.x = x;
-		touch.y = y;
-	}	
-	
+        touch.set(x,y);
+	}
+
+    public static void setTouchPrev(int x, int y){
+        touchPrev.set(x,y);
+    }
+
+    public static void setTouchDelta(Point prev, Point curr){
+        touchDelta.set(prev.x - curr.x, prev.y - curr.y);
+    }
+    public static Point getTouchDelta(){
+        return touchDelta;
+    }
+
 	public static int getTouchX() {
 		return touch.x;
 	}
@@ -44,8 +54,6 @@ public class InputStatus {
 	}
 	public static void resetTouch() {
 		touchState = TouchState.NONE;
-		touch.x = 3000;
-		touch.y = 3000;
 	}
 	
 	public static TouchState getTouchState() {
@@ -57,7 +65,7 @@ public class InputStatus {
 	}
 
 
-    public static synchronized void updateTouchStates( int screenW, int screenH ) {
+    public static synchronized void updateObjectsTouchStates( int screenW, int screenH ) {
 
         float touchRelX = getTouchX() / (float) screenW;
         float touchRelY = getTouchY() / (float) screenH;
@@ -65,8 +73,7 @@ public class InputStatus {
         float touchAbsX = touchRelX + Brenderer.getCamPosX() - 0.5f;
         float touchAbsY = touchRelY + Brenderer.getCamPosY() - 0.5f;
 
-        //TODO avoir un methode qui retourne les membes de la focus scene
-        for ( BglObject obj : SceneManager.getInstance().getFocusScene().getMembers() )
+        for ( BglObject obj : SceneManager.getInputFocus().getMembers() )
         {
             //TODO les 7 lignes suivantes peuvent etre wrappe dans une fonction
             PointF pos = obj.getPos();
@@ -77,31 +84,30 @@ public class InputStatus {
             float y = pos.y - anchor.y * size.y;
             float w = size.x;
             float h = size.y;
-
+System.out.println("lslslslsl");
             rectangle.set( x, y, x+w, y+h);
 
-            // TODO
-            // have different list of objects, some are purely static
-            // some are input sensitive, some are physics ...
+            /** TODO have different list of objects, some are purely static
+            / some are input sensitive, some are physics ... */
             switch ( getTouchState() ) {
                 case DOWN:
                     if ( rectangle.contains( touchAbsX, touchAbsY ) ){
                         obj.touchDown();
-                        //break;
+                        break;
                     }
                 case UP:
                     if ( rectangle.contains( touchAbsX, touchAbsY ) ){
                         obj.touchUp();
-                        //break;
+                        break;
                     }
                     else if( obj.isPressed() ){
                         obj.touchUpMove( touchAbsX, touchAbsY );
-                        //break;
+                        break;
                     }
                 case MOVE:
                     if ( rectangle.contains( touchAbsX, touchAbsY ) ) {
                         obj.touchMove( touchAbsX, touchAbsY );
-                        //break;
+                        break;
                     }
             }
         }
