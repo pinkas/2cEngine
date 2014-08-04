@@ -47,9 +47,8 @@ public class Bobject {
         pressed = false;
     }
     //When moving your finger over the object
-    public void touchMove(float x, float y) {
-    }
-    // Triggered when releasing the finger and it's not over the object anymore
+    public void touchMove(float x, float y) {}
+    // Triggered when releasing the finger when not over the object anymore
     public void touchUpMove(float x, float y){
         pressed = false;
     }
