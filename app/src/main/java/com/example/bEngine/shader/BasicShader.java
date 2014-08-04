@@ -46,13 +46,15 @@ public class BasicShader extends Shader {
     }
 	
 	public  void sendParametersToShader( BglObject obj, float[] mat) {
-	
-        glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, VERTEXSTRIDE, vertexBuffer );
-        glEnableVertexAttribArray(mPositionHandle);
 
+        glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID[0] );
+        glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, 0, 0);
+        glEnableVertexAttribArray(mPositionHandle);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+        glEnableVertexAttribArray(mTextureCoordinateHandle);
         glVertexAttribPointer( mTextureCoordinateHandle, 2, GL_FLOAT, false, VERTEXSTRIDE,
                                obj.glService.getTextCoordBuffer() );
-        glEnableVertexAttribArray(mTextureCoordinateHandle);
 
         glActiveTexture(GL_TEXTURE0 );
         glBindTexture(GL_TEXTURE_2D, obj.glService.getTextureHandle() );
@@ -60,6 +62,7 @@ public class BasicShader extends Shader {
         glUniform1f( mAlphaHandle, obj.glService.getAlpha() );
 
         glUniform1i(mTextureUniformHandle, 0);
+
 	    glUniformMatrix4fv( mMVPMatrixHandle, 1, false, mat, 0);
 	}
 	

@@ -35,8 +35,19 @@ public abstract class Shader {
         vertexBuffer.put(objCoords);
         vertexBuffer.position(0);
 
-		String vertexShaderCode = TextResourceReader.readTextFileFromResource(context, vertexCodeId);
-		String fragmentShaderCode = TextResourceReader.readTextFileFromResource(context, fragmentCodeId );
+        glGenBuffers(1, vertexBufferID, 0);
+
+        glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID[0]);
+        glBufferData(GL_ARRAY_BUFFER, vertexBuffer.capacity() * BYTES_PER_FLOAT,
+                vertexBuffer, GL_STATIC_DRAW);
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+        vertexBuffer.limit(0);
+        vertexBuffer = null;
+
+        String vertexShaderCode = TextResourceReader.readTextFileFromResource(context, vertexCodeId);
+		String fragmentShaderCode = TextResourceReader.readTextFileFromResource(context, fragmentCodeId);
         int vertexShader = loadShader(GL_VERTEX_SHADER, vertexShaderCode);
         int fragmentShader = loadShader(GL_FRAGMENT_SHADER, fragmentShaderCode);
         // create a GL program, add the shaders to it, and link.
@@ -67,7 +78,9 @@ public abstract class Shader {
 	public int get_program () {
 		return mProgram;
 	}
+    public void prepare(){};
 
 	public abstract void sendParametersToShader(BglObject obj, float[] mat);
+
 	
 }
