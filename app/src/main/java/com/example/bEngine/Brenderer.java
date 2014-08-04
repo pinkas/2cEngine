@@ -25,12 +25,10 @@ import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.os.SystemClock;
 import android.util.Log;
-import android.view.Choreographer;
 
 
 public class Brenderer implements GLSurfaceView.Renderer {
-    static final float movAveragePeriod = 35;
-    static final float smoothFactor = 0.1f;
+
     private static final String TAG = "MyGLRenderer";
     private static float camXworld = 0.5f;
     private static float camYworld = 0.5f;
@@ -38,34 +36,32 @@ public class Brenderer implements GLSurfaceView.Renderer {
     private static final float[] modelMatrix = new float[16];
     private static final float[] viewMatrix = new float[16];
     private static final float[] projMatrixInv = new float[16];
+
     private static final float[] farPointNdc = new float[4];
     private static final float[] farPointWorld = new float[4];
     private static final float[] farSizeWorld = new float[4];
     private static final float[] camTODOFIXME = new float[4];
-    private final float upX = 0.0f;
-    private final float upY = 1.0f;
-    private final float upZ = 0.0f;
-    float smoothedDeltaRealTime_ms = 23;
-    float movAverageDeltaTime_ms = smoothedDeltaRealTime_ms;
+    private static final float upX = 0.0f;
+    private static final float upY = 1.0f;
+    private static final float upZ = 0.0f;
     private Context context;
-    private SceneManager sManager;
-    private ShaderList shaderList;
     private Shader shader;
-    private BglObject objFollowed;
     private ArrayList<BglObject> objListCopy = new ArrayList();
-    private float[] mvp = new float[16];
+    private static float[] mvp = new float[16];
     private static float camX = 0.0f;
     private static float lookX = camX;
     private static float camY = 0.0f;
     private static float lookY = camY;
-    private static float camZ = 0f;
+    private static float camZ = 0.0f;
     private static float lookZ = -1.0f;
-    private static PointF camOffset;
-    private static float camXO = 0;
-    private static float camYO = 0;
+
     private static int screenW;
     private static int screenH;
     private Callable<Float> cb;
+
+    private static final float NS_PER_SEC = 1000000000;
+    private static float prev;
+    private static final float MAX_FRAME_DELTA_SEC = 0.1f;
 
 
     public Brenderer(Context context, Callable<Float> cb) {
@@ -168,14 +164,12 @@ public class Brenderer implements GLSurfaceView.Renderer {
         }
 
         /* Calculate model matrix */
-        Matrix.setIdentityM(modelMatrix, 0);
-        Matrix.translateM(modelMatrix, 0, farPointWorld[0], farPointWorld[1], farPointWorld[2]);
-        Matrix.rotateM(modelMatrix, 0, obj.getAngleX(), 1, 0, 0);
-        Matrix.rotateM(modelMatrix, 0, obj.getAngleY(), 0, 1, 0);
-        Matrix.rotateM(modelMatrix, 0, obj.getAngleZ(), 0, 0, 1);
-        Matrix.scaleM(modelMatrix, 0, farSizeWorld[0], farSizeWorld[1], farSizeWorld[2]);
-
-        /*View matrix*/
+        Matrix.translateM(mvp, 0, farPointWorld[0], farPointWorld[1], farPointWorld[2]);
+        Matrix.rotateM(mvp, 0, obj.getAngleX(), 1, 0, 0);
+        Matrix.rotateM(mvp, 0, obj.getAngleY(), 0, 1, 0);
+        Matrix.rotateM(mvp, 0, obj.getAngleZ(), 0, 0, 1);
+        Matrix.scaleM(mvp, 0, farSizeWorld[0], farSizeWorld[1], farSizeWorld[2]);
+/*
         if (obj.glService.isBoundToCamera()) {
 
             if (camOffset == null) {
@@ -184,19 +178,13 @@ public class Brenderer implements GLSurfaceView.Renderer {
                 camXO = camXO - pos.x;
                 camYO = camYO - pos.y;
             }
-
             moveCam(pos.x + camOffset.x, pos.y + camOffset.y);
         }
-
-        if (obj.getDisregardCam()) {
-            Matrix.setIdentityM(viewMatrix, 0);
-        } else {
-            Matrix.setLookAtM(viewMatrix, 0, camX, camY, camZ, lookX, lookY, lookZ, upX, upY, upZ);
-        }
+*/
+        if (obj.getDisregardCam()) Matrix.setIdentityM(viewMatrix, 0);
 
         /* MVP magic */
-        Matrix.setIdentityM(mvp, 0);
-        Matrix.multiplyMM(mvp, 0, viewMatrix, 0, modelMatrix, 0);
+        Matrix.multiplyMM(mvp, 0, viewMatrix, 0, mvp, 0);
         Matrix.multiplyMM(mvp, 0, projMatrix, 0, mvp, 0);
     }
 
@@ -210,6 +198,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
         camY = camTODOFIXME[1];
         lookX = camX;
         lookY = camY;
+        Matrix.setLookAtM(viewMatrix, 0, camX, camY, camZ, lookX, lookY, lookZ, upX, upY, upZ);
     }
 
     public static int getScreenW() {
@@ -236,10 +225,6 @@ public class Brenderer implements GLSurfaceView.Renderer {
         return camX;
     }
 
-    public void lockCamera(BglObject obj) {
-        objFollowed = obj;
-    }
-
     public static void fromWorldToGlFar(float x, float y, float z, float[] pointInput) {
 
         farPointNdc[0] = x;
@@ -258,46 +243,89 @@ public class Brenderer implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 unused) {
 
-        SceneManager.update(17);
-        InputStatus.updateObjectsTouchStates(screenW, screenH);
-
-        glClear(GL_COLOR_BUFFER_BIT);
-		/* I - Scene enumeration */
-
-        //TODO le sceneManager etant un singleton pourquoi est-ce un member de cette classe????
-        //TODO a priori ca ne devrait pas l'etre et je devrais juste me servir de getInstance.
-        for (Scene scene : sManager.getScenes()) {
-            if (scene.getVisible()) {
-                /* II - Objects enumeration */
-                // copy the content of the list to avoid racing condition and ... crash
-                objListCopy.addAll(scene.getMembers());
-                for (BglObject obj : objListCopy) {
-                    //TODO the list shouldnt contain null element.
-                    //Maybe it does because whenever I add an object to it, I add it at the very end of
-                    //the list et je me soucie pas du fais que y'a des trous dedans a boucher de temps en temps
-                    if (obj != null && obj.isVisible()) {
-                        calculateMVP(obj);
-
-                        //TODO maybe this allocates a bit of memory
-                        shader = shaderList.getProg(obj.glService.getShaderName());
-                        //TODO have a draw function
-                        glUseProgram(shader.get_program());
-                        shader.sendParametersToShader(obj, mvp);
-                        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-                    }
-                }
-                objListCopy.clear();
-            }
+        if ( prev == 0) {
+            prev = System.nanoTime();
+            return;
         }
 
+        float now = System.nanoTime();
+        float dt = (now - prev) / NS_PER_SEC;
+        System.out.println(now-prev);
+        prev = now;
 
+        if (dt > MAX_FRAME_DELTA_SEC) {
+            dt = MAX_FRAME_DELTA_SEC;
+        }
+
+        //InputStatus.updateObjectsTouchStates(screenW, screenH);
+        //TODO update les "updateOnlyMembers" cf update method in SceneManager
+        SceneManager.updateTimers(dt);
+        Scene focusScene = SceneManager.getInputFocus();
+
+        glClear(GL_COLOR_BUFFER_BIT);
+
+		// 1 - Scene enumeration
+        for (Scene scene : SceneManager.getScenes())
+        {
+            if (scene.getVisible())
+            {
+               shader = ShaderList.getProg( "rect" );
+               glUseProgram( 9 );
+               shader.prepare();
+
+                // 2 - Objects enumeration
+                BglObject[] members = scene.getMembers();
+                for (BglObject obj : members)
+                {
+                    if (obj == null)
+                        continue;
+
+                    if (scene == focusScene) {
+                        InputStatus.updateObjecTouchState(obj, screenW, screenH);
+                    }
+
+                    obj.update(dt);
+
+                    if (obj.visible)
+                    {
+                        if (obj.dirty)
+                        {
+                            if(obj.collide)
+                            {
+                                for(BglObject obj2 : members)
+                                {
+                                    if(obj2==null)
+                                        continue;
+
+                                    if (!obj2.visible || !obj2.collide || obj == obj2)
+                                        continue;
+                                    if ( obj.collisionService.collide(obj, obj2)) {
+                                        obj.collisionService.fixPos(obj, obj2);
+                                    }
+                                }
+                            }
+
+                            calculateMVP(obj, obj.getMvp());
+                            obj.dirty = false;
+                        }
+
+                        //shader = ShaderList.getProg(obj.glService.getShaderName());
+                        //glUseProgram( shader.get_program() );
+                        //shader.prepare();
+//                        System.out.println(obj);
+                        shader.sendParametersToShader(obj, obj.getMvp());
+                        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+                    }
+                }
+//                InputStatus.resetTouch();
+            }
+        }
     }
+
 
     @Override
     public void onSurfaceChanged(GL10 unused, int width, int height) {
         glViewport(0, 0, width, height);
-        MatrixHelper.perspectiveM(projMatrix, 45, (float) width / (float) height, 1f, 200f);
-        Matrix.invertM(projMatrixInv, 0, projMatrix, 0);
         screenW = width;
         screenH = height;
     }
