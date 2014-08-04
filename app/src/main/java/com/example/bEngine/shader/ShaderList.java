@@ -4,9 +4,9 @@ import android.content.Context;
 
 public class ShaderList {
 
-	public Shader basicShader;
-    public Shader wobblyShader;
-	public Shader rectangleShader;
+	public static Shader basicShader;
+    public static Shader wobblyShader;
+	public static Shader rectangleShader;
 
 	public ShaderList( Context context ){
 
@@ -15,7 +15,7 @@ public class ShaderList {
         rectangleShader = new RectangleShader(context);
 	}
 
-    public Shader getProg( String sName ){
+    public static Shader getProg( String sName ){
          if (sName ==  "basic" ){
             return basicShader;
          }
