@@ -19,15 +19,34 @@ public class SceneManager {
 
     //TODO just keep the hashmap? I am not doing that for now because I'm guessing it's faster
     //to always iterate the List rather than the hashmap
-    private static Map< String, Scene> sceneHashMap = new HashMap< String, Scene>();;
-    private volatile static SceneManager instance;
+    private static Map<String, Scene> sceneHashMap = new HashMap<String, Scene>();
+    ;
+    private static List<Btimer> btimers = new ArrayList<Btimer>();
     private static List<Scene> scenes = new ArrayList<Scene>();
     private final static RectF rectangle = new RectF();
     private final static RectF rectangle2 = new RectF();
     private static Scene focusScene;
 
-    public static boolean sceneExist (String sceneName) {
+    private static List<BglObject> area1 = new ArrayList<BglObject>();
+    private static List<BglObject> area2 = new ArrayList<BglObject>();
+    private static List<BglObject> area3 = new ArrayList<BglObject>();
+    private static List<BglObject> area4 = new ArrayList<BglObject>();
+    private static List<BglObject> area5 = new ArrayList<BglObject>();
+    private static List<BglObject> area6 = new ArrayList<BglObject>();
+
+    public enum collisionSide {
+        TOP,
+        BOTTOM,
+        LEFT,
+        RIGHT,
+    }
+
+    public static boolean sceneExist(String sceneName) {
         return sceneHashMap.containsKey(sceneName);
+    }
+
+    public static void addTimer(Btimer btimer) {
+        btimers.add(btimer);
     }
 
     /**
@@ -35,8 +54,8 @@ public class SceneManager {
      *
      * @param s reference to the scene to add
      */
-    public static void addScene( Scene s ){
-        sceneHashMap.put( s.getName(), s);
+    public static void addScene(Scene s) {
+        sceneHashMap.put(s.getName(), s);
         scenes.add(s);
     }
 
