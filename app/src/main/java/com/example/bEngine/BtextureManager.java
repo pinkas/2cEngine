@@ -15,28 +15,9 @@ import static android.opengl.GLUtils.texImage2D;
  */
 public class BtextureManager {
 
-    private volatile static BtextureManager instance;
+    private static Map<Integer, int[]> textureHashMap = new HashMap<Integer, int[]>();
 
-    private static Map<Integer, int[]> textureHashMap;
-
-    private BtextureManager(){
-        this.textureHashMap = new HashMap<Integer, int[]>();
-    }
-
-    /* Singleton magic */
-    /* TODO study the following lines more seriously */
-    public static BtextureManager getInstance(){
-        if (instance == null){
-            synchronized (BtextureManager.class){
-                if (instance == null){
-                    instance = new BtextureManager();
-                }
-            }
-        }
-        return instance;
-    }
-
-    public void fillTextureHashTable( Integer textureId ){
+    public static void fillTextureHashTable( Integer textureId ){
         int[] handle = new int[1];
         textureHashMap.put( textureId, handle );
     }
@@ -50,23 +31,12 @@ public class BtextureManager {
         return textureHashMap.get(textureId)[0];
     }
 
-    public void addToFactory( int textureId ){
-        //TODO remove from the table when it's loaded
-    }
-
     public static void loadAll( Context context ){
 
         // iterate through the whole hashMap
         for ( int textureId : textureHashMap.keySet() ){
             load( textureId, context );
         }
-/*
-        Enumeration<int> t = Collections.enumeration( textureHashMap );
-        while( t.hasMoreElements() ){
-            int textureId = t.nextElement();
-            load( textureId );
-        }
-*/
     }
 
     public static void load( int textureId, Context context ){
@@ -100,8 +70,5 @@ public class BtextureManager {
         bitmap.recycle();
 
     }
-
-//    public static void flush( int textureHandle ?? ){
-//    }
 
 }
