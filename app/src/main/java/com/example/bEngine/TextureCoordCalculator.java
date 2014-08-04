@@ -12,8 +12,8 @@ import java.nio.FloatBuffer;
 public class TextureCoordCalculator {
 
     private static float textcoords[] = {
-            0.0f, 0.0f, 0.0f,
             0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, 0.0f,
             1.0f, 1.0f, 0.0f,
             1.0f, 0.0f, 0.0f,
     };
@@ -50,27 +50,24 @@ public class TextureCoordCalculator {
                 for (int ii=0; ii < obj.getNumber_of_frame_x();ii++){
 
                     textcoords[i][v] = ii*(w_offset/w)+0.0f;
-                    textcoords[i][v+1] = (h_offset/h)*(0.0f+j);
-
+                    textcoords[i][v+1] = (j+1)*(h_offset/h);
                     textcoords[i][v+2] = 0.0f;
-                    textcoords[i][v+3] = ii*(w_offset/w)+0.0f;
 
-                    textcoords[i][v+4] = (j+1)*(h_offset/h);
+                    textcoords[i][v+3] = ii*(w_offset/w)+0.0f;
+                    textcoords[i][v+4] = (h_offset/h)*(0.0f+j);
                     textcoords[i][v+5] = 0.0f;
 
                     textcoords[i][v+6] = (w_offset/w)*(1.0f+ii);
                     textcoords[i][v+7] = (j+1)*(h_offset/h);
-
                     textcoords[i][v+8] = 0.0f;
-                    textcoords[i][v+9] = (w_offset/w)*(1.0f+ii);
 
+                    textcoords[i][v+9] = (w_offset/w)*(1.0f+ii);
                     textcoords[i][v+10] = (h_offset/h)*(0.0f+j);
                     textcoords[i][v+11] = 0.0f;
 
                     v = v + 12;
                 }
             }
-
 
             ByteBuffer bb = ByteBuffer.allocateDirect(textcoords[i].length * 4 * number_of_frame[i]);
             bb.order(ByteOrder.nativeOrder());
