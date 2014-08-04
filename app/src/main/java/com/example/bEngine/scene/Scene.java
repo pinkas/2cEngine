@@ -11,9 +11,10 @@ import java.util.List;
 /**
  * Created by Ben on 1/30/14.
  */
-public abstract  class Scene {
+public abstract class Scene {
 
-    private ArrayList <BglObject> members;
+    private static int OBJ_PER_SCENE = 200;
+    private BglObject[] members = new BglObject[OBJ_PER_SCENE];
     private ArrayList <BglObject> membersToRemove;
     private ArrayList <BglObject> membersToAdd;
 
@@ -24,7 +25,6 @@ public abstract  class Scene {
     private String name;
 
     public Scene( String name ){
-        members = new ArrayList<BglObject>();
         membersToRemove = new ArrayList<BglObject>();
         justUpdateMembers = new ArrayList<Bobject>();
         membersToAdd = new ArrayList<BglObject>();
@@ -45,7 +45,12 @@ public abstract  class Scene {
         // So when adding an object to an arraylist with empty slot
         // The objecty will always be at the end of the array therefor
         // on the foreground of the Scene
-        members.add( members.size(), obj);
+        //members.add( members.size(), obj);
+        int i=0;
+        while (members[i] != null ){
+            i++;
+        }
+        members[i] = obj;
     }
 
     public void addToRemove ( BglObject obj ){
@@ -68,12 +73,18 @@ public abstract  class Scene {
         return justUpdateMembers;
     }
 
+    //TODO this only set on top
+    //TODO broken
+/*-
     public void setMemberLayer( BglObject obj, int layer){
-        members.remove(obj);
-        members.add( layer, obj);
+        int i = 0;
+        while (members[i] != obj){
+            i++;
+        }
+        members[i] = null;
     }
-
-    public List<BglObject> getMembers(){
+*/
+    public BglObject[] getMembers(){
         return members;
     }
 
