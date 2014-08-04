@@ -14,15 +14,18 @@ import static android.opengl.GLES20.*;
 import static android.opengl.GLUtils.*;
 
 public abstract class Shader {
-	
+
+    private final int BYTES_PER_FLOAT = 4;
+
 	protected final int mProgram;
     protected String name;
 
     protected static FloatBuffer vertexBuffer;
+    protected static int[] vertexBufferID = new int[1];
 
     protected static float objCoords[] = {
-            -1, 1, 0,    // top left
-            -1, -1, 0,   // bottom left
+            -1, -1, 0,    // top left
+            -1, 1, 0,   // bottom left
             1, -1, 0,   // bottom right
             1,  1, 0 }; // top right
 
