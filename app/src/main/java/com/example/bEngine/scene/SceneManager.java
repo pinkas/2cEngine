@@ -1,22 +1,17 @@
 package com.example.bEngine.scene;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
-import com.example.bEngine.Brun;
-import com.example.bEngine.BtextureManager;
-import com.example.bEngine.InputStatus;
-import com.example.bEngine.Joypad;
+
 import com.example.bEngine.object.BglObject;
 import com.example.bEngine.object.Bobject;
+import com.example.bEngine.object.Btimer;
 
 import junit.framework.Assert;
 
