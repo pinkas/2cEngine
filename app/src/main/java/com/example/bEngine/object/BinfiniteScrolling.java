@@ -31,8 +31,8 @@ public class BinfiniteScrolling extends Bobject {
 
 
         sprite1.setPos(x, y);
-        sprite2.setPos(x, y - sprite1.getSize().y);
-        sprite3.setPos(x, y - sprite2.getPos().y - sprite2.getSize().y);
+        sprite2.setPos(x, y - sprite1.getSizeH());
+        sprite3.setPos(x, y - sprite2.getPosY() - sprite2.getSizeH());
 
         leader = sprite1;
         leader2 = sprite2;
@@ -42,31 +42,31 @@ public class BinfiniteScrolling extends Bobject {
     @Override
     public void update(float dt){
 
-        if ( sprite1.getPos().y >= 1 ){
-            sprite1.setPos( leader3.getPos().x, leader3.getPos().y - leader3.getSize().y );
+        if ( sprite1.getPosY() >= 1 ){
+            sprite1.setPos( leader3.getPosX(), leader3.getPosY() - leader3.getSizeH() );
             leader = sprite2;
             leader2 = sprite3;
             leader3 = sprite1;
         }
 
-        if ( sprite2.getPos().y >= 1 ){
-            sprite2.setPos( leader3.getPos().x, leader3.getPos().y - leader3.getSize().y );
+        if ( sprite2.getPosY() >= 1 ){
+            sprite2.setPos( leader3.getPosX(), leader3.getPosY() - leader3.getSizeH() );
             leader = sprite3;
             leader2=sprite1;
             leader3=sprite2;
         }
 
-        if ( sprite3.getPos().y >= 1 ){
-            sprite3.setPos( leader3.getPos().x, leader3.getPos().y - leader3.getSize().y );
+        if ( sprite3.getPosY() >= 1 ){
+            sprite3.setPos( leader3.getPosX(), leader3.getPosY() - leader3.getSizeH() );
             leader = sprite1;
             leader2 = sprite2;
             leader3 = sprite3;
         }
 
 
-        leader.setPos( leader.getPos().x, leader.getPos().y + 0.008f );
-        leader2.setPos( leader.getPos().x, leader.getPos().y - leader.getSize().y );
-        leader3.setPos( leader2.getPos().x, leader2.getPos().y - leader2.getSize().y );
+        leader.setPos( leader.getPosX(), leader.getPosY() + 0.008f );
+        leader2.setPos( leader.getPosX(), leader.getPosY() - leader.getSizeH() );
+        leader3.setPos( leader2.getPosX(), leader2.getPosY() - leader2.getSizeH() );
 
     }
 }

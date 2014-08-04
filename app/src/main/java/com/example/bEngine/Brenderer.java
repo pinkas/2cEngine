@@ -96,39 +96,69 @@ public class Brenderer implements GLSurfaceView.Renderer {
         // Set the background frame color
         glClearColor(0.0f, 0.3f, 0.6f, 0.2f);
         // TODO have a list that we go through
-        shaderList = new ShaderList(context);
+        new ShaderList(context);
         // load all the texture and init the existing object of the world with a shader
         BtextureManager.loadAll(context);
         /* TODO consider finding anonther way to do the following?? */
         for (Scene scene : SceneManager.getScenes()) {
-            for (BglObject obj : scene.getMembers()) {
-                obj.glService.setTextureHandle(obj.getRes());
+            BglObject[]  blah= scene.getMembers();
+            for (int i=0; i < blah.length; i++ ) {
+                if (blah[i] == null)
+                    continue;
+                blah[i].glService.setTextureHandle(blah[i].getRes());
             }
         }
     }
 
     public void calculateMVP(BglObject obj) {
 
-        /* so that i can "cheat with multi layered bg scrolling*/
+        /*
+        if (obj.glService.isBoundToCamera()) {
+
+            if (camOffset == null) {
+                // World coordinate wise the camera is initially in (0.5 0.5)
+                camOffset = new PointF(0.5f - pos.x, 0.5f - pos.y);
+                camXO = camXO - pos.x;
+                camYO = camYO - pos.y;
+            }
+
+            moveCam(pos.x + camOffset.x, pos.y + camOffset.y);
+        }
+*/
+        if (obj.getDisregardCam())
+            Matrix.setIdentityM(viewMatrix, 0);
+
+        float[] blah = obj.getMvp();
+        /* MVP magic */
+        Matrix.setIdentityM(mvp, 0);
+        Matrix.multiplyMM(mvp, 0, viewMatrix, 0, blah, 0);
+        Matrix.multiplyMM(mvp, 0, projMatrix, 0, mvp, 0);
+    }
+
+    public static void calculateMVP(BglObject obj, float[] mvp) {
+
+        Matrix.setIdentityM(mvp, 0);
+
         boolean perspective_scorll = false;
 
-        PointF pos = obj.getPos();
-        PointF size = obj.getSize();
-        PointF anchor = obj.anchorPointGet();
-        /* Take into account anchor point */
-        float x = (pos.x + (0.5f - anchor.x) * size.x);
-        float y = (pos.y + (0.5f - anchor.y) * size.y);
-        /* From "relative size" screen coordinate to GL */
-        float xGl = x * 2 - 1;
-        float yGl = 1 - y * 2;
-        float z = obj.zGet();
+        float objX = obj.getPosX();
+        float objY = obj.getPosY();
+        float sizeW = obj.getSizeW();
+        float sizeH = obj.getSizeH();
 
-        if (z != 0) {
-            perspective_scorll = true;
-        }
+        /* From "relative size" screen coordinate to GL */
+        float xGl = (objX + sizeW / 2f) * 2f - 1;
+        float yGl = 1 - (objY + sizeH / 2f) * 2f;
+        float z = obj.getZ();
+
+        if (z != 0) perspective_scorll = true;
+
+        Matrix.setLookAtM(viewMatrix, 0, camX, camY, camZ, lookX, lookY, lookZ, upX, upY, upZ);
+        MatrixHelper.perspectiveM(projMatrix, 45, (float) 720 / (float) 1280, 1f, 200f);
+        Matrix.invertM(projMatrixInv, 0, projMatrix, 0);
 
         fromWorldToGlFar(xGl, yGl, z, farPointWorld);
-        fromWorldToGlFar(size.x, size.y, 0, farSizeWorld);
+        fromWorldToGlFar(sizeW, sizeH, 0, farSizeWorld);
 
         /* ugly hack for multi layered scrolling background */
         float div = 1 - z;

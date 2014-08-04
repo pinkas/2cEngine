@@ -12,41 +12,30 @@ import com.google.common.base.Preconditions;
  */
 public class Bobject {
 
-    protected PointF pos;
-    protected PointF size;
+    private float x;
+    private float y;
+    private float w;
+    private float h;
+    protected PointF vel;
     protected float z;
     protected Angle angle = new Angle();
 
     protected int layer;
-    protected PointF anchor;
     protected boolean pressed;
     protected boolean toDelete = false;
 
     public Bobject( float x, float y, float w, float h){
 
-        Preconditions.checkArgument( w > 0 && h > 0, "Size of an object should be greater than 0");
-
-        pos = new PointF(x,y);
-        size = new PointF(w,h);
-        anchor = new PointF (0.0f, 0.0f);
-        z = 0;
-        layer = 0;
-    }
-
-    public void anchorPointSet( float x, float y ) {
-        anchor.x = x;
-        anchor.y = y;
-    }
-
-    public PointF anchorPointGet() {
-        return anchor;
-    }
-
-    public void setSize(float w, float h){
         Preconditions.checkArgument( w > 0 && h > 0,
                 "Size of an object should be greater than 0");
-        size.x = w;
-        size.y = h;
+
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        vel = new PointF(0,0);
+        z = 0;
+        layer = 0;
     }
 
     // Finger touches the object
@@ -69,28 +58,60 @@ public class Bobject {
         return pressed;
     }
 
-    public PointF getSize() {
-        return size;
-    }
-
-    public void zSet(float z) {
+    public void setZ(float z) {
         this.z = z;
     }
-    public float zGet() {
+    public float getZ() {
         return z;
     }
 
-    public PointF getPos () {
-        return pos;
+    public float getSizeW() {
+        return w;
+    }
+    public float getSizeH(){
+        return h;
+    }
+
+    public void setSize(float w, float h){
+        Preconditions.checkArgument( w > 0 && h > 0,
+                "Size of an object should be greater than 0");
+        this.w = w;
+        this.h = h;
+    }
+
+    public float getPosX (){
+        return x;
+    }
+    public float getPosY (){
+        return y;
     }
 
     public void setPos ( PointF pos ) {
-        this.pos.x = pos.x;
-        this.pos.y = pos.y;
+        this.x = pos.x;
+        this.y = pos.y;
     }
     public void setPos ( float x, float y ) {
-        this.pos.x = x;
-        this.pos.y = y;
+        this.x = x;
+        this.y = y;
+    }
+    public void setPos(Bobject o){
+        this.x = o.x;
+        this.y = o.y;
+    }
+    public void setPos( float x, float y, float oriX, float oriY ){
+        this.x = x + (0.5f - oriX) * w;
+        this.y = y + (0.5f - oriY) * h;
+    }
+
+    public PointF getVel() {
+        return vel;
+    }
+    public void setVel(PointF vel) {
+        this.vel = vel;
+    }
+    public void setVel(float x, float y){
+        vel.x = x;
+        vel.y = y;
     }
 
     public void update( float dt ){}
