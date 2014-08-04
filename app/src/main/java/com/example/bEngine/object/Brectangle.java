@@ -2,6 +2,8 @@ package com.example.bEngine.object;
 
 import android.content.Context;
 
+import com.example.bEngine.scene.SceneManager;
+import com.example.bEngine.service.CollisionService;
 import com.example.bEngine.service.Gl;
 import com.example.bEngine.service.GlService;
 import com.example.bEngine.shader.Shader;
@@ -11,9 +13,9 @@ import com.example.bEngine.shader.Shader;
  */
 public class Brectangle extends BglObject {
 
-    private float color[];
+    protected float color[];
 
-    public Brectangle( float x, float y, float w, float h, float r, float g, float b, float a){
+    public Brectangle(float x, float y, float w, float h, float r, float g, float b, float a){
         super(x,y,w,h);
         glService = new GlService();
         glService.setShaderName("rect");
@@ -24,10 +26,10 @@ public class Brectangle extends BglObject {
         color[3] = a;
     }
 
-    public Brectangle( float x, float y, float w, float h, float r, float g, float b){
+    public Brectangle(float x, float y, float w, float h, float r, float g, float b){
 
         super(x,y,w,h);
-        glService =new GlService();
+        glService = new GlService();
 
         glService.setShaderName("rect");
         color = new float[4];
@@ -39,7 +41,7 @@ public class Brectangle extends BglObject {
 
     public Brectangle(){
         super(0,0,0.3f,0.3f);
-        glService =new GlService();
+        glService = new GlService();
 
         glService.setShaderName("rect");
         color = new float[4];
@@ -60,8 +62,14 @@ public class Brectangle extends BglObject {
         color[3] = a;
     }
 
+    public void setColor(Brectangle r){
+        color[0] = r.color[0];
+        color[1] = r.color[1];
+        color[2] = r.color[2];
+        color[3] = r.color[3];
+    }
 
     @Override
-    public void collision(){}
+    public void collision(Bobject collider, CollisionService.collisionSide cs){}
 
 }

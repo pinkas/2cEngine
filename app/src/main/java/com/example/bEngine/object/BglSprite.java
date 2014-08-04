@@ -1,5 +1,7 @@
 package com.example.bEngine.object;
 
+import com.example.bEngine.scene.SceneManager;
+import com.example.bEngine.service.CollisionService;
 import com.example.bEngine.service.GlService;
 
 
@@ -17,6 +19,8 @@ public class BglSprite extends BglObject {
         glService = new GlService();
 	}
 
+
+
     @Override
     //TODO because Brectangle has a getColor ....
     public float[] getColor(){
@@ -25,6 +29,6 @@ public class BglSprite extends BglObject {
     }
 
     @Override
-    public void collision(){}
+    public void collision(Bobject collider, CollisionService.collisionSide cs){}
 
 }
