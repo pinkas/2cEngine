@@ -5,6 +5,7 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 
 import com.example.bEngine.object.BglObject;
+import com.example.bEngine.object.Bobject;
 import com.example.bEngine.scene.SceneManager;
 
 public class InputStatus {
@@ -65,54 +66,43 @@ public class InputStatus {
 	}
 
 
-    public static synchronized void updateObjectsTouchStates( int screenW, int screenH ) {
 
+    public static void updateObjecTouchState(Bobject  obj, int screenW, int screenH   ) {
         float touchRelX = getTouchX() / (float) screenW;
         float touchRelY = getTouchY() / (float) screenH;
 
         float touchAbsX = touchRelX + Brenderer.getCamPosX() - 0.5f;
         float touchAbsY = touchRelY + Brenderer.getCamPosY() - 0.5f;
 
-        for ( BglObject obj : SceneManager.getInputFocus().getMembers() )
-        {
-            //TODO les 7 lignes suivantes peuvent etre wrappe dans une fonction
-            PointF pos = obj.getPos();
-            PointF size = obj.getSize();
-            PointF anchor = obj.anchorPointGet();
 
-            float x = pos.x - anchor.x * size.x;
-            float y = pos.y - anchor.y * size.y;
-            float w = size.x;
-            float h = size.y;
-System.out.println("lslslslsl");
-            rectangle.set( x, y, x+w, y+h);
+        float objX = obj.getPosX();
+        float objY = obj.getPosY();
+        float objW = obj.getSizeW();
+        float objH = obj.getSizeH();
+        rectangle.set(objX, objY, objX + objW, objY + objH);
 
-            /** TODO have different list of objects, some are purely static
-            / some are input sensitive, some are physics ... */
-            switch ( getTouchState() ) {
-                case DOWN:
-                    if ( rectangle.contains( touchAbsX, touchAbsY ) ){
-                        obj.touchDown();
-                        break;
-                    }
-                case UP:
-                    if ( rectangle.contains( touchAbsX, touchAbsY ) ){
-                        obj.touchUp();
-                        break;
-                    }
-                    else if( obj.isPressed() ){
-                        obj.touchUpMove( touchAbsX, touchAbsY );
-                        break;
-                    }
-                case MOVE:
-                    if ( rectangle.contains( touchAbsX, touchAbsY ) ) {
-                        obj.touchMove( touchAbsX, touchAbsY );
-                        break;
-                    }
-            }
+        /** TODO have different list of objects, some are purely static
+         / some are input sensitive, some are physics ... */
+        switch (getTouchState()) {
+            case DOWN:
+                if (rectangle.contains(touchAbsX, touchAbsY)) {
+                    obj.touchDown();
+                    break;
+                }
+            case UP:
+                if (rectangle.contains(touchAbsX, touchAbsY)) {
+                    obj.touchUp();
+                    break;
+                } else if (obj.isPressed()) {
+                    obj.touchUpMove(touchAbsX, touchAbsY);
+                    break;
+                }
+            case MOVE:
+                if (rectangle.contains(touchAbsX, touchAbsY)) {
+                    obj.touchMove(touchAbsX, touchAbsY);
+                    break;
+                }
         }
-        InputStatus.resetTouch();
     }
-
 
 }
