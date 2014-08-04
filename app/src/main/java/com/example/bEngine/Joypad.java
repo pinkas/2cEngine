@@ -15,12 +15,10 @@ public class Joypad extends Brectangle  {
     Callable actionMove;
     Callable actionUp;
 
-    public Point prev;
-
     public Joypad() {
         super( 0, 0, 100, 100, 0, 0, 0, 0 );
 
-        prev = new Point();
+        setCollide(false);
     }
 
 
