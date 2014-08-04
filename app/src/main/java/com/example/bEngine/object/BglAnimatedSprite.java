@@ -3,18 +3,21 @@ package com.example.bEngine.object;
 
 import com.example.bEngine.service.GlService;
 
+import java.util.concurrent.Callable;
+
 
 /**
  * Created by Ben on 9/26/13.
  */
 public class BglAnimatedSprite  extends BglSprite {
 
-    private final int [] number_of_frame_real;
+    private final int [] frameNumber;
 
-    private int state;
-    private int inner_state = 0; //TODO rename inner_state
+    private int animationSpeed = 3;
+    private int animationIndex;
+    private int textureIndex;
 
-    private SpriteSheet[] spriteSheet;
+    private Btimer animationTimer;
 
     public BglAnimatedSprite(float x, float y, float w, float h, SpriteSheet[] spritesheet) {
         super(x, y, w, h );
@@ -29,36 +32,43 @@ public class BglAnimatedSprite  extends BglSprite {
         /* to increase the size of texturehandle[] when more than one texture */
         glService.resizeTextureHandle(spritesheet.length);
         glService.recalculateTextCoord(x, y, w, h, spritesheet);
-        number_of_frame_real = new int[spritesheet.length];
+        frameNumber = new int[spritesheet.length];
         for (int i=0; i<spritesheet.length; i++){
-            number_of_frame_real[i] = spritesheet[i].getNumber_of_frame_real();
+            frameNumber[i] = spritesheet[i].getNumber_of_frame_real();
         }
-        this.spriteSheet = spritesheet;
+
+        animationTimer = new Btimer(animationSpeed, new Callable() {
+            @Override
+            public Boolean call() {
+                animationIndex ++;
+                if (animationIndex >= frameNumber[textureIndex] ){
+                    animationIndex = 0;
+                }
+                glService.setTextCoordPos(animationIndex);
+                dirty = true;
+                return true;
+            }
+        } );
 
     }
 
-    public void animate (){
-        //TODO have a class that does this kind of counter for me. (eg incrementing a counter)
-        state ++;
-        if (state >= number_of_frame_real[inner_state] ){
-                state = 0;
-        }
-        glService.setTextCoordPos(state);
+    public void setAnimationSpeed(int animationSpeed){
+        animationTimer.setTickDest(animationSpeed);
+    }
+
+    public void setAnimated(boolean animated){
+        animationTimer.setRunning(animated);
+    }
+
+    public void setTextureIndex(int i){
+        glService.setTextureHandleIndex(i);
     }
 
     @Override
     public void update(float dt){
-        animate();
     }
 
 
-    public int getTextureState(){
-        return state;
-    }
-
-    public void setTextureState(int i){
-        glService.setTextureHandleIndex(i);
-    }
 
 
 
