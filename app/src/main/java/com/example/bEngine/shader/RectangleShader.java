@@ -13,12 +13,10 @@ import static android.opengl.GLES20.glVertexAttribPointer;
  */
 public class RectangleShader extends Shader {
 
-    private final int mPositionHandle;
-    private final int mMVPMatrixHandle;
-    private  final int mColorHandle;
-    private static final int VERTEX_COUNT = 4;
+    private static int mPositionHandle = -1;
+    private static int mMVPMatrixHandle = - 1;
+    private static int mColorHandle = -1;
     private static final int COORDS_PER_VERTEX = 3;
-    private final int VERTEXSTRIDE = COORDS_PER_VERTEX * VERTEX_COUNT; // 4 bytes per vertex
 
     public RectangleShader( Context context ){
 
@@ -29,12 +27,20 @@ public class RectangleShader extends Shader {
         mMVPMatrixHandle = glGetUniformLocation(mProgram, "uMVPMatrix");
         mColorHandle = glGetUniformLocation(mProgram, "vColor");
     }
-    public void sendParametersToShader( BglObject obj, float[] mat) {
 
-        glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, VERTEXSTRIDE, vertexBuffer);
+    public void prepare(){
+        glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID[0]);
+
         glEnableVertexAttribArray(mPositionHandle);
+        glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT,
+                false, 0, 0);
 
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
+
+    public void sendParametersToShader( BglObject obj, float[] mat) {
         glUniform4fv(mColorHandle, 1, obj.getColor(), 0);
+
         glUniformMatrix4fv( mMVPMatrixHandle, 1, false, mat, 0);
     }
 
