@@ -66,11 +66,10 @@ public class SceneManager {
      *
      * @param sceneName name of the scene you want to give the focus to.
      */
-    public static void setInputFocus( String sceneName ) {
-        if (sceneExist(sceneName) ) {
+    public static void setInputFocus(String sceneName) {
+        if (sceneExist(sceneName)) {
             focusScene = sceneHashMap.get(sceneName);
-        }
-        else{
+        } else {
             System.out.println("Scene does not exist, WARNING");
         }
     }
@@ -82,7 +81,7 @@ public class SceneManager {
      *
      * @param scene reference of the scene you want to give the focus to.
      */
-    public static void setInputFocus(Scene scene){
+    public static void setInputFocus(Scene scene) {
         focusScene = scene;
     }
 
@@ -91,7 +90,7 @@ public class SceneManager {
      *
      * @return the scene that has the input focus
      */
-    public static Scene getInputFocus(){
+    public static Scene getInputFocus() {
         return focusScene;
     }
 
@@ -100,11 +99,10 @@ public class SceneManager {
      *
      * @param sceneName name of the scene you want to start.
      */
-    public static void startScene(String sceneName){
-        if (sceneExist(sceneName)){
+    public static void startScene(String sceneName) {
+        if (sceneExist(sceneName)) {
             sceneHashMap.get(sceneName).start();
-        }
-        else{
+        } else {
             System.out.println("Scene does not exist, WARNING");
         }
     }
@@ -115,11 +113,10 @@ public class SceneManager {
      *
      * @param sceneName name of the scene you want to stop.
      */
-    public static void stopScene(String sceneName){
-        if ( sceneExist(sceneName) ) {
+    public static void stopScene(String sceneName) {
+        if (sceneExist(sceneName)) {
             sceneHashMap.get(sceneName).stop();
-        }
-        else{
+        } else {
             System.out.println("Scene does not exist, WARNING");
         }
     }
@@ -129,96 +126,13 @@ public class SceneManager {
      *
      * @return hasmap list of scenes
      */
-    public static List<Scene> getScenes(){
+    public static List<Scene> getScenes() {
         return scenes;
     }
 
-    /**
-     * Go through all the scenes and do what has to be done for each frame. eg collision, update for
-     * each objects ...
-     *
-     * @param dt time elapsed since last call
-     */
-    public static synchronized void update( float dt ) {
-
-        /* Update rendered object */
-        for (Scene scene : scenes)
-        {
-
-            /*------------Update non graphical stuff------------*/
-            for ( Bobject obj : scene.getUpdateOnlyMembers()  )
-            {
-                obj.update(dt);
-            }
-
-            for ( BglObject obj : scene.getMembers()  )
-            {
-                /*----------UPDATE---------*/
-                obj.update(dt);
-
-                /*// TODO Have a function that should determine if the obj should be removed from the table
-                if (obj.getPos().x < -0.1){
-                    //scene.addToRemove(obj);
-                }
-                */
-                /* --------Collision-------- */
-                if (!obj.isVisible())
-                    continue;
-
-                if (!obj.isCollide())
-                    continue;
-
-                //TODO Remove that
-                if (obj instanceof Joypad)
-                    continue;
-
-                //TODO les 7 lignes suivantes peuvent etre factorises
-                PointF pos = obj.getPos();
-                PointF size = obj.getSize();
-                PointF anchor = obj.anchorPointGet();
-                float x = pos.x - anchor.x * size.x;
-                float y = pos.y - anchor.y * size.y;
-                float w = size.x;
-                float h = size.y;
-
-                rectangle.set(x, y, x+w, y+h);
-                for( BglObject obj2 : scene.getMembers() )
-                {
-
-                    if (!obj2.isCollide())
-                        continue;
-
-                    if (!obj2.isVisible())
-                        continue;
-
-                    //TODO Remove that
-                    if (obj2 instanceof Joypad)
-                        continue;
-
-                    pos = obj2.getPos();
-                    size = obj2.getSize();
-                    x = pos.x - obj.anchorPointGet().x * size.x;
-                    y = pos.y - obj.anchorPointGet().y * size.y;
-                    w = size.x;
-                    h = size.y;
-                    rectangle2.set(x, y, x+w, y+h);
-                    if ( obj != obj2 &&  (rectangle.intersect(rectangle2)  ) ){
-                        obj.collision();
-                    }
-                }
-            }
-
-            scene.fromMembersToAddToMembers();
+    public static void updateTimers(float dt){
+        for (Btimer t : btimers) {
+            t.update(dt);
         }
-/*
-        // Remove Objects to remove
-        for (Scene scene : scenes) {
-            for (BglObject obj : scene.getMembersToRemove()){
-                scene.getMembers().remove(obj);
-                System.out.println( "remve  " + obj );
-            }
-            scene.getMembersToRemove().clear();
-        }
-*/
     }
 }
