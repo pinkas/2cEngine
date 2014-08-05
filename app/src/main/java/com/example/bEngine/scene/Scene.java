@@ -104,6 +104,7 @@ public abstract class Scene {
 
     public abstract void stop();
 
+    public void update(float dt){};
     // world show scene
     // the objects are render and taken into account in the world
 
