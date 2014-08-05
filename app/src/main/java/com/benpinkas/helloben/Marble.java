@@ -1,6 +1,6 @@
-package com.example.helloben;
+package com.benpinkas.helloben;
 
-import com.example.bEngine.object.BglSprite;
+import com.benpinkas.bEngine.object.BglSprite;
 
 /**
  * Created by Ben on 7/11/13.
@@ -11,7 +11,6 @@ public class Marble extends BglSprite {
 
     public Marble(int x, int y, int w, int h, int[] texture_id){
         super( x, y, w, h, texture_id );
-        this.anchorPointSet(0.5f,0.5f);
     }
 
     @Override

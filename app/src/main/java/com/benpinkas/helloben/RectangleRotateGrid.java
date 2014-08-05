@@ -1,8 +1,8 @@
-package com.example.helloben;
+package com.benpinkas.helloben;
 
 import android.graphics.Point;
 
-import com.example.bEngine.object.Brectangle;
+import com.benpinkas.bEngine.object.Brectangle;
 
 /**
  * Created by Ben on 10/14/13.

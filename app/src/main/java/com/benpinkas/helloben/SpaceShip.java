@@ -1,10 +1,9 @@
-package com.example.helloben;
+package com.benpinkas.helloben;
 
 
-import com.example.bEngine.object.BglAnimatedSprite;
-import com.example.bEngine.object.Brectangle;
-import com.example.bEngine.object.SpriteSheet;
-import com.example.bEngine.scene.Scene;
+import com.benpinkas.bEngine.object.BglAnimatedSprite;
+import com.benpinkas.bEngine.object.SpriteSheet;
+import com.benpinkas.bEngine.scene.Scene;
 
 /**
  * Created by Ben on 3/13/14.
@@ -23,15 +22,19 @@ public class SpaceShip extends BglAnimatedSprite {
 
     public boolean isReachable (SpaceShip ship, float dirX, float dirY){
 
-        float enemyWidth = ship.getSize().x;
-        float enemyX = ship.getPos().x;
+        float enemyWidth = ship.getSizeW();
+        float enemyX = ship.getPosX();
 
+        /*
         if ( enemyX < this.pos.x  && enemyX+enemyWidth>this.pos.x ) {
             return true;
         }
+
         else{
             return false;
         }
+        */
+        return false;
     }
 
 

@@ -1,6 +1,6 @@
-package com.example.helloben;
+package com.benpinkas.helloben;
 
-import com.example.bEngine.object.Brectangle;
+import com.benpinkas.bEngine.object.Brectangle;
 
 import java.util.concurrent.Callable;
 

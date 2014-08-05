@@ -1,9 +1,8 @@
-package com.example.helloben.HelloBenScenes;
+package com.benpinkas.helloben.HelloBenScenes;
 
-import com.example.bEngine.object.BinfiniteScrolling;
-import com.example.bEngine.object.Brectangle;
-import com.example.bEngine.scene.Scene;
-import com.example.bEngine.scene.SceneManager;
+import com.benpinkas.bEngine.object.Brectangle;
+import com.benpinkas.bEngine.scene.Scene;
+import com.benpinkas.bEngine.scene.SceneManager;
 
 /**
  * Created by Ben on 3/13/14.

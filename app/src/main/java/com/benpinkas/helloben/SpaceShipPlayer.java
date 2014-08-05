@@ -1,10 +1,11 @@
-package com.example.helloben;
+package com.benpinkas.helloben;
 
 import android.graphics.PointF;
-import android.telephony.PhoneNumberFormattingTextWatcher;
 
-import com.example.bEngine.object.SpriteSheet;
-import com.example.bEngine.scene.Scene;
+import com.benpinkas.bEngine.object.Bobject;
+import com.benpinkas.bEngine.object.SpriteSheet;
+import com.benpinkas.bEngine.scene.Scene;
+import com.benpinkas.bEngine.service.CollisionService;
 
 /**
  * Created by Ben on 10-Apr-14.
@@ -75,7 +76,7 @@ public class SpaceShipPlayer extends SpaceShip {
     }
 
     @Override
-    public void collision(){
+    public void collision(Bobject collider, CollisionService.collisionSide cs){
 
         // it used to inerit from rectangle setColor(1.0f,1.00f,1.0f,0f);
     }

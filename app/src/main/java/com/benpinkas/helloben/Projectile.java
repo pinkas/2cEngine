@@ -1,8 +1,10 @@
-package com.example.helloben;
+package com.benpinkas.helloben;
 
 import android.graphics.PointF;
 
-import com.example.bEngine.object.Brectangle;
+import com.benpinkas.bEngine.object.Bobject;
+import com.benpinkas.bEngine.object.Brectangle;
+import com.benpinkas.bEngine.service.CollisionService;
 
 /**
  * Created by Ben on 3/13/14.
@@ -65,10 +67,10 @@ public class Projectile extends Brectangle {
         super.update(dt);
 
         if (isActive()) {
-
+/*
             pos.x = pos.x + vel.x*dt;
             pos.y = pos.y + vel.y*dt;
-
+*/
             progress++;
             if (progress > this.lifeTime) {
                 // FIXME SHould that be in every implementation of projectile???
@@ -79,7 +81,7 @@ public class Projectile extends Brectangle {
     }
 
     @Override
-    public void collision() {
+    public void collision(Bobject collider, CollisionService.collisionSide cs) {
         currentHp--;
         if( currentHp <= 0){
             turnOff();

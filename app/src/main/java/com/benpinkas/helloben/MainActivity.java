@@ -1,26 +1,20 @@
-package com.example.helloben;
+package com.benpinkas.helloben;
 
 import java.util.concurrent.Callable;
 
-import com.example.bEngine.Brenderer;
-import com.example.bEngine.BtextureManager;
-import com.example.bEngine.InputStatus;
-import com.example.bEngine.scene.Scene;
-import com.example.bEngine.scene.SceneManager;
-import com.example.helloben.HelloBenScenes.GameScene;
-import com.example.helloben.HelloBenScenes.MultiLayersBackground;
-import com.example.helloben.HelloBenScenes.RotateGridRectangles;
-import com.example.helloben.HelloBenScenes.SplashScreen;
-import com.example.helloben.HelloBenScenes.TestScene;
+import com.benpinkas.bEngine.Brenderer;
+import com.benpinkas.bEngine.BtextureManager;
+import com.benpinkas.bEngine.InputStatus;
+import com.benpinkas.bEngine.scene.Scene;
+import com.benpinkas.bEngine.scene.SceneManager;
+import com.benpinkas.helloben.casseB.SceneForBall;
+import com.benpinkas.R;
 
 
-import android.graphics.Point;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Display;
 import android.view.MotionEvent;
-import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -30,40 +24,38 @@ public class MainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-        Display display = getWindowManager().getDefaultDisplay();
-        final Point screenSize = new Point();
-        display.getSize(screenSize);
-
-        final BtextureManager textureManager = BtextureManager.getInstance();
         /* TODO pass a table of resource rather than 10000 calls to fillTextureHashTable */
-        textureManager.fillTextureHashTable(R.drawable.lastlayer);
-        textureManager.fillTextureHashTable(R.drawable.dune);
-        textureManager.fillTextureHashTable(R.drawable.firstlayer);
-        textureManager.fillTextureHashTable(R.drawable.sprite);
-        textureManager.fillTextureHashTable(R.drawable.sprite2);
-        textureManager.fillTextureHashTable(R.drawable.splash);
-        textureManager.fillTextureHashTable(R.drawable.biker);
-        textureManager.fillTextureHashTable(R.drawable.blank);
-        textureManager.fillTextureHashTable(R.drawable.road);
+        BtextureManager.fillTextureHashTable(R.drawable.lastlayer);
+        BtextureManager.fillTextureHashTable(R.drawable.dune);
+        BtextureManager.fillTextureHashTable(R.drawable.firstlayer);
+        BtextureManager.fillTextureHashTable(R.drawable.sprite);
+        BtextureManager.fillTextureHashTable(R.drawable.sprite2);
+        BtextureManager.fillTextureHashTable(R.drawable.splash);
+        BtextureManager.fillTextureHashTable(R.drawable.biker);
+        BtextureManager.fillTextureHashTable(R.drawable.blank);
+        BtextureManager.fillTextureHashTable(R.drawable.road);
 
         // TODO if splashscreen is created before GameScene it is under my gameScene despite the
         // TODO setFocus. need to have a setLayer for Scenes as well
+/*
         final Scene splashScreen = new SplashScreen();
         splashScreen.setVisible(false);
+*/
+//        final Scene gameScene = new GameScene();
+//        gameScene.setVisible(true);
 
-        final Scene gameScene = new GameScene();
-        gameScene.setVisible(false);
+//        final Scene testScene = new TestScene();
+//        testScene.setVisible(false);
 
-        final Scene testScene = new TestScene();
-        testScene.setVisible(true);
+  //      final Scene multiLayerTest = new MultiLayersBackground();
+  //      multiLayerTest.setVisible(false);
 
-        final Scene multiLayerTest = new MultiLayersBackground();
-        multiLayerTest.setVisible(false);
+//        final Scene rotateRectangles = new RotateGridRectangles();
+//        rotateRectangles.setVisible(false);
 
-        final Scene rotateRectangles = new RotateGridRectangles();
-        rotateRectangles.setVisible(false);
+        final Scene myballs = new SceneForBall();
 
-        SceneManager.setInputFocus(testScene);
+        SceneManager.setInputFocus(myballs);
 
 
         //TODO Why this Callback passed to the Renderer???
@@ -78,7 +70,7 @@ public class MainActivity extends Activity {
         setContentView(theGLView);
         theGLView.setEGLContextClientVersion(2);
         theGLView.setRenderer(theRenderer);
-        theGLView.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+       // theGLView.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 	}
 
     @Override

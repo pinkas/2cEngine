@@ -1,12 +1,10 @@
-package com.example.helloben.HelloBenScenes;
+package com.benpinkas.helloben.HelloBenScenes;
 
-import com.example.bEngine.Brenderer;
-import com.example.bEngine.InputStatus;
-import com.example.bEngine.Joypad;
-import com.example.bEngine.object.Brectangle;
-import com.example.bEngine.scene.Scene;
-import com.example.helloben.R;
-import com.example.helloben.RectangleRotateGrid;
+import com.benpinkas.bEngine.Brenderer;
+import com.benpinkas.bEngine.InputStatus;
+import com.benpinkas.bEngine.Joypad;
+import com.benpinkas.bEngine.scene.Scene;
+import com.benpinkas.helloben.RectangleRotateGrid;
 
 import java.util.concurrent.Callable;
 

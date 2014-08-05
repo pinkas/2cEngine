@@ -1,4 +1,4 @@
-package com.example.helloben;
+package com.benpinkas.helloben;
 
 /**
  * Created by Ben on 15-May-14.

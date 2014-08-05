@@ -1,4 +1,4 @@
-package com.example.helloben;
+package com.benpinkas.helloben;
 
 import android.app.Activity;
 import android.os.Bundle;

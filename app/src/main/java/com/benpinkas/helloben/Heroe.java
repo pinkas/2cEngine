@@ -1,7 +1,7 @@
-package com.example.helloben;
+package com.benpinkas.helloben;
 
-import com.example.bEngine.object.BglAnimatedSprite;
-import com.example.bEngine.object.SpriteSheet;
+import com.benpinkas.bEngine.object.BglAnimatedSprite;
+import com.benpinkas.bEngine.object.SpriteSheet;
 
 /**
  * Created by Ben on 11/6/13.
@@ -13,12 +13,12 @@ public class Heroe extends BglAnimatedSprite {
 
     public Heroe(float x, float y, float w, float h, SpriteSheet[] spritesheet){
         super(x, y, w, h, spritesheet);
-        setTextureState(1);
     }
 
     @Override
     public void touchDown() {
         super.touchDown();
+        setAnimated(false);
         jump();
         speed = 0;
     }
@@ -26,6 +26,7 @@ public class Heroe extends BglAnimatedSprite {
     @Override
     public void touchUp() {
         super.touchUp();
+        setAnimated(true);
         speed = 0.002f;
     }
 
@@ -37,7 +38,7 @@ public class Heroe extends BglAnimatedSprite {
 
     @Override
     public void update(float dt) {
-
+/*
         super.update(dt);
         pos.x = pos.x + speed;
 
@@ -48,6 +49,7 @@ public class Heroe extends BglAnimatedSprite {
             pos.y = 0.8f;
             velY = 0.0f;
         }
+        */
     }
 
     public void jump(){

@@ -1,9 +1,9 @@
-package com.example.helloben;
+package com.benpinkas.helloben;
 
-import android.widget.Space;
-
-import com.example.bEngine.object.SpriteSheet;
-import com.example.bEngine.scene.Scene;
+import com.benpinkas.bEngine.object.Bobject;
+import com.benpinkas.bEngine.object.SpriteSheet;
+import com.benpinkas.bEngine.scene.Scene;
+import com.benpinkas.bEngine.service.CollisionService;
 
 /**
  * Created by Ben on 10-Apr-14.
@@ -15,7 +15,6 @@ public class SpaceShipEnemy extends SpaceShip {
 
     //TODO - juste pour but d'illustrer un changement de phase
     private int life;
-
 
     private int[][] phaseLogic;
     int phaseExitMode;
@@ -70,7 +69,7 @@ public class SpaceShipEnemy extends SpaceShip {
 
 
     @Override
-    public void collision(){
+    public void collision(Bobject collider, CollisionService.collisionSide cs){
         life --;
         //setColor(0.5f,1.00f,1.0f,0f);
     }
@@ -93,18 +92,6 @@ public class SpaceShipEnemy extends SpaceShip {
         public phase1(SpaceShip actor ){
             this.actor = actor;
 
-/*
-            float traj2[] = {
-                    -0.01f, 0.01f,
-                    0.01f, 0.01f,
-                    0, 0.01f};
-
-            attack[0] = new Attack( actor, traj2, 0.5f, 1f );
-            for (Projectile proj2 : attack[0].getProjList()) {
-                scene.addAsync(proj2);
-            }
-*/
-
             for (int i=0; i<10; i++)
             {
                 crazyProjectiles[i] = new Projectile(0, 0.0001f);
@@ -112,13 +99,7 @@ public class SpaceShipEnemy extends SpaceShip {
                 crazyProjectiles[i].setHp(1);
 
                 scene.addAsync(crazyProjectiles[i]);
-
             }
-
-
-
-
-
         }
 
         @Override
@@ -193,6 +174,7 @@ public class SpaceShipEnemy extends SpaceShip {
 
             if (progress%50 == 0){
                 attack[0].initProjectiles();
+                progress = 0;
             }
         }
 
@@ -215,11 +197,12 @@ public class SpaceShipEnemy extends SpaceShip {
 
         @Override
         public void move() {
+/*
             pos.x = pos.x + stepY;
             if (pos.x + size.x > 1.0f  || pos.x < 0 ){
                 stepY = - stepY;
             }
-
+*/
         }
 
     }
@@ -254,8 +237,6 @@ public class SpaceShipEnemy extends SpaceShip {
             for (Projectile proj2 : attack[1].getProjList()) {
                 scene.addAsync(proj2);
             }
-
-
         }
 
         @Override
@@ -269,7 +250,7 @@ public class SpaceShipEnemy extends SpaceShip {
 
            if (progress%100 == 0){
                 attack[1].initProjectiles();
-            }
+           }
         }
 
         public int isDone() {
@@ -282,10 +263,12 @@ public class SpaceShipEnemy extends SpaceShip {
 
         @Override
         public void move() {
+            /*
             pos.x = pos.x + stepY;
             if (pos.x + size.x > 1.0f  || pos.x < 0 ){
                 stepY = - stepY;
             }
+            */
 
         }
 

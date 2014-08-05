@@ -1,19 +1,11 @@
-package com.example.helloben.HelloBenScenes;
+package com.benpinkas.helloben.HelloBenScenes;
 
-import com.example.bEngine.Brenderer;
-import com.example.bEngine.InputStatus;
-import com.example.bEngine.Joypad;
-import com.example.bEngine.scene.Scene;
-import com.example.bEngine.scene.SceneManager;
-import com.example.bEngine.object.BglSprite;
-import com.example.bEngine.object.BinfiniteScrolling;
-import com.example.bEngine.object.Brectangle;
-import com.example.bEngine.object.SpriteSheet;
-import com.example.helloben.Button;
-import com.example.helloben.Heroe;
-import com.example.helloben.R;
-
-import java.util.concurrent.Callable;
+import com.benpinkas.bEngine.scene.Scene;
+import com.benpinkas.bEngine.scene.SceneManager;
+import com.benpinkas.bEngine.object.BglSprite;
+import com.benpinkas.bEngine.object.SpriteSheet;
+import com.benpinkas.helloben.Heroe;
+import com.benpinkas.R;
 
 /**
  * Created by Ben on 2/3/14.
@@ -26,24 +18,20 @@ public class TestScene extends Scene {
         int[] res = {R.drawable.lastlayer};
         final BglSprite clouds = new BglSprite( 0, 0, 1.3f, 0.5f, res );
         add(clouds);
-        clouds.anchorPointSet(0.0f,0.0f);
-        clouds.zSet(0.7f);
+        clouds.setZ(0.7f);
 
         final BglSprite clouds2 = new BglSprite( 1.3f, 0, 1.3f, 0.5f, res );
         add(clouds2);
-        clouds2.anchorPointSet(0.0f,0.0f);
-        clouds2.zSet(0.7f);
+        clouds2.setZ(0.7f);
 
         int[] res2 = {R.drawable.dune};
-        final BglSprite dune = new BglSprite( 0, 0.75f, 2.5f,0.44f, res2 );
+        final BglSprite dune = new BglSprite( 0, 0.75f-0.3f, 2.5f,0.44f, res2 );
          add(dune);
-        dune.anchorPointSet(0,1);
-        dune.zSet(0.4f);
+        dune.setZ(0.4f);
 
         int[] res3 = {R.drawable.firstlayer};
-        final BglSprite bg1 = new BglSprite( 0, 1, 2.5f, 1f, res3 );
+        final BglSprite bg1 = new BglSprite( 0, 1-0.3f, 2.5f, 1f, res3 );
         add(bg1);
-        bg1.anchorPointSet(0,1);
 
         SpriteSheet slug0 = new SpriteSheet(R.drawable.sprite, 12, 1, 12);
         SpriteSheet slug = new SpriteSheet(R.drawable.sprite2, 16, 1, 16);
@@ -53,9 +41,11 @@ public class TestScene extends Scene {
 
         final Heroe metal = new Heroe(0.0f, 0.8f, 0.135f, 0.2f, spriteSheetTab);
         add(metal);
-        metal.anchorPointSet(0.0f,1.0f);
+//        metal.anchorPointSet(0.0f,1.0f);
         metal.setAngleY(180);
 
+        /* Joypad yo */
+/*
         final Joypad theJoypad = new Joypad();
         add(theJoypad);
 
@@ -69,7 +59,7 @@ public class TestScene extends Scene {
             }
         };
         theJoypad.defineActionMove( joypadActionMove );
-
+*/
     }
 
     @Override

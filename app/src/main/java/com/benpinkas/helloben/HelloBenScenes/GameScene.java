@@ -1,15 +1,15 @@
-package com.example.helloben.HelloBenScenes;
+package com.benpinkas.helloben.HelloBenScenes;
 
-import com.example.bEngine.InputStatus;
-import com.example.bEngine.Joypad;
-import com.example.bEngine.object.BglSprite;
-import com.example.bEngine.object.BinfiniteScrolling;
-import com.example.bEngine.object.SpriteSheet;
-import com.example.bEngine.scene.Scene;
-import com.example.bEngine.scene.SceneManager;
-import com.example.helloben.R;
-import com.example.helloben.SpaceShipEnemy;
-import com.example.helloben.SpaceShipPlayer;
+import com.benpinkas.bEngine.InputStatus;
+import com.benpinkas.bEngine.Joypad;
+import com.benpinkas.bEngine.object.BglSprite;
+import com.benpinkas.bEngine.object.BinfiniteScrolling;
+import com.benpinkas.bEngine.object.SpriteSheet;
+import com.benpinkas.bEngine.scene.Scene;
+import com.benpinkas.bEngine.scene.SceneManager;
+import com.benpinkas.R;
+import com.benpinkas.helloben.SpaceShipEnemy;
+import com.benpinkas.helloben.SpaceShipPlayer;
 
 import java.util.concurrent.Callable;
 
@@ -53,7 +53,7 @@ public class GameScene extends Scene {
 
         final SpaceShipEnemy shipEnemy = new SpaceShipEnemy( spriteSheetTab2, this);
         add(shipEnemy);
-        shipEnemy.setPos(0.5f, shipEnemy.getPos().y);
+        shipEnemy.setPos(0.5f, shipEnemy.getPosY());
 
 
         ship.setEnemy(shipEnemy);
@@ -64,32 +64,17 @@ public class GameScene extends Scene {
         Callable joypadActionMove = new Callable() {
             @Override
             public Float call() {
-            //TODO get size of the screen rather than hardcoded dim!!!!
-            float fingerVelX = (InputStatus.touch.x - theJoypad.prev.x) / 768f;
-            float fingerVelY = (InputStatus.touch.y - theJoypad.prev.y) / 1200f;
-            float x = ship.getPos().x + fingerVelX;
-            float y = ship.getPos().y + fingerVelY;
 
-            ship.setVel(fingerVelX, fingerVelY);
+            float x = ship.getPosX() + InputStatus.getTouchDelta().x;
+            float y = ship.getPosY() + InputStatus.getTouchDelta().y;
+
+            ship.setVel(InputStatus.getTouchDelta().x, InputStatus.getTouchDelta().y);
             ship.setPos(x, y);
-
-            theJoypad.prev.x = InputStatus.touch.x;
-            theJoypad.prev.y = InputStatus.touch.y;
 
             return 0f;
             }
         };
 
-
-        Callable joypadActionDown = new Callable() {
-            @Override
-            public Float call() {
-                theJoypad.prev.x = InputStatus.touch.x;
-                theJoypad.prev.y = InputStatus.touch.y;
-                System.out.println("KEY PRESSED!!");
-                return 0f;
-            }
-        };
 
         Callable joypadActionUp = new Callable() {
 
@@ -99,7 +84,6 @@ public class GameScene extends Scene {
         };
 
         theJoypad.defineActionMove( joypadActionMove );
-        theJoypad.defineActionDown( joypadActionDown );
         theJoypad.defineActionUp( joypadActionUp );
     }
 

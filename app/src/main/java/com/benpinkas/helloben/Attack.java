@@ -1,7 +1,6 @@
-package com.example.helloben;
+package com.benpinkas.helloben;
 
 import android.graphics.PointF;
-import android.widget.Space;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,8 +46,8 @@ public class Attack {
 
 
     public void initProjectiles(){
-        float posx = spaceShip.getPos().x + startPos.x*spaceShip.getSize().x;
-        float posy = spaceShip.getPos().y + startPos.y*spaceShip.getSize().y;
+        float posx = spaceShip.getPosX() + startPos.x*spaceShip.getSizeW();
+        float posy = spaceShip.getPosY() + startPos.y*spaceShip.getSizeH();
 
         for ( Projectile proj : projList ){
             proj.setVisible(true);

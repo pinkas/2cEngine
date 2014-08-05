@@ -1,6 +1,6 @@
-package com.example.helloben;
+package com.benpinkas.helloben;
 
-import com.example.bEngine.object.Brectangle;
+import com.benpinkas.bEngine.object.Brectangle;
 
 /**
  * Created by Ben on 10/28/13.
@@ -19,8 +19,6 @@ public class CubeScroll extends Brectangle {
     @Override
     public void touchMove(float x, float y) {
         super.touchMove(x, y);
-        pos.x = x - anchor.x;
-        pos.y = y - anchor.y;
         System.out.println( x + "    plplplpl   " + y  );
     }
 
