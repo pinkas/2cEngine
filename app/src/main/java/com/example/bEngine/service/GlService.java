@@ -23,16 +23,13 @@ public class GlService {
     private FloatBuffer[] textCoordBuffer;
 
     protected PointF offsetCamera;
-//    private Gl textCoordService;
 
 
     public GlService() {
         textCoordBuffer = TextureCoordCalculator.calculate();
-//        textCoordService = new TextureTextCoord();
     }
 
     public GlService(String shaderName, boolean boundToCamera, float alpha) {
-//        textCoordService = new TextureTextCoord();
         //TODO merger cette class et TextureCoordCalculator??????????
         textCoordBuffer = TextureCoordCalculator.calculate();
         this.shaderName = shaderName;
@@ -74,11 +71,6 @@ public class GlService {
     public void resizeTextureHandle(int size) {
         textureHandle = new int[size];
     }
-
-    //TODO avoir une reference vers un textureHandle YADA (non pas le tableau de floatBuffer)
-    //TODO et une methode qui fait pointer ce FloatBuffer sur le bon indice du tableau
-    //TODO textCoordBuffer. La classe AnimatedSprite fais juste changer ce sur quoi YADA pointe
-    //TODO le basic shader fait juste un "GetYada"
 
     public void recalculateTextCoord(float x, float y, float w, float h, SpriteSheet[] ss) {
         textCoordBuffer = TextureCoordCalculator.calculate(x, y, w, h, ss);
