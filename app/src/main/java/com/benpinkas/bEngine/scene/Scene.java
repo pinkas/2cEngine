@@ -10,8 +10,11 @@ import java.util.ArrayList;
  */
 public abstract class Scene {
 
-    private static int OBJ_PER_SCENE = 200;
-    private BglObject[] members = new BglObject[OBJ_PER_SCENE];
+    public boolean dirty;
+
+    private BglObject[] members = new BglObject[0];
+    private ArrayList <BglObject> membersArrayList;
+
     private ArrayList <BglObject> membersToRemove;
     private ArrayList <BglObject> membersToAdd;
 
@@ -22,6 +25,7 @@ public abstract class Scene {
     private String name;
 
     public Scene( String name ){
+        membersArrayList = new ArrayList<BglObject>();
         membersToRemove = new ArrayList<BglObject>();
         justUpdateMembers = new ArrayList<Bobject>();
         membersToAdd = new ArrayList<BglObject>();
@@ -29,6 +33,16 @@ public abstract class Scene {
         SceneManager.addScene(this);
     }
 
+    public void fillMembers(){
+        int arraySize = membersArrayList.size();
+        members = new BglObject[arraySize];
+        // fill the members array
+        int i=0;
+        for (BglObject o : membersArrayList){
+            members[i] = o;
+            i++;
+        }
+    }
 
     public void addAsync(BglObject obj){
         membersToAdd.add(obj);
@@ -39,15 +53,8 @@ public abstract class Scene {
     }
 
     public synchronized void add( BglObject obj){
-        // So when adding an object to an arraylist with empty slot
-        // The objecty will always be at the end of the array therefor
-        // on the foreground of the Scene
-        //members.add( members.size(), obj);
-        int i=0;
-        while (members[i] != null ){
-            i++;
-        }
-        members[i] = obj;
+        membersArrayList.add(obj);
+        dirty = true;
     }
 
     public void addToRemove ( BglObject obj ){

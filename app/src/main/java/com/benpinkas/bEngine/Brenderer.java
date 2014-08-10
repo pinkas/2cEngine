@@ -261,8 +261,15 @@ public class Brenderer implements GLSurfaceView.Renderer {
 		// 1 - Scene enumeration
         for (Scene scene : SceneManager.getScenes())
         {
+
             if (scene.getVisible())
             {
+
+                if (scene.dirty){
+                    scene.fillMembers();
+                    scene.dirty = false;
+                }
+
                shader = ShaderList.getProg( "rect" );
                glUseProgram( 9 );
                shader.prepare();
