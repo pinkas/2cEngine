@@ -91,11 +91,10 @@ public class Brenderer implements GLSurfaceView.Renderer {
         BtextureManager.loadAll(context);
         /* TODO consider finding anonther way to do the following?? */
         for (Scene scene : SceneManager.getScenes()) {
-            BglObject[]  blah= scene.getMembers();
-            for (int i=0; i < blah.length; i++ ) {
-                if (blah[i] == null)
+            for ( BglObject o : scene.getMembersArrayList() ) {
+                if (o == null)
                     continue;
-                blah[i].glService.setTextureHandle(blah[i].getRes());
+                o.glService.setTextureHandle(o.getRes());
             }
         }
     }
@@ -314,7 +313,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
                             glUseProgram(shader.get_program());
                             shader.prepare();
                         }
-                    
+
                         shader.sendParametersToShader(obj, obj.getMvp());
                         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
                     }
