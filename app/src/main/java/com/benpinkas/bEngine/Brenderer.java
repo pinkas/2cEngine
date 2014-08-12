@@ -244,7 +244,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
 
         float now = System.nanoTime();
         float dt = (now - prev) / NS_PER_SEC;
-        System.out.println(now-prev);
+        //System.out.println(now-prev);
         prev = now;
 
         if (dt > MAX_FRAME_DELTA_SEC) {
@@ -270,9 +270,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
                     scene.dirty = false;
                 }
 
-               shader = ShaderList.getProg( "rect" );
-               glUseProgram( 9 );
-               shader.prepare();
+
 
                 // 2 - Objects enumeration
                 BglObject[] members = scene.getMembers();
@@ -310,10 +308,13 @@ public class Brenderer implements GLSurfaceView.Renderer {
                             obj.dirty = false;
                         }
 
-                        //shader = ShaderList.getProg(obj.glService.getShaderName());
-                        //glUseProgram( shader.get_program() );
-                        //shader.prepare();
-//                        System.out.println(obj);
+                        Shader shaderProg = ShaderList.getProg(obj.glService.getShaderName());
+                        if (shader != shaderProg){
+                            shader = shaderProg;
+                            glUseProgram(shader.get_program());
+                            shader.prepare();
+                        }
+                    
                         shader.sendParametersToShader(obj, obj.getMvp());
                         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
                     }
