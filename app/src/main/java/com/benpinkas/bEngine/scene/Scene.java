@@ -15,7 +15,7 @@ public abstract class Scene {
     private BglObject[] members = new BglObject[0];
     private ArrayList <BglObject> membersArrayList;
 
-    private ArrayList <Bobject> justUpdateMembers; /* Members that don't get rendered */
+    private ArrayList <Bobject> justUpdateMembers;
 
     private boolean visible = true;
     private String name;
@@ -45,6 +45,10 @@ public abstract class Scene {
     public synchronized void add( BglObject obj){
         membersArrayList.add(obj);
         dirty = true;
+    }
+
+    public ArrayList<BglObject> getMembersArrayList() {
+        return membersArrayList;
     }
 
     public BglObject[] getMembers(){
