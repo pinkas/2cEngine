@@ -22,11 +22,10 @@ public abstract class BglObject extends Bobject {
     protected List areaOfInterest;
 
     protected float[] mvp = new float[16];
-    public boolean dirty;
+    public boolean dirty=true;
 
     public BglObject( float x, float y, float w, float h ){
         super(x,y,w,h);
-        dirty = true;
     }
 
     @Override
