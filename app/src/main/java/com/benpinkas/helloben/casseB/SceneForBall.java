@@ -1,5 +1,7 @@
 package com.benpinkas.helloben.casseB;
 
+import com.benpinkas.R;
+import com.benpinkas.bEngine.object.BglSprite;
 import com.benpinkas.bEngine.scene.Scene;
 
 /**
@@ -26,7 +28,7 @@ public class SceneForBall extends Scene {
         for (int i=0; i < row; i++)
         {
             for (int j=0; j < col; j++){
-                //TODO olol index i j'ecrase quasi toutes mes references ..
+                //TODO overwriting a few references ...
                 destroyMe[i] = new Brick();
                 destroyMe[i].setSize(sizeW, sizeH);
                 destroyMe[i].setPos(paddX + j*(sizeW+0.01f), paddY + i*(sizeH+0.01f) );
@@ -47,6 +49,12 @@ public class SceneForBall extends Scene {
         add(myBall);
         myBall.fire(0.1f, -0.25f);
 
+        final BglSprite testSprite = new BglSprite(0.0f, 0.7f, 1f, 0.3f,
+                new int[]{R.drawable.lastlayer});
+        testSprite.setZ(-0.5f);
+        testSprite.setCollide(false);
+
+        this.add(testSprite);
         //SceneManager.initAllArea();
     }
 
