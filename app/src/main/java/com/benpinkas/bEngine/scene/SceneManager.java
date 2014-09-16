@@ -102,7 +102,10 @@ public class SceneManager {
             System.out.println("Scene does not exist, WARNING");
         }
     }
-
+    //TODO check parameterts!
+    public static void startScene(Scene s) {
+        s.start();
+    }
 
     /**
      * Execute the stop method of a scene
