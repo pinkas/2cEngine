@@ -49,12 +49,6 @@ public class SceneForBall extends Scene {
         add(myBall);
         myBall.fire(0.1f, -0.25f);
 
-        final BglSprite testSprite = new BglSprite(0.0f, 0.7f, 1f, 0.3f,
-                new int[]{R.drawable.lastlayer});
-        testSprite.setZ(-0.5f);
-        testSprite.setCollide(false);
-
-        this.add(testSprite);
         //SceneManager.initAllArea();
     }
 
