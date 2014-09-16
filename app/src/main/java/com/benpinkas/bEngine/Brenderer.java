@@ -260,7 +260,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
 		// 1 - Scene enumeration
         for (Scene scene : SceneManager.getScenes())
         {
-
+            scene.update(dt);
             if (scene.getVisible())
             {
 
