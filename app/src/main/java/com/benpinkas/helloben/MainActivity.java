@@ -56,6 +56,7 @@ public class MainActivity extends Activity {
         final Scene myballs = new SceneForBall();
 
         SceneManager.setInputFocus(myballs);
+        SceneManager.startScene(myballs);
 
 
         //TODO Why this Callback passed to the Renderer???

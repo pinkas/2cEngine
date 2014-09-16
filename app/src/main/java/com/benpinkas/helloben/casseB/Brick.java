@@ -66,6 +66,12 @@ public class Brick extends Brectangle {
         explode();
     }
 
+    public void init (){
+        setCollide(true);
+        setVisible(true);
+        initParticles();
+    }
+
     public void explode(){
 
         showParticles();
