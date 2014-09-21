@@ -35,11 +35,6 @@ public class Ball extends Brectangle {
             rawVel.y = -rawVel.y;
             collisionDuringThisFrame = true;
         }
-
-        System.out.println( "BIM");
-        System.out.println( "BIM");
-        System.out.println( "BIM");
-
     }
 
     public void fire(float velX, float velY){
