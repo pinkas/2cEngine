@@ -22,13 +22,16 @@ public class SplashScreen extends Scene {
         add(theSplashSprite);
 //        theSplashSprite.anchorPointSet(0.0f, 0.0f);
 
-        final Brectangle button = new Button(new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
-                stop();
-                return null;
-            }
-        });
+
+        final Button button = new Button(0.5f, 0.5f, 0.1f, 0.1f, new int[] {R.drawable.start},
+                new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        stop();
+                        SceneManager.startScene("myBalls");
+                        return null;
+                    }
+                });
         button.setPos(0.5f, 0.5f);
         add(button);
        // setMemberLayer( button, 1 );
