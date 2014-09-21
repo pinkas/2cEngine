@@ -9,6 +9,7 @@ import com.benpinkas.bEngine.scene.Scene;
 import com.benpinkas.bEngine.scene.SceneManager;
 import com.benpinkas.helloben.casseB.SceneForBall;
 import com.benpinkas.R;
+import com.benpinkas.helloben.casseB.StartScene;
 
 
 import android.opengl.GLSurfaceView;
@@ -34,6 +35,8 @@ public class MainActivity extends Activity {
         BtextureManager.fillTextureHashTable(R.drawable.biker);
         BtextureManager.fillTextureHashTable(R.drawable.blank);
         BtextureManager.fillTextureHashTable(R.drawable.road);
+        BtextureManager.fillTextureHashTable(R.drawable.start);
+        BtextureManager.fillTextureHashTable(R.drawable.dust);
 
         // TODO if splashscreen is created before GameScene it is under my gameScene despite the
         // TODO setFocus. need to have a setLayer for Scenes as well
@@ -54,9 +57,10 @@ public class MainActivity extends Activity {
 //        rotateRectangles.setVisible(false);
 
         final Scene myballs = new SceneForBall();
+        final Scene startScene = new StartScene();
 
-        SceneManager.setInputFocus(myballs);
-        SceneManager.startScene(myballs);
+        SceneManager.setInputFocus(startScene);
+        SceneManager.startScene(startScene);
 
 
         //TODO Why this Callback passed to the Renderer???
