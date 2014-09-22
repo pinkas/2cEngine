@@ -15,6 +15,8 @@ public class SceneForBall extends Scene {
     private Bat bat = new Bat();
     private static int MAX_LIFE = 3;
     private int remainingLife;
+    private static enum GameState {ON, PAUSE, OFF};
+    private GameState gameState = GameState.OFF;
 
     //Layout constants
     private final float PADDX = 0.04f;
@@ -57,7 +59,6 @@ public class SceneForBall extends Scene {
                 destroyMe[index].initParticles();
                 destroyMe[index].setCollide(true);
                 destroyMe[index].setVisible(true);
-
                 index++;
             }
         }
@@ -72,9 +73,20 @@ public class SceneForBall extends Scene {
         myBall.fire(0.1f, -0.25f);
         myBall.setVisible(true);
         bat.setVisible(true);
+        gameState = GameState.ON;
+    }
+
+    public void resetBallposition(){
+        float posx = bat.getPosX();
+        float posy = bat.getPosY();
+        myBall.setPos(posx, posy-0.1f);
     }
 
     public void update(float dt){
+
+        if (gameState != GameState.ON){
+            return;
+        }
 
         if (myBall.getPosY() > bat.getPosY() ){
             remainingLife --;
@@ -84,7 +96,7 @@ public class SceneForBall extends Scene {
                 SceneManager.startScene("startScene");
             }
             else {
-                myBall.setPos(0.5f, 0.5f);
+                resetBallposition();
                 myBall.fire(0.1f, -0.25f);
             }
 
@@ -104,5 +116,6 @@ public class SceneForBall extends Scene {
         myBall.fire(0,0);
         myBall.setVisible(false);
         bat.setVisible(false);
+        gameState = GameState.OFF;
     }
 }
