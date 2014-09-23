@@ -87,7 +87,6 @@ public class SceneForBall extends Scene {
         if (gameState != GameState.ON){
             return;
         }
-
         if (myBall.getPosY() > bat.getPosY() ){
             remainingLife --;
 
@@ -99,9 +98,7 @@ public class SceneForBall extends Scene {
                 resetBallposition();
                 myBall.fire(0.1f, -0.25f);
             }
-
         }
-
     }
 
     @Override

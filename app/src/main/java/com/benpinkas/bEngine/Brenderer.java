@@ -240,7 +240,6 @@ public class Brenderer implements GLSurfaceView.Renderer {
             prev = System.nanoTime();
             return;
         }
-
         float now = System.nanoTime();
         float dt = (now - prev) / NS_PER_SEC;
         //System.out.println(now-prev);
@@ -249,7 +248,6 @@ public class Brenderer implements GLSurfaceView.Renderer {
         if (dt > MAX_FRAME_DELTA_SEC) {
             dt = MAX_FRAME_DELTA_SEC;
         }
-
         //InputStatus.updateObjectsTouchStates(screenW, screenH);
         //TODO update les "updateOnlyMembers" cf update method in SceneManager
         SceneManager.updateTimers(dt);
@@ -263,14 +261,10 @@ public class Brenderer implements GLSurfaceView.Renderer {
             scene.update(dt);
             if (scene.getVisible())
             {
-
                 if (scene.dirty){
                     scene.fillMembers();
                     scene.dirty = false;
                 }
-
-
-
                 // 2 - Objects enumeration
                 BglObject[] members = scene.getMembers();
                 for (BglObject obj : members)
