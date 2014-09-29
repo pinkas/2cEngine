@@ -6,10 +6,14 @@ import com.benpinkas.bEngine.Angle;
 
 import com.google.common.base.Preconditions;
 
+import java.util.concurrent.Callable;
+
 /**
  * Created by Ben on 10/9/13.
  */
 public class Bobject {
+
+    public static final int LAYER_MAX = 10;
 
     private float x;
     private float y;
@@ -18,6 +22,10 @@ public class Bobject {
     protected PointF vel;
     protected float z;
     protected Angle angle = new Angle();
+
+    private Callable<Void> touchU;
+    private Callable<Void> touchD;
+
 
     protected int layer;
     protected boolean pressed;
@@ -40,16 +48,38 @@ public class Bobject {
     // Finger touches the object
     public void touchDown() {
         pressed = true;
+        if (touchU != null ){
+            try {
+                touchU.call();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
     // Finger realeases when over the object
     public void touchUp() {
         pressed = false;
+        if (touchD != null ){
+            try {
+                touchD.call();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
     }
     //When moving your finger over the object
     public void touchMove(float x, float y) {}
     // Triggered when releasing the finger when not over the object anymore
     public void touchUpMove(float x, float y){
         pressed = false;
+    }
+
+    public void setTouchU( Callable<Void> cb ){
+        touchU = cb;
+    }
+    public void setTouchD( Callable<Void> cb ){
+        touchD = cb;
     }
 
     public boolean isPressed(){
