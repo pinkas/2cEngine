@@ -90,7 +90,7 @@ public class MainActivity extends Activity {
                 InputStatus.setTouchDown((int) x, (int) y);
                 break;
             case MotionEvent.ACTION_MOVE:
-                InputStatus.setTouchPrev(InputStatus.touch.x, InputStatus.touch.y);
+                InputStatus.setTouchPrev(InputStatus.touchXscr, InputStatus.touchYscr);
                 InputStatus.setTouchMove((int) x, (int) y);
                 break;
             case MotionEvent.ACTION_UP:
@@ -99,7 +99,7 @@ public class MainActivity extends Activity {
             default:
                 return false;
         }
-        InputStatus.setTouchDelta(InputStatus.touchPrev, InputStatus.touch );
+        InputStatus.setTouchDelta();
         return true;
     }
 
