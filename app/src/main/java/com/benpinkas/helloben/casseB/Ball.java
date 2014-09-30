@@ -18,6 +18,8 @@ public class Ball extends Brectangle {
 
     private boolean collisionDuringThisFrame;
 
+    private static float SPEED_FACTOR = 3.5f;
+
     public Ball(float x, float y, float w, float h, float r, float g, float b){
         super(x,y,w,h,r,g,b);
     }
@@ -26,13 +28,22 @@ public class Ball extends Brectangle {
     @Override
     public void collision(Bobject collider, CollisionService.collisionSide cs) {
         //pos = prevPos;
-        if ( collider instanceof Brick &&
-           (cs == collisionSide.LEFT || cs == collisionSide.RIGHT ) )
-            rawVel.x = -rawVel.x;
-        if (!collisionDuringThisFrame &&
-                (cs == collisionSide.BOTTOM || cs == collisionSide.TOP )  )
+        if ( collider instanceof Brick){
+            if(cs == collisionSide.LEFT || cs == collisionSide.RIGHT ){
+                rawVel.x = -rawVel.x;
+            }
+            if (cs == collisionSide.BOTTOM || cs == collisionSide.TOP ){
+                rawVel.y = -rawVel.y;
+            }
+        }
+        else if (!collisionDuringThisFrame && collider instanceof Bat)
         {
+            float batCenterX = collider.getPosX(0.5f);
+            float ballCenterX = this.getPosX(0.5f);
+
             rawVel.y = -rawVel.y;
+            rawVel.x = (ballCenterX - batCenterX) * SPEED_FACTOR;
+
             collisionDuringThisFrame = true;
         }
     }
