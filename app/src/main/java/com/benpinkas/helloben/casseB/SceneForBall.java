@@ -1,9 +1,14 @@
 package com.benpinkas.helloben.casseB;
 
 import com.benpinkas.R;
+import com.benpinkas.bEngine.Brenderer;
+import com.benpinkas.bEngine.InputStatus;
 import com.benpinkas.bEngine.object.BglSprite;
+import com.benpinkas.bEngine.object.Brectangle;
 import com.benpinkas.bEngine.scene.Scene;
 import com.benpinkas.bEngine.scene.SceneManager;
+
+import java.util.concurrent.Callable;
 
 /**
  * Created by Ben on 13-Jul-14.
@@ -13,6 +18,8 @@ public class SceneForBall extends Scene {
     private Ball myBall = new Ball(0.5f,0.8f, 0.045f, 0.025f, 0.1f, 0.7f, 1);
     private Brick[] destroyMe = new Brick[300];
     private Bat bat = new Bat();
+    private Brectangle touchAreaThrowBall = new Brectangle(0,0, 1, 0.8f, 0, 0, 0, 0);
+
     private static int MAX_LIFE = 3;
     private int remainingLife;
     private static enum GameState {ON, PAUSE, OFF};
@@ -42,11 +49,32 @@ public class SceneForBall extends Scene {
                 index++;
             }
         }
+
         bat.setVisible(false);
         add(bat);
+
         myBall.setVisible(false);
         add(myBall);
-        //SceneManager.initAllArea();
+
+        // TouchArea
+        add(touchAreaThrowBall);
+        touchAreaThrowBall.setCollide(false);
+
+        touchAreaThrowBall.setTouchU(new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                if (gameState == GameState.PAUSE) {
+                    gameState = GameState.ON;
+
+                    float newVx = InputStatus.touchXabsPerc - myBall.getPosX();
+
+
+                    myBall.fire(newVx, -0.25f);
+                }
+                return null;
+            }
+        });
+
     }
 
     public void initBricks(){
@@ -89,14 +117,13 @@ public class SceneForBall extends Scene {
         }
         if (myBall.getPosY() > bat.getPosY() ){
             remainingLife --;
+            gameState = GameState.PAUSE;
+            resetBallposition();
+            myBall.fire(0,0);
 
             if ( remainingLife == 0 ) {
                 stop();
                 SceneManager.startScene("startScene");
-            }
-            else {
-                resetBallposition();
-                myBall.fire(0.1f, -0.25f);
             }
         }
     }
