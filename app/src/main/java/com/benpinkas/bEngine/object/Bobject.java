@@ -110,8 +110,14 @@ public class Bobject {
     public float getPosX (){
         return x;
     }
+    public float getPosX (float centerPointX){
+        return x + w * centerPointX;
+    }
     public float getPosY (){
         return y;
+    }
+    public float getPosY (float centerPointY){
+        return y + h * centerPointY;
     }
 
     public void setPos ( PointF pos ) {
