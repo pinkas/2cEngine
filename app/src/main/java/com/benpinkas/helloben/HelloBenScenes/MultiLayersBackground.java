@@ -34,8 +34,8 @@ public class MultiLayersBackground extends Scene {
         Callable joypadActionMove = new Callable() {
             @Override
             public Float call() {
-                float x = Brenderer.getCamXworld() + InputStatus.getTouchDelta().x / (float) Brenderer.getScreenW();
-                float y = Brenderer.getCamYworld() + InputStatus.getTouchDelta().y / (float) Brenderer.getScreenW();
+                float x = Brenderer.getCamXworld() + InputStatus.touchDeltaX / (float) Brenderer.getScreenW();
+                float y = Brenderer.getCamYworld() + InputStatus.touchDeltaY / (float) Brenderer.getScreenW();
                 Brenderer.moveCam(x, y);
                 return 0f;
             }

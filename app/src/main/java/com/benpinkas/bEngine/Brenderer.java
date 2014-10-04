@@ -40,7 +40,6 @@ public class Brenderer implements GLSurfaceView.Renderer {
     private static final float upZ = 0.0f;
     private Context context;
     private Shader shader;
-    private ArrayList<BglObject> objListCopy = new ArrayList();
     private static float[] mvp = new float[16];
     private static float camX = 0.0f;
     private static float lookX = camX;
@@ -51,18 +50,15 @@ public class Brenderer implements GLSurfaceView.Renderer {
 
     private static int screenW;
     private static int screenH;
-    private Callable<Float> cb;
 
     private static final float NS_PER_SEC = 1000000000;
     private static float prev;
     private static final float MAX_FRAME_DELTA_SEC = 0.1f;
 
 
-    public Brenderer(Context context, Callable<Float> cb) {
+    public Brenderer(Context context) {
         super();
         this.context = context;
-
-        this.cb = cb;
     }
 
     public static float getCamPosX() {

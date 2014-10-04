@@ -62,14 +62,7 @@ public class MainActivity extends Activity {
         SceneManager.setInputFocus(startScene);
         SceneManager.startScene(startScene);
 
-
-        //TODO Why this Callback passed to the Renderer???
-        final Brenderer theRenderer = new Brenderer( this, new Callable() {
-            @Override
-            public Float call() {
-                return 0f;
-            }
-        } );
+        final Brenderer theRenderer = new Brenderer( this );
 
         theGLView = new GLSurfaceView(this);
         setContentView(theGLView);
