@@ -16,26 +16,12 @@ public class SceneManager {
     //TODO just keep the hashmap? I am not doing that for now because I'm guessing it's faster
     //to always iterate the List rather than the hashmap
     private static Map<String, Scene> sceneHashMap = new HashMap<String, Scene>();
-    ;
     private static List<Btimer> btimers = new ArrayList<Btimer>();
     private static List<Scene> scenes = new ArrayList<Scene>();
     private final static RectF rectangle = new RectF();
     private final static RectF rectangle2 = new RectF();
     private static Scene focusScene;
 
-    private static List<BglObject> area1 = new ArrayList<BglObject>();
-    private static List<BglObject> area2 = new ArrayList<BglObject>();
-    private static List<BglObject> area3 = new ArrayList<BglObject>();
-    private static List<BglObject> area4 = new ArrayList<BglObject>();
-    private static List<BglObject> area5 = new ArrayList<BglObject>();
-    private static List<BglObject> area6 = new ArrayList<BglObject>();
-
-    public enum collisionSide {
-        TOP,
-        BOTTOM,
-        LEFT,
-        RIGHT,
-    }
 
     public static boolean sceneExist(String sceneName) {
         return sceneHashMap.containsKey(sceneName);
