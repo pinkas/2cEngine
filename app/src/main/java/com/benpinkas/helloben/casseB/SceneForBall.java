@@ -1,12 +1,10 @@
 package com.benpinkas.helloben.casseB;
 
-import com.benpinkas.R;
-import com.benpinkas.bEngine.Brenderer;
 import com.benpinkas.bEngine.InputStatus;
-import com.benpinkas.bEngine.object.BglSprite;
 import com.benpinkas.bEngine.object.Brectangle;
 import com.benpinkas.bEngine.scene.Scene;
 import com.benpinkas.bEngine.scene.SceneManager;
+import com.benpinkas.bEngine.service.MessageManager;
 
 import java.util.concurrent.Callable;
 
@@ -42,10 +40,10 @@ public class SceneForBall extends Scene {
                 destroyMe[index] = new Brick();
                 destroyMe[index].setVisible(false);
                 add(destroyMe[index]);
-                //add(destroyMe[i].getParticles(0));
-                //add(destroyMe[i].getParticles(1));
-                //add(destroyMe[i].getParticles(2));
-                //add(destroyMe[i].getParticles(3));
+                //add(destroyMe[index].getParticles(0));
+                //add(destroyMe[index].getParticles(1));
+                //add(destroyMe[index].getParticles(2));
+                //add(destroyMe[index].getParticles(3));
                 index++;
             }
         }
@@ -56,6 +54,29 @@ public class SceneForBall extends Scene {
         myBall.setVisible(false);
         add(myBall);
 
+        MessageManager.addListener(new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                System.out.println("BOOM!!!!");
+                return null;
+            }
+        }, "explosion");
+
+        MessageManager.addListener(new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                remainingLife --;
+                gameState = GameState.PAUSE;
+                resetBallposition();
+                myBall.fire(0,0);
+                if ( remainingLife == 0 ) {
+                    stop();
+                    SceneManager.startScene("startScene");
+                }
+                return null;
+            }
+        }, "lost_ball");
+
         // TouchArea
         add(touchAreaThrowBall);
         touchAreaThrowBall.setCollide(false);
@@ -65,10 +86,7 @@ public class SceneForBall extends Scene {
             public Void call() throws Exception {
                 if (gameState == GameState.PAUSE) {
                     gameState = GameState.ON;
-
                     float newVx = InputStatus.touchXabsPerc - myBall.getPosX();
-
-
                     myBall.fire(newVx, -0.25f);
                 }
                 return null;
@@ -108,24 +126,6 @@ public class SceneForBall extends Scene {
         float posx = bat.getPosX();
         float posy = bat.getPosY();
         myBall.setPos(posx, posy-0.1f);
-    }
-
-    public void update(float dt){
-
-        if (gameState != GameState.ON){
-            return;
-        }
-        if (myBall.getPosY() > bat.getPosY() ){
-            remainingLife --;
-            gameState = GameState.PAUSE;
-            resetBallposition();
-            myBall.fire(0,0);
-
-            if ( remainingLife == 0 ) {
-                stop();
-                SceneManager.startScene("startScene");
-            }
-        }
     }
 
     @Override

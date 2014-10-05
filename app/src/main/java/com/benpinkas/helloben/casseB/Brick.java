@@ -4,6 +4,7 @@ import com.benpinkas.bEngine.object.Bobject;
 import com.benpinkas.bEngine.object.Brectangle;
 import com.benpinkas.bEngine.object.Btimer;
 import com.benpinkas.bEngine.service.CollisionService;
+import com.benpinkas.bEngine.service.MessageManager;
 
 import java.util.concurrent.Callable;
 
@@ -62,7 +63,9 @@ public class Brick extends Brectangle {
     @Override
     public void collision(Bobject collider, CollisionService.collisionSide cs) {
         this.setCollide(false);
+        MessageManager.sendMessage("explosion");
         //this.setVisible(false);
+
         explode();
     }
 

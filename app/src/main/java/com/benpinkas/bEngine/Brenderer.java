@@ -9,6 +9,7 @@ import javax.microedition.khronos.opengles.GL10;
 import com.benpinkas.bEngine.object.BglObject;
 import com.benpinkas.bEngine.scene.Scene;
 import com.benpinkas.bEngine.scene.SceneManager;
+import com.benpinkas.bEngine.service.MessageManager;
 import com.benpinkas.bEngine.shader.Shader;
 import com.benpinkas.bEngine.shader.ShaderList;
 
@@ -249,6 +250,8 @@ public class Brenderer implements GLSurfaceView.Renderer {
         SceneManager.updateTimers(dt);
         Scene focusScene = SceneManager.getInputFocus();
 
+        MessageManager.deliverMessages();
+
         glClear(GL_COLOR_BUFFER_BIT);
 
 		// 1 - Scene enumeration
@@ -274,6 +277,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
 
                     obj.update(dt);
 
+                    // have one if just for visible, dirty and collide
                     if (obj.visible)
                     {
                         if (obj.dirty)

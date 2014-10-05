@@ -6,6 +6,7 @@ import com.benpinkas.bEngine.object.Bobject;
 import com.benpinkas.bEngine.object.Brectangle;
 import com.benpinkas.bEngine.service.CollisionService;
 import com.benpinkas.bEngine.service.CollisionService.collisionSide;
+import com.benpinkas.bEngine.service.MessageManager;
 
 
 /**
@@ -53,8 +54,14 @@ public class Ball extends Brectangle {
         rawVel.y = velY;
     }
 
+
+
     @Override
     public void update(float dt) {
+
+        if (getPosY() > 0.95f ) {
+            MessageManager.sendMessage("lost_ball");
+        }
 
         collisionDuringThisFrame = false;
         //PointF pos = this.getPos();

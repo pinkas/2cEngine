@@ -38,8 +38,7 @@ public class Bat extends Brectangle {
 
     public void update(float dt){
         if (touched) {
-            setPos(InputStatus.getTouchX()/(float) Brenderer.getScreenW() - 0.5f*getSizeW(),
-                    getPosY());
+            setPos(InputStatus.touchXscr/(float) Brenderer.getScreenW() - 0.5f*getSizeW(), getPosY());
         }
     }
 
