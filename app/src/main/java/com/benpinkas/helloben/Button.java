@@ -18,8 +18,8 @@ public class Button extends BglSprite {
     }
 
     @Override
-    public void touchDown() {
-        super.touchDown();
+    public void touchUp() {
+        super.touchUp();
         try {
             cb.call();
         } catch (Exception e) {

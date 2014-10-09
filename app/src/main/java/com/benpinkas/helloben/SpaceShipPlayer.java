@@ -24,7 +24,7 @@ public class SpaceShipPlayer extends SpaceShip {
         float traj3[] = {0.0001f, 0};
         mainAttack = new AttackLaser( this, traj3, 0.35f, -5f, 130, 0.04f, 1, 2 );
         for (Projectile proj3 : mainAttack.getProjList()) {
-            scene.addAsync(proj3);
+            scene.add(proj3);
         }
 
     }

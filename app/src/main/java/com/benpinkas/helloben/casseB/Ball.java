@@ -29,16 +29,7 @@ public class Ball extends Brectangle {
     @Override
     public void collision(Bobject collider, CollisionService.collisionSide cs) {
         //pos = prevPos;
-        if ( collider instanceof Brick){
-            if(cs == collisionSide.LEFT || cs == collisionSide.RIGHT ){
-                rawVel.x = -rawVel.x;
-            }
-            if (cs == collisionSide.BOTTOM || cs == collisionSide.TOP ){
-                rawVel.y = -rawVel.y;
-            }
-        }
-        else if (!collisionDuringThisFrame && collider instanceof Bat)
-        {
+        if ( collider instanceof Bat && !collisionDuringThisFrame ) {
             float batCenterX = collider.getPosX(0.5f);
             float ballCenterX = this.getPosX(0.5f);
 
@@ -46,6 +37,14 @@ public class Ball extends Brectangle {
             rawVel.x = (ballCenterX - batCenterX) * SPEED_FACTOR;
 
             collisionDuringThisFrame = true;
+        }
+        else if ( collider instanceof Brick || collider instanceof Brectangle){
+            if(cs == collisionSide.LEFT || cs == collisionSide.RIGHT ){
+                rawVel.x = -rawVel.x;
+            }
+            if (cs == collisionSide.BOTTOM || cs == collisionSide.TOP ){
+                rawVel.y = -rawVel.y;
+            }
         }
     }
 
@@ -73,17 +72,6 @@ public class Ball extends Brectangle {
         //PointF pos = this.getPos();
         float posx = this.getPosX();
         float posy = this.getPosY();
-        float w = this.getSizeW();
-        float h = this.getSizeH();
-        if (posx + w >= 1.0  || posx <= 0) {
-            rawVel.x = -rawVel.x;
-        }
-        if (posy + h >= 1.0 || posy <= 0){
-            rawVel.y = -rawVel.y;
-        }
-
-        prevPos.x = posx;
-        prevPos.y = posy;
 
         vel.x = rawVel.x*dt;
         vel.y = rawVel.y*dt;

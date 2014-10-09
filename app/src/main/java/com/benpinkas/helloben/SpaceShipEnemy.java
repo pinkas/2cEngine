@@ -98,7 +98,7 @@ public class SpaceShipEnemy extends SpaceShip {
                 crazyProjectiles[i].setLifetime(1000);
                 crazyProjectiles[i].setHp(1);
 
-                scene.addAsync(crazyProjectiles[i]);
+                scene.add(crazyProjectiles[i]);
             }
         }
 
@@ -163,7 +163,7 @@ public class SpaceShipEnemy extends SpaceShip {
             float traj3[] = {0.0001f, 0};
             attack[0] = new AttackLaser( this.actor, traj3, 0.5f, 1f, 130, 0.04f, 1, 2 );
             for (Projectile proj3 : attack[0].getProjList()) {
-                scene.addAsync(proj3);
+                scene.add(proj3);
             }
         }
 
@@ -230,12 +230,12 @@ public class SpaceShipEnemy extends SpaceShip {
 
             attack[0] = new Attack( actor, traj2, 0.5f, 1f );
             for (Projectile proj2 : attack[0].getProjList()) {
-                scene.addAsync(proj2);
+                scene.add(proj2);
             }
 
             attack[1] = new Attack( actor, traj2, 0.5f, 1f );
             for (Projectile proj2 : attack[1].getProjList()) {
-                scene.addAsync(proj2);
+                scene.add(proj2);
             }
         }
 

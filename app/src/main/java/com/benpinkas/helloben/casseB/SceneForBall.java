@@ -17,6 +17,10 @@ import java.util.concurrent.Callable;
  */
 public class SceneForBall extends Scene {
 
+    private Brectangle leftWall = new Brectangle(0-0.1f, 0, 0.1f, 1, 1, 1, 1, 1);
+    private Brectangle rightWall = new Brectangle(1, 0, 0.1f, 1, 1, 1, 1, 1 );
+    private Brectangle upperWall = new Brectangle(0, 0-0.1f, 1, 0.1f, 1, 1, 1, 1);
+
     private Ball myBall = new Ball(0.5f,0.8f, 0.045f, 0.025f, 0.1f, 0.7f, 1);
     private Brick[] destroyMe = new Brick[300];
     private Bat bat = new Bat();
@@ -37,8 +41,12 @@ public class SceneForBall extends Scene {
     private final int ROW = 10;
     private final int COL = 11;
 
-    public SceneForBall(){
+    public SceneForBall() {
         super("myBalls");
+
+        add(upperWall);
+        add(leftWall);
+        add(rightWall);
 
         int index = 0;
         for (int i=0; i < ROW; i++){
@@ -75,13 +83,13 @@ public class SceneForBall extends Scene {
             @Override
             public Void call(Object o) {
 
-//                if (Math.random() > 0.5) {
+                if (Math.random() > 1.0) {
                     Bonus bonus = (Bonus) bonusPool.getAvailableObj();
                     //bonus = bonusT[0];
 
                     bonus.setPos(myBall.getPosX(), myBall.getPosY());
                     bonus.setVisible(true);
-//                }
+                }
 
                 return null;
             }

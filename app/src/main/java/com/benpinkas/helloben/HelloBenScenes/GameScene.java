@@ -65,10 +65,10 @@ public class GameScene extends Scene {
             @Override
             public Float call() {
 
-            float x = ship.getPosX() + InputStatus.getTouchDelta().x;
-            float y = ship.getPosY() + InputStatus.getTouchDelta().y;
+            float x = ship.getPosX() + InputStatus.touchDeltaX;
+            float y = ship.getPosY() + InputStatus.touchDeltaY;
 
-            ship.setVel(InputStatus.getTouchDelta().x, InputStatus.getTouchDelta().y);
+            ship.setVel(InputStatus.touchDeltaX, InputStatus.touchDeltaY);
             ship.setPos(x, y);
 
             return 0f;
