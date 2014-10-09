@@ -1,9 +1,13 @@
 package com.benpinkas.helloben.casseB;
 
 import com.benpinkas.bEngine.InputStatus;
+import com.benpinkas.bEngine.ObjectPool;
+import com.benpinkas.bEngine.object.Bobject;
 import com.benpinkas.bEngine.object.Brectangle;
+import com.benpinkas.bEngine.object.Btimer;
 import com.benpinkas.bEngine.scene.Scene;
 import com.benpinkas.bEngine.scene.SceneManager;
+import com.benpinkas.bEngine.service.Bcall;
 import com.benpinkas.bEngine.service.MessageManager;
 
 import java.util.concurrent.Callable;
@@ -17,6 +21,8 @@ public class SceneForBall extends Scene {
     private Brick[] destroyMe = new Brick[300];
     private Bat bat = new Bat();
     private Brectangle touchAreaThrowBall = new Brectangle(0,0, 1, 0.8f, 0, 0, 0, 0);
+    private Bonus[] bonusT;
+    private final ObjectPool bonusPool = new ObjectPool();
 
     private static int MAX_LIFE = 3;
     private int remainingLife;
@@ -54,17 +60,36 @@ public class SceneForBall extends Scene {
         myBall.setVisible(false);
         add(myBall);
 
-        MessageManager.addListener(new Callable<Void>() {
+        bonusT = new Bonus[5];
+        for (int i=0;i< bonusT.length; i++){
+            bonusT[i] = new Bonus(0, 1,0.1f, 0.02f, Bonus.BonusType.BALL_SPEED);
+            bonusT[i].setVisible(false);
+            bonusT[i].setCollideFixPos(false);
+
+            add(bonusT[i]);
+        }
+
+        bonusPool.setPool(bonusT);
+
+        MessageManager.addListener(new Bcall<Void>() {
             @Override
-            public Void call() throws Exception {
-                System.out.println("BOOM!!!!");
+            public Void call(Object o) {
+
+//                if (Math.random() > 0.5) {
+                    Bonus bonus = (Bonus) bonusPool.getAvailableObj();
+                    //bonus = bonusT[0];
+
+                    bonus.setPos(myBall.getPosX(), myBall.getPosY());
+                    bonus.setVisible(true);
+//                }
+
                 return null;
             }
         }, "explosion");
 
-        MessageManager.addListener(new Callable<Void>() {
+        MessageManager.addListener(new Bcall<Void>() {
             @Override
-            public Void call() throws Exception {
+            public Void call(Object o) {
                 remainingLife --;
                 gameState = GameState.PAUSE;
                 resetBallposition();
@@ -76,6 +101,32 @@ public class SceneForBall extends Scene {
                 return null;
             }
         }, "lost_ball");
+
+
+        MessageManager.addListener(new Bcall <Void>() {
+            @Override
+            public Void call(Object o) {
+
+                bonusPool.release((Bonus)o);
+
+                float velx = myBall.getRawVelX();
+                float vely = myBall.getRawVelY();
+                myBall.fire(velx*2, vely*2);
+
+                    Btimer timer = new Btimer(300, new Callable(){
+                        @Override
+                        public Boolean call(){
+                            float velx = myBall.getRawVelX();
+                            float vely = myBall.getRawVelY();
+
+                            myBall.fire(velx/2, vely/2);
+                            //bonusPool.release(bonus);
+                            return false;
+                        }
+                    });
+                return null;
+            }
+        }, "bonus_ball_speed");
 
         // TouchArea
         add(touchAreaThrowBall);

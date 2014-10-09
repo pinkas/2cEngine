@@ -18,8 +18,6 @@ public class SceneManager {
     private static Map<String, Scene> sceneHashMap = new HashMap<String, Scene>();
     private static List<Btimer> btimers = new ArrayList<Btimer>();
     private static List<Scene> scenes = new ArrayList<Scene>();
-    private final static RectF rectangle = new RectF();
-    private final static RectF rectangle2 = new RectF();
     private static Scene focusScene;
 
 

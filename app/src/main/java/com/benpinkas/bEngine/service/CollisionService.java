@@ -52,7 +52,7 @@ public class CollisionService {
 
     /**
      *
-     * Fix obj1 and obj2 positions if they collide
+     * Fix obj1 and obj2 positions if they collide (so that they don't overlap)
      * and trigger their collision methods
      *
      * @param obj1
@@ -61,23 +61,31 @@ public class CollisionService {
     public void fixPos(BglObject obj1, BglObject obj2){
         if (vecX < vecY){
             if (dist1>0) {
-                obj1.setPos(x1 + vecX, y1);
+                if (obj1.isCollideFixPos()) {
+                    obj1.setPos(x1 + vecX, y1);
+                }
                 obj1.collision(obj2, collisionSide.LEFT);
                 obj2.collision(obj1, collisionSide.RIGHT);
             }
             else {
-                obj1.setPos(x1 - vecX, y1);
+                if (obj1.isCollideFixPos()) {
+                    obj1.setPos(x1 - vecX, y1);
+                }
                 obj1.collision(obj2, collisionSide.RIGHT);
                 obj2.collision(obj1, collisionSide.LEFT);
             }
         }else {
             if (dist2>0) {
-                obj1.setPos(x1, y1 + vecY);
+                if (obj1.isCollideFixPos()) {
+                    obj1.setPos(x1, y1 + vecY);
+                }
                 obj1.collision(obj2, collisionSide.TOP);
                 obj2.collision(obj1, collisionSide.BOTTOM);
             }
             else {
-                obj1.setPos(x1, y1 - vecY);
+                if (obj1.isCollideFixPos()) {
+                    obj1.setPos(x1, y1 - vecY);
+                }
                 obj1.collision(obj2, collisionSide.BOTTOM);
                 obj2.collision(obj1, collisionSide.TOP);
             }

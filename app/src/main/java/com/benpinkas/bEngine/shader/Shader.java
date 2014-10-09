@@ -72,7 +72,7 @@ public abstract class Shader {
         	System.out.println( "======>shader compilation failed" );
         }
         else
-        	System.out.println( "compilation success!");
+        	System.out.println( "compilation success!!!!!!!!!!!!!!!!!!!!!!");
         return shader;
     }
 

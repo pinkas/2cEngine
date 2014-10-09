@@ -19,6 +19,7 @@ public abstract class BglObject extends Bobject {
     public boolean visible = true;
     protected boolean disregardCam = false;
     public boolean collide = true;
+    public boolean collideFixPos = true;
     protected List areaOfInterest;
 
     protected float[] mvp = new float[16];
@@ -111,6 +112,13 @@ public abstract class BglObject extends Bobject {
     }
     public void setCollide(boolean collide) {
         this.collide = collide;
+    }
+
+    public boolean isCollideFixPos() {
+        return collideFixPos;
+    }
+    public void setCollideFixPos(boolean collideFixPos) {
+        this.collideFixPos = collideFixPos;
     }
 
     public List getAreaOfInterest() {
