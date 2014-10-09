@@ -54,7 +54,13 @@ public class Ball extends Brectangle {
         rawVel.y = velY;
     }
 
+    public float getRawVelX() {
+        return rawVel.x;
+    }
 
+    public float getRawVelY() {
+        return rawVel.y;
+    }
 
     @Override
     public void update(float dt) {
