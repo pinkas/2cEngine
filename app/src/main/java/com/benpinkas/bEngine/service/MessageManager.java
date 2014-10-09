@@ -11,14 +11,20 @@ import java.util.concurrent.Callable;
 public class MessageManager  {
 
     private static ArrayList<String> messages = new ArrayList<String>();
-    private static Map<String, Callable<Void> > listener = new HashMap<String, Callable<Void>>();
+    private static Map<String, Bcall<Void> > listener = new HashMap<String, Bcall<Void>>();
+    private static Map<String, Object> datas = new HashMap<String, Object>();
 
 
     public static void sendMessage(String m){
         messages.add(m);
     }
 
-    public static void addListener(Callable<Void> l, String mess){
+    public static void sendMessage(String m, Object data){
+        messages.add(m);
+        datas.put(m, data);
+    }
+
+    public static void addListener(Bcall<Void> l, String mess){
         listener.put(mess, l);
     }
 
@@ -29,14 +35,14 @@ public class MessageManager  {
         }
 
         for (String s :messages){
-            try {
-                listener.get(s).call();
+            System.out.println( "MessageManager " + s);
+            Bcall blah = listener.get(s);
+            if (blah != null) {
+                blah.call(null);
             }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-            messages.remove(s);
         }
+        messages.clear();
+        datas.clear();
     }
 
 }
