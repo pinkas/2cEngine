@@ -14,11 +14,12 @@ public abstract class BglObject extends Bobject {
 
     public GlService glService;
     public CollisionService collisionService = new CollisionService();
+
     protected int[] res;
 
     public boolean visible = true;
     protected boolean disregardCam = false;
-    public boolean collide = true;
+    public boolean collide = false;
     public boolean collideFixPos = true;
     protected List areaOfInterest;
 

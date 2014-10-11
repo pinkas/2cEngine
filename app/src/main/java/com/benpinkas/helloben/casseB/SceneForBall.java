@@ -2,7 +2,6 @@ package com.benpinkas.helloben.casseB;
 
 import com.benpinkas.bEngine.InputStatus;
 import com.benpinkas.bEngine.ObjectPool;
-import com.benpinkas.bEngine.object.Bobject;
 import com.benpinkas.bEngine.object.Brectangle;
 import com.benpinkas.bEngine.object.Btimer;
 import com.benpinkas.bEngine.scene.Scene;
@@ -12,9 +11,7 @@ import com.benpinkas.bEngine.service.MessageManager;
 
 import java.util.concurrent.Callable;
 
-/**
- * Created by Ben on 13-Jul-14.
- */
+
 public class SceneForBall extends Scene {
 
     private Brectangle leftWall = new Brectangle(0-0.1f, 0, 0.1f, 1, 1, 1, 1, 1);
@@ -47,13 +44,18 @@ public class SceneForBall extends Scene {
         add(upperWall);
         add(leftWall);
         add(rightWall);
+        upperWall.setCollide(true);
+        leftWall.setCollide(true);
+        rightWall.setCollide(true);
 
         int index = 0;
         for (int i=0; i < ROW; i++){
             for (int j=0; j < COL; j++){
                 destroyMe[index] = new Brick();
                 destroyMe[index].setVisible(false);
+                destroyMe[index].setCollide(true);
                 add(destroyMe[index]);
+
                 //add(destroyMe[index].getParticles(0));
                 //add(destroyMe[index].getParticles(1));
                 //add(destroyMe[index].getParticles(2));
@@ -63,16 +65,26 @@ public class SceneForBall extends Scene {
         }
 
         bat.setVisible(false);
+        bat.setCollide(true);
         add(bat);
 
         myBall.setVisible(false);
+        myBall.setCollide(true);
+        myBall.collisionService.addCollider(leftWall);
+        myBall.collisionService.addCollider(rightWall);
+        myBall.collisionService.addCollider(leftWall);
+        myBall.collisionService.addCollider(upperWall);
+        myBall.collisionService.addCollider(destroyMe);
+        myBall.collisionService.addCollider(bat);
         add(myBall);
 
         bonusT = new Bonus[5];
         for (int i=0;i< bonusT.length; i++){
             bonusT[i] = new Bonus(0, 1,0.1f, 0.02f, Bonus.BonusType.BALL_SPEED);
             bonusT[i].setVisible(false);
-            bonusT[i].setCollideFixPos(false);
+           // bonusT[i].setCollideFixPos(false);
+            bonusT[i].setCollide(true);
+            bonusT[i].collisionService.addCollider(bat);
 
             add(bonusT[i]);
         }
@@ -83,7 +95,7 @@ public class SceneForBall extends Scene {
             @Override
             public Void call(Object o) {
 
-                if (Math.random() > 1.0) {
+                if (Math.random() > 0.3) {
                     Bonus bonus = (Bonus) bonusPool.getAvailableObj();
                     //bonus = bonusT[0];
 
@@ -160,7 +172,8 @@ public class SceneForBall extends Scene {
             for (int j=0; j < COL; j++){
                 destroyMe[index].setPos(PADDX + j*(SIZEW+0.01f), PADDY + i*(SIZEH+0.01f) );
                 destroyMe[index].setSize(SIZEW, SIZEH);
-                destroyMe[index].setColor(j * 0.05f, j * 0.1f, 1.0f, 1.0f);
+                destroyMe[index].setColor(0.5f, 1, 0.5f, 1.0f);
+                //destroyMe[index].setColor(j * 0.05f, j * 0.1f, 1.0f, 1.0f);
                 destroyMe[index].initParticles();
                 destroyMe[index].setCollide(true);
                 destroyMe[index].setVisible(true);

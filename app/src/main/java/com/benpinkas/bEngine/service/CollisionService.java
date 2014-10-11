@@ -2,6 +2,8 @@ package com.benpinkas.bEngine.service;
 
 import com.benpinkas.bEngine.object.BglObject;
 
+import java.util.ArrayList;
+
 /**
  * Created by Ben on 25-Jul-14.
  */
@@ -16,11 +18,27 @@ public class CollisionService {
     private float dist2;
     private float vecY;
 
-    public enum collisionSide {
+    private ArrayList <BglObject> collider = new ArrayList<BglObject>();
+
+
+    public static enum collisionSide {
         TOP,
         BOTTOM,
         LEFT,
         RIGHT,
+    }
+
+    public void addCollider( BglObject o ){
+        collider.add(o);
+    }
+    public void addCollider(BglObject[] oArray){
+        for(BglObject o : oArray){
+            collider.add(o);
+        }
+    }
+
+    public ArrayList<BglObject> getCollider() {
+        return collider;
     }
 
     public boolean collide( BglObject obj1, BglObject obj2) {

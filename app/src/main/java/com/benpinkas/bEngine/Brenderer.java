@@ -81,7 +81,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
         // Set the background frame color
-        glClearColor(0.0f, 0.3f, 0.6f, 0.2f);
+        glClearColor(1f, 0.65f, 0.1f, 0.2f);
         // TODO have a list that we go through
         new ShaderList(context);
         // load all the texture and init the existing object of the world with a shader
@@ -284,7 +284,8 @@ public class Brenderer implements GLSurfaceView.Renderer {
                         {
                             if(obj.collide)
                             {
-                                for(BglObject obj2 : members)
+                                ArrayList<BglObject> collider = obj.collisionService.getCollider();
+                                for(BglObject obj2 : collider)
                                 {
                                     if(obj2==null)
                                         continue;
