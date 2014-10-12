@@ -54,7 +54,7 @@ public class SceneForBall extends Scene {
         int index = 0;
         for (int i=0; i < ROW; i++){
             for (int j=0; j < COL; j++){
-                destroyMe[index] = new Brick();
+                destroyMe[index] = new Brick(2);
                 destroyMe[index].setVisible(false);
                 destroyMe[index].setCollide(true);
                 add(destroyMe[index]);
@@ -75,7 +75,7 @@ public class SceneForBall extends Scene {
         add(bat);
 
         // BALL CREATION
-        myBall = new Ball(0.5f,0.8f, 0.045f, 0.025f, 0.1f, 0.7f, 1);
+        myBall = new Ball(0.0f,0.0f, 0.045f, 0.025f, 0.1f, 0.7f, 1);
         myBall.setVisible(false);
         myBall.setCollide(true);
         myBall.collisionService.addCollider(leftWall);
@@ -212,6 +212,7 @@ public class SceneForBall extends Scene {
         initBricks();
         myBall.setVisible(true);
         myBall.setSpeedFactor(0);
+        myBall.setPos(0.5f, 0.8f, 0.5f, 0.5f);
         bat.setVisible(true);
         gameState = GameState.PAUSE;
     }

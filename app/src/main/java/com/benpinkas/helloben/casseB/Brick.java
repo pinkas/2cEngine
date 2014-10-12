@@ -15,13 +15,15 @@ import java.util.concurrent.Callable;
  */
 public class Brick extends BglSprite {
 
-
-
     private Brectangle[] particles = new Brectangle[4];
     private boolean hasBonus;
+    private int remainingHp;
+    private int totalHp;
 
-    public Brick(){
+    public Brick(int totalHp){
         super(0,0,0.1f,0.1f, new int[] {R.drawable.brick} );
+        this.totalHp = totalHp;
+        remainingHp = totalHp;
     }
 
     public Brick(float x, float y, float w, float h){
@@ -61,23 +63,16 @@ public class Brick extends BglSprite {
         }
     }
 
-    //TODO write this function
-    public void generateBonus(){
 
-    }
 
     @Override
     public void collision(Bobject collider, CollisionService.collisionSide cs) {
-        this.setCollide(false);
-        MessageManager.sendMessage("explosion");
-        //this.setVisible(false);
-        if (hasBonus){
-            // TODO bonus has to be added to the scene. Have some sort of a container thing so that
-            // I don't have to mannually ask the scene to add it. So I would just do add(destroyMe[index]);  et c'est tout
-            // TODO fire le bonus
-            // TODO avoir une classe bonus mdlol
+        remainingHp --;
+        if (remainingHp == 0) {
+            MessageManager.sendMessage("explosion");
+            this.setCollide(false);
+            explode();
         }
-        explode();
     }
 
     public void init (){
@@ -88,7 +83,7 @@ public class Brick extends BglSprite {
 
     public void explode(){
         setVisible(false);
-        showParticles();
+//        showParticles();
 /*
         new Btimer( 1,  new Callable() {
             @Override
