@@ -202,14 +202,10 @@ public class SceneForBall extends Scene {
     public void initGame(){
         remainingLife = MAX_LIFE;
         initBricks();
-    }
-
-    public void startGame(){
-        myBall.setSpeedFactor(1);
-//        myBall.fire(0.1f, -0.5f);
         myBall.setVisible(true);
+        myBall.setSpeedFactor(0);
         bat.setVisible(true);
-        gameState = GameState.ON;
+        gameState = GameState.PAUSE;
     }
 
     public void resetBallposition(){
@@ -221,7 +217,6 @@ public class SceneForBall extends Scene {
     @Override
     public void start() {
         initGame();
-        startGame();
         SceneManager.setInputFocus(this);
     }
 
