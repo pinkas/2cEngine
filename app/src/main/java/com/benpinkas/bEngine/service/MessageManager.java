@@ -38,7 +38,7 @@ public class MessageManager  {
             System.out.println( "MessageManager " + s);
             Bcall blah = listener.get(s);
             if (blah != null) {
-                blah.call(null);
+                blah.call(datas.get(s));
             }
         }
         messages.clear();
