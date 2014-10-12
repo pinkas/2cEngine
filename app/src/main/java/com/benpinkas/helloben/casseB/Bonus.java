@@ -36,14 +36,13 @@ public class Bonus extends Brectangle {
             MessageManager.sendMessage("bonus_out_of_screen", this);
             setVisible(false);
         } else {
-            setPos(getPosX(), posy + VEL_Y * dt);
+            setPos(getPosX(), posy + getVel().y * dt);
         }
     }
 
     @Override
     public void collision(Bobject collider, CollisionService.collisionSide cs) {
         super.collision(collider, cs);
-
         if ( collider instanceof Bat ) {
             setVisible(false);
             MessageManager.sendMessage(getBonusTypeString(), this);
@@ -53,7 +52,7 @@ public class Bonus extends Brectangle {
     public void setBonusType(BonusType bt){
         switch (bt) {
             case BALL_SPEED:
-                setColor(1f,0f,0f,1f);
+                setColor(1f,0.5f,0f,1f);
                 bonusTypeString = "bonus_ball_speed";
                 break;
 

@@ -14,7 +14,7 @@ import java.util.concurrent.Callable;
 
 public class SceneForBall extends Scene {
 
-    private Ball myBall = new Ball(0.5f,0.8f, 0.045f, 0.025f, 0.1f, 0.7f, 1);
+    private Ball myBall;
     private Brick[] destroyMe = new Brick[300];
     private Bat bat = new Bat();
     private Brectangle touchAreaThrowBall = new Brectangle(0,0, 1, 0.8f, 0, 0, 0, 0);
@@ -37,6 +37,7 @@ public class SceneForBall extends Scene {
     public SceneForBall() {
         super("myBalls");
 
+        // WALLS CREATION
         Brectangle leftWall = new Brectangle(0-0.1f, 0, 0.1f, 1, 1, 1, 1, 1);
         Brectangle rightWall = new Brectangle(1, 0, 0.1f, 1, 1, 1, 1, 1 );
         Brectangle upperWall = new Brectangle(0, 0-0.1f, 1, 0.1f, 1, 1, 1, 1);
@@ -47,6 +48,7 @@ public class SceneForBall extends Scene {
         leftWall.setCollide(true);
         rightWall.setCollide(true);
 
+        // BRICKS CREATION
         int index = 0;
         for (int i=0; i < ROW; i++){
             for (int j=0; j < COL; j++){
@@ -63,10 +65,13 @@ public class SceneForBall extends Scene {
             }
         }
 
+        // BAT
         bat.setVisible(false);
         bat.setCollide(true);
         add(bat);
 
+        // BALL CREATION
+        myBall = new Ball(0.5f,0.8f, 0.045f, 0.025f, 0.1f, 0.7f, 1);
         myBall.setVisible(false);
         myBall.setCollide(true);
         myBall.collisionService.addCollider(leftWall);
@@ -77,20 +82,20 @@ public class SceneForBall extends Scene {
         myBall.collisionService.addCollider(bat);
         add(myBall);
 
+        // BONUS/POOL CREATION
         bonusT = new Bonus[5];
         for (int i=0; i<bonusT.length; i++){
             bonusT[i] = new Bonus(0, 0, 0.02f, 0.015f, Bonus.BonusType.BALL_SPEED);
             bonusT[i].setVel(0,0);
             bonusT[i].setVisible(false);
-           // bonusT[i].setCollideFixPos(false);
             bonusT[i].setCollide(true);
             bonusT[i].collisionService.addCollider(bat);
 
             add(bonusT[i]);
         }
-
         bonusPool.setPool(bonusT);
 
+        // MESSAGES
         MessageManager.addListener( "explosion", new Bcall<Void>() {
             @Override
             public Void call(Object o) {

@@ -19,6 +19,10 @@ public class StartScene extends Scene {
 
     public StartScene() {
         super("startScene");
+
+        BglSprite bg = new BglSprite( 0,0,1,1, new int[] {R.drawable.bg_cahier} );
+        add(bg);
+
         title = new BglSprite(0.25f,0.1f, 0.5f, 0.5f, new int[] {R.drawable.dust} );
         title.setVisible(false);
         add(title);
