@@ -91,7 +91,7 @@ public class SceneForBall extends Scene {
 
         bonusPool.setPool(bonusT);
 
-        MessageManager.addListener(new Bcall<Void>() {
+        MessageManager.addListener( "explosion", new Bcall<Void>() {
             @Override
             public Void call(Object o) {
 
@@ -105,9 +105,9 @@ public class SceneForBall extends Scene {
 
                 return null;
             }
-        }, "explosion");
+        });
 
-        MessageManager.addListener(new Bcall<Void>() {
+        MessageManager.addListener( "lost_ball", new Bcall<Void>() {
             @Override
             public Void call(Object o) {
                 remainingLife --;
@@ -120,10 +120,10 @@ public class SceneForBall extends Scene {
                 }
                 return null;
             }
-        }, "lost_ball");
+        });
 
 
-        MessageManager.addListener(new Bcall <Void>() {
+        MessageManager.addListener( "bonus_ball_speed",new Bcall <Void>() {
             @Override
             public Void call(Object o) {
 
@@ -146,7 +146,7 @@ public class SceneForBall extends Scene {
                     });
                 return null;
             }
-        }, "bonus_ball_speed");
+        });
 
         // TouchArea
         add(touchAreaThrowBall);

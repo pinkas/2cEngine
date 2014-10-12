@@ -24,7 +24,7 @@ public class MessageManager  {
         datas.put(m, data);
     }
 
-    public static void addListener(Bcall<Void> l, String mess){
+    public static void addListener(String mess, Bcall<Void> l){
         listener.put(mess, l);
     }
 
