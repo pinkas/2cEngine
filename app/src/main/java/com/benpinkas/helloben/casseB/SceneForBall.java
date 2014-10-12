@@ -22,6 +22,8 @@ public class SceneForBall extends Scene {
     private final ObjectPool bonusPool = new ObjectPool();
 
     private static int MAX_LIFE = 3;
+    private int totalBricks;
+    private int remainingBricks;
     private int remainingLife;
     private static enum GameState {ON, PAUSE, OFF};
     private GameState gameState = GameState.OFF;
@@ -64,6 +66,8 @@ public class SceneForBall extends Scene {
                 index++;
             }
         }
+        totalBricks = index;
+        remainingBricks = totalBricks;
 
         // BAT
         bat.setVisible(false);
@@ -100,15 +104,18 @@ public class SceneForBall extends Scene {
             @Override
             public Void call(Object o) {
 
+                remainingBricks --;
+                if (remainingBricks == 0){
+                    stop();
+                    SceneManager.startScene("startScene");
+                }
+
                 if (Math.random() > 0.3) {
                     Bonus bonus = (Bonus) bonusPool.getAvailableObj();
-                    //bonus = bonusT[0];
-
                     bonus.setPos(myBall.getPosX(), myBall.getPosY());
                     bonus.setVel(0,0.25f);
                     bonus.setVisible(true);
                 }
-
                 return null;
             }
         });
@@ -200,6 +207,7 @@ public class SceneForBall extends Scene {
     }
 
     public void initGame(){
+        remainingBricks = totalBricks;
         remainingLife = MAX_LIFE;
         initBricks();
         myBall.setVisible(true);
