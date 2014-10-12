@@ -14,10 +14,6 @@ import java.util.concurrent.Callable;
 
 public class SceneForBall extends Scene {
 
-    private Brectangle leftWall = new Brectangle(0-0.1f, 0, 0.1f, 1, 1, 1, 1, 1);
-    private Brectangle rightWall = new Brectangle(1, 0, 0.1f, 1, 1, 1, 1, 1 );
-    private Brectangle upperWall = new Brectangle(0, 0-0.1f, 1, 0.1f, 1, 1, 1, 1);
-
     private Ball myBall = new Ball(0.5f,0.8f, 0.045f, 0.025f, 0.1f, 0.7f, 1);
     private Brick[] destroyMe = new Brick[300];
     private Bat bat = new Bat();
@@ -41,6 +37,9 @@ public class SceneForBall extends Scene {
     public SceneForBall() {
         super("myBalls");
 
+        Brectangle leftWall = new Brectangle(0-0.1f, 0, 0.1f, 1, 1, 1, 1, 1);
+        Brectangle rightWall = new Brectangle(1, 0, 0.1f, 1, 1, 1, 1, 1 );
+        Brectangle upperWall = new Brectangle(0, 0-0.1f, 1, 0.1f, 1, 1, 1, 1);
         add(upperWall);
         add(leftWall);
         add(rightWall);
