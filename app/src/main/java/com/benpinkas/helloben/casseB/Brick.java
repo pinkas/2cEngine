@@ -1,5 +1,7 @@
 package com.benpinkas.helloben.casseB;
 
+import com.benpinkas.R;
+import com.benpinkas.bEngine.object.BglSprite;
 import com.benpinkas.bEngine.object.Bobject;
 import com.benpinkas.bEngine.object.Brectangle;
 import com.benpinkas.bEngine.object.Btimer;
@@ -11,27 +13,26 @@ import java.util.concurrent.Callable;
 /**
  * Created by Ben on 14-Jul-14.
  */
-public class Brick extends Brectangle {
+public class Brick extends BglSprite {
 
 
 
     private Brectangle[] particles = new Brectangle[4];
+    private boolean hasBonus;
 
     public Brick(){
-        super();
+        super(0,0,0.1f,0.1f, new int[] {R.drawable.brick} );
     }
 
-
-
     public Brick(float x, float y, float w, float h){
-        super(x,y,w,h,0.1f,0.1f,0.1f);
+        super(x,y,w,h, new int[] {R.drawable.brick} );
     }
 
     public void initParticles(){
             for( int i=0; i < particles.length; i++  ){
             particles[i] = new Brectangle();
             particles[i].setSize(0.02f, 0.02f);
-            particles[i].setColor(this);
+//            particles[i].setColor(this);
             particles[i].setPos(this);
             particles[i].setVisible(false);
             particles[i].setCollide(false);
@@ -60,12 +61,22 @@ public class Brick extends Brectangle {
         }
     }
 
+    //TODO write this function
+    public void generateBonus(){
+
+    }
+
     @Override
     public void collision(Bobject collider, CollisionService.collisionSide cs) {
         this.setCollide(false);
         MessageManager.sendMessage("explosion");
         //this.setVisible(false);
-
+        if (hasBonus){
+            // TODO bonus has to be added to the scene. Have some sort of a container thing so that
+            // I don't have to mannually ask the scene to add it. So I would just do add(destroyMe[index]);  et c'est tout
+            // TODO fire le bonus
+            // TODO avoir une classe bonus mdlol
+        }
         explode();
     }
 
@@ -76,9 +87,9 @@ public class Brick extends Brectangle {
     }
 
     public void explode(){
-
+        setVisible(false);
         showParticles();
-
+/*
         new Btimer( 1,  new Callable() {
             @Override
             public Boolean call() {
@@ -104,7 +115,7 @@ public class Brick extends Brectangle {
                     return true;
             }
         } );
-
+*/
     }
 
 }

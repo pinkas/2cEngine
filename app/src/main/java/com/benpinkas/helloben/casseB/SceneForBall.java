@@ -31,12 +31,12 @@ public class SceneForBall extends Scene {
     private GameState gameState = GameState.OFF;
 
     //Layout constants
-    private final float PADDX = 0.04f;
-    private final float PADDY = 0.01f;
-    private final float SIZEW = 0.075f;
-    private final float SIZEH = 0.03f;
-    private final int ROW = 10;
-    private final int COL = 11;
+    private final float PADDX = 0.02f;
+    private final float PADDY = 0.1f;
+    private final float SIZEW = 0.11f;
+    private final float SIZEH = 0.04f;
+    private final int ROW = 7;
+    private final int COL = 8;
 
     public SceneForBall() {
         super("myBalls");
@@ -80,7 +80,7 @@ public class SceneForBall extends Scene {
 
         bonusT = new Bonus[5];
         for (int i=0;i< bonusT.length; i++){
-            bonusT[i] = new Bonus(0, 1,0.1f, 0.02f, Bonus.BonusType.BALL_SPEED);
+            bonusT[i] = new Bonus(0, 1, 0.02f, 0.015f, Bonus.BonusType.BALL_SPEED);
             bonusT[i].setVisible(false);
            // bonusT[i].setCollideFixPos(false);
             bonusT[i].setCollide(true);
@@ -172,7 +172,7 @@ public class SceneForBall extends Scene {
             for (int j=0; j < COL; j++){
                 destroyMe[index].setPos(PADDX + j*(SIZEW+0.01f), PADDY + i*(SIZEH+0.01f) );
                 destroyMe[index].setSize(SIZEW, SIZEH);
-                destroyMe[index].setColor(0.5f, 1, 0.5f, 1.0f);
+               // destroyMe[index].setColor(0.5f, 1, 0.5f, 1.0f);
                 //destroyMe[index].setColor(j * 0.05f, j * 0.1f, 1.0f, 1.0f);
                 destroyMe[index].initParticles();
                 destroyMe[index].setCollide(true);

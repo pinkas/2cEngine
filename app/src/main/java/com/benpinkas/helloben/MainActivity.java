@@ -37,6 +37,11 @@ public class MainActivity extends Activity {
         BtextureManager.fillTextureHashTable(R.drawable.road);
         BtextureManager.fillTextureHashTable(R.drawable.start);
         BtextureManager.fillTextureHashTable(R.drawable.dust);
+        BtextureManager.fillTextureHashTable(R.drawable.bg_cahier);
+        BtextureManager.fillTextureHashTable(R.drawable.brick);
+        BtextureManager.fillTextureHashTable(R.drawable.ball);
+        BtextureManager.fillTextureHashTable(R.drawable.bat);
+
 
         // TODO if splashscreen is created before GameScene it is under my gameScene despite the
         // TODO setFocus. need to have a setLayer for Scenes as well
@@ -56,8 +61,8 @@ public class MainActivity extends Activity {
 //        final Scene rotateRectangles = new RotateGridRectangles();
 //        rotateRectangles.setVisible(false);
 
-        final Scene myballs = new SceneForBall();
         final Scene startScene = new StartScene();
+        final Scene myballs = new SceneForBall();
 
         SceneManager.setInputFocus(startScene);
         SceneManager.startScene(startScene);

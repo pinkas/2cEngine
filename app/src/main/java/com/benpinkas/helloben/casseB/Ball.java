@@ -2,6 +2,8 @@ package com.benpinkas.helloben.casseB;
 
 import android.graphics.PointF;
 
+import com.benpinkas.R;
+import com.benpinkas.bEngine.object.BglSprite;
 import com.benpinkas.bEngine.object.Bobject;
 import com.benpinkas.bEngine.object.Brectangle;
 import com.benpinkas.bEngine.service.CollisionService;
@@ -12,7 +14,7 @@ import com.benpinkas.bEngine.service.MessageManager;
 /**
  * Created by Ben on 13-Jul-14.
  */
-public class Ball extends Brectangle {
+public class Ball extends BglSprite {
 
     private PointF prevPos = new PointF();
     private PointF rawVel = new PointF();
@@ -22,7 +24,7 @@ public class Ball extends Brectangle {
     private static float SPEED_FACTOR = 3.5f;
 
     public Ball(float x, float y, float w, float h, float r, float g, float b){
-        super(x,y,w,h,r,g,b);
+        super(x,y,w,h, new int[] {R.drawable.ball} );
     }
 
 
@@ -76,6 +78,8 @@ public class Ball extends Brectangle {
         vel.x = rawVel.x*dt;
         vel.y = rawVel.y*dt;
 
+        setAngleZ(getAngleZ() +1 );
         setPos (posx + vel.x, posy + vel.y);
+
     }
 }
