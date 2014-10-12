@@ -21,10 +21,14 @@ public class Ball extends BglSprite {
 
     private boolean collisionDuringThisFrame;
 
-    private static float SPEED_FACTOR = 3.5f;
+    private static float BAT_FACTOR = 3.5f;
+    private static final float BASE_VEL = 0.45f;
+    private float speedFactor = 1;
 
     public Ball(float x, float y, float w, float h, float r, float g, float b){
         super(x,y,w,h, new int[] {R.drawable.ball} );
+        vel.x = BASE_VEL;
+        vel.y = BASE_VEL;
     }
 
 
@@ -32,54 +36,41 @@ public class Ball extends BglSprite {
     public void collision(Bobject collider, CollisionService.collisionSide cs) {
         //pos = prevPos;
         if ( collider instanceof Bat && !collisionDuringThisFrame ) {
+            collisionDuringThisFrame = true;
+
             float batCenterX = collider.getPosX(0.5f);
             float ballCenterX = this.getPosX(0.5f);
 
-            rawVel.y = -rawVel.y;
-            rawVel.x = (ballCenterX - batCenterX) * SPEED_FACTOR;
-
-            collisionDuringThisFrame = true;
+            vel.y = - vel.y;
+            vel.x = (ballCenterX - batCenterX) * BAT_FACTOR;
         }
         else if ( collider instanceof Brick || collider instanceof Brectangle){
             if(cs == collisionSide.LEFT || cs == collisionSide.RIGHT ){
-                rawVel.x = -rawVel.x;
+                vel.x = -vel.x;
             }
             if (cs == collisionSide.BOTTOM || cs == collisionSide.TOP ){
-                rawVel.y = -rawVel.y;
+                vel.y = -vel.y;
             }
         }
-    }
-
-    public void fire(float velX, float velY){
-        rawVel.x = velX;
-        rawVel.y = velY;
-    }
-
-    public float getRawVelX() {
-        return rawVel.x;
-    }
-
-    public float getRawVelY() {
-        return rawVel.y;
     }
 
     @Override
     public void update(float dt) {
+        collisionDuringThisFrame = false;
 
         if (getPosY() > 0.95f ) {
             MessageManager.sendMessage("lost_ball");
         }
 
-        collisionDuringThisFrame = false;
-        //PointF pos = this.getPos();
-        float posx = this.getPosX();
-        float posy = this.getPosY();
-
-        vel.x = rawVel.x*dt;
-        vel.y = rawVel.y*dt;
-
         setAngleZ(getAngleZ() +1 );
-        setPos (posx + vel.x, posy + vel.y);
 
+        float newPosX = this.getPosX() + vel.x * speedFactor * dt;
+        float newPosY = this.getPosY() + vel.y * speedFactor * dt;
+        setPos (newPosX, newPosY);
     }
+
+    public void setSpeedFactor(int speedFactor){
+        this.speedFactor = speedFactor;
+    }
+
 }

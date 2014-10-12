@@ -79,8 +79,9 @@ public class SceneForBall extends Scene {
         add(myBall);
 
         bonusT = new Bonus[5];
-        for (int i=0;i< bonusT.length; i++){
-            bonusT[i] = new Bonus(0, 1, 0.02f, 0.015f, Bonus.BonusType.BALL_SPEED);
+        for (int i=0; i<bonusT.length; i++){
+            bonusT[i] = new Bonus(0, 0, 0.02f, 0.015f, Bonus.BonusType.BALL_SPEED);
+            bonusT[i].setVel(0,0);
             bonusT[i].setVisible(false);
            // bonusT[i].setCollideFixPos(false);
             bonusT[i].setCollide(true);
@@ -100,6 +101,7 @@ public class SceneForBall extends Scene {
                     //bonus = bonusT[0];
 
                     bonus.setPos(myBall.getPosX(), myBall.getPosY());
+                    bonus.setVel(0,0.25f);
                     bonus.setVisible(true);
                 }
 
@@ -113,7 +115,7 @@ public class SceneForBall extends Scene {
                 remainingLife --;
                 gameState = GameState.PAUSE;
                 resetBallposition();
-                myBall.fire(0,0);
+                myBall.setSpeedFactor(0);
                 if ( remainingLife == 0 ) {
                     stop();
                     SceneManager.startScene("startScene");
@@ -123,27 +125,37 @@ public class SceneForBall extends Scene {
         });
 
 
-        MessageManager.addListener( "bonus_ball_speed",new Bcall <Void>() {
+        /* BONUS MESSAGES */
+
+        MessageManager.addListener( "bonus_out_of_screen", new Bcall <Void>() {
+            @Override
+            public Void call(Object o) {
+                System.out.println(o);
+                bonusPool.release((Bonus)o);
+                ((Bonus) o).setPos(0,0,0,0);
+                ((Bonus) o).setVel(0,0);
+
+                return null;
+            }
+        });
+
+        MessageManager.addListener( "bonus_ball_speed", new Bcall <Void>() {
             @Override
             public Void call(Object o) {
 
                 bonusPool.release((Bonus)o);
+                ((Bonus) o).setPos(0,0,0,0);
+                ((Bonus) o).setVel(0,0);
 
-                float velx = myBall.getRawVelX();
-                float vely = myBall.getRawVelY();
-                myBall.fire(velx*2, vely*2);
+                myBall.setSpeedFactor(2);
 
-                    Btimer timer = new Btimer(300, new Callable(){
-                        @Override
-                        public Boolean call(){
-                            float velx = myBall.getRawVelX();
-                            float vely = myBall.getRawVelY();
-
-                            myBall.fire(velx/2, vely/2);
-                            //bonusPool.release(bonus);
-                            return false;
-                        }
-                    });
+                new Btimer(300, new Callable(){
+                    @Override
+                    public Boolean call(){
+                        myBall.setSpeedFactor(1);
+                        return false;
+                    }
+                });
                 return null;
             }
         });
@@ -158,7 +170,8 @@ public class SceneForBall extends Scene {
                 if (gameState == GameState.PAUSE) {
                     gameState = GameState.ON;
                     float newVx = InputStatus.touchXabsPerc - myBall.getPosX();
-                    myBall.fire(newVx, -0.25f);
+                    myBall.setSpeedFactor(1);
+                    myBall.setVel(newVx, -0.45f);
                 }
                 return null;
             }
@@ -188,7 +201,8 @@ public class SceneForBall extends Scene {
     }
 
     public void startGame(){
-        myBall.fire(0.1f, -0.25f);
+        myBall.setSpeedFactor(1);
+//        myBall.fire(0.1f, -0.5f);
         myBall.setVisible(true);
         bat.setVisible(true);
         gameState = GameState.ON;
@@ -209,7 +223,7 @@ public class SceneForBall extends Scene {
 
     @Override
     public void stop() {
-        myBall.fire(0,0);
+        myBall.setSpeedFactor(0);
         myBall.setVisible(false);
         bat.setVisible(false);
         gameState = GameState.OFF;
