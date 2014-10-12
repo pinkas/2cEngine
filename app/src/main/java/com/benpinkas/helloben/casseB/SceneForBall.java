@@ -21,7 +21,8 @@ public class SceneForBall extends Scene {
     private Bonus[] bonusT;
     private final ObjectPool bonusPool = new ObjectPool();
 
-    private static int MAX_LIFE = 3;
+    private final static int MAX_LIFE = 3;
+    private final static int BONUS_DURATION = 300;
     private int totalBricks;
     private int remainingBricks;
     private int remainingLife;
@@ -54,7 +55,7 @@ public class SceneForBall extends Scene {
         int index = 0;
         for (int i=0; i < ROW; i++){
             for (int j=0; j < COL; j++){
-                destroyMe[index] = new Brick(2);
+                destroyMe[index] = new Brick(1);
                 destroyMe[index].setVisible(false);
                 destroyMe[index].setCollide(true);
                 add(destroyMe[index]);
@@ -115,6 +116,7 @@ public class SceneForBall extends Scene {
                     bonus.setPos(myBall.getPosX(), myBall.getPosY());
                     bonus.setVel(0,0.25f);
                     bonus.setVisible(true);
+                    bonus.setBonusType(Bonus.getRandomBonusType());
                 }
                 return null;
             }
@@ -160,16 +162,43 @@ public class SceneForBall extends Scene {
 
                 myBall.setSpeedFactor(2);
 
-                new Btimer(300, new Callable(){
+                new Btimer(BONUS_DURATION, new Callable(){
                     @Override
                     public Boolean call(){
-                        myBall.setSpeedFactor(1);
+                        if ( gameState == GameState.ON ) {
+                            myBall.setSpeedFactor(1);
+                        }
                         return false;
                     }
                 });
                 return null;
             }
         });
+
+        MessageManager.addListener( "bonus_bat_size", new Bcall <Void>() {
+        @Override
+            public Void call(Object o) {
+
+                bonusPool.release((Bonus)o);
+                ((Bonus) o).setPos(0,0,0,0);
+                ((Bonus) o).setVel(0,0);
+
+                bat.setBig(true);
+                new Btimer(BONUS_DURATION, new Callable(){
+                    @Override
+                    public Boolean call(){
+                        if ( gameState == GameState.ON ) {
+                            bat.setBig(false);
+                        }
+                        return false;
+                    }
+                });
+                return null;
+            }
+        });
+
+
+
 
         // TouchArea
         add(touchAreaThrowBall);

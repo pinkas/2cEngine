@@ -15,6 +15,9 @@ import com.benpinkas.bEngine.service.MessageManager;
 public class Bat extends BglSprite {
 
     private boolean touched;
+    private final static float NORMAL_SIZE_W = 0.25f;
+    private final static float NORMAL_SIZE_H = 0.06f;
+    private final static float ENLARGE_FACTOR = 2f;
 
     public Bat(){
         super(0.4f, 0.9f, 0.25f, 0.06f, new int[] {R.drawable.bat});
@@ -40,16 +43,17 @@ public class Bat extends BglSprite {
         super.touchUpMove(x,y);
         touched = false;
     }
-/*
-    @Override
-    public void collision(Bobject collider, CollisionService.collisionSide cs) {
-        super.collision(collider, cs);
-        if ( collider instanceof Bonus) {
-            ((Bonus) collider).setVisible(false);
-            MessageManager.sendMessage(((Bonus) collider).getBonusTypeString());
+
+    public void setBig(boolean big){
+        if (big){
+            setSize( NORMAL_SIZE_W * ENLARGE_FACTOR, NORMAL_SIZE_H );
         }
+        else{
+            setSize( NORMAL_SIZE_W, NORMAL_SIZE_H);
+        }
+
     }
-*/
+
     public void update(float dt){
         if (touched) {
             setPos(InputStatus.touchXscr/(float) Brenderer.getScreenW() - 0.5f*getSizeW(), getPosY());

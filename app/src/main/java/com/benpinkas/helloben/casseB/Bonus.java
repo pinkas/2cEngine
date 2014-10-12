@@ -2,6 +2,7 @@ package com.benpinkas.helloben.casseB;
 
 import android.os.Message;
 
+import com.benpinkas.bEngine.object.BglObject;
 import com.benpinkas.bEngine.object.Bobject;
 import com.benpinkas.bEngine.object.Brectangle;
 import com.benpinkas.bEngine.service.CollisionService;
@@ -61,6 +62,17 @@ public class Bonus extends Brectangle {
                 bonusTypeString = "bonus_bat_size";
                 break;
         }
+    }
+
+    public static BonusType getRandomBonusType(){
+        double rand = Math.random();
+        if (rand < 0.5 ){
+            return BonusType.BALL_SPEED;
+        }
+        else if (rand >= 0.5) {
+            return BonusType.BAT_SIZE;
+        }
+        else return BonusType.BALL_SPEED;
     }
 
 }
