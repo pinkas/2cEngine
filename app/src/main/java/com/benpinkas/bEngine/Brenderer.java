@@ -140,7 +140,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
         if (z != 0) perspective_scorll = true;
 
         Matrix.setLookAtM(viewMatrix, 0, camX, camY, camZ, lookX, lookY, lookZ, upX, upY, upZ);
-        MatrixHelper.perspectiveM(projMatrix, 45, (float) 720 / (float) 1280, 1f, 200f);
+        MatrixHelper.perspectiveM(projMatrix, 45, (float) screenW / (float) screenH, 1f, 200f);
         Matrix.invertM(projMatrixInv, 0, projMatrix, 0);
 
         fromWorldToGlFar(xGl, yGl, z, farPointWorld);
