@@ -12,10 +12,10 @@ import java.nio.FloatBuffer;
 public class TextureCoordCalculator {
 
     private static float textcoords[] = {
-            0.0f, 1.0f, 0.0f,
-            0.0f, 0.0f, 0.0f,
-            1.0f, 1.0f, 0.0f,
-            1.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f, // bottom left
+        0.0f, 0.0f, 0.0f, // top left
+        1.0f, 1.0f, 0.0f, // bottom right
+        1.0f, 0.0f, 0.0f, // top right
     };
 
     public static FloatBuffer[] calculate(float x, float y, float w, float h, SpriteSheet[] spritesheet) {

@@ -20,20 +20,19 @@ public abstract class Shader {
 
     protected static FloatBuffer vertexBuffer;
     protected static int[] vertexBufferID = new int[1];
+    protected static float verticesCoord[] = {
+        -1, -1, 0,  // bottom left
+        -1, 1, 0,   // top left
+        1, -1, 0,   // bottom right
+        1, 1, 0     // top right
+    };
 
-    protected static float objCoords[] = {
-            -1, -1, 0,    // top left
-            -1, 1, 0,   // bottom left
-            1, -1, 0,   // bottom right
-            1,  1, 0 }; // top right
-
-	
 	public Shader( Context context, int vertexCodeId, int fragmentCodeId ) {
 
-        ByteBuffer bb = ByteBuffer.allocateDirect( objCoords.length * 4);
+        ByteBuffer bb = ByteBuffer.allocateDirect( verticesCoord.length * 4);
         bb.order( ByteOrder.nativeOrder());
         vertexBuffer = bb.asFloatBuffer();
-        vertexBuffer.put(objCoords);
+        vertexBuffer.put(verticesCoord);
         vertexBuffer.position(0);
 
         glGenBuffers(1, vertexBufferID, 0);
