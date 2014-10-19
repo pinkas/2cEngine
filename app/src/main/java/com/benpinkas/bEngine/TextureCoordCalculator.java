@@ -89,5 +89,34 @@ public class TextureCoordCalculator {
         return textCoordBuffer;
     }
 
+    public static FloatBuffer[] calculate( int x, int y, int tesselX, int tesselY){
+
+        float [] textcoords = new float[12];
+
+        textcoords[0] = x*(1.0f/tesselX);
+        textcoords[1] = (y+1)*(1.0f/tesselY);
+        textcoords[2] = 0.0f;
+
+        textcoords[3] = x*(1f/tesselX);
+        textcoords[4] = (1f/tesselY)*(0.0f+y);
+        textcoords[5] = 0.0f;
+
+        textcoords[6] = (1f/tesselX)*(1.0f+x);
+        textcoords[7] = (y+1)*(1f/tesselY);
+        textcoords[8] = 0.0f;
+
+        textcoords[9] = (1f/tesselX)*(1.0f+x);
+        textcoords[10] = (1f/tesselY)*(0.0f+y);
+        textcoords[11] = 0.0f;
+
+
+        ByteBuffer bb = ByteBuffer.allocateDirect(textcoords.length * 4);
+        bb.order(ByteOrder.nativeOrder());
+        FloatBuffer[] textCoordBuffer = new FloatBuffer[1];
+        textCoordBuffer[0] = bb.asFloatBuffer();
+        textCoordBuffer[0].put(textcoords);
+        textCoordBuffer[0].position(0);
+        return textCoordBuffer;
+    }
 
 }

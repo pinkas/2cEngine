@@ -76,6 +76,10 @@ public class GlService {
         textCoordBuffer = TextureCoordCalculator.calculate(x, y, w, h, ss);
     }
 
+    public void recalculateTextCoord( int x, int y, int tesselX, int tesselY ) {
+        textCoordBuffer = TextureCoordCalculator.calculate(x, y, tesselX, tesselY);
+    }
+
     public String getShaderName() {
         return shaderName;
     }
