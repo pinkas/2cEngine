@@ -18,7 +18,7 @@ import java.util.concurrent.Callable;
 public class StartScene extends Scene {
 
     private final BglSprite title;
-    private final Button button;
+    private final Button startButton;
 
     private final static int DUST_EXPLO_X = 100;
     private final static int DUST_EXPLO_Y = 1;
@@ -36,62 +36,54 @@ public class StartScene extends Scene {
         add(title);
 
         // Explosion of the title
-        Explosion explosion = new Explosion(title, DUST_EXPLO_X, DUST_EXPLO_Y);
+        final Explosion explosion = new Explosion(title, DUST_EXPLO_X, DUST_EXPLO_Y);
         final BglSprite[] particles = explosion.getParticle();
         for (int i=0; i<particles.length; i++){
             add(particles[i]);
         }
 
         // Start Button
-        button = new Button(0.7f, 0.88f, 0.3f, 0.25f, new int[] {R.drawable.start},
+        startButton = new Button(0.7f, 0.88f, 0.3f, 0.25f, new int[] {R.drawable.start},
                 new Callable<Void>() {
             @Override
             public Void call() throws Exception {
                 stop();
-
+                //Timer in charge of the animation of the explostion of "Dust"
                 new Btimer(1, new Callable() {
                     @Override
                     public Boolean call() {
-                        float diff=0;
+                        float diff;
                         for (BglSprite p :particles){
-
                             diff = (0.5f-p.getPosX())/1000f;
                             p.setPos( p.getPosX() - diff, p.getPosY());
                         }
-                        if (particles[51].getPosX()>1.1f){
-                            for (BglSprite p :particles) {
-                                p.setVisible(false);
-                            }
-
+                        if (particles[particles.length/2].getPosX()>1.1f){
+                            // The Particles are off screen, we hide them and start the Game scene
+                            explosion.setVisible(false);
                             SceneManager.startScene("myBalls");
-                            return  false;
+                            return false;
                         }
                         return true;
                     }
                 } );
-
-
-                //SceneManager.startScene("myBalls");
                 return null;
             }
         });
-        button.setPos(0.5f, 0.65f, 1, 1);
-        button.setVisible(false);
-        add(button);
-
-
+        startButton.setPos(0.5f, 0.65f, 1, 1);
+        startButton.setVisible(false);
+        add(startButton);
     }
 
     @Override
     public void start() {
         SceneManager.setInputFocus(this);
         title.setVisible(true);
-        button.setVisible(true);
+        startButton.setVisible(true);
     }
 
     @Override
     public void stop() {
         title.setVisible(false);
-        button.setVisible(false);
+        startButton.setVisible(false);
     }
 }

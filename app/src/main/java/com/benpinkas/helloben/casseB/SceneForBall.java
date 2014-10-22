@@ -1,7 +1,10 @@
 package com.benpinkas.helloben.casseB;
 
+
 import com.benpinkas.bEngine.InputStatus;
 import com.benpinkas.bEngine.ObjectPool;
+import com.benpinkas.bEngine.effect.Explosion;
+import com.benpinkas.bEngine.object.BglSprite;
 import com.benpinkas.bEngine.object.Brectangle;
 import com.benpinkas.bEngine.object.Btimer;
 import com.benpinkas.bEngine.scene.Scene;
@@ -20,6 +23,8 @@ public class SceneForBall extends Scene {
     private Brectangle touchAreaThrowBall = new Brectangle(0,0, 1, 0.8f, 0, 0, 0, 0);
     private Bonus[] bonusT;
     private final ObjectPool bonusPool = new ObjectPool();
+    private final Explosion[] exp = new Explosion[3];
+    private final ObjectPool expPool = new ObjectPool();
 
     private final static int MAX_LIFE = 3;
     private final static int BONUS_DURATION = 300;
@@ -59,16 +64,35 @@ public class SceneForBall extends Scene {
                 destroyMe[index].setVisible(false);
                 destroyMe[index].setCollide(true);
                 add(destroyMe[index]);
-
-                //add(destroyMe[index].getParticles(0));
-                //add(destroyMe[index].getParticles(1));
-                //add(destroyMe[index].getParticles(2));
-                //add(destroyMe[index].getParticles(3));
                 index++;
             }
         }
         totalBricks = index;
         remainingBricks = totalBricks;
+
+        // EXPLOSION
+        exp[0] = new Explosion(destroyMe[0], 10,5);
+        exp[1] = new Explosion(destroyMe[0], 10,5);
+        exp[2] = new Explosion(destroyMe[0], 10,5);
+        expPool.setPool(exp);
+
+        BglSprite[] particles = exp[0].getParticle();
+        for (int i=0; i<particles.length; i++){
+            add(particles[i]);
+            particles[i].setVisible(false);
+        }
+
+        particles = exp[1].getParticle();
+        for (int i=0; i<particles.length; i++){
+            add(particles[i]);
+            particles[i].setVisible(false);
+        }
+
+        particles = exp[2].getParticle();
+        for (int i=0; i<particles.length; i++){
+            add(particles[i]);
+            particles[i].setVisible(false);
+        }
 
         // BAT
         bat.setVisible(false);
@@ -111,6 +135,10 @@ public class SceneForBall extends Scene {
                     SceneManager.startScene("startScene");
                 }
 
+                Explosion explosion = (Explosion) expPool.getAvailableObj();
+                explosion.init( (Brick) o);
+                explosion.boooom();
+
                 if (Math.random() > 0.3) {
                     Bonus bonus = (Bonus) bonusPool.getAvailableObj();
                     bonus.setPos(myBall.getPosX(), myBall.getPosY());
@@ -118,6 +146,14 @@ public class SceneForBall extends Scene {
                     bonus.setVisible(true);
                     bonus.setBonusType(Bonus.getRandomBonusType());
                 }
+                return null;
+            }
+        });
+
+        MessageManager.addListener("explosion_end", new Bcall<Void>() {
+            @Override
+            public Void call(Object o) {
+                expPool.release(o);
                 return null;
             }
         });
@@ -216,7 +252,6 @@ public class SceneForBall extends Scene {
                 return null;
             }
         });
-
     }
 
     public void initBricks(){
@@ -225,11 +260,9 @@ public class SceneForBall extends Scene {
             for (int j=0; j < COL; j++){
                 destroyMe[index].setPos(PADDX + j*(SIZEW+0.01f), PADDY + i*(SIZEH+0.01f) );
                 destroyMe[index].setSize(SIZEW, SIZEH);
-               // destroyMe[index].setColor(0.5f, 1, 0.5f, 1.0f);
-                //destroyMe[index].setColor(j * 0.05f, j * 0.1f, 1.0f, 1.0f);
-                destroyMe[index].initParticles();
                 destroyMe[index].setCollide(true);
                 destroyMe[index].setVisible(true);
+                destroyMe[index].setRemainingHp(1);
                 index++;
             }
         }
@@ -238,11 +271,11 @@ public class SceneForBall extends Scene {
     public void initGame(){
         remainingBricks = totalBricks;
         remainingLife = MAX_LIFE;
-        initBricks();
         myBall.setVisible(true);
         myBall.setSpeedFactor(0);
         myBall.setPos(0.5f, 0.8f, 0.5f, 0.5f);
         bat.setVisible(true);
+        initBricks();
         gameState = GameState.PAUSE;
     }
 

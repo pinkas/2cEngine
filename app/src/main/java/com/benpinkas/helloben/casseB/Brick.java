@@ -15,61 +15,32 @@ import java.util.concurrent.Callable;
  */
 public class Brick extends BglSprite {
 
-    private Brectangle[] particles = new Brectangle[4];
     private boolean hasBonus;
     private int remainingHp;
     private int totalHp;
 
+    private float[] damping;
+    private int damp_index;
+    private float savedPos;
+
     public Brick(int totalHp){
-        super(0,0,0.1f,0.1f, new int[] {R.drawable.brick} );
+        super(0.1f, 0.1f, 0.1f,0.1f, new int[] {R.drawable.brick} );
         this.totalHp = totalHp;
         remainingHp = totalHp;
+
+        damping = new float[ ]{ -0.006f, -0.009f, -0.008f, -0.007f, -0.004f };
     }
 
     public Brick(float x, float y, float w, float h){
         super(x,y,w,h, new int[] {R.drawable.brick} );
     }
 
-    public void initParticles(){
-            for( int i=0; i < particles.length; i++  ){
-            particles[i] = new Brectangle();
-            particles[i].setSize(0.02f, 0.02f);
-//            particles[i].setColor(this);
-            particles[i].setPos(this);
-            particles[i].setVisible(false);
-            particles[i].setCollide(false);
-        }
-    }
-
-    public Brectangle getParticles(int i){
-        return particles[i];
-    }
-
-    public void moveParticles(int i, float dx, float dy){
-        float posX = particles[i].getPosX();
-        float posY = particles[i].getPosY();
-
-        particles[i].setPos(posX+dx*30f/1000f, posY+dy*30f/1000f);
-        particles[i].setAngleZ(particles[i].getAngleZ()+50f*dx);
-    }
-    public void showParticles(){
-        for ( Brectangle b :particles)
-            b.setVisible(true);
-    }
-
-    public void setParticlesColor(float r, float g, float b, float a){
-        for (Brectangle rect : particles){
-            rect.setColor(r,g,b,a);
-        }
-    }
-
-
-
     @Override
     public void collision(Bobject collider, CollisionService.collisionSide cs) {
         remainingHp --;
-        if (remainingHp == 0) {
-            MessageManager.sendMessage("explosion");
+        damp();
+        if (remainingHp < 1) {
+            MessageManager.sendMessage("explosion", this);
             this.setCollide(false);
             explode();
         }
@@ -78,39 +49,39 @@ public class Brick extends BglSprite {
     public void init (){
         setCollide(true);
         setVisible(true);
-        initParticles();
+    }
+
+    public void damp(){
+
+        savedPos = getPosY();
+
+        new Btimer( 1,  new Callable() {
+            @Override
+            public Boolean call() {
+
+                setPos( getPosX(),  savedPos+damping[damp_index]);
+                if (damp_index == damping.length - 1 ) {
+                    damp_index = 0;
+                    setPos(getPosX(), savedPos);
+                    return false;
+                }
+                else {
+                    damp_index++;
+                    return true;
+                }
+            }
+        } );
+
+    }
+
+
+    public void setRemainingHp(int remainingHp) {
+        this.remainingHp = remainingHp;
     }
 
     public void explode(){
         setVisible(false);
 //        showParticles();
-/*
-        new Btimer( 1,  new Callable() {
-            @Override
-            public Boolean call() {
-
-                float speed = 0.15f;
-                moveParticles(0, speed, -speed);
-                moveParticles(1, -speed, -speed);
-                moveParticles(2, -speed, speed);
-                moveParticles(3, speed, speed);
-
-                color[3] = color[3] - 0.04f;
-                color[2] = color[2] - 0.04f;
-                color[1] = color[1] - 0.04f;
-                color[0] = color[0] - 0.04f;
-
-                setParticlesColor(color[0], color[1], color[2], color[3]);
-                if (color[3] < 0) {
-                    color[3] = 0;
-                    initParticles();
-                    return false;
-                }
-                else
-                    return true;
-            }
-        } );
-*/
     }
 
 }

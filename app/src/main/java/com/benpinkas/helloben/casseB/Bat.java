@@ -16,11 +16,11 @@ public class Bat extends BglSprite {
 
     private boolean touched;
     private final static float NORMAL_SIZE_W = 0.25f;
-    private final static float NORMAL_SIZE_H = 0.06f;
+    private final static float NORMAL_SIZE_H = 0.03f;
     private final static float ENLARGE_FACTOR = 2f;
 
     public Bat(){
-        super(0.4f, 0.9f, 0.25f, 0.06f, new int[] {R.drawable.bat});
+        super(0.4f, 0.9f, NORMAL_SIZE_W, NORMAL_SIZE_H, new int[] {R.drawable.bat});
         //anchorPointSet(0.5f,0.5f);
     }
 

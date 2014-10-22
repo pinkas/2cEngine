@@ -7,12 +7,12 @@ import com.benpinkas.bEngine.object.Bobject;
  */
 public class ObjectPool {
 
-    private Bobject[] obj;
+    private Object[] obj;
     private boolean[] available;
 
     public ObjectPool(){}
 
-    public ObjectPool( Bobject[] obj){
+    public ObjectPool( Object[] obj){
         this.obj = obj;
         available = new boolean[obj.length];
         for (int i=0; i<available.length; i++){
@@ -20,20 +20,21 @@ public class ObjectPool {
         }
     }
 
-    public void setPool( Bobject[] obj){
+    public void setPool( Object[] obj){
         this.obj = obj;
         available = new boolean[obj.length];
         for (int i=0; i<available.length; i++){
+            System.out.println("POOL " + obj[i].hashCode());
             available[i] = true;
         }
     }
 
 
-    public Bobject getAvailableObj(){
+    public Object getAvailableObj(){
         for(int i=0; i<obj.length; i++) {
             if( available[i] ){
                 available[i] = false;
-                System.out.println("Object " + i + " " + " was allocated");
+                System.out.println("Object " + i + " " + " was allocated " + obj[i].hashCode());
                 return obj[i];
             }
         }
@@ -44,7 +45,7 @@ public class ObjectPool {
 
 
 
-    public boolean release(Bobject o){
+    public boolean release(Object o){
         for(int i=0; i<obj.length; i++){
             if( obj[i] == o ){
                 available[i] = true;
@@ -52,7 +53,7 @@ public class ObjectPool {
                 return true;
             }
         }
-        System.out.println( " FAILED TO RELEASE !");
+        System.out.println( " FAILED TO RELEASE OBJECT " + o.hashCode());
 
         return false;
     }

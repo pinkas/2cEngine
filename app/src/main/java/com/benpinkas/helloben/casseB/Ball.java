@@ -62,7 +62,7 @@ public class Ball extends BglSprite {
             MessageManager.sendMessage("lost_ball");
         }
 
-        setAngleZ(getAngleZ() +1 );
+        setAngleZ(getAngleZ() +2*speedFactor);
 
         float newPosX = this.getPosX() + vel.x * speedFactor * dt;
         float newPosY = this.getPosY() + vel.y * speedFactor * dt;
