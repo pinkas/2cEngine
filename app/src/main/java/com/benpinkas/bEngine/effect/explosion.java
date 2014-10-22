@@ -15,8 +15,7 @@ public class Explosion {
     private int tesselY;
     private float particleW;
     private float particleH;
-
-    private static final float FRICTION = 0.00006f;
+    private Explosion explosionReference = this;
 
     public Explosion( BglSprite exploser, int tesselX, int tesselY){
 
@@ -69,7 +68,6 @@ public class Explosion {
     }
 
     public void boooom(){
-        final Object blah = this;
         new Btimer(1, new Callable() {
             @Override
             public Boolean call() {
@@ -77,38 +75,22 @@ public class Explosion {
                 for (BglSprite p :particle){
                     PointF vel = p.getVel();
                     p.setPos(p.getPosX() + vel.x, p.getPosY() + vel.y);
-
-                    float newVelX, newVelY;
-                    if (vel.x > 0)
-                        newVelX = vel.x - FRICTION;
-                    else
-                        newVelX = vel.x + FRICTION;
-                    if (vel.y > 0)
-                        newVelY = vel.y - FRICTION;
-                    else
-                        newVelY = vel.y + FRICTION;
-
                     alpha = p.glService.getAlpha();
                     p.glService.setAlpha( alpha - 0.05f );
-                    //p.setVel(newVelX, newVelY);
                     p.setAngleZ(p.getAngleZ() + vel.x*2000);
-
                 }
-
 
                 if ( alpha < 0.0f ){
                     for (BglSprite p :particle) {
                         p.setVel(0,0);
                         p.setVisible(false);
                     }
-                    MessageManager.sendMessage("explosion_end", blah);
-
-                    return  false;
+                    MessageManager.sendMessage("explosion_end", explosionReference);
+                    return false;
                 }
                 return true;
             }
         } );
-
     }
 
     public void setVisible(boolean visible){
@@ -120,6 +102,5 @@ public class Explosion {
     public BglSprite[] getParticle() {
         return particle;
     }
-
 
 }
