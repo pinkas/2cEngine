@@ -26,7 +26,7 @@ public class Bobject {
 
     private Callable<Void> touchU;
     private Callable<Void> touchD;
-
+    private Callable<Void> touchM;
 
     protected int layer;
     protected boolean pressed;
@@ -70,7 +70,15 @@ public class Bobject {
 
     }
     //When moving your finger over the object
-    public void touchMove(float x, float y) {}
+    public void touchMove(float x, float y) {
+        if(touchM != null){
+            try{
+                touchM.call();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
     // Triggered when releasing the finger when not over the object anymore
     public void touchUpMove(float x, float y){
         pressed = false;
@@ -82,6 +90,7 @@ public class Bobject {
     public void setTouchD( Callable<Void> cb ){
         touchD = cb;
     }
+    public void setTouchM( Callable<Void> cb ) { touchM = cb; }
 
     public boolean isPressed(){
         return pressed;
@@ -133,6 +142,8 @@ public class Bobject {
         this.x = o.x;
         this.y = o.y;
     }
+    /** Position the object according to x & y and an anchor point oriX & oriY
+     * 0,0 being the center of the object -0.5, 1 bottom left */
     public void setPos( float x, float y, float oriX, float oriY ){
         this.x = x + (0.5f - oriX) * w;
         this.y = y + (0.5f - oriY) * h;
