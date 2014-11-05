@@ -6,6 +6,7 @@ import com.benpinkas.bEngine.InputStatus;
 import com.benpinkas.bEngine.object.BglSprite;
 import com.benpinkas.bEngine.object.Bobject;
 import com.benpinkas.bEngine.object.Brectangle;
+import com.benpinkas.bEngine.service.Bcall;
 import com.benpinkas.bEngine.service.CollisionService;
 import com.benpinkas.bEngine.service.MessageManager;
 
@@ -21,27 +22,20 @@ public class Bat extends BglSprite {
 
     public Bat(){
         super(0.4f, 0.9f, NORMAL_SIZE_W, NORMAL_SIZE_H, new int[] {R.drawable.bat});
-        //anchorPointSet(0.5f,0.5f);
-    }
 
-    @Override
-    public void touchMove(float x, float y) {
-        setPos( x - 0.5f*getSizeW(), getPosY() );
-    }
-    @Override
-    public void touchDown(){
-        super.touchDown();
-        touched = true;
-    }
+        MessageManager.addListener("bat_down", new Bcall<Void>() {
+            public Void call(Object o) {
 
-    public void touchUp(){
-        super.touchUp();
-        touched = false;
-    }
+                return null;
+            }
+        }) ;
 
-    public void touchUpMove(float x, float y){
-        super.touchUpMove(x,y);
-        touched = false;
+        MessageManager.addListener("bat_up", new Bcall<Void>() {
+            public Void call(Object o) {
+                return null;
+            }
+        }) ;
+
     }
 
     public void setBig(boolean big){
@@ -54,10 +48,11 @@ public class Bat extends BglSprite {
 
     }
 
+    public void moveBatToFinger(){
+        setPos(InputStatus.touchXscr/(float) Brenderer.getScreenW() - 0.5f*getSizeW(), getPosY());
+    }
+
     public void update(float dt){
-        if (touched) {
-            setPos(InputStatus.touchXscr/(float) Brenderer.getScreenW() - 0.5f*getSizeW(), getPosY());
-        }
     }
 
 

@@ -1,6 +1,7 @@
 package com.benpinkas.helloben.casseB;
 
 
+import com.benpinkas.bEngine.Brenderer;
 import com.benpinkas.bEngine.InputStatus;
 import com.benpinkas.bEngine.ObjectPool;
 import com.benpinkas.bEngine.effect.Explosion;
@@ -21,6 +22,7 @@ public class SceneForBall extends Scene {
     private Brick[] destroyMe = new Brick[300];
     private Bat bat = new Bat();
     private Brectangle touchAreaThrowBall = new Brectangle(0,0, 1, 0.8f, 0, 0, 0, 0);
+    private Brectangle touchAreaBat = new Brectangle(0,0, 1, 0.8f, 0, 0, 0, 0);
     private Bonus[] bonusT;
     private final ObjectPool bonusPool = new ObjectPool();
     private final Explosion[] exp = new Explosion[3];
@@ -142,7 +144,7 @@ public class SceneForBall extends Scene {
                 if (Math.random() > 0.3) {
                     Bonus bonus = (Bonus) bonusPool.getAvailableObj();
                     bonus.setPos(myBall.getPosX(), myBall.getPosY());
-                    bonus.setVel(0,0.25f);
+                    bonus.setVel(0, 0.25f);
                     bonus.setVisible(true);
                     bonus.setBonusType(Bonus.getRandomBonusType());
                 }
@@ -175,12 +177,11 @@ public class SceneForBall extends Scene {
 
 
         /* BONUS MESSAGES */
-
         MessageManager.addListener( "bonus_out_of_screen", new Bcall <Void>() {
             @Override
             public Void call(Object o) {
                 System.out.println(o);
-                bonusPool.release((Bonus)o);
+                bonusPool.release(o);
                 ((Bonus) o).setPos(0,0,0,0);
                 ((Bonus) o).setVel(0,0);
 
@@ -192,7 +193,7 @@ public class SceneForBall extends Scene {
             @Override
             public Void call(Object o) {
 
-                bonusPool.release((Bonus)o);
+                bonusPool.release(o);
                 ((Bonus) o).setPos(0,0,0,0);
                 ((Bonus) o).setVel(0,0);
 
@@ -215,7 +216,7 @@ public class SceneForBall extends Scene {
         @Override
             public Void call(Object o) {
 
-                bonusPool.release((Bonus)o);
+                bonusPool.release(o);
                 ((Bonus) o).setPos(0,0,0,0);
                 ((Bonus) o).setVel(0,0);
 
@@ -233,9 +234,6 @@ public class SceneForBall extends Scene {
             }
         });
 
-
-
-
         // TouchArea
         add(touchAreaThrowBall);
         touchAreaThrowBall.setCollide(false);
@@ -252,6 +250,28 @@ public class SceneForBall extends Scene {
                 return null;
             }
         });
+
+        // Touch Area for Bat
+        add(touchAreaBat);
+        touchAreaBat.setCollide(false);
+        touchAreaBat.setSize(1, 0.25f);
+        touchAreaBat.setPos(0, 1-0.25f);
+
+        touchAreaBat.setTouchD(new Callable<Void>() {
+            public Void call() throws Exception {
+                bat.moveBatToFinger();
+                return null;
+            }
+        });
+
+        touchAreaBat.setTouchM(new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                bat.moveBatToFinger();
+                return null;
+            }
+        });
+
     }
 
     public void initBricks(){
