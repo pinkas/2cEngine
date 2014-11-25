@@ -35,34 +35,32 @@ public class TextureCoordCalculator {
 
             SpriteSheet obj = spritesheet[i];
 
-            float w_offset = w / obj.getNumber_of_frame_x();
-            float h_offset = h / obj.getNumber_of_frame_y();
+            float xFrame = 1.0f / obj.getNumber_of_frame_x();
+            float yFrame = 1.0f / obj.getNumber_of_frame_y();
 
             number_of_frame[i] = obj.getNumber_of_frame_x() * obj.getNumber_of_frame_y();
             number_of_frame_real[i] = obj.getNumber_of_frame_real();
 
-            //this.state = 0;
-
             textcoords[i] = new float [ 12*number_of_frame[i] ];
             int v=0;
 
-            for (int j=0; j < obj.getNumber_of_frame_y();j++){
-                for (int ii=0; ii < obj.getNumber_of_frame_x();ii++){
+            for (int j=0; j < obj.getNumber_of_frame_y(); j++){
+                for (int ii=0; ii < obj.getNumber_of_frame_x(); ii++){
 
-                    textcoords[i][v] = ii*(w_offset/w)+0.0f;
-                    textcoords[i][v+1] = (j+1)*(h_offset/h);
+                    textcoords[i][v] = ii*xFrame;
+                    textcoords[i][v+1] = (j+1.0f)*yFrame;
                     textcoords[i][v+2] = 0.0f;
 
-                    textcoords[i][v+3] = ii*(w_offset/w)+0.0f;
-                    textcoords[i][v+4] = (h_offset/h)*(0.0f+j);
+                    textcoords[i][v+3] = ii*xFrame;
+                    textcoords[i][v+4] = yFrame*j;
                     textcoords[i][v+5] = 0.0f;
 
-                    textcoords[i][v+6] = (w_offset/w)*(1.0f+ii);
-                    textcoords[i][v+7] = (j+1)*(h_offset/h);
+                    textcoords[i][v+6] = xFrame*(1.0f+ii);
+                    textcoords[i][v+7] = (j+1.0f)*yFrame;
                     textcoords[i][v+8] = 0.0f;
 
-                    textcoords[i][v+9] = (w_offset/w)*(1.0f+ii);
-                    textcoords[i][v+10] = (h_offset/h)*(0.0f+j);
+                    textcoords[i][v+9] = xFrame*(1.0f+ii);
+                    textcoords[i][v+10] = yFrame*j;
                     textcoords[i][v+11] = 0.0f;
 
                     v = v + 12;
