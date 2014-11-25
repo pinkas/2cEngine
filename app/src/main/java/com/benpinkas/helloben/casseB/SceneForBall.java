@@ -1,17 +1,24 @@
 package com.benpinkas.helloben.casseB;
 
 
-import com.benpinkas.bEngine.Brenderer;
+import com.benpinkas.R;
 import com.benpinkas.bEngine.InputStatus;
 import com.benpinkas.bEngine.ObjectPool;
 import com.benpinkas.bEngine.effect.Explosion;
 import com.benpinkas.bEngine.object.BglSprite;
 import com.benpinkas.bEngine.object.Brectangle;
 import com.benpinkas.bEngine.object.Btimer;
+import com.benpinkas.bEngine.object.SpriteSheet;
 import com.benpinkas.bEngine.scene.Scene;
 import com.benpinkas.bEngine.scene.SceneManager;
 import com.benpinkas.bEngine.service.Bcall;
 import com.benpinkas.bEngine.service.MessageManager;
+import com.benpinkas.helloben.casseB.wizard.Action;
+import com.benpinkas.helloben.casseB.wizard.Projectile;
+import com.benpinkas.helloben.casseB.wizard.WizAttack;
+import com.benpinkas.helloben.casseB.wizard.WizCast;
+import com.benpinkas.helloben.casseB.wizard.WizMove;
+import com.benpinkas.helloben.casseB.wizard.Wizard;
 
 import java.util.concurrent.Callable;
 
@@ -20,6 +27,9 @@ public class SceneForBall extends Scene {
 
     private Ball myBall;
     private Brick[] destroyMe = new Brick[300];
+    private Wizard theWiz;
+    private Projectile projectile;
+
     private Bat bat = new Bat();
     private Brectangle touchAreaThrowBall = new Brectangle(0,0, 1, 0.8f, 0, 0, 0, 0);
     private Brectangle touchAreaBat = new Brectangle(0,0, 1, 0.8f, 0, 0, 0, 0);
@@ -113,6 +123,40 @@ public class SceneForBall extends Scene {
         myBall.collisionService.addCollider(bat);
         add(myBall);
 
+
+        // Projectile
+        projectile = new Projectile(0,0,0.06f,0.04f, new int[]{ R.drawable.projectile});
+        projectile.setCollide(true);
+        add(projectile);
+        bat.collisionService.addCollider(projectile);
+        projectile.setVisible(false);
+        // WIZARD
+        //SpriteSheet blank = new SpriteSheet(R.drawable.wizard_steal, 4, 1, 4, new int[] {100,7,7,7});
+        SpriteSheet blank = new SpriteSheet(R.drawable.latiku, 2, 1, 2, new int[] {20,20});
+        SpriteSheet blank2 = new SpriteSheet(R.drawable.wizard_goleft, 4, 1, 4, new int[] {2,2,2,2});
+        SpriteSheet blank3 = new SpriteSheet(R.drawable.wizard_goright, 3, 1, 3, new int[] {2,2,2});
+        //SpriteSheet blank4 = new SpriteSheet(R.drawable.wizard_cast, 6, 1, 6, new int[] {10,10,10,10,10,10});
+        SpriteSheet blank4 = new SpriteSheet(R.drawable.latiku_cast, 7, 1, 7,
+                new int[] {4, 4, 4, 4, 4, 4, 4} );
+
+
+        final SpriteSheet [] spriteSheetTab = new SpriteSheet[4];
+        spriteSheetTab[0] = blank;
+        spriteSheetTab[1] = blank2;
+        spriteSheetTab[2] = blank3;
+        spriteSheetTab[3] = blank4;
+
+        // Wiz
+        theWiz = new Wizard(0.65f, 0.0001f, 0.13f, 0.11f, spriteSheetTab, bat, projectile);
+        // Wiz actions
+        Action[] actions = new Action[3];
+        actions[0] = new WizMove(theWiz);
+        actions[1] = new WizCast(theWiz);
+        actions[2] = new WizAttack(theWiz, projectile);
+        theWiz.setActions(actions);
+        theWiz.setCollide(false);
+        add(theWiz);
+
         // BONUS/POOL CREATION
         bonusT = new Bonus[5];
         for (int i=0; i<bonusT.length; i++){
@@ -163,14 +207,18 @@ public class SceneForBall extends Scene {
         MessageManager.addListener( "lost_ball", new Bcall<Void>() {
             @Override
             public Void call(Object o) {
-                remainingLife --;
-                gameState = GameState.PAUSE;
-                resetBallposition();
-                myBall.setSpeedFactor(0);
-                if ( remainingLife == 0 ) {
-                    stop();
-                    SceneManager.startScene("startScene");
-                }
+                playerFail();
+                return null;
+            }
+        });
+
+        MessageManager.addListener("bat_hit_by_projectile", new Bcall<Void>() {
+            @Override
+            public Void call(Object o) {
+                //TODO change that it's not nice
+                //So that there is only one collision registered
+                bat.setCollide(false);
+                playerFail();
                 return null;
             }
         });
@@ -295,6 +343,7 @@ public class SceneForBall extends Scene {
         myBall.setSpeedFactor(0);
         myBall.setPos(0.5f, 0.8f, 0.5f, 0.5f);
         bat.setVisible(true);
+        theWiz.setVisible(true);
         initBricks();
         gameState = GameState.PAUSE;
     }
@@ -303,6 +352,18 @@ public class SceneForBall extends Scene {
         float posx = bat.getPosX();
         float posy = bat.getPosY();
         myBall.setPos(posx, posy-0.1f);
+    }
+
+    public void playerFail(){
+        remainingLife --;
+        gameState = GameState.PAUSE;
+        theWiz.setState(Wizard.WizState.OFF);
+        resetBallposition();
+        myBall.setSpeedFactor(0);
+        if ( remainingLife == 0 ) {
+            stop();
+            SceneManager.startScene("startScene");
+        }
     }
 
     @Override
@@ -316,6 +377,8 @@ public class SceneForBall extends Scene {
         myBall.setSpeedFactor(0);
         myBall.setVisible(false);
         bat.setVisible(false);
+        theWiz.setVisible(false);
+        projectile.setVisible(false);
         gameState = GameState.OFF;
     }
 }
