@@ -46,6 +46,9 @@ public class SceneForBall extends Scene {
     private static enum GameState {ON, PAUSE, OFF};
     private GameState gameState = GameState.OFF;
 
+    //constants
+    private final float BONUS_PROBABILITY = 0.7f;
+
     //Layout constants
     private final float PADDX = 0.02f;
     private final float PADDY = 0.1f;
@@ -185,7 +188,7 @@ public class SceneForBall extends Scene {
                 explosion.init( (Brick) o);
                 explosion.boooom();
 
-                if (Math.random() > 0.3) {
+                if (Math.random() > BONUS_PROBABILITY) {
                     Bonus bonus = (Bonus) bonusPool.getAvailableObj();
                     bonus.setPos(myBall.getPosX(), myBall.getPosY());
                     bonus.setVel(0, 0.25f);
