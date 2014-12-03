@@ -81,7 +81,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
         // Set the background frame color
-        glClearColor(1f, 0.65f, 0.1f, 0.2f);
+        glClearColor(0.47f, 0.71f, 1f, 0.2f);
         // TODO have a list that we go through
         new ShaderList(context);
         // load all the texture and init the existing object of the world with a shader

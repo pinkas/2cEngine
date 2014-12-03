@@ -18,7 +18,6 @@ public class Heroe extends BglAnimatedSprite {
     @Override
     public void touchDown() {
         super.touchDown();
-        setAnimated(false);
         jump();
         speed = 0;
     }
@@ -26,7 +25,6 @@ public class Heroe extends BglAnimatedSprite {
     @Override
     public void touchUp() {
         super.touchUp();
-        setAnimated(true);
         speed = 0.002f;
     }
 

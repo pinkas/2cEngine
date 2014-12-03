@@ -113,7 +113,7 @@ public class SpaceShipEnemy extends SpaceShip {
                 if ( Math.random()  >= 0.5)
                     posx = 0.2f;
                 else
-                        posx = 0.8f;
+                    posx = 0.8f;
 
                 crazyProjectiles[crazyAttackCpt].setVisible(true);
                 crazyProjectiles[crazyAttackCpt].setPos(posx, 0);
@@ -124,15 +124,12 @@ public class SpaceShipEnemy extends SpaceShip {
 
         @Override
         public int isDone() {
-            if( progress > 1000 ) {
+            if( progress > 1000 )
                 return 0;
-            }
-            else if ( life < 3 ) {
+            else if ( life < 3 )
                 return 1;
-            }
-            else {
+            else
                 return -1;
-            }
         }
 
         @Override
@@ -142,8 +139,7 @@ public class SpaceShipEnemy extends SpaceShip {
         }
 
         @Override
-        public void move() {
-        }
+        public void move() {}
 
     }
 
