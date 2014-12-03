@@ -115,7 +115,7 @@ public class SceneForBall extends Scene {
         add(bat);
 
         // BALL CREATION
-        myBall = new Ball(0.0f,0.0f, 0.045f, 0.025f, 0.1f, 0.7f, 1);
+        myBall = new Ball(0.0f,0.0f, 0.05f, 0.03f, 0.1f, 0.7f, 1);
         myBall.setVisible(false);
         myBall.setCollide(true);
         myBall.collisionService.addCollider(leftWall);
@@ -293,6 +293,9 @@ public class SceneForBall extends Scene {
             @Override
             public Void call() throws Exception {
                 if (gameState == GameState.PAUSE) {
+                    //TODO the following lines should be a function game_is_on ou quelque chose dans le genre
+                    theWiz.setState(Wizard.WizState.ON);
+                    bat.setCollide(true);
                     gameState = GameState.ON;
                     float newVx = InputStatus.touchXabsPerc - myBall.getPosX();
                     myBall.setSpeedFactor(1);
@@ -310,15 +313,14 @@ public class SceneForBall extends Scene {
 
         touchAreaBat.setTouchD(new Callable<Void>() {
             public Void call() throws Exception {
-                bat.moveBatToFinger();
+                bat.setToGoPos();
                 return null;
             }
         });
 
         touchAreaBat.setTouchM(new Callable<Void>() {
-            @Override
             public Void call() throws Exception {
-                bat.moveBatToFinger();
+                bat.setToGoPos();
                 return null;
             }
         });

@@ -27,7 +27,7 @@ public class StartScene extends Scene {
         super("startScene");
 
         // Bg
-        BglSprite bg = new BglSprite( 0,0,1,1, new int[] {R.drawable.bg_cahier});
+        BglSprite bg = new BglSprite( 0,0,1,1, new int[] {R.drawable.bg});
         add(bg);
 
         // Title sprite "Dust"
@@ -54,10 +54,10 @@ public class StartScene extends Scene {
                     public Boolean call() {
                         float diff;
                         for (BglSprite p :particles){
-                            diff = (0.5f-p.getPosX())/1000f;
+                            diff = (0.51f-p.getPosX())/800f;
                             p.setPos( p.getPosX() - diff, p.getPosY());
                         }
-                        if (particles[particles.length/2].getPosX()>1.1f){
+                        if (particles[53].getPosX()>1.1f){
                             // The Particles are off screen, we hide them and start the Game scene
                             explosion.setVisible(false);
                             SceneManager.startScene("myBalls");
