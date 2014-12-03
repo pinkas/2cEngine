@@ -26,29 +26,16 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
         /* TODO pass a table of resource rather than 10000 calls to fillTextureHashTable */
-        BtextureManager.fillTextureHashTable(R.drawable.lastlayer);
         BtextureManager.fillTextureHashTable(R.drawable.bg);
-        BtextureManager.fillTextureHashTable(R.drawable.dune);
-        BtextureManager.fillTextureHashTable(R.drawable.firstlayer);
-        BtextureManager.fillTextureHashTable(R.drawable.sprite);
-        BtextureManager.fillTextureHashTable(R.drawable.sprite2);
-        BtextureManager.fillTextureHashTable(R.drawable.splash);
-        BtextureManager.fillTextureHashTable(R.drawable.biker);
-        BtextureManager.fillTextureHashTable(R.drawable.blank);
-        BtextureManager.fillTextureHashTable(R.drawable.road);
-        BtextureManager.fillTextureHashTable(R.drawable.start);
-        BtextureManager.fillTextureHashTable(R.drawable.dust);
-        BtextureManager.fillTextureHashTable(R.drawable.bg_cahier);
         BtextureManager.fillTextureHashTable(R.drawable.brick_mario);
         BtextureManager.fillTextureHashTable(R.drawable.ball);
         BtextureManager.fillTextureHashTable(R.drawable.bat);
-        BtextureManager.fillTextureHashTable(R.drawable.wizard_steal);
-        BtextureManager.fillTextureHashTable(R.drawable.wizard_goleft);
-        BtextureManager.fillTextureHashTable(R.drawable.wizard_goright);
-        BtextureManager.fillTextureHashTable(R.drawable.wizard_cast);
         BtextureManager.fillTextureHashTable(R.drawable.latiku);
         BtextureManager.fillTextureHashTable(R.drawable.latiku_cast);
         BtextureManager.fillTextureHashTable(R.drawable.projectile);
+        BtextureManager.fillTextureHashTable(R.drawable.dust);
+        BtextureManager.fillTextureHashTable(R.drawable.start);
+
 
 
         // TODO if splashscreen is created before GameScene it is under my gameScene despite the
