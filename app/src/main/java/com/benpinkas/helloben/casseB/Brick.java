@@ -24,7 +24,7 @@ public class Brick extends BglSprite {
     private float savedPos;
 
     public Brick(int totalHp){
-        super(0.1f, 0.1f, 0.1f,0.1f, new int[] {R.drawable.brick} );
+        super(0.1f, 0.1f, 0.1f,0.1f, new int[] {R.drawable.brick_mario} );
         this.totalHp = totalHp;
         remainingHp = totalHp;
 
@@ -32,7 +32,7 @@ public class Brick extends BglSprite {
     }
 
     public Brick(float x, float y, float w, float h){
-        super(x,y,w,h, new int[] {R.drawable.brick} );
+        super(x,y,w,h, new int[] {R.drawable.brick_mario} );
     }
 
     @Override
