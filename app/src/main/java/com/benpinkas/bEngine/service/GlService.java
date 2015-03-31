@@ -5,7 +5,10 @@ import android.graphics.PointF;
 import com.benpinkas.bEngine.BtextureManager;
 import com.benpinkas.bEngine.TextureCoordCalculator;
 import com.benpinkas.bEngine.object.SpriteSheet;
+import com.benpinkas.bEngine.shader.Shader;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 /**
@@ -20,6 +23,7 @@ public class GlService {
     protected int[] textureHandle = new int[1];
     protected int textureHandleIndex;
 
+    private FloatBuffer vertexBuffer;
     private FloatBuffer[] textCoordBuffer;
 
     protected PointF offsetCamera;
@@ -27,6 +31,12 @@ public class GlService {
 
     public GlService() {
         textCoordBuffer = TextureCoordCalculator.calculate();
+
+        ByteBuffer bb = ByteBuffer.allocateDirect( Shader.verticesCoord.length * 4);
+        bb.order( ByteOrder.nativeOrder());
+        vertexBuffer = bb.asFloatBuffer();
+        vertexBuffer.put(Shader.verticesCoord);
+        vertexBuffer.position(0);
     }
 
     public GlService(String shaderName, boolean boundToCamera, float alpha) {
@@ -35,6 +45,12 @@ public class GlService {
         this.shaderName = shaderName;
         this.boundToCamera = boundToCamera;
         this.alpha = alpha;
+
+        ByteBuffer bb = ByteBuffer.allocateDirect( Shader.verticesCoord.length * 4);
+        bb.order( ByteOrder.nativeOrder());
+        vertexBuffer = bb.asFloatBuffer();
+        vertexBuffer.put(Shader.verticesCoord);
+        vertexBuffer.position(0);
     }
 
     public FloatBuffer getTextCoordBuffer() {
@@ -42,6 +58,10 @@ public class GlService {
         // I'd say the object.
         //TODO The same for l'actual textCoord, see method below
         return textCoordBuffer[textureHandleIndex];
+    }
+
+    public FloatBuffer getVertexBuffer() {
+        return vertexBuffer;
     }
 
     public void setTextCoordPos(int i) {

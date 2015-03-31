@@ -20,7 +20,7 @@ public abstract class Shader {
 
     protected static FloatBuffer vertexBuffer;
     protected static int[] vertexBufferID = new int[1];
-    protected static float verticesCoord[] = {
+    public static float verticesCoord[] = {
         -1, -1, 0,  // bottom left
         -1, 1, 0,   // top left
         1, -1, 0,   // bottom right

@@ -37,23 +37,24 @@ public class BasicShader extends Shader {
         mAlphaHandle = glGetUniformLocation(mProgram,"alpha");
         mMVPMatrixHandle = glGetUniformLocation(mProgram, "uMVPMatrix");
         mTextureUniformHandle = glGetUniformLocation(mProgram, "u_texture");
+
+        glEnableVertexAttribArray(mTextureCoordinateHandle);
+        glEnableVertexAttribArray(mPositionHandle);
+
+        glActiveTexture(GL_TEXTURE0 );
     }
 	
 	public  void sendParametersToShader( BglObject obj, float[] mat) {
 
         // Send vertices coordinates
-        glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID[0] );
-        glEnableVertexAttribArray(mPositionHandle);
-        glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, 0, 0);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, 0,
+                obj.glService.getVertexBuffer());
 
         // Send texture coordinates
-        glEnableVertexAttribArray(mTextureCoordinateHandle);
         glVertexAttribPointer(mTextureCoordinateHandle, COORDS_PER_VERTEX, GL_FLOAT, false, 0,
                 obj.glService.getTextCoordBuffer());
-        glActiveTexture(GL_TEXTURE0 );
         glBindTexture(GL_TEXTURE_2D, obj.glService.getTextureHandle() );
-        glUniform1i(mTextureUniformHandle, 0);
+     //   glUniform1i(mTextureUniformHandle, 0);
 
         // Send alpha
         glUniform1f(mAlphaHandle, obj.glService.getAlpha() );
