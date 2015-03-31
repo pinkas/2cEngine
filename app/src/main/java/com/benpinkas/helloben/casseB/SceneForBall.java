@@ -86,9 +86,9 @@ public class SceneForBall extends Scene {
         remainingBricks = totalBricks;
 
         // EXPLOSION
-        exp[0] = new Explosion(destroyMe[0], 10,5);
-        exp[1] = new Explosion(destroyMe[0], 10,5);
-        exp[2] = new Explosion(destroyMe[0], 10,5);
+        exp[0] = new Explosion(destroyMe[0], 5,3);
+        exp[1] = new Explosion(destroyMe[0], 5,3);
+        exp[2] = new Explosion(destroyMe[0], 5,3);
         expPool.setPool(exp);
 
         BglSprite[] particles = exp[0].getParticle();
@@ -133,23 +133,16 @@ public class SceneForBall extends Scene {
         add(projectile);
         bat.collisionService.addCollider(projectile);
         projectile.setVisible(false);
-        // WIZARD
-        //SpriteSheet blank = new SpriteSheet(R.drawable.wizard_steal, 4, 1, 4, new int[] {100,7,7,7});
+
+        /*   WIZARD   */
+        // Wizard Spritesheets
         SpriteSheet blank = new SpriteSheet(R.drawable.latiku, 2, 1, 2, new int[] {20,20});
-        SpriteSheet blank2 = new SpriteSheet(R.drawable.wizard_goleft, 4, 1, 4, new int[] {2,2,2,2});
-        SpriteSheet blank3 = new SpriteSheet(R.drawable.wizard_goright, 3, 1, 3, new int[] {2,2,2});
-        //SpriteSheet blank4 = new SpriteSheet(R.drawable.wizard_cast, 6, 1, 6, new int[] {10,10,10,10,10,10});
         SpriteSheet blank4 = new SpriteSheet(R.drawable.latiku_cast, 7, 1, 7,
                 new int[] {4, 4, 4, 4, 4, 4, 4} );
-
-
-        final SpriteSheet [] spriteSheetTab = new SpriteSheet[4];
+        final SpriteSheet [] spriteSheetTab = new SpriteSheet[2];
         spriteSheetTab[0] = blank;
-        spriteSheetTab[1] = blank2;
-        spriteSheetTab[2] = blank3;
-        spriteSheetTab[3] = blank4;
-
-        // Wiz
+        spriteSheetTab[1] = blank4;
+        // Actual wizard object
         theWiz = new Wizard(0.65f, 0.0001f, 0.13f, 0.11f, spriteSheetTab, bat, projectile);
         // Wiz actions
         Action[] actions = new Action[3];

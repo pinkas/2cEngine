@@ -1,7 +1,5 @@
 package com.benpinkas.bEngine.object;
 
-import com.google.common.base.Preconditions;
-
 /**
  * Created by Ben on 2/17/14.
  */
@@ -19,14 +17,8 @@ public class BinfiniteScrolling extends Bobject {
     {
         super(x, y, w, h );
 
-        this.sprite1 = Preconditions.checkNotNull(sprite1, this);
-        this.sprite2 = Preconditions.checkNotNull(sprite2, this);
-        this.sprite3 = Preconditions.checkNotNull(sprite3, this);
-
-
        // sprite1.setDisregardCam(true);
        // sprite2.setDisregardCam(true);
-
 
         sprite1.setPos(x, y);
         sprite2.setPos(x, y - sprite1.getSizeH());

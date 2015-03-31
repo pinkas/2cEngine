@@ -4,9 +4,6 @@ import android.graphics.PointF;
 
 import com.benpinkas.bEngine.Angle;
 
-import com.google.common.base.Preconditions;
-
-import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
 /**
@@ -33,9 +30,6 @@ public class Bobject {
     protected boolean toDelete = false;
 
     public Bobject( float x, float y, float w, float h){
-
-        Preconditions.checkArgument( w > 0 && h > 0,
-                "Size of an object should be greater than 0");
 
         this.x = x;
         this.y = y;
@@ -111,8 +105,6 @@ public class Bobject {
     }
 
     public void setSize(float w, float h){
-        Preconditions.checkArgument( w > 0 && h > 0,
-                "Size of an object should be greater than 0");
         this.w = w;
         this.h = h;
     }

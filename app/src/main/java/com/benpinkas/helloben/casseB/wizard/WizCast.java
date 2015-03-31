@@ -13,7 +13,7 @@ public class WizCast extends Action {
 
     @Override
     public void init(){
-        actor.setTextureIndex(3);
+        actor.setTextureIndex(1);
         castDuration = actor.getCurrentAnimationTotalDuration();
     }
 
@@ -26,7 +26,6 @@ public class WizCast extends Action {
     @Override
     public boolean update(){
         if(castCpt > castDuration) {
-            System.out.println(castDuration);
             castCpt = 0;
             return true;
         } else {

@@ -29,7 +29,7 @@ public class Wizard extends BglAnimatedSprite {
                   Projectile projectile) {
         super(x, y, w, h, spritesheet);
         this.bat = bat;
-        STILL_T = spritesheet[3].getTotal_duration() + 3;
+        STILL_T = spritesheet[0].getTotal_duration() + 3;
         this.projectile = projectile;
     }
 
