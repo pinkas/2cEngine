@@ -23,8 +23,9 @@ public class BasicShader extends Shader {
 	private final int mPositionHandle;
 	private final int mTextureCoordinateHandle;
 	private final int mMVPMatrixHandle;
-	private final int mTextureUniformHandle;
+//	private final int mTextureUniformHandle;
     private final int mAlphaHandle;
+    private final int currentTextureHandle = 0;
 	private static final int COORDS_PER_VERTEX = 3;
 
 	public BasicShader( Context context ){
@@ -36,7 +37,7 @@ public class BasicShader extends Shader {
         mTextureCoordinateHandle = glGetAttribLocation(mProgram, "a_texCoord");
         mAlphaHandle = glGetUniformLocation(mProgram,"alpha");
         mMVPMatrixHandle = glGetUniformLocation(mProgram, "uMVPMatrix");
-        mTextureUniformHandle = glGetUniformLocation(mProgram, "u_texture");
+//        mTextureUniformHandle = glGetUniformLocation(mProgram, "u_texture");
 
         glEnableVertexAttribArray(mTextureCoordinateHandle);
         glEnableVertexAttribArray(mPositionHandle);
@@ -53,7 +54,10 @@ public class BasicShader extends Shader {
         // Send texture coordinates
         glVertexAttribPointer(mTextureCoordinateHandle, COORDS_PER_VERTEX, GL_FLOAT, false, 0,
                 obj.glService.getTextCoordBuffer());
-        glBindTexture(GL_TEXTURE_2D, obj.glService.getTextureHandle() );
+        int nextTextureHandle = obj.glService.getTextureHandle();
+        if (currentTextureHandle != nextTextureHandle) {
+            glBindTexture(GL_TEXTURE_2D, nextTextureHandle);
+        }
      //   glUniform1i(mTextureUniformHandle, 0);
 
         // Send alpha
