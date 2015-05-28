@@ -35,7 +35,6 @@ public class MessageManager  {
         }
 
         for (String s :messages){
-            System.out.println( "MessageManager " + s);
             Bcall blah = listener.get(s);
             if (blah != null) {
                 blah.call(datas.get(s));

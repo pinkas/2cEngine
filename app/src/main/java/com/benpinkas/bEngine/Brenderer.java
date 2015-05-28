@@ -1,7 +1,6 @@
 package com.benpinkas.bEngine;
 
 import java.util.ArrayList;
-import java.util.concurrent.Callable;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -19,16 +18,13 @@ import static android.opengl.GLES20.*;
 
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
-import android.util.Log;
 
 
 public class Brenderer implements GLSurfaceView.Renderer {
 
-    private static final String TAG = "MyGLRenderer";
     private static float camXworld = 0.5f;
     private static float camYworld = 0.5f;
     private static final float[] projMatrix = new float[16];
-    private static final float[] modelMatrix = new float[16];
     private static final float[] viewMatrix = new float[16];
     private static final float[] projMatrixInv = new float[16];
 
@@ -41,7 +37,6 @@ public class Brenderer implements GLSurfaceView.Renderer {
     private static final float upZ = 0.0f;
     private Context context;
     private Shader shader;
-    private static float[] mvp = new float[16];
     private static float camX = 0.0f;
     private static float lookX = camX;
     private static float camY = 0.0f;
@@ -56,7 +51,6 @@ public class Brenderer implements GLSurfaceView.Renderer {
     private static float prev;
     private static final float MAX_FRAME_DELTA_SEC = 0.1f;
 
-
     public Brenderer(Context context) {
         super();
         this.context = context;
@@ -70,18 +64,10 @@ public class Brenderer implements GLSurfaceView.Renderer {
         return camYworld;
     }
 
-    public static void checkGlError(String glOperation) {
-        int error;
-        while ((error = glGetError()) != GL_NO_ERROR) {
-            Log.e(TAG, glOperation + ": glError " + error);
-            throw new RuntimeException(glOperation + ": glError " + error);
-        }
-    }
-
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
         // Set the background frame color
-        glClearColor(0.47f, 0.71f, 1f, 0.2f);
+        glClearColor(1.0f, 1.0f, 1f, 0.0f);
         // TODO have a list that we go through
         new ShaderList(context);
         // load all the texture and init the existing object of the world with a shader
@@ -96,69 +82,13 @@ public class Brenderer implements GLSurfaceView.Renderer {
         }
     }
 
-    public void calculateMVP(BglObject obj) {
+    public static void calculateViewProjectionMatrix(BglObject obj) {
 
-        /*
-        if (obj.glService.isBoundToCamera()) {
-
-            if (camOffset == null) {
-                // World coordinate wise the camera is initially in (0.5 0.5)
-                camOffset = new PointF(0.5f - pos.x, 0.5f - pos.y);
-                camXO = camXO - pos.x;
-                camYO = camYO - pos.y;
-            }
-
-            moveCam(pos.x + camOffset.x, pos.y + camOffset.y);
-        }
-*/
-        if (obj.getDisregardCam())
-            Matrix.setIdentityM(viewMatrix, 0);
-
-        float[] blah = obj.getMvp();
-        /* MVP magic */
-        Matrix.setIdentityM(mvp, 0);
-        Matrix.multiplyMM(mvp, 0, viewMatrix, 0, blah, 0);
-        Matrix.multiplyMM(mvp, 0, projMatrix, 0, mvp, 0);
-    }
-
-    public static void calculateMVP(BglObject obj, float[] mvp) {
-
-        Matrix.setIdentityM(mvp, 0);
-
-        boolean perspective_scorll = false;
-
-        float objX = obj.getPosX();
-        float objY = obj.getPosY();
-        float sizeW = obj.getSizeW();
-        float sizeH = obj.getSizeH();
-
-        /* From "relative size" screen coordinate to GL */
-        float xGl = (objX + sizeW / 2f) * 2f - 1;
-        float yGl = 1 - (objY + sizeH / 2f) * 2f;
-        float z = obj.getZ();
-
-        if (z != 0) perspective_scorll = true;
+        float[] viewProjectMat = obj.getMvp();
+        Matrix.setIdentityM(viewProjectMat, 0);
 
         Matrix.setLookAtM(viewMatrix, 0, camX, camY, camZ, lookX, lookY, lookZ, upX, upY, upZ);
-        MatrixHelper.perspectiveM(projMatrix, 45, (float) screenW / (float) screenH, 1f, 200f);
-        Matrix.invertM(projMatrixInv, 0, projMatrix, 0);
 
-        fromWorldToGlFar(xGl, yGl, z, farPointWorld);
-        fromWorldToGlFar(sizeW, sizeH, 0, farSizeWorld);
-
-        /* ugly hack for multi layered scrolling background */
-        float div = 1 - z;
-        if (perspective_scorll) {
-            farSizeWorld[0] = farSizeWorld[0] / div;
-            farSizeWorld[1] = farSizeWorld[1] / div;
-        }
-
-        /* Calculate model matrix */
-        Matrix.translateM(mvp, 0, farPointWorld[0], farPointWorld[1], farPointWorld[2]);
-        Matrix.rotateM(mvp, 0, obj.getAngleX(), 1, 0, 0);
-        Matrix.rotateM(mvp, 0, obj.getAngleY(), 0, 1, 0);
-        Matrix.rotateM(mvp, 0, obj.getAngleZ(), 0, 0, 1);
-        Matrix.scaleM(mvp, 0, farSizeWorld[0], farSizeWorld[1], farSizeWorld[2]);
 /*
         if (obj.glService.isBoundToCamera()) {
 
@@ -173,9 +103,40 @@ public class Brenderer implements GLSurfaceView.Renderer {
 */
         if (obj.getDisregardCam()) Matrix.setIdentityM(viewMatrix, 0);
 
-        /* MVP magic */
-        Matrix.multiplyMM(mvp, 0, viewMatrix, 0, mvp, 0);
-        Matrix.multiplyMM(mvp, 0, projMatrix, 0, mvp, 0);
+        Matrix.multiplyMM(viewProjectMat, 0, projMatrix, 0, viewMatrix, 0);
+    }
+
+    public static void calculateModelMatrix(BglObject obj) {
+
+        float[] modelMat = obj.getModelMat();
+        Matrix.setIdentityM(modelMat, 0);
+
+        boolean perspective_scorll = false;
+
+        float objX = obj.getPosX();
+        float objY = obj.getPosY();
+        float sizeW = obj.getSizeW();
+        float sizeH = obj.getSizeH();
+
+        float xGl = (objX + sizeW / 2f) * 2f - 1;
+        float yGl = 1 - (objY + sizeH / 2f) * 2f;
+        float z = obj.getZ();
+
+     //   if (z != 0) perspective_scorll = true;
+        fromWorldToGlFar(xGl, yGl, z, farPointWorld);
+        fromWorldToGlFar(sizeW, sizeH, 0, farSizeWorld);
+
+        float div = 1 - z;
+        if (perspective_scorll) {
+            farSizeWorld[0] = farSizeWorld[0] / div;
+            farSizeWorld[1] = farSizeWorld[1] / div;
+        }
+
+        Matrix.translateM(modelMat, 0, farPointWorld[0], farPointWorld[1], farPointWorld[2]);
+        Matrix.rotateM(modelMat, 0, obj.getAngleX(), 1, 0, 0);
+        Matrix.rotateM(modelMat, 0, obj.getAngleY(), 0, 1, 0);
+        Matrix.rotateM(modelMat, 0, obj.getAngleZ(), 0, 0, 1);
+        Matrix.scaleM(modelMat, 0, farSizeWorld[0], farSizeWorld[1], farSizeWorld[2]);
     }
 
     public static void moveCam(float x, float y) {
@@ -189,6 +150,10 @@ public class Brenderer implements GLSurfaceView.Renderer {
         lookX = camX;
         lookY = camY;
         Matrix.setLookAtM(viewMatrix, 0, camX, camY, camZ, lookX, lookY, lookZ, upX, upY, upZ);
+    }
+
+    public static float[] getProjMatInv(){
+        return projMatrixInv;
     }
 
     public static int getScreenW() {
@@ -231,23 +196,22 @@ public class Brenderer implements GLSurfaceView.Renderer {
     }
 
     @Override
-    public void onDrawFrame(GL10 unused) {
-
-        if ( prev == 0) {
+    public void onDrawFrame( GL10 unused ) {
+        if ( prev == 0 ) {
             prev = System.nanoTime();
             return;
         }
         float now = System.nanoTime();
-        float dt = (now - prev) / NS_PER_SEC;
-        //System.out.println(now-prev);
+        float dt = ( now - prev ) / NS_PER_SEC;
+   //     System.out.println(now-prev);
         prev = now;
 
-        if (dt > MAX_FRAME_DELTA_SEC) {
+        if ( dt > MAX_FRAME_DELTA_SEC ) {
             dt = MAX_FRAME_DELTA_SEC;
         }
         //InputStatus.updateObjectsTouchStates(screenW, screenH);
         //TODO update les "updateOnlyMembers" cf update method in SceneManager
-        SceneManager.updateTimers(dt);
+        SceneManager.updateTimers( dt );
         Scene focusScene = SceneManager.getInputFocus();
 
         MessageManager.deliverMessages();
@@ -255,75 +219,106 @@ public class Brenderer implements GLSurfaceView.Renderer {
         glClear(GL_COLOR_BUFFER_BIT);
 
 		// 1 - Scene enumeration
-        for (Scene scene : SceneManager.getScenes())
+        for ( Scene scene : SceneManager.getScenes() )
         {
-            scene.update(dt);
-            if (scene.getVisible())
+            scene.update( dt );
+            if ( scene.getVisible() )
             {
-                if (scene.dirty){
+                if ( scene.dirty ) {
                     scene.fillMembers();
                     scene.dirty = false;
                 }
                 // 2 - Objects enumeration
                 BglObject[] members = scene.getMembers();
-                for (BglObject obj : members)
+                int i = 0;
+                boolean draw = false;
+                //System.out.println(" ================================= ");
+                for ( BglObject obj : members )
                 {
-                    if (obj == null)
-                        continue;
+                    i++;
 
+                    if ( obj == null ) {
+                        continue;
+                    }
                     if (scene == focusScene) {
                         InputStatus.updateObjecTouchState(obj, screenW, screenH);
                     }
 
-                    obj.update(dt);
+                    obj.update( dt );
 
                     // have one if just for visible, dirty and collide
-                    if (obj.visible)
+                    if ( obj.visible )
                     {
-                        if (obj.dirty)
+                        if ( obj.isDirty() )
                         {
                             if(obj.collide)
                             {
                                 ArrayList<BglObject> collider = obj.collisionService.getCollider();
-                                for(BglObject obj2 : collider)
+                                for( BglObject obj2 : collider )
                                 {
-                                    if(obj2==null)
+                                    if ( obj2 == null || !obj2.visible || !obj2.collide || obj == obj2 )
                                         continue;
-
-                                    if (!obj2.visible || !obj2.collide || obj == obj2)
-                                        continue;
-                                    if ( obj.collisionService.collide(obj, obj2)) {
-                                        obj.collisionService.fixPos(obj, obj2);
+                                    if ( obj.collisionService.collide( obj, obj2 ) ) {
+                                        obj.collisionService.fixPos( obj, obj2 );
+                                        break;
                                     }
                                 }
                             }
 
-                            calculateMVP(obj, obj.getMvp());
-                            obj.dirty = false;
+                            calculateModelMatrix( obj );
+                            calculateViewProjectionMatrix( obj );
                         }
 
-                        Shader shaderProg = ShaderList.getProg(obj.glService.getShaderName());
+                        Shader shaderProg =  ShaderList.getProg( obj.glService.getShaderName() );
                         if (shader != shaderProg){
                             shader = shaderProg;
-                            glUseProgram(shader.get_program());
+                            glUseProgram( shader.get_program() );
                             shader.prepare();
                         }
+                        shader.storeAttributes( obj );
 
-                        shader.sendParametersToShader(obj, obj.getMvp());
-                        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+                        if ( i == members.length ) {
+                            draw = true;
+                        } else {
+                            BglObject nextVisible = members[i];
+                            int nextVisibleIndex = i;
+                            while ( !nextVisible.isVisible() ) {
+                                nextVisibleIndex ++;
+                                if ( nextVisibleIndex >= members.length )
+                                    break;
+                                nextVisible = members[nextVisibleIndex];
+                            }
+
+                            if ( nextVisible.glService.getTextureHandle() != obj.glService.getTextureHandle() ) {
+                                draw = true;
+                            } else if ( members[i].getColor() != obj.getColor() ) {
+                                draw = true;
+                            } else if ( nextVisible.glService.getShaderName() != obj.glService.getShaderName() ) {
+                                draw = true;
+                            }
+                        }
+
+                        if ( draw ) {
+                            int vertexCount = shader.getVertexCount();
+                            shader.setAttributeBuffers();
+                            shader.sendParametersToShader( obj, obj.getMvp() );
+                            glDrawArrays( GL_TRIANGLES, 0, vertexCount );
+                            draw = false;
+                        }
                     }
                 }
-//                InputStatus.resetTouch();
             }
         }
     }
-
 
     @Override
     public void onSurfaceChanged(GL10 unused, int width, int height) {
         glViewport(0, 0, width, height);
         screenW = width;
         screenH = height;
+
+        MatrixHelper.perspectiveM(projMatrix, 45, (float) screenW / (float) screenH, 1f, 200f);
+        Matrix.invertM(projMatrixInv, 0, projMatrix, 0);
     }
 
 }

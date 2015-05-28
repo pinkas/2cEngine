@@ -19,6 +19,8 @@ public class Brectangle extends BglObject {
         color[1] = g;
         color[2] = b;
         color[3] = a;
+
+        name = "rectangle";
     }
 
     public Brectangle(float x, float y, float w, float h, float r, float g, float b){

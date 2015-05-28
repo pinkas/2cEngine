@@ -35,7 +35,7 @@ public class BglAnimatedSprite  extends BglSprite {
         glService = new GlService("basic", false, 1.0f);
         /* to increase the size of texturehandle[] when more than one texture */
         glService.resizeTextureHandle(spriteSheet.length);
-        glService.recalculateTextCoord(x, y, w, h, spriteSheet);
+        glService.recalculateTextCoord(spriteSheet);
         frameNumber = new int[spriteSheet.length];
         for (int i=0; i<spriteSheet.length; i++){
             // - 1 because framnumber is then compared to an index that has a 0 to n-1 range ...
@@ -67,7 +67,6 @@ public class BglAnimatedSprite  extends BglSprite {
     @Override
     public void update(float dt){
         super.update(dt);
-        System.out.println(animationIndex);
         tick++;
         if ( tick >= spriteSheet[textureIndex].get_current_duration(animationIndex) ) {
 
@@ -78,7 +77,7 @@ public class BglAnimatedSprite  extends BglSprite {
             }
 
             glService.setTextCoordPos(animationIndex);
-            dirty = true;
+            this.setDirty(true);
         }
     }
 

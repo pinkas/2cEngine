@@ -24,7 +24,9 @@ public abstract class BglObject extends Bobject {
     protected List areaOfInterest;
 
     protected float[] mvp = new float[16];
-    public boolean dirty=true;
+    protected float[] modelMat = new float[16];
+
+    private boolean dirty = true;
 
     public BglObject( float x, float y, float w, float h ){
         super(x,y,w,h);
@@ -78,6 +80,16 @@ public abstract class BglObject extends Bobject {
 
     public float[] getMvp() {
         return mvp;
+    }
+    public float[] getModelMat() {
+        return  modelMat;
+    }
+
+    public boolean isDirty() {
+        return dirty;
+    }
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
     }
 
     public int[] getRes() {

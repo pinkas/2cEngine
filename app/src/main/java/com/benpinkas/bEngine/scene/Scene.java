@@ -63,7 +63,7 @@ public abstract class Scene {
         return visible;
     }
 
-    String getName(){
+    public String getName(){
         return name;
     }
 

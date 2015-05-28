@@ -38,10 +38,12 @@ public class WobblyShader extends Shader {
 	
 	public void sendParametersToShader ( BglObject obj, float[] mat)
     {
-        glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, VERTEXSTRIDE, vertexBuffer);
+//        glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GL_FLOAT, false, VERTEXSTRIDE,
+//                vertexCoordBuffer);
         glEnableVertexAttribArray(mPositionHandle);
         
-        glVertexAttribPointer(mTextureCoordinateHandle, 2, GL_FLOAT, false,  VERTEXSTRIDE, vertexBuffer);
+//        glVertexAttribPointer(mTextureCoordinateHandle, 2, GL_FLOAT, false,  VERTEXSTRIDE,
+//                vertexCoordBuffer);
         glEnableVertexAttribArray(mTextureCoordinateHandle); 
         
   //      glActiveTexture( GLES20.GL_TEXTURE0 );
@@ -52,7 +54,12 @@ public class WobblyShader extends Shader {
 	    test = test%3 + 0.05f;
 	    glUniform1f(mTimeHandle, test);
 	}
-	
-	
-	
+
+    public void storeAttributes(BglObject o){
+
+    }
+
+    @Override
+    public void setAttributeBuffers() {}
+
 }

@@ -1,51 +1,35 @@
 package com.benpinkas.bEngine.shader;
 
 import android.content.Context;
+import static android.opengl.GLES20.*;
 
 import com.benpinkas.bEngine.object.BglObject;
 import com.benpinkas.bEngine.TextResourceReader;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-
-import static android.opengl.GLES20.*;
-
 public abstract class Shader {
 
-    private final int BYTES_PER_FLOAT = 4;
+    public static final int BYTES_PER_FLOAT = 4;
+    public static final int COORDS_PER_VERTEX = 4;
 
 	protected final int mProgram;
     protected String name;
 
-    protected static FloatBuffer vertexBuffer;
-    protected static int[] vertexBufferID = new int[1];
+
+    protected int totalVertexCount;
+
     public static float verticesCoord[] = {
-        -1, -1, 0,  // bottom left
-        -1, 1, 0,   // top left
-        1, -1, 0,   // bottom right
-        1, 1, 0     // top right
+        // Triangle 1
+        -1, -1, 0, 1, // bottom left
+        -1, 1, 0, 1,  // top left
+        1, -1, 0, 1,  // bottom right
+        // Triangle 2
+        1, -1, 0, 1,  // bottom right
+        1, 1, 0, 1,    // top right
+        -1, 1, 0, 1 // top left
     };
 
+
 	public Shader( Context context, int vertexCodeId, int fragmentCodeId ) {
-
-        ByteBuffer bb = ByteBuffer.allocateDirect( verticesCoord.length * 4);
-        bb.order( ByteOrder.nativeOrder());
-        vertexBuffer = bb.asFloatBuffer();
-        vertexBuffer.put(verticesCoord);
-        vertexBuffer.position(0);
-
-        glGenBuffers(1, vertexBufferID, 0);
-
-        glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID[0]);
-        glBufferData(GL_ARRAY_BUFFER, vertexBuffer.capacity() * BYTES_PER_FLOAT,
-                vertexBuffer, GL_STATIC_DRAW);
-
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-        vertexBuffer.limit(0);
-        vertexBuffer = null;
-
         String vertexShaderCode = TextResourceReader.readTextFileFromResource(context, vertexCodeId);
 		String fragmentShaderCode = TextResourceReader.readTextFileFromResource(context, fragmentCodeId);
         int vertexShader = loadShader(GL_VERTEX_SHADER, vertexShaderCode);
@@ -68,11 +52,19 @@ public abstract class Shader {
         if (compileStatus[0] == 0) {
         	// compilation failed
         	glDeleteShader(shader);
-        	System.out.println( "======>shader compilation failed" );
+        	System.out.println( "  ===>shader compilation failed" );
         }
         else
-        	System.out.println( "compilation success!!!!!!!!!!!!!!!!!!!!!!");
+        	System.out.println( "  ===>compilation success!!");
         return shader;
+    }
+
+    public int getVertexCount(){
+        return totalVertexCount;
+    }
+
+    public String getName(){
+        return name;
     }
 
 	public int get_program () {
@@ -81,6 +73,6 @@ public abstract class Shader {
     public void prepare(){};
 
 	public abstract void sendParametersToShader(BglObject obj, float[] mat);
-
-	
+    public abstract void setAttributeBuffers();
+    public abstract void storeAttributes(BglObject o);
 }

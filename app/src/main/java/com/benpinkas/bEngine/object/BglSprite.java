@@ -23,8 +23,7 @@ public class BglSprite extends BglObject {
     @Override
     //TODO because Brectangle has a getColor ....
     public float[] getColor(){
-        float color[] = new float[4];
-        return color;
+        return mvp;
     }
 
     @Override

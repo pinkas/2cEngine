@@ -29,6 +29,8 @@ public class Bobject {
     protected boolean pressed;
     protected boolean toDelete = false;
 
+    protected String name = "defaultName";
+
     public Bobject( float x, float y, float w, float h){
 
         this.x = x;
@@ -150,6 +152,10 @@ public class Bobject {
     public void setVel(float x, float y){
         vel.x = x;
         vel.y = y;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void update( float dt ){}
