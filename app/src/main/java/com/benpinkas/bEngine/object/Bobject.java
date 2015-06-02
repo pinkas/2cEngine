@@ -4,6 +4,7 @@ import android.graphics.PointF;
 
 import com.benpinkas.bEngine.Angle;
 
+import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
 /**
@@ -28,6 +29,8 @@ public class Bobject {
     protected int layer;
     protected boolean pressed;
     protected boolean toDelete = false;
+
+    private ArrayList<Updatable> updatables = new ArrayList<Updatable>();
 
     protected String name = "defaultName";
 
@@ -152,6 +155,14 @@ public class Bobject {
     public void setVel(float x, float y){
         vel.x = x;
         vel.y = y;
+    }
+
+    public void addUpdatable(Updatable o) {
+        updatables.add(o);
+    }
+
+    public ArrayList<Updatable> getUpdatable() {
+        return updatables;
     }
 
     public String getName() {

@@ -2,16 +2,19 @@ package com.benpinkas.bEngine.effect;
 
 import com.benpinkas.bEngine.object.BglObject;
 import com.benpinkas.bEngine.object.Btimer;
+import com.benpinkas.bEngine.object.Updatable;
+
 import java.util.concurrent.Callable;
 
 
-public class Explosion {
+public class Explosion implements Updatable {
 
     private int progress;
     private BglObject exploder;
     private float[] velocity;
     private float[] offset;
     private int tesselX, tesselY;
+    private boolean exploding;
 
 
     public Explosion(BglObject exploder, int tesselX, int tesselY){
@@ -41,10 +44,13 @@ public class Explosion {
         }
     }
 
-    // TODO explosion should inerit from a class that has an update method? or interface.
-    // Thanks to that the update method would be automatically called, just like objects
-    public void update(){
-       progress ++;
+
+    @Override
+    public void update(float dt) {
+
+        if (!exploding) return;
+
+        progress ++;
         for(int i=0;i+1<velocity.length;){
 
             offset[i] = (velocity[i] * progress)/10f;
@@ -52,15 +58,17 @@ public class Explosion {
 
         //    velocity[i] = velocity[i] - velocity[i]/50f;
             velocity[i+1] = velocity[i+1] - 0.0004f;
-
-
             i = i + 2;
         }
 
         float opacity = exploder.glService.getAlpha();
         exploder.glService.setAlpha(opacity-0.015f);
-
         exploder.glService.setExtraVertexData(offset);
+
+        if ( progress > 70 ) {
+            reset();
+            exploder.setVisible(false);
+        }
     }
 
     public void reset(){
@@ -68,25 +76,13 @@ public class Explosion {
         exploder.glService.setShaderName("textureShader");
         exploder.glService.setAlpha(1);
         exploder.glService.tesselate(1, 1);
+        exploding = false;
     }
 
     public void start(float dirx, float diry){
+        exploding = true;
         exploder.glService.tesselate(tesselX, tesselY);
         exploder.glService.setShaderName("explosion");
-
-        new Btimer(1, new Callable() {
-            @Override
-            public Boolean call() {
-                update();
-
-                if ( progress > 70 ){
-                    reset();
-                    exploder.setVisible(false);
-                 //   MessageManager.sendMessage("explosion_end");
-                    return false;
-                }
-                return true;
-            }
-        } );
     }
+
 }

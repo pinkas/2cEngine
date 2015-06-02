@@ -1,6 +1,7 @@
 package com.benpinkas.helloben.casseB;
 
 import com.benpinkas.R;
+import com.benpinkas.bEngine.effect.Explosion;
 import com.benpinkas.bEngine.object.BglSprite;
 import com.benpinkas.bEngine.object.Bobject;
 import com.benpinkas.bEngine.object.Brectangle;
@@ -23,16 +24,29 @@ public class Brick extends BglSprite {
     private int damp_index;
     private float savedPos;
 
+    private Explosion explosion;
+
     public Brick(int totalHp){
-        super(0.1f, 0.1f, 0.1f,0.1f, new int[] {R.drawable.brick_mario} );
+        super(0.1f, 0.1f, 0.1f,0.05f, new int[] {R.drawable.brick_mario} );
         this.totalHp = totalHp;
         remainingHp = totalHp;
 
         damping = new float[ ]{ -0.006f, -0.009f, -0.008f, -0.007f, -0.004f };
+        explosion = new Explosion(this, 16, 4);
+        addUpdatable(explosion);
+        name = "brick";
     }
 
     public Brick(float x, float y, float w, float h){
         super(x,y,w,h, new int[] {R.drawable.brick_mario} );
+        name = "brick";
+
+        this.totalHp = 1;
+        remainingHp = totalHp;
+
+        damping = new float[ ]{ -0.006f, -0.009f, -0.008f, -0.007f, -0.004f };
+        explosion = new Explosion(this, 7, 7);
+        addUpdatable(explosion);
     }
 
     @Override
@@ -49,6 +63,7 @@ public class Brick extends BglSprite {
     public void init (){
         setCollide(true);
         setVisible(true);
+        explosion.reset();
     }
 
     public void damp(){
@@ -80,8 +95,7 @@ public class Brick extends BglSprite {
     }
 
     public void explode(){
-        setVisible(false);
-//        showParticles();
+            explosion.start(0.1f,0.1f);
     }
 
 }
