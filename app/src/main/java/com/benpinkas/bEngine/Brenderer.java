@@ -72,16 +72,8 @@ public class Brenderer implements GLSurfaceView.Renderer {
         glClearColor(1.0f, 1.0f, 1f, 0.0f);
         // TODO have a list that we go through
         new ShaderList(context);
-        // load all the texture and init the existing object of the world with a shader
         BtextureManager.loadAll(context);
-        /* TODO consider finding anonther way to do the following?? */
-        for (Scene scene : SceneManager.getScenes()) {
-            for ( BglObject o : scene.getMembersArrayList() ) {
-                if (o == null)
-                    continue;
-                o.glService.setTextureHandle(o.getRes());
-            }
-        }
+        MessageManager.sendMessage("oscgl");
     }
 
     public static void calculateViewProjectionMatrix(BglObject obj) {

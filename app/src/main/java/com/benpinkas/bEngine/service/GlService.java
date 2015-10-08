@@ -38,12 +38,18 @@ public class GlService {
         calcVertexCoord(1, 1);
     }
 
-    public GlService(String shaderName, boolean boundToCamera, float alpha) {
-        calcVertexCoord(1,1);
+    public GlService(int [] res) {
         textCoords[0][0] = TextureCoordCalculator.calculate(1,1);
-        this.shaderName = shaderName;
-        this.boundToCamera = boundToCamera;
-        this.alpha = alpha;
+        textureHandle[0] = -1;
+        calcVertexCoord(1, 1);
+        setTextureHandle(res);
+    }
+
+    public GlService(int [] res, SpriteSheet[] ss) {
+        calcVertexCoord(1,1);
+        resizeTextureHandle(ss.length);
+        recalculateTextCoord(ss);
+        setTextureHandle(res);
     }
 
     public void calcVertexCoord(int Nx, int Ny){

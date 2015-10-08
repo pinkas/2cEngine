@@ -32,10 +32,7 @@ public class BglAnimatedSprite  extends BglSprite {
             theRes[i]=spriteSheet[i].getTexture_id();
         setRes(theRes);
 
-        glService = new GlService("basic", false, 1.0f);
-        /* to increase the size of texturehandle[] when more than one texture */
-        glService.resizeTextureHandle(spriteSheet.length);
-        glService.recalculateTextCoord(spriteSheet);
+        glService = new GlService(res, spriteSheet);
         frameNumber = new int[spriteSheet.length];
         for (int i=0; i<spriteSheet.length; i++){
             // - 1 because framnumber is then compared to an index that has a 0 to n-1 range ...

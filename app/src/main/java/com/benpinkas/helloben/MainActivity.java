@@ -1,18 +1,21 @@
 package com.benpinkas.helloben;
 
-import java.util.concurrent.Callable;
 
 import com.benpinkas.bEngine.Brenderer;
 import com.benpinkas.bEngine.BtextureManager;
 import com.benpinkas.bEngine.InputStatus;
 import com.benpinkas.bEngine.scene.Scene;
 import com.benpinkas.bEngine.scene.SceneManager;
+import com.benpinkas.bEngine.service.Bcall;
+import com.benpinkas.bEngine.service.MessageManager;
 import com.benpinkas.helloben.casseB.SceneForBall;
 import com.benpinkas.R;
+import com.benpinkas.helloben.casseB.SplashScene;
 import com.benpinkas.helloben.casseB.StartScene;
 
 
 import android.opengl.GLSurfaceView;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.MotionEvent;
@@ -56,19 +59,34 @@ public class MainActivity extends Activity {
 //        final Scene rotateRectangles = new RotateGridRectangles();
 //        rotateRectangles.setVisible(false);
 
-        final Scene startScene = new StartScene();
-        final Scene myballs = new SceneForBall();
 
-        SceneManager.setInputFocus(startScene);
-        SceneManager.startScene(startScene);
 
         final Brenderer theRenderer = new Brenderer( this );
 
         theGLView = new GLSurfaceView(this);
         setContentView(theGLView);
+
+        // Will not run in emulator otherwise ...
+        if (Build.HARDWARE.contains("goldfish")) {
+            theGLView.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
+        }
+
         theGLView.setEGLContextClientVersion(2);
         theGLView.setRenderer(theRenderer);
        // theGLView.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+
+        MessageManager.addListener("oscgl", new Bcall<Void>() {
+            @Override
+            public Void call(Object o) {
+                final Scene startScene = new StartScene();
+                final Scene myballs = new SceneForBall();
+                final Scene splahsScene = new SplashScene();
+
+                SceneManager.setInputFocus(startScene);
+                SceneManager.startScene(splahsScene);
+                return null;
+            }
+        });
 	}
 
     @Override
