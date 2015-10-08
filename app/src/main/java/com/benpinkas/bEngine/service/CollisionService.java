@@ -1,5 +1,6 @@
 package com.benpinkas.bEngine.service;
 
+import com.benpinkas.bEngine.object.BcontainerObject;
 import com.benpinkas.bEngine.object.BglObject;
 
 import java.util.ArrayList;
@@ -34,6 +35,13 @@ public class CollisionService {
     public void addCollider(BglObject[] oArray){
         for(BglObject o : oArray){
             collider.add(o);
+        }
+    }
+
+    public void addCollider( BcontainerObject cont ) {
+        ArrayList<BglObject> child = cont.getChild();
+        for ( BglObject bglObject : child ) {
+            collider.add(bglObject);
         }
     }
 
