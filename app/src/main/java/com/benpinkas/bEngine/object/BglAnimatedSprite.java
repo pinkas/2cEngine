@@ -62,6 +62,16 @@ public class BglAnimatedSprite  extends BglSprite {
     }
 
     @Override
+    public int getTextureWidth() {
+        return super.getTextureWidth() / spriteSheet[0].getNumber_of_frame_x();
+    }
+
+    @Override
+    public int getTextureHeight() {
+        return super.getTextureHeight() / spriteSheet[0].getNumber_of_frame_y();
+    }
+
+    @Override
     public void update(float dt){
         super.update(dt);
         tick++;

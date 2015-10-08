@@ -1,19 +1,11 @@
 package com.benpinkas.helloben.casseB;
 
-import android.os.Message;
-
-import com.benpinkas.bEngine.object.BglObject;
 import com.benpinkas.bEngine.object.Bobject;
 import com.benpinkas.bEngine.object.Brectangle;
 import com.benpinkas.bEngine.service.CollisionService;
 import com.benpinkas.bEngine.service.MessageManager;
 
-/**
- * Created by Ben on 06-Oct-14.
- */
 public class Bonus extends Brectangle {
-
-    private final static float VEL_Y = 0.25f;
 
     public enum BonusType {BALL_SPEED, BAT_SIZE};
     private BonusType bonusType = BonusType.BALL_SPEED;
@@ -38,6 +30,9 @@ public class Bonus extends Brectangle {
             setVisible(false);
         } else {
             setPos(getPosX(), posy + getVel().y * dt);
+            setAngleX(getAngleX()+5 );
+            setAngleY(getAngleY()+2 );
+
         }
     }
 

@@ -3,6 +3,7 @@ package com.benpinkas.bEngine;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +17,7 @@ import static android.opengl.GLUtils.texImage2D;
 public class BtextureManager {
 
     private static Map<Integer, int[]> textureHashMap = new HashMap<Integer, int[]>();
+    private static Map<Integer, Point> textureDimensionHashMap = new HashMap<Integer, Point>();
 
     public static void fillTextureHashTable( Integer textureId ){
         int[] handle = new int[1];
@@ -67,7 +69,13 @@ public class BtextureManager {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
+        textureDimensionHashMap.put(textureId, new Point(bitmap.getWidth(), bitmap.getHeight()));
+
         bitmap.recycle();
+    }
+
+    public  static Point getTextureDimensions(int textureID){
+        return textureDimensionHashMap.get(textureID);
     }
 
 }

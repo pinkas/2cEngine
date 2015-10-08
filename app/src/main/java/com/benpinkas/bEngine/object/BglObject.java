@@ -62,6 +62,11 @@ public abstract class BglObject extends Bobject {
         super.setSize(w, h);
         dirty = true;
     }
+    public void setSize(float w) {
+        float aspectRatio = (float) getTextureWidth()/ (float) getTextureHeight();
+        super.setSize(w, (w/aspectRatio)*(Brenderer.getScreenAspectRatio()));
+        dirty = true;
+    }
     @Override
     public void setAngleX(float anglex) {
         super.setAngleX(anglex);
@@ -139,6 +144,14 @@ public abstract class BglObject extends Bobject {
     }
     public void setAreaOfInterest(List areaOfInterest) {
         this.areaOfInterest = areaOfInterest;
+    }
+
+    public int getTextureWidth(){
+        return BtextureManager.getTextureDimensions(res[0]).x;
+    }
+
+    public int getTextureHeight(){
+        return BtextureManager.getTextureDimensions(res[0]).y;
     }
 
     //TODO is it right or wrong?

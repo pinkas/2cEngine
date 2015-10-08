@@ -3,9 +3,9 @@ package com.benpinkas.helloben.casseB;
 import com.benpinkas.R;
 import com.benpinkas.bEngine.Brenderer;
 import com.benpinkas.bEngine.InputStatus;
+import com.benpinkas.bEngine.effect.Explosion;
 import com.benpinkas.bEngine.object.BglSprite;
 import com.benpinkas.bEngine.object.Bobject;
-import com.benpinkas.bEngine.object.Brectangle;
 import com.benpinkas.bEngine.service.Bcall;
 import com.benpinkas.bEngine.service.CollisionService;
 import com.benpinkas.bEngine.service.MessageManager;
@@ -20,10 +20,15 @@ public class Bat extends BglSprite {
     private final static float NORMAL_SIZE_H = 0.04f;
     private final static float ENLARGE_FACTOR = 2f;
     private float toGoX = 0;
-    private float toGoY;
+    private Explosion explosion;
 
     public Bat(){
         super(0.4f, 0.85f, NORMAL_SIZE_W, NORMAL_SIZE_H, new int[] {R.drawable.bat});
+        setSize(NORMAL_SIZE_W);
+        name = "bat";
+        explosion = new Explosion(this, 20, 5);
+        addUpdatable(explosion);
+        explosion.endCallback();
 
         MessageManager.addListener("bat_down", new Bcall<Void>() {
             public Void call(Object o) {
@@ -52,7 +57,6 @@ public class Bat extends BglSprite {
 
     public void setToGoPos() {
         this.toGoX = InputStatus.touchXscr / (float) Brenderer.getScreenW() - 0.5f * getSizeW();
-        this.toGoY = getPosY();
     }
 
     public void update(float dt){
@@ -68,7 +72,14 @@ public class Bat extends BglSprite {
     public void collision(Bobject collider, CollisionService.collisionSide cs) {
         if ( collider instanceof Projectile) {
             MessageManager.sendMessage("bat_hit_by_projectile");
+            explosion.start();
         }
     }
+
+    public void init(){
+        explosion.endCallback();
+        setVisible(true);
+    }
+
 
 }

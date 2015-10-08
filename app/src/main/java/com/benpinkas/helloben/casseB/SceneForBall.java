@@ -13,7 +13,7 @@ import com.benpinkas.bEngine.scene.Scene;
 import com.benpinkas.bEngine.scene.SceneManager;
 import com.benpinkas.bEngine.service.Bcall;
 import com.benpinkas.bEngine.service.MessageManager;
-import com.benpinkas.helloben.casseB.wizard.Action;
+import com.benpinkas.bEngine.Action;
 import com.benpinkas.helloben.casseB.wizard.Projectile;
 import com.benpinkas.helloben.casseB.wizard.WizAttack;
 import com.benpinkas.helloben.casseB.wizard.WizCast;
@@ -24,23 +24,24 @@ import java.util.concurrent.Callable;
 
 
 public class SceneForBall extends Scene {
+    private final static int MAX_LIFE = 3;
+    private final static int BONUS_DURATION = 300;
 
     private Ball myBall;
     private Brick[] destroyMe = new Brick[300];
     private Wizard theWiz;
     private Projectile projectile;
+    private BglSprite[] lives = new BglSprite[MAX_LIFE];
 
     private Bat bat = new Bat();
-    private Brectangle touchAreaThrowBall = new Brectangle(0,0, 1, 0.8f, 0, 0, 0, 0);
+    private Brectangle touchAreaThrowBall = new Brectangle(0,0, 1, 0.75f, 0, 0, 0, 0);
     private Brectangle touchAreaBat = new Brectangle(0,0, 1, 0.8f, 0, 0, 0, 0);
     private Bonus[] bonusT;
     private final ObjectPool bonusPool = new ObjectPool();
     private final Explosion[] exp = new Explosion[3];
     private final ObjectPool expPool = new ObjectPool();
 
-    private final static int MAX_LIFE = 3;
-    private final static int BONUS_DURATION = 300;
-    private int totalBricks;
+   private int totalBricks;
     private int remainingBricks;
     private int remainingLife;
     private static enum GameState {ON, PAUSE, OFF};
@@ -51,10 +52,10 @@ public class SceneForBall extends Scene {
 
     //Layout constants
     private final float PADDX = 0.02f;
-    private final float PADDY = 0.1f;
-    private final float SIZEW = 0.11f;
-    private final float SIZEH = 0.04f;
-    private final int ROW = 7;
+    private final float PADDY = 0.13f;
+    private final float SIZEW = 0.14f;
+    private final float SIZEH = 0.03f;
+    private final int ROW = 5;
     private final int COL = 8;
 
     public SceneForBall() {
@@ -85,30 +86,6 @@ public class SceneForBall extends Scene {
         totalBricks = index;
         remainingBricks = totalBricks;
 
-        // EXPLOSION
-        exp[0] = new Explosion(destroyMe[0], 5,3);
-        exp[1] = new Explosion(destroyMe[0], 5,3);
-        exp[2] = new Explosion(destroyMe[0], 5,3);
-        expPool.setPool(exp);
-
-        BglSprite[] particles = exp[0].getParticle();
-        for (int i=0; i<particles.length; i++){
-            add(particles[i]);
-            particles[i].setVisible(false);
-        }
-
-        particles = exp[1].getParticle();
-        for (int i=0; i<particles.length; i++){
-            add(particles[i]);
-            particles[i].setVisible(false);
-        }
-
-        particles = exp[2].getParticle();
-        for (int i=0; i<particles.length; i++){
-            add(particles[i]);
-            particles[i].setVisible(false);
-        }
-
         // BAT
         bat.setVisible(false);
         bat.setCollide(true);
@@ -136,14 +113,16 @@ public class SceneForBall extends Scene {
 
         /*   WIZARD   */
         // Wizard Spritesheets
-        SpriteSheet blank = new SpriteSheet(R.drawable.latiku, 2, 1, 2, new int[] {20,20});
+        SpriteSheet blank = new SpriteSheet(R.drawable.latiku, 2, 1, 2, new int[] {20, 20});
         SpriteSheet blank4 = new SpriteSheet(R.drawable.latiku_cast, 7, 1, 7,
-                new int[] {4, 4, 4, 4, 4, 4, 4} );
+                new int[] {4, 4, 4, 4, 4, 4, 8} );
+
+
         final SpriteSheet [] spriteSheetTab = new SpriteSheet[2];
         spriteSheetTab[0] = blank;
         spriteSheetTab[1] = blank4;
         // Actual wizard object
-        theWiz = new Wizard(0.65f, 0.0001f, 0.13f, 0.11f, spriteSheetTab, bat, projectile);
+        theWiz = new Wizard(0.65f, 0.001f, 0.143f, 0.13f, spriteSheetTab, bat, projectile);
         // Wiz actions
         Action[] actions = new Action[3];
         actions[0] = new WizMove(theWiz);
@@ -151,12 +130,29 @@ public class SceneForBall extends Scene {
         actions[2] = new WizAttack(theWiz, projectile);
         theWiz.setActions(actions);
         theWiz.setCollide(false);
+        theWiz.setVisible(false);
         add(theWiz);
+        theWiz.setPos(0.65f, -0.035f);
+
+        // Lives
+        for (int i=0; i<MAX_LIFE; i++){
+            float w = 0.1f;
+            lives[i] = new BglSprite(0,0, 0.5f, 0.04f, new int[] {R.drawable.heart});
+            lives[i].setSize(w);
+            lives[i].setPos(1-i*w, 1, 1.5f, 1.5f);
+            lives[i].setVisible(false);
+            add(lives[i]);
+        }
+
+        // latiku test
+        BglSprite l = new BglSprite(0,0,0.1f, 0.1f, new int[] {R.drawable.latikutest});
+        l.setSize(0.125f);
+        add(l);
 
         // BONUS/POOL CREATION
         bonusT = new Bonus[5];
         for (int i=0; i<bonusT.length; i++){
-            bonusT[i] = new Bonus(0, 0, 0.02f, 0.015f, Bonus.BonusType.BALL_SPEED);
+            bonusT[i] = new Bonus(0, 0, 0.03f, 0.02f, Bonus.BonusType.BALL_SPEED);
             bonusT[i].setVel(0,0);
             bonusT[i].setVisible(false);
             bonusT[i].setCollide(true);
@@ -177,9 +173,6 @@ public class SceneForBall extends Scene {
                     SceneManager.startScene("startScene");
                 }
 
-                Explosion explosion = (Explosion) expPool.getAvailableObj();
-                explosion.init( (Brick) o);
-                explosion.boooom();
 
                 if (Math.random() > BONUS_PROBABILITY) {
                     Bonus bonus = (Bonus) bonusPool.getAvailableObj();
@@ -298,6 +291,7 @@ public class SceneForBall extends Scene {
             }
         });
 
+
         // Touch Area for Bat
         add(touchAreaBat);
         touchAreaBat.setCollide(false);
@@ -306,14 +300,20 @@ public class SceneForBall extends Scene {
 
         touchAreaBat.setTouchD(new Callable<Void>() {
             public Void call() throws Exception {
-                bat.setToGoPos();
+
+                if(myBall.getVel().x != 0 && myBall.getVel().y != 0) {
+                    bat.setToGoPos();
+                }
                 return null;
             }
         });
 
         touchAreaBat.setTouchM(new Callable<Void>() {
             public Void call() throws Exception {
-                bat.setToGoPos();
+
+                if(myBall.getVel().x != 0 && myBall.getVel().y != 0) {
+                    bat.setToGoPos();
+                }
                 return null;
             }
         });
@@ -343,6 +343,9 @@ public class SceneForBall extends Scene {
         bat.setVisible(true);
         theWiz.setVisible(true);
         initBricks();
+        lives[0].setVisible(true);
+        lives[1].setVisible(true);
+        lives[2].setVisible(true);
         gameState = GameState.PAUSE;
     }
 
@@ -354,10 +357,21 @@ public class SceneForBall extends Scene {
 
     public void playerFail(){
         remainingLife --;
+        lives[remainingLife].setVisible(false);
         gameState = GameState.PAUSE;
         theWiz.setState(Wizard.WizState.OFF);
         resetBallposition();
         myBall.setSpeedFactor(0);
+
+        new Btimer(150, new Callable(){
+                    @Override
+                    public Boolean call(){
+                        bat.init();
+                        return false;
+                    }
+                });
+
+
         if ( remainingLife == 0 ) {
             stop();
             SceneManager.startScene("startScene");
@@ -367,6 +381,7 @@ public class SceneForBall extends Scene {
     @Override
     public void start() {
         initGame();
+        System.out.println("start balls!");
         SceneManager.setInputFocus(this);
     }
 

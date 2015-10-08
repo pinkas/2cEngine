@@ -28,6 +28,7 @@ public class Brick extends BglSprite {
 
     public Brick(int totalHp){
         super(0.1f, 0.1f, 0.1f,0.05f, new int[] {R.drawable.brick_mario} );
+        setSize(0.1f);
         this.totalHp = totalHp;
         remainingHp = totalHp;
 
@@ -63,7 +64,7 @@ public class Brick extends BglSprite {
     public void init (){
         setCollide(true);
         setVisible(true);
-        explosion.reset();
+        explosion.endCallback();
     }
 
     public void damp(){
@@ -95,7 +96,7 @@ public class Brick extends BglSprite {
     }
 
     public void explode(){
-            explosion.start(0.1f,0.1f);
+        explosion.start();
     }
 
 }

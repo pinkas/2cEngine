@@ -22,21 +22,26 @@ public class Ball extends BglSprite {
     private boolean collisionDuringThisFrame;
 
     private static float BAT_FACTOR = 3.5f;
-    private static final float BASE_VEL = 0.45f;
-    private float speedFactor = 1;
+    private static final float BASE_VEL = 0.00010f;
+    private float speedFactor = 0.0000001f;
 
     public Ball(float x, float y, float w, float h, float r, float g, float b){
         super(x,y,w,h, new int[] {R.drawable.ball} );
         vel.x = BASE_VEL;
         vel.y = BASE_VEL;
+
+        name = "ball";
     }
 
 
     @Override
     public void collision(Bobject collider, CollisionService.collisionSide cs) {
-        //pos = prevPos;
-        if ( collider instanceof Bat && !collisionDuringThisFrame ) {
-            collisionDuringThisFrame = true;
+
+        if (collisionDuringThisFrame) {
+            return;
+        }
+
+        if ( collider instanceof Bat ) {
 
             float batCenterX = collider.getPosX(0.5f);
             float ballCenterX = this.getPosX(0.5f);
@@ -52,6 +57,7 @@ public class Ball extends BglSprite {
                 vel.y = -vel.y;
             }
         }
+        collisionDuringThisFrame = true;
     }
 
     @Override
