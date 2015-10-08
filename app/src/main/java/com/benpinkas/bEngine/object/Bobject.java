@@ -139,6 +139,10 @@ public class Bobject {
         this.x = o.x;
         this.y = o.y;
     }
+    public void setPos(Bobject o, float dx, float dy){
+        this.x = o.x + dx;
+        this.y = o.y + dy;
+    }
     /** Position the object according to x & y and an anchor point oriX & oriY
      * 0,0 being the center of the object -0.5, 1 bottom left */
     public void setPos( float x, float y, float oriX, float oriY ){
