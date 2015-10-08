@@ -47,12 +47,26 @@ public abstract class Scene {
         dirty = true;
     }
 
+    public void add( BcontainerObject obj ){
+        ArrayList<BglObject> child = obj.getChild();
+        // Add all the BglObject childs to the scene
+        for ( BglObject o : child ) {
+            this.add(o);
+        }
+        // Add the container itself(to take advantage of its update method)
+        justUpdateMembers.add(obj);
+    }
+
     public ArrayList<BglObject> getMembersArrayList() {
         return membersArrayList;
     }
 
     public BglObject[] getMembers(){
         return members;
+    }
+
+    public ArrayList<Bobject> getUpdateOnly() {
+        return justUpdateMembers;
     }
 
     public void setVisible( boolean visible ){

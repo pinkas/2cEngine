@@ -214,6 +214,8 @@ public class Brenderer implements GLSurfaceView.Renderer {
 
         MessageManager.deliverMessages();
 
+        UpdateableManager.update(dt);
+
         glClear(GL_COLOR_BUFFER_BIT);
 
 		// 1 - Scene enumeration
@@ -226,11 +228,18 @@ public class Brenderer implements GLSurfaceView.Renderer {
                     scene.fillMembers();
                     scene.dirty = false;
                 }
+
+                // Objects that don't get rendered (  like a group of other objects )
+                ArrayList<Bobject> updateOnlyObj = scene.getUpdateOnly();
+                for ( Bobject o : updateOnlyObj ) {
+                    o.update( dt );
+                }
                 // 2 - Objects enumeration
                 BglObject[] members = scene.getMembers();
+
                 int i = 0;
                 boolean draw = false;
-                //System.out.println(" ================================= ");
+
                 for ( BglObject obj : members )
                 {
                     i++;
