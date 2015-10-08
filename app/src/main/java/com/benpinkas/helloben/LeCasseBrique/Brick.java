@@ -1,10 +1,9 @@
-package com.benpinkas.helloben.casseB;
+package com.benpinkas.helloben.LeCasseBrique;
 
 import com.benpinkas.R;
 import com.benpinkas.bEngine.effect.Explosion;
 import com.benpinkas.bEngine.object.BglSprite;
 import com.benpinkas.bEngine.object.Bobject;
-import com.benpinkas.bEngine.object.Brectangle;
 import com.benpinkas.bEngine.object.Btimer;
 import com.benpinkas.bEngine.service.CollisionService;
 import com.benpinkas.bEngine.service.MessageManager;

@@ -1,8 +1,9 @@
-package com.benpinkas.helloben.casseB.wizard;
+package com.benpinkas.helloben.LeCasseBrique.wizard;
 
+import com.benpinkas.bEngine.Action;
 import com.benpinkas.bEngine.object.BglAnimatedSprite;
 import com.benpinkas.bEngine.object.SpriteSheet;
-import com.benpinkas.helloben.casseB.Bat;
+import com.benpinkas.helloben.LeCasseBrique.Bat;
 
 
 public class Wizard extends BglAnimatedSprite {
@@ -17,7 +18,6 @@ public class Wizard extends BglAnimatedSprite {
     private Bat bat;
     private Projectile projectile;
     private float destX;
-    int MOVE_T = 200;
     int CAST_T = 300;
     int STILL_T;
 
@@ -28,9 +28,11 @@ public class Wizard extends BglAnimatedSprite {
     public Wizard(float x, float y, float w, float h, SpriteSheet[] spritesheet, Bat bat,
                   Projectile projectile) {
         super(x, y, w, h, spritesheet);
+        setSize(w*1.3f);
         this.bat = bat;
         STILL_T = spritesheet[0].getTotal_duration() + 3;
         this.projectile = projectile;
+        name = "wizard";
     }
 
     public void setActions(Action[] actions){
@@ -46,26 +48,35 @@ public class Wizard extends BglAnimatedSprite {
             return;
         }
 
-        for (Action a : actions){
-            if (a.isInProgress()){
-                if (a.update()){
-                    a.stop();
-                }
-                //LOts of work to do here!
-                return;
-            }
+        if(getBat().getPosX() < getPosX()){
+            faceLeft();
+        } else {
+            faceRight();
         }
 
-        progressMove++;
-        if (progressMove%MOVE_T==0) {
-            progressMove = 0;
-            move();
-        }
+        actions[0].incCpt();
+        actions[1].incCpt();
+    }
 
-        progressCast++;
-        if (progressCast%CAST_T==0) {
-            progressCast = 0;
-            cast();
+    public boolean faceRight(){
+        float dy = (180 - angle.y) / 10f;
+        if (Math.abs(dy) > 0.0001){
+            setAngleY(angle.y + dy);
+            return true;
+        } else {
+            angle.y = 180;
+            return false;
+        }
+    }
+
+    public boolean faceLeft(){
+         float dy = (0 - angle.y) / 10f;
+        if (Math.abs(dy) > 0.0001){
+            setAngleY(angle.y + dy);
+            return true;
+        } else {
+            angle.y = 0;
+            return false;
         }
     }
 

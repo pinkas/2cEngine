@@ -8,10 +8,10 @@ import com.benpinkas.bEngine.scene.Scene;
 import com.benpinkas.bEngine.scene.SceneManager;
 import com.benpinkas.bEngine.service.Bcall;
 import com.benpinkas.bEngine.service.MessageManager;
-import com.benpinkas.helloben.casseB.SceneForBall;
+import com.benpinkas.helloben.leCasseBrique.SceneForBall;
 import com.benpinkas.R;
-import com.benpinkas.helloben.casseB.SplashScene;
-import com.benpinkas.helloben.casseB.StartScene;
+import com.benpinkas.helloben.leCasseBrique.SplashScene;
+import com.benpinkas.helloben.leCasseBrique.StartScene;
 
 
 import android.opengl.GLSurfaceView;
@@ -38,8 +38,9 @@ public class MainActivity extends Activity {
         BtextureManager.fillTextureHashTable(R.drawable.projectile);
         BtextureManager.fillTextureHashTable(R.drawable.dust);
         BtextureManager.fillTextureHashTable(R.drawable.start);
-
-
+        BtextureManager.fillTextureHashTable(R.drawable.bengine);
+        BtextureManager.fillTextureHashTable(R.drawable.heart);
+        BtextureManager.fillTextureHashTable(R.drawable.latikutest);
 
         // TODO if splashscreen is created before GameScene it is under my gameScene despite the
         // TODO setFocus. need to have a setLayer for Scenes as well

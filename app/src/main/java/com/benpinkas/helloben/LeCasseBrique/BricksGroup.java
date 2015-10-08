@@ -1,12 +1,10 @@
-package com.benpinkas.helloben.casseB;
+package com.benpinkas.helloben.LeCasseBrique;
 
 import android.graphics.PointF;
 
 import com.benpinkas.bEngine.object.BcontainerObject;
 
 import com.benpinkas.bEngine.Action;
-
-import java.util.concurrent.Callable;
 
 
 public class BricksGroup extends BcontainerObject {

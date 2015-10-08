@@ -1,4 +1,4 @@
-package com.benpinkas.helloben.casseB;
+package com.benpinkas.helloben.LeCasseBrique;
 
 
 import com.benpinkas.R;
@@ -14,11 +14,11 @@ import com.benpinkas.bEngine.scene.SceneManager;
 import com.benpinkas.bEngine.service.Bcall;
 import com.benpinkas.bEngine.service.MessageManager;
 import com.benpinkas.bEngine.Action;
-import com.benpinkas.helloben.casseB.wizard.Projectile;
-import com.benpinkas.helloben.casseB.wizard.WizAttack;
-import com.benpinkas.helloben.casseB.wizard.WizCast;
-import com.benpinkas.helloben.casseB.wizard.WizMove;
-import com.benpinkas.helloben.casseB.wizard.Wizard;
+import com.benpinkas.helloben.LeCasseBrique.wizard.Projectile;
+import com.benpinkas.helloben.LeCasseBrique.wizard.WizAttack;
+import com.benpinkas.helloben.LeCasseBrique.wizard.WizCast;
+import com.benpinkas.helloben.LeCasseBrique.wizard.WizMove;
+import com.benpinkas.helloben.LeCasseBrique.wizard.Wizard;
 
 import java.util.concurrent.Callable;
 

@@ -1,4 +1,4 @@
-package com.benpinkas.helloben.casseB;
+package com.benpinkas.helloben.LeCasseBrique;
 
 import com.benpinkas.R;
 import com.benpinkas.bEngine.Brenderer;
@@ -9,7 +9,7 @@ import com.benpinkas.bEngine.object.Bobject;
 import com.benpinkas.bEngine.service.Bcall;
 import com.benpinkas.bEngine.service.CollisionService;
 import com.benpinkas.bEngine.service.MessageManager;
-import com.benpinkas.helloben.casseB.wizard.Projectile;
+import com.benpinkas.helloben.LeCasseBrique.wizard.Projectile;
 
 /**
  * Created by Ben on 14-Jul-14.

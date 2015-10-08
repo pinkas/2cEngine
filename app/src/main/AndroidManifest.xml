@@ -21,8 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.benpinkas.helloben.Gayctivity"/>
-        <activity android:name="com.benpinkas.helloben.Gayctivity2"/>
+
     </application>
 
 </manifest>

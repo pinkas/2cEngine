@@ -1,4 +1,4 @@
-package com.benpinkas.helloben.casseB.wizard;
+package com.benpinkas.helloben.LeCasseBrique.wizard;
 
 import android.graphics.PointF;
 
@@ -7,6 +7,7 @@ import com.benpinkas.bEngine.object.BglSprite;
 public class Projectile extends BglSprite {
 
     private final int SPIN_SPEED = 10;
+    private final float FRICTION = 1.03f;
 
     public Projectile(float x, float y, float w, float h, int[] res) {
         super(x, y, w, h, res);
@@ -16,6 +17,8 @@ public class Projectile extends BglSprite {
         float posX = getPosX();
         float posY = getPosY();
         PointF vel = getVel();
+
+        vel.x = vel.x/FRICTION;
 
         setPos(posX + dt*vel.x, posY + dt*vel.y);
         setAngleZ( getAngleZ() + SPIN_SPEED );

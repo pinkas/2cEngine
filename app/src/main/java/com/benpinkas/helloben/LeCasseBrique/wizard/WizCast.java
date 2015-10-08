@@ -1,20 +1,24 @@
-package com.benpinkas.helloben.casseB.wizard;
+package com.benpinkas.helloben.LeCasseBrique.wizard;
+
+import com.benpinkas.bEngine.Action;
 
 public class WizCast extends Action {
 
     private Wizard actor;
-    private int castCpt;
-    private int castDuration;
+    private int castDuration = 10;
+    private int CAST_T = 300;
+    private int castProgress = 0;
 
     public WizCast(Wizard actor){
         this.actor = actor;
-        castDuration = 10;
+        period = CAST_T;
     }
 
     @Override
     public void init(){
         actor.setTextureIndex(1);
         castDuration = actor.getCurrentAnimationTotalDuration();
+     //   castDuration = 100;
     }
 
     @Override
@@ -24,12 +28,12 @@ public class WizCast extends Action {
     }
 
     @Override
-    public boolean update(){
-        if(castCpt > castDuration) {
-            castCpt = 0;
+    public boolean update(float dt) {
+        if(castProgress < castDuration) {
+            castProgress ++;
             return true;
         } else {
-            castCpt++;
+            castProgress = 0;
             return false;
         }
     }
