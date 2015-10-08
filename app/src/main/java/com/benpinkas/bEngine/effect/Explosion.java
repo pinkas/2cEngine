@@ -1,20 +1,18 @@
 package com.benpinkas.bEngine.effect;
 
+import com.benpinkas.bEngine.Action;
 import com.benpinkas.bEngine.object.BglObject;
 import com.benpinkas.bEngine.object.Btimer;
 import com.benpinkas.bEngine.object.Updatable;
 
-import java.util.concurrent.Callable;
 
-
-public class Explosion implements Updatable {
+public class Explosion extends Action {
 
     private int progress;
     private BglObject exploder;
     private float[] velocity;
     private float[] offset;
     private int tesselX, tesselY;
-    private boolean exploding;
 
 
     public Explosion(BglObject exploder, int tesselX, int tesselY){
@@ -42,16 +40,15 @@ public class Explosion implements Updatable {
             offset[i] = 0;
             offset[i+1] = 0;
         }
+        exploder.glService.setExtraVertexData(offset);
     }
 
 
     @Override
-    public void update(float dt) {
-
-        if (!exploding) return;
+    public boolean update(float dt) {
 
         progress ++;
-        for(int i=0;i+1<velocity.length;){
+        for(int i=0; i+1<velocity.length; ){
 
             offset[i] = (velocity[i] * progress)/10f;
             offset[i+1] = (velocity[i+1] * progress)/6f;
@@ -66,21 +63,22 @@ public class Explosion implements Updatable {
         exploder.glService.setExtraVertexData(offset);
 
         if ( progress > 70 ) {
-            reset();
             exploder.setVisible(false);
+            return false;
         }
+        return true;
     }
 
-    public void reset(){
+    @Override
+    public void desInit(){
         progress = 0;
         exploder.glService.setShaderName("textureShader");
         exploder.glService.setAlpha(1);
         exploder.glService.tesselate(1, 1);
-        exploding = false;
     }
 
-    public void start(float dirx, float diry){
-        exploding = true;
+    @Override
+    public void init(){
         exploder.glService.tesselate(tesselX, tesselY);
         exploder.glService.setShaderName("explosion");
     }
