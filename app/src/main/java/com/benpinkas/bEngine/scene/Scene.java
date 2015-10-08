@@ -1,5 +1,6 @@
 package com.benpinkas.bEngine.scene;
 
+import com.benpinkas.bEngine.object.BcontainerObject;
 import com.benpinkas.bEngine.object.BglObject;
 import com.benpinkas.bEngine.object.Bobject;
 

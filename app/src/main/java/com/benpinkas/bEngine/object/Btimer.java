@@ -1,5 +1,6 @@
 package com.benpinkas.bEngine.object;
 
+import com.benpinkas.bEngine.UpdateableManager;
 import com.benpinkas.bEngine.scene.SceneManager;
 
 import java.util.concurrent.Callable;
@@ -21,24 +22,30 @@ public class Btimer implements Updatable {
     {
         this.tickDest = tickDest;
         this.cb = cb;
-        SceneManager.addTimer(this);
+        setRunning(true);
     }
 
     @Override
-    public void update(float dt) {
-
-        if (!running) return;
-
+    public boolean update(float dt) {
         tick++;
         if ( tick >= tickDest ){
             tick = 0;
             try {
-                if(!cb.call())
+                if(!cb.call()) {
                     running = false;
+                    return false;
+                }
             }
             catch (Exception e) {System.out.println(e);}
         }
+        return true;
     }
+
+    @Override
+    public void endCallback() {
+
+    }
+
 
     public void setTickDest(int tickDest){
         this.tickDest = tickDest;
@@ -52,5 +59,6 @@ public class Btimer implements Updatable {
     public void setRunning(boolean running) {
         tick = 0;
         this.running = running;
+        UpdateableManager.addToUpdate(this);
     }
 }
