@@ -6,6 +6,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import com.benpinkas.bEngine.object.BglObject;
+import com.benpinkas.bEngine.object.Bobject;
 import com.benpinkas.bEngine.scene.Scene;
 import com.benpinkas.bEngine.scene.SceneManager;
 import com.benpinkas.bEngine.service.MessageManager;
@@ -50,6 +51,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
     private static final float NS_PER_SEC = 1000000000;
     private static float prev;
     private static final float MAX_FRAME_DELTA_SEC = 0.1f;
+    private static float screenAspectRatio;
 
     public Brenderer(Context context) {
         super();
@@ -162,6 +164,10 @@ public class Brenderer implements GLSurfaceView.Renderer {
 
     public static int getScreenH() {
         return screenH;
+    }
+
+    public static float getScreenAspectRatio(){
+        return screenAspectRatio;
     }
 
     public static float getCamXworld() {
@@ -316,6 +322,7 @@ public class Brenderer implements GLSurfaceView.Renderer {
         glViewport(0, 0, width, height);
         screenW = width;
         screenH = height;
+        screenAspectRatio = (float) screenW / (float) screenH;
 
         MatrixHelper.perspectiveM(projMatrix, 45, (float) screenW / (float) screenH, 1f, 200f);
         Matrix.invertM(projMatrixInv, 0, projMatrix, 0);
