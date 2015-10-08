@@ -7,3 +7,5 @@ Main features:
 - Objects and Scene managment
 - Single touch detection for any object
 - Collision detection
+
+This repository contains also a game. The game itself is really simple, its purpose is really to show what Bengine can do and how to use it.
