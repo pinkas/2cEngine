@@ -1,6 +1,6 @@
 Bengine is simple Android game development library/framework. 
 
-Features:
+Main features:
 
 - 2D rendering engine in Opengles 2.0 with some 3d capabilities ...
 - Simple shader effects
