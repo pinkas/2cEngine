@@ -2,6 +2,8 @@ package com.benpinkas.bEngine.object;
 
 import android.graphics.PointF;
 
+import com.benpinkas.bEngine.Brenderer;
+import com.benpinkas.bEngine.BtextureManager;
 import com.benpinkas.bEngine.service.CollisionService;
 import com.benpinkas.bEngine.service.GlService;
 
@@ -45,6 +47,11 @@ public abstract class BglObject extends Bobject {
     @Override
     public void setPos(Bobject o) {
         super.setPos(o);
+        dirty = true;
+    }
+    @Override
+    public void setPos(Bobject o,float dx, float dy) {
+        super.setPos(o, dx, dy);
         dirty = true;
     }
     @Override
