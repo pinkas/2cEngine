@@ -18,7 +18,7 @@ public class SplashScreen extends Scene {
 
     public SplashScreen(){
         super("splash");
-        theSplashSprite = new BglSprite( 0, 0, 1, 1, new int[] {R.drawable.splash} );
+        theSplashSprite = new BglSprite( 0, 0, 1, 1, new int[] {R.drawable.bengine} );
         add(theSplashSprite);
 //        theSplashSprite.anchorPointSet(0.0f, 0.0f);
 
