@@ -1,4 +1,4 @@
-package com.benpinkas.helloben.LeCasseBrique.wizard;
+package com.benpinkas.helloben.leCasseBrique.wizard;
 
 
 import com.benpinkas.bEngine.Action;

@@ -1,9 +1,9 @@
-package com.benpinkas.helloben.LeCasseBrique.wizard;
+package com.benpinkas.helloben.leCasseBrique.wizard;
 
 import com.benpinkas.bEngine.Action;
 import com.benpinkas.bEngine.object.BglAnimatedSprite;
 import com.benpinkas.bEngine.object.SpriteSheet;
-import com.benpinkas.helloben.LeCasseBrique.Bat;
+import com.benpinkas.helloben.leCasseBrique.Bat;
 
 
 public class Wizard extends BglAnimatedSprite {

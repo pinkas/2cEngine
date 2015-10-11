@@ -1,9 +1,10 @@
-package com.benpinkas.helloben.LeCasseBrique;
+package com.benpinkas.helloben.leCasseBrique;
 
 import com.benpinkas.R;
 import com.benpinkas.bEngine.object.BglSprite;
 import com.benpinkas.bEngine.scene.Scene;
 import com.benpinkas.bEngine.scene.SceneManager;
+import com.benpinkas.helloben.Button;
 
 import java.util.concurrent.Callable;
 

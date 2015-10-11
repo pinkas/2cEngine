@@ -1,4 +1,4 @@
-package com.benpinkas.helloben.LeCasseBrique;
+package com.benpinkas.helloben.leCasseBrique;
 
 import android.graphics.PointF;
 

@@ -1,4 +1,4 @@
-package com.benpinkas.helloben.LeCasseBrique;
+package com.benpinkas.helloben.leCasseBrique;
 
 import com.benpinkas.R;
 import com.benpinkas.bEngine.effect.Explosion;

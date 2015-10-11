@@ -1,4 +1,4 @@
-package com.benpinkas.helloben.LeCasseBrique;
+package com.benpinkas.helloben.leCasseBrique;
 
 import com.benpinkas.bEngine.object.Bobject;
 import com.benpinkas.bEngine.object.Brectangle;
