@@ -110,6 +110,7 @@ public class SceneForBall extends Scene {
         add(projectile);
         bat.collisionService.addCollider(projectile);
         projectile.setVisible(false);
+        projectile.collisionService.addCollider(myBall);
 
         /*   WIZARD   */
         // Wizard Spritesheets

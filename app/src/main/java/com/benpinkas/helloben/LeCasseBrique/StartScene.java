@@ -4,7 +4,7 @@ import com.benpinkas.R;
 import com.benpinkas.bEngine.object.BglSprite;
 import com.benpinkas.bEngine.scene.Scene;
 import com.benpinkas.bEngine.scene.SceneManager;
-import com.benpinkas.helloben.Button;
+import com.benpinkas.bEngine.Button;
 
 import java.util.concurrent.Callable;
 

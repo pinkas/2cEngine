@@ -22,6 +22,7 @@ public class WizAttack extends Action {
         }
 
         float dist = actor.getBat().getPosX() - actor.getPosX();
+        projectile.init();
         projectile.shoot(dist*2, 0.3f);
     }
 
