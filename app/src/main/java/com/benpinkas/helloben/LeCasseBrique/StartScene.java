@@ -37,7 +37,7 @@ public class StartScene extends Scene {
             @Override
             public Void call() throws Exception {
                 stop();
-                SceneManager.startScene("myBalls");
+                SceneManager.startScene("GameScene");
                 return null;
             }
         });
