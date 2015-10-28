@@ -61,10 +61,16 @@ public class Bat extends BglSprite {
 
     public void update(float dt){
         if (toGoX != 0 ) {
+            // Set x pos
             float x = getPosX();
             float y = getPosY();
             float dx = (toGoX - x) / 3;
             setPos(x + dx, y);
+            // Set Y angle (just for fun)
+            float angle = -dx*400;
+            if (angle < - 20) angle = -25;
+            if (angle > 20) angle = 25;
+            setAngleY(angle);
         }
     }
 
