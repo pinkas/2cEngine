@@ -1,4 +1,4 @@
-package com.benpinkas.helloben.leCasseBrique;
+package com.benpinkas.helloben.leCasseBrique.scene;
 
 import com.benpinkas.R;
 import com.benpinkas.bEngine.object.BglSprite;

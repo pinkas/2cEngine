@@ -1,4 +1,4 @@
-package com.benpinkas.helloben.leCasseBrique;
+package com.benpinkas.helloben.leCasseBrique.scene;
 
 import com.benpinkas.R;
 import com.benpinkas.bEngine.Action;
@@ -13,6 +13,10 @@ import com.benpinkas.bEngine.scene.Scene;
 import com.benpinkas.bEngine.scene.SceneManager;
 import com.benpinkas.bEngine.service.Bcall;
 import com.benpinkas.bEngine.service.MessageManager;
+import com.benpinkas.helloben.leCasseBrique.Ball;
+import com.benpinkas.helloben.leCasseBrique.Bat;
+import com.benpinkas.helloben.leCasseBrique.Bonus;
+import com.benpinkas.helloben.leCasseBrique.Mission;
 import com.benpinkas.helloben.leCasseBrique.missions.MissionList;
 import com.benpinkas.helloben.leCasseBrique.wizard.Projectile;
 import com.benpinkas.helloben.leCasseBrique.wizard.WizAttack;
